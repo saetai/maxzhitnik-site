@@ -318,33 +318,41 @@ section:not(.hero)::before {
 }
 .card--accent {
   background:
-    radial-gradient(90% 70% at 85% 100%, rgba(224,87,75,.65), transparent 70%),
-    radial-gradient(120% 80% at 0% 0%, rgba(255,235,230,.06), transparent 60%),
-    linear-gradient(180deg,#2A1517 0%,#1A0E10 100%);
-  border: 1px solid rgba(224,87,75,.28) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 0 60px rgba(224,87,75,.2), 0 20px 40px rgba(0,0,0,.35) !important;
+    radial-gradient(80% 65% at 50% 108%, rgba(255,90,65,1.0) 0%, rgba(240,87,75,.8) 25%, rgba(224,87,75,.45) 50%, transparent 72%),
+    radial-gradient(55% 40% at 88% 0%, rgba(224,87,75,.28), transparent 65%),
+    linear-gradient(180deg, #1E0E10 0%, #2A1517 30%, #782020 100%) !important;
+  border: 1px solid rgba(240,120,105,.45) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 80px rgba(224,87,75,.4), 0 30px 60px rgba(0,0,0,.45) !important;
+  padding-bottom: 140px;
 }
 .card--accent:hover {
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 0 80px rgba(224,87,75,.3), 0 20px 40px rgba(0,0,0,.35) !important;
-  border-color: rgba(224,87,75,.4) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 80px rgba(224,87,75,.4), 0 20px 40px rgba(0,0,0,.4) !important;
+  border-color: rgba(240,120,105,.5) !important;
+}
+.card--accent .icon {
+  background: rgba(255,255,255,.12) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18) !important;
 }
 .card--accent > * { position: relative; z-index: 1; }
 .wave-svg {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  width: 100%; height: 80px;
-  pointer-events: none; z-index: 0; opacity: .65;
+  position: absolute; left: 0; right: 0; bottom: 24px;
+  width: 100%; height: 110px;
+  pointer-events: none; z-index: 0;
   overflow: visible;
 }
 @media (prefers-reduced-motion: no-preference) {
   .wave-path { animation: wave-shift 8s ease-in-out infinite; }
-  .wave-path:nth-child(2) { animation-delay: -2s; }
-  .wave-path:nth-child(3) { animation-delay: -4s; }
-  .wave-path:nth-child(4) { animation-delay: -6s; }
-  .wave-path:nth-child(5) { animation-delay: -1s; }
+  .wave-path:nth-child(2) { animation-delay: -2.5s; }
+  .wave-path:nth-child(3) { animation-delay: -5s; }
+  .wave-path:nth-child(4) { animation-delay: -1.5s; }
+  .wave-path:nth-child(5) { animation-delay: -4s; }
+  .wave-path:nth-child(6) { animation-delay: -3s; }
+  .wave-path:nth-child(7) { animation-delay: -6.5s; }
 }
 @keyframes wave-shift {
   0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(-10px); }
+  50% { transform: translateX(-12px); }
 }
 
 /* ── ПРОГРАММА ── */
@@ -487,36 +495,44 @@ section:not(.hero)::before {
 .slider-nav-btn.swiper-button-disabled { opacity: .35; cursor: default; pointer-events: none; }
 .slider-nav-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; }
 
-/* ── ВИДЕООТЗЫВЫ (Point 3 + Point 5) ── */
+/* ── ВИДЕООТЗЫВЫ ── */
 .rv-swiper { width: 100%; overflow: hidden; }
 .rv-swiper .swiper-slide { width: 300px; flex-shrink: 0; }
 .rv-card {
-  width: 300px; height: 533px;
+  width: 300px; aspect-ratio: 9/16;
   border-radius: 20px; overflow: hidden;
-  position: relative; cursor: pointer;
-  display: block;
+  position: relative; cursor: pointer; display: block;
+  background: #0F0607;
 }
-/* Point 5: div + background-image */
-.rv-thumb {
+.rv-img {
   width: 100%; height: 100%;
-  background-size: cover; background-position: top center;
-  position: relative;
+  object-fit: cover; image-rendering: auto;
+  display: block;
   transition: transform .35s ease;
 }
-.rv-card:hover .rv-thumb { transform: scale(1.04); }
+.rv-card:hover .rv-img { transform: scale(1.04); }
 .rv-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  pointer-events: none; z-index: 2;
+}
+.rv-caption {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 60px 20px 24px;
-  background: linear-gradient(to top, rgba(10,5,6,.88) 0%, transparent 100%);
-  z-index: 2; pointer-events: none;
+  background: linear-gradient(to top, rgba(15,6,7,.85), transparent 40%);
+  pointer-events: none;
 }
 .rv-name {
-  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500;
-  color: rgba(246,237,234,.85); line-height: 1.4;
+  font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 500;
+  color: var(--text); line-height: 1.3; margin-bottom: 4px;
+}
+.rv-role {
+  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 400;
+  color: var(--text-muted); line-height: 1.4;
 }
 .review-video-play {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  width: 72px; height: 72px; border-radius: 50%;
+  width: 64px; height: 64px; border-radius: 50%;
   background: var(--accent);
   border: 1px solid rgba(255,220,215,.35);
   box-shadow:
@@ -525,9 +541,7 @@ section:not(.hero)::before {
     0 0 20px 4px rgba(224,87,75,.55),
     0 0 50px 8px rgba(224,87,75,.35);
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer; z-index: 3;
-  transition: box-shadow .2s;
-  pointer-events: none;
+  z-index: 3; transition: box-shadow .2s; pointer-events: none;
 }
 .rv-card:hover .review-video-play {
   box-shadow:
@@ -536,7 +550,7 @@ section:not(.hero)::before {
     0 0 28px 6px rgba(224,87,75,.7),
     0 0 70px 12px rgba(224,87,75,.45);
 }
-.review-video-play svg { width: 24px; height: 24px; fill: #fff; margin-left: 5px; }
+.review-video-play svg { width: 22px; height: 22px; fill: #fff; margin-left: 4px; }
 
 /* ── ТЕКСТОВЫЕ ОТЗЫВЫ (Point 3) ── */
 .rt-swiper { width: 100%; overflow: hidden; }
@@ -589,8 +603,8 @@ section:not(.hero)::before {
 /* ── VIDEO MODAL (Point 2) ── */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 1000;
-  background: rgba(10,5,6,.88);
-  backdrop-filter: blur(8px);
+  background: rgba(15,6,7,.88);
+  backdrop-filter: blur(10px);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; pointer-events: none;
   transition: opacity .3s;
@@ -598,25 +612,40 @@ section:not(.hero)::before {
 .modal-overlay.is-active { opacity: 1; pointer-events: all; }
 .modal-box {
   position: relative;
-  width: min(90vw, 960px);
-  border-radius: 20px;
-  overflow: hidden;
+  border-radius: 20px; overflow: hidden;
   box-shadow: 0 40px 80px rgba(0,0,0,.7);
-  transform: scale(.95);
-  transition: transform .3s;
+  background: #000;
+  transform: scale(.95); transition: transform .3s;
 }
+.modal-box[data-ratio="16/9"] { width: min(90vw,1100px); aspect-ratio: 16/9; height: auto; }
+.modal-box[data-ratio="9/16"] { height: min(86vh,860px); aspect-ratio: 9/16; width: auto; }
 .modal-overlay.is-active .modal-box { transform: scale(1); }
 .modal-close {
-  position: absolute; top: 14px; right: 14px; z-index: 10;
-  width: 40px; height: 40px; border-radius: 50%;
-  background: rgba(0,0,0,.65); border: 1px solid rgba(255,255,255,.2);
-  color: #fff; font-size: 20px; line-height: 1;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background .2s; flex-shrink: 0;
+  position: absolute; top: -56px; right: 0; z-index: 10;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,.1); border: none;
+  color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, box-shadow .2s;
 }
-.modal-close:hover { background: rgba(224,87,75,.65); }
-.modal-ratio { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
-.modal-ratio iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.modal-close:hover { background: rgba(224,87,75,.45); box-shadow: 0 0 20px rgba(224,87,75,.4); }
+.modal-close svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2.5; fill: none; }
+#videoFrame { width: 100%; height: 100%; position: relative; }
+#videoFrame iframe, #videoFrame > div { width: 100% !important; height: 100% !important; border: none; }
+.modal-unmute {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  padding: 10px 22px; background: rgba(15,6,7,.85);
+  border: 1px solid rgba(255,220,215,.2); border-radius: 50px;
+  color: var(--text); font-family: 'Manrope',sans-serif; font-size: 14px; font-weight: 500;
+  cursor: pointer; z-index: 20; display: none; align-items: center; gap: 8px;
+  white-space: nowrap; transition: background .2s;
+}
+.modal-unmute:hover { background: rgba(224,87,75,.25); }
+.modal-unmute.visible { display: flex; }
+@media (max-width: 600px) {
+  .modal-close { top: 12px; right: 12px; }
+  .modal-box[data-ratio="9/16"] { height: min(92vh,640px); }
+}
 
 /* ── TEXT REVIEW MODAL ── */
 .text-modal-overlay {
@@ -839,12 +868,17 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
           <p class="card-text">Опора, дыхание, ясность, тембр, паузы — чтобы уверенность звучала, а не изображалась.</p>
         </div>
         <div class="card card--accent">
-          <svg class="wave-svg" viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden="true">
-            <path class="wave-path" d="M0,50 Q50,20 100,50 T200,50 T300,50 T400,50" fill="none" stroke="rgba(224,87,75,.3)" stroke-width="1.2"/>
-            <path class="wave-path" d="M0,55 Q60,25 120,55 T240,55 T360,55 T480,55" fill="none" stroke="rgba(224,87,75,.22)" stroke-width="1.2"/>
-            <path class="wave-path" d="M0,42 Q40,65 80,42 T160,42 T240,42 T320,42 T400,42" fill="none" stroke="rgba(224,87,75,.3)" stroke-width="1"/>
-            <path class="wave-path" d="M0,60 Q70,30 140,60 T280,60 T420,60" fill="none" stroke="rgba(224,87,75,.18)" stroke-width="1"/>
-            <path class="wave-path" d="M0,35 Q55,58 110,35 T220,35 T330,35 T440,35" fill="none" stroke="rgba(224,87,75,.12)" stroke-width="1.2"/>
+          <svg class="wave-svg" viewBox="0 0 400 110" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <filter id="wg"><feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="rgba(255,140,120,.6)"/></filter>
+            </defs>
+            <path class="wave-path" d="M0,65 Q50,35 100,65 T200,65 T300,65 T400,65" fill="none" stroke="rgba(255,200,190,.6)" stroke-width="1.4"/>
+            <path class="wave-path" d="M0,78 Q60,45 120,78 T240,78 T360,78 T480,78" fill="none" stroke="rgba(255,200,190,.65)" stroke-width="1.4"/>
+            <path class="wave-path" d="M0,55 Q40,82 80,55 T160,55 T240,55 T320,55 T400,55" fill="none" stroke="rgba(255,230,225,.95)" stroke-width="2" filter="url(#wg)"/>
+            <path class="wave-path" d="M0,88 Q70,55 140,88 T280,88 T420,88" fill="none" stroke="rgba(255,200,190,.5)" stroke-width="1.4"/>
+            <path class="wave-path" d="M0,45 Q55,72 110,45 T220,45 T330,45 T440,45" fill="none" stroke="rgba(255,200,190,.45)" stroke-width="1.4"/>
+            <path class="wave-path" d="M0,97 Q45,68 90,97 T180,97 T270,97 T360,97" fill="none" stroke="rgba(255,200,190,.35)" stroke-width="1.2"/>
+            <path class="wave-path" d="M0,60 Q65,30 130,60 T260,60 T390,60" fill="none" stroke="rgba(255,200,190,.4)" stroke-width="1.2"/>
           </svg>
           <div class="icon">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="m9 20 3-6 3 6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="m6 8 6 4 6-4" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="12" y1="12" x2="12" y2="14" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -1052,55 +1086,33 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
           </button>
         </div>
       </div>
-      <!-- Point 5: div + background-image для превью -->
       <div class="swiper rv-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
-            <div class="rv-card" onclick="openVideo('https://www.youtube-nocookie.com/embed/znoFm5Oy4S8?autoplay=1&rel=0&playsinline=1')" role="button" tabindex="0" aria-label="Смотреть отзыв о тренинге Вызов">
-              <div class="rv-thumb" role="img" aria-label="Отзыв о тренинге Вызов" style="background-image:url('assets/__244_2.jpg')">
+            <div class="rv-card" data-video-id="znoFm5Oy4S8" data-ratio="9/16"
+                 onclick="openVideoModal(this)" role="button" tabindex="0" aria-label="Смотреть видеоотзыв о тренинге Вызов">
+              <img class="rv-img" src="assets/reviews/znoFm5Oy4S8.jpg" alt="Отзыв о тренинге Вызов" loading="lazy">
+              <div class="rv-overlay">
                 <div class="review-video-play" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 </div>
-                <div class="rv-overlay">
+                <div class="rv-caption">
                   <div class="rv-name">Отзыв о тренинге «Вызов»</div>
                 </div>
               </div>
             </div>
           </div>
           <div class="swiper-slide">
-            <div class="rv-card" onclick="openVideo('https://www.youtube-nocookie.com/embed/Nt90WcHys88?autoplay=1&rel=0&playsinline=1')" role="button" tabindex="0" aria-label="Смотреть отзыв Артёма Самигуллина">
-              <div class="rv-thumb" role="img" aria-label="Отзыв Артёма Самигуллина" style="background-image:url('assets/__38_2.jpg')">
+            <div class="rv-card" data-video-id="Nt90WcHys88" data-ratio="16/9"
+                 onclick="openVideoModal(this)" role="button" tabindex="0" aria-label="Смотреть отзыв Артёма Самигуллина">
+              <img class="rv-img" src="assets/reviews/Nt90WcHys88.jpg" alt="Отзыв Артёма Самигуллина" loading="lazy">
+              <div class="rv-overlay">
                 <div class="review-video-play" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 </div>
-                <div class="rv-overlay">
-                  <div class="rv-name">Отзыв Артёма Самигуллина</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Слот 3: заполнить video ID -->
-          <div class="swiper-slide">
-            <div class="rv-card" data-video-id="" onclick="openVideoCard(this)" role="button" tabindex="0" aria-label="Видеоотзыв">
-              <div class="rv-thumb" role="img" aria-label="Видеоотзыв" style="background-image:url('assets/__70_2.jpg')">
-                <div class="review-video-play" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </div>
-                <div class="rv-overlay">
-                  <div class="rv-name">Отзыв участницы тренинга</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Слот 4: заполнить video ID -->
-          <div class="swiper-slide">
-            <div class="rv-card" data-video-id="" onclick="openVideoCard(this)" role="button" tabindex="0" aria-label="Видеоотзыв">
-              <div class="rv-thumb" role="img" aria-label="Видеоотзыв" style="background-image:url('assets/__224.jpg')">
-                <div class="review-video-play" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </div>
-                <div class="rv-overlay">
-                  <div class="rv-name">Отзыв участницы тренинга</div>
+                <div class="rv-caption">
+                  <div class="rv-name">Артём Самигуллин</div>
+                  <div class="rv-role">актёр, режиссёр THE ТЕАТР Уфа</div>
                 </div>
               </div>
             </div>
@@ -1209,11 +1221,17 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
   </div>
 </footer>
 
-<!-- ═══ VIDEO MODAL (Point 2: youtube-nocookie.com) ═══ -->
+<!-- ═══ VIDEO MODAL ═══ -->
 <div class="modal-overlay" id="videoModal" role="dialog" aria-modal="true">
-  <div class="modal-box">
-    <button class="modal-close" aria-label="Закрыть">✕</button>
-    <div class="modal-ratio" id="videoFrame"></div>
+  <div class="modal-box" id="videoBox" data-ratio="16/9">
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div id="videoFrame"></div>
+    <button class="modal-unmute" id="modalUnmute" aria-label="Включить звук">
+      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      Включить звук
+    </button>
   </div>
 </div>
 
@@ -1257,27 +1275,75 @@ var rtSwiper = new Swiper('.rt-swiper', {
   navigation: { nextEl: '.rt-next', prevEl: '.rt-prev' }
 });
 
-// ── Video Modal (Point 2: youtube-nocookie.com) ───────────────
-var videoModal = document.getElementById('videoModal');
-var videoFrame = document.getElementById('videoFrame');
+// ── Video Modal — YouTube IFrame API ─────────────────────────
+var videoModal  = document.getElementById('videoModal');
+var videoBox    = document.getElementById('videoBox');
+var videoFrame  = document.getElementById('videoFrame');
+var modalUnmute = document.getElementById('modalUnmute');
+var ytPlayer    = null;
+var ytApiReady  = false;
+var pendingId   = null;
 
-function openVideo(src) {
-  var url = src.replace('youtube.com', 'youtube-nocookie.com');
-  videoFrame.innerHTML = '<iframe src="' + url + '" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+// Load YouTube IFrame API
+(function(){
+  var s = document.createElement('script');
+  s.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(s);
+})();
+
+function onYouTubeIframeAPIReady() {
+  ytApiReady = true;
+  if (pendingId) { _createPlayer(pendingId); pendingId = null; }
+}
+
+function _createPlayer(videoId) {
+  var el = document.createElement('div');
+  el.id = 'yt-player';
+  videoFrame.appendChild(el);
+  ytPlayer = new YT.Player('yt-player', {
+    videoId: videoId,
+    host: 'https://www.youtube-nocookie.com',
+    playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1, mute: 1 },
+    events: {
+      onReady: function(e) {
+        e.target.playVideo();
+        modalUnmute.classList.add('visible');
+      },
+      onStateChange: function(e) {
+        if (e.data === YT.PlayerState.PLAYING && ytPlayer && !ytPlayer.isMuted()) {
+          modalUnmute.classList.remove('visible');
+        }
+      }
+    }
+  });
+}
+
+function openVideoModal(el) {
+  var id    = el.dataset.videoId;
+  var ratio = el.dataset.ratio || '16/9';
+  if (!id) return;
+  videoBox.setAttribute('data-ratio', ratio);
+  videoFrame.innerHTML = '';
+  modalUnmute.classList.remove('visible');
+  if (ytApiReady) { _createPlayer(id); } else { pendingId = id; }
   videoModal.classList.add('is-active');
   document.body.style.overflow = 'hidden';
 }
-function openVideoCard(el) {
-  var id = el.dataset.videoId;
-  if (!id) return;
-  openVideo('https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1');
-}
+
 function closeVideo() {
-  videoModal.classList.remove('is-active');
+  if (ytPlayer) { try { ytPlayer.destroy(); } catch(e) {} ytPlayer = null; }
   videoFrame.innerHTML = '';
+  modalUnmute.classList.remove('visible');
+  videoModal.classList.remove('is-active');
   document.body.style.overflow = '';
 }
-videoModal.querySelector('.modal-close').addEventListener('click', closeVideo);
+
+modalUnmute.addEventListener('click', function() {
+  if (ytPlayer) { ytPlayer.unMute(); ytPlayer.setVolume(100); }
+  modalUnmute.classList.remove('visible');
+});
+
+document.getElementById('modalClose').addEventListener('click', closeVideo);
 videoModal.addEventListener('click', function(e) { if (e.target === videoModal) closeVideo(); });
 
 // rv-card keyboard support

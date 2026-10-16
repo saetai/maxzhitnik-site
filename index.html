@@ -265,12 +265,15 @@ section:not(.hero)::before {
 .hero-photo {
   position: absolute;
   right: 0; bottom: 0;
-  height: 90%; width: auto;
-  display: block; z-index: 2;
+  height: 90%;
+  aspect-ratio: 1106 / 1613;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  z-index: 2;
   filter: brightness(.95) contrast(1.05);
   -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 22%);
   mask-image: linear-gradient(to top, transparent 0%, #000 22%);
-  -webkit-user-drag: none; user-select: none;
 }
 .arc {
   position: absolute; border-radius: 50%; pointer-events: none;
@@ -473,63 +476,50 @@ section:not(.hero)::before {
   background: var(--accent);
 }
 
-/* ── СЛАЙДЕР ОТЗЫВОВ — общее ── */
-.reviews-slider-block { width: 100%; }
-.reviews-slider-block + .reviews-slider-block { margin-top: 48px; }
-.slider-head {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 20px;
+/* ── СЕТКА ОТЗЫВОВ — фиксированная сетка 4 колонки ── */
+.reviews-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  height: 640px;
 }
-.slider-nav { display: flex; gap: 10px; }
-.slider-nav-btn {
-  width: 44px; height: 44px; border-radius: 50%;
-  background: var(--surface-2); border: 1px solid var(--border);
-  color: var(--text); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: box-shadow .25s, border-color .25s;
+.reviews-row + .reviews-row { margin-top: 24px; }
+.col-texts {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+  min-height: 0;
 }
-.slider-nav-btn:hover {
-  box-shadow: 0 0 0 3px rgba(224,87,75,.2), 0 0 16px rgba(224,87,75,.25);
-  border-color: rgba(224,87,75,.3);
-}
-.slider-nav-btn.swiper-button-disabled { opacity: .35; cursor: default; pointer-events: none; }
-.slider-nav-btn svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; }
 
-/* ── ВИДЕООТЗЫВЫ ── */
-.rv-swiper { width: 100%; overflow: hidden; }
-.rv-swiper .swiper-slide { width: 300px; flex-shrink: 0; }
+/* Видеокарточка */
 .rv-card {
-  width: 300px; aspect-ratio: 9/16;
-  border-radius: 20px; overflow: hidden;
-  position: relative; cursor: pointer; display: block;
-  background: #0F0607;
+  position: relative; border-radius: 20px; overflow: hidden;
+  cursor: pointer; background: #0F0607; height: 100%;
 }
-.rv-img {
-  width: 100%; height: 100%;
-  object-fit: cover; image-rendering: auto;
-  display: block;
+.rv-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center; background-repeat: no-repeat;
   transition: transform .35s ease;
 }
-.rv-card:hover .rv-img { transform: scale(1.04); }
-.rv-overlay {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
+.rv-card:hover .rv-bg { transform: scale(1.04); }
+.rv-caption {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 24px 20px 60px;
+  background: linear-gradient(to bottom, rgba(15,6,7,.85), transparent 55%);
   pointer-events: none; z-index: 2;
 }
-.rv-caption {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 60px 20px 24px;
-  background: linear-gradient(to top, rgba(15,6,7,.85), transparent 40%);
-  pointer-events: none;
-}
 .rv-name {
-  font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 500;
+  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
   color: var(--text); line-height: 1.3; margin-bottom: 4px;
 }
 .rv-role {
-  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 400;
+  font-family: 'Manrope', sans-serif; font-size: 13px;
   color: var(--text-muted); line-height: 1.4;
+}
+.rv-play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none; z-index: 2;
 }
 .review-video-play {
   width: 64px; height: 64px; border-radius: 50%;
@@ -541,7 +531,7 @@ section:not(.hero)::before {
     0 0 20px 4px rgba(224,87,75,.55),
     0 0 50px 8px rgba(224,87,75,.35);
   display: flex; align-items: center; justify-content: center;
-  z-index: 3; transition: box-shadow .2s; pointer-events: none;
+  transition: box-shadow .2s;
 }
 .rv-card:hover .review-video-play {
   box-shadow:
@@ -552,53 +542,46 @@ section:not(.hero)::before {
 }
 .review-video-play svg { width: 22px; height: 22px; fill: #fff; margin-left: 4px; }
 
-/* ── ТЕКСТОВЫЕ ОТЗЫВЫ (Point 3) ── */
-.rt-swiper { width: 100%; overflow: hidden; }
-.rt-swiper .swiper-slide { width: 420px; height: 360px; flex-shrink: 0; }
-.rt-card {
-  width: 420px; height: 360px;
-  padding: 28px;
-  display: flex; flex-direction: column;
+/* Текстовая карточка */
+.re-card {
+  padding: 24px;
   background:
     radial-gradient(120% 80% at 0% 0%, rgba(255,235,230,.06), transparent 60%),
     linear-gradient(180deg,#2A1517 0%,#1A0E10 100%);
   border: 1px solid var(--border);
   border-radius: 20px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 20px 40px rgba(0,0,0,.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+  overflow: hidden; height: 100%; box-sizing: border-box;
+  display: flex; flex-direction: column;
   transition: border-color .25s, box-shadow .25s;
 }
-.rt-card:hover {
+.re-card:hover {
   border-color: rgba(224,87,75,.2);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(224,87,75,.1), 0 20px 40px rgba(0,0,0,.35);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(224,87,75,.1);
 }
-.rt-header {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 14px; flex-shrink: 0;
+.re-text-wrap {
+  flex: 1; overflow: hidden; min-height: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
 }
-.rt-avatar {
-  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
-  background-color: var(--surface-2);
-  background-size: cover; background-position: center;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; font-weight: 500;
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-}
-.rt-author { font-family: 'Manrope'; font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.3; }
-.rt-role { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-.rt-text {
+.re-text {
+  font-family: 'Manrope', sans-serif;
   font-size: 15px; font-weight: 400; color: var(--text-muted);
-  line-height: 1.7; flex: 1;
-  overflow: hidden;
-  display: -webkit-box; -webkit-line-clamp: 8; -webkit-box-orient: vertical;
+  line-height: 1.55; margin: 0;
 }
-.rt-more {
-  margin-top: 12px; font-size: 13px; font-weight: 500; color: var(--accent);
+.re-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px; flex-shrink: 0;
+}
+.re-author-name {
+  font-family: 'Manrope', sans-serif; font-size: 13px; color: var(--text-muted);
+}
+.re-more {
+  font-size: 13px; font-weight: 500; color: var(--accent);
   background: none; border: none; cursor: pointer; padding: 0;
-  text-align: left; font-family: 'Manrope';
-  flex-shrink: 0; text-decoration: none;
+  font-family: 'Manrope';
 }
-.rt-more:hover { text-decoration: underline; }
+.re-more:hover { text-decoration: underline; }
 
 /* ── VIDEO MODAL (Point 2) ── */
 .modal-overlay {
@@ -705,13 +688,13 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
 
 /* ── MOBILE ── */
 @media (max-width: 960px) {
-  nav { width: calc(100% - 32px); top: 12px; }
+  nav { width: calc(100% - 48px); top: 12px; }
   .nav-links { display: none; }
   section { padding: 96px 0; }
   .hero { padding-top: calc(70px + 48px); padding-bottom: 60px; }
   .hero .wrap { grid-template-columns: 1fr; min-height: unset; }
   .hero-right { height: 440px; margin-top: 40px; overflow: hidden; }
-  .hero-photo { position: absolute; left: 50%; right: unset; transform: translateX(-50%); height: 100%; }
+  .hero-photo { position: absolute; left: 50%; right: unset; transform: translateX(-50%); height: 100%; aspect-ratio: 1106/1613; }
   .hero-glow { left: 50%; right: unset; transform: translateX(-50%); width: 600px; height: 600px; }
   .h1 .h-onest { font-size: 42px; }
   .h1 .h-cormorant { font-size: 46px; white-space: normal; }
@@ -727,10 +710,14 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
   .price-card { padding: 36px 24px; }
   .price-num { font-size: 58px; }
   .gallery .swiper-slide { height: 260px; }
-  .rt-swiper .swiper-slide { width: 300px; height: auto; }
-  .rt-card { width: 300px; height: auto; min-height: 320px; }
-  .rv-swiper .swiper-slide { width: 220px; }
-  .rv-card { width: 220px; height: 391px; }
+  .reviews-row {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; height: auto; padding-bottom: 12px; gap: 16px;
+  }
+  .reviews-row::-webkit-scrollbar { display: none; }
+  .rv-card { width: 280px; height: 500px; flex-shrink: 0; scroll-snap-align: start; }
+  .col-texts { display: contents; }
+  .re-card { width: 280px; height: 500px; flex-shrink: 0; scroll-snap-align: start; box-sizing: border-box; }
   .text-modal-box { padding: 28px 24px; }
 }
 </style>
@@ -786,11 +773,8 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
       </div>
     </div>
     <div class="hero-right">
-      <img class="hero-photo"
-           src="assets/maxim-hero.png"
-           alt="Максим Житник"
-           draggable="false"
-           onerror="this.style.display='none'">
+      <div class="hero-photo" role="img" aria-label="Максим Житник"
+           style="background-image:url('assets/maxim-hero.png')"></div>
     </div>
   </div>
 </section>
@@ -807,45 +791,14 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
         <span class="h-onest">Кому полезен</span>
         <span class="h-cormorant">тренинг</span>
       </div>
-      <p class="lead">Узнайте себя в одном из описаний.</p>
     </div>
-    <div class="forwho-grid">
-      <div class="card">
-        <div class="icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-        </div>
-        <div class="card-title">Контроль и напряжение</div>
-        <p class="card-text">Привыкли всё контролировать и перепроверять. Но от этого испытываете постоянное напряжение.</p>
-      </div>
-      <div class="card">
-        <div class="icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="9" x2="9.01" y2="9" stroke="currentColor" stroke-width="2"/><line x1="15" y1="9" x2="15.01" y2="9" stroke="currentColor" stroke-width="2"/></svg>
-        </div>
-        <div class="card-title">Зажатость и взгляд окружающих</div>
-        <p class="card-text">Привыкли делать всё правильно, как «отличник», и от этого чувствуете зажатость. Постоянно думаете о том, как вы выглядите, что о вас думают.</p>
-      </div>
-      <div class="card">
-        <div class="icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M19 10v2a7 7 0 0 1-14 0v-2" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="19" x2="12" y2="22" stroke="currentColor" stroke-width="1.5"/></svg>
-        </div>
-        <div class="card-title">Скованность на переговорах</div>
-        <p class="card-text">На сложных переговорах или планёрках голос становится тише, чем обычно. Чувствуете скованность, теряете уверенность.</p>
-      </div>
-      <div class="card">
-        <div class="icon">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div class="card-title">Личный бренд и публичность</div>
-        <p class="card-text">Давно хотите выступать, вести блог, развивать личный бренд — но из года в год откладываете.</p>
-      </div>
-      <div class="card">
-        <div class="icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="12" y1="13" x2="12" y2="17" stroke="currentColor" stroke-width="1.5"/><line x1="10" y1="15" x2="14" y2="15" stroke="currentColor" stroke-width="1.5"/></svg>
-        </div>
-        <div class="card-title">Ощущение, что вы неинтересны</div>
-        <p class="card-text">Особенно если вы считаете, что вы скучный и неинтересный — вам тренинг нужен сильнее всего.</p>
-      </div>
-    </div>
+    <ul class="forwho-list">
+      <li>Привыкли всё контролировать и перепроверять. Но от этого испытываете постоянное напряжение.</li>
+      <li>Привыкли делать всё правильно, как «отличник», и от этого чувствуете зажатость. Постоянно думаете о том, как вы выглядите, что о вас думают.</li>
+      <li>На сложных переговорах или планёрках голос становится тише, чем обычно. Чувствуете скованность, теряете уверенность.</li>
+      <li>Давно хотите заняться личным брендом и публичностью: выступать, вести блог, но из года в год откладываете.</li>
+      <li>Особенно если вы считаете, что вы скучный и неинтересный и никого не привлечёте, — вам тренинг нужен сильнее всего.</li>
+    </ul>
   </div>
 </section>
 
@@ -1065,136 +1018,84 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
   </div>
 </section>
 
-<!-- ═══ ОТЗЫВЫ — два слайдера (Point 3 + Point 5) ═══ -->
+<!-- ═══ ОТЗЫВЫ — фиксированная сетка 4 колонки ═══ -->
 <section id="reviews">
   <div class="wrap">
     <h2 class="section-title">Что говорят участники тренинга</h2>
 
-    <!-- Видеоотзывы -->
-    <div class="reviews-slider-block">
-      <div class="slider-head">
-        <div class="badge" style="font-size:14px;padding:6px 12px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;opacity:.7;"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-          Видеоотзывы
-        </div>
-        <div class="slider-nav">
-          <button class="slider-nav-btn rv-prev" aria-label="Назад">
-            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="slider-nav-btn rv-next" aria-label="Вперёд">
-            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="swiper rv-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="rv-card" data-video-id="znoFm5Oy4S8" data-ratio="9/16"
-                 onclick="openVideoModal(this)" role="button" tabindex="0" aria-label="Смотреть видеоотзыв о тренинге Вызов">
-              <img class="rv-img" src="assets/reviews/znoFm5Oy4S8.jpg" alt="Отзыв о тренинге Вызов" loading="lazy">
-              <div class="rv-overlay">
-                <div class="review-video-play" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </div>
-                <div class="rv-caption">
-                  <div class="rv-name">Отзыв о тренинге «Вызов»</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="rv-card" data-video-id="Nt90WcHys88" data-ratio="16/9"
-                 onclick="openVideoModal(this)" role="button" tabindex="0" aria-label="Смотреть отзыв Артёма Самигуллина">
-              <img class="rv-img" src="assets/reviews/Nt90WcHys88.jpg" alt="Отзыв Артёма Самигуллина" loading="lazy">
-              <div class="rv-overlay">
-                <div class="review-video-play" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </div>
-                <div class="rv-caption">
-                  <div class="rv-name">Артём Самигуллин</div>
-                  <div class="rv-role">актёр, режиссёр THE ТЕАТР Уфа</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Ряд 1: видео | тексты | видео | тексты -->
+    <div class="reviews-row">
 
-    <!-- Текстовые отзывы -->
-    <div class="reviews-slider-block">
-      <div class="slider-head">
-        <div class="badge" style="font-size:14px;padding:6px 12px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px;opacity:.7;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Текстовые отзывы
+      <div class="rv-card" data-video-id="znoFm5Oy4S8" data-ratio="9/16"
+           onclick="openVideoModal(this)" role="button" tabindex="0" aria-label="Видеоотзыв о тренинге Вызов">
+        <div class="rv-bg" style="background-image:url('assets/reviews/znoFm5Oy4S8.jpg')"></div>
+        <div class="rv-caption">
+          <div class="rv-name">Отзыв о тренинге «Вызов»</div>
         </div>
-        <div class="slider-nav">
-          <button class="slider-nav-btn rt-prev" aria-label="Назад">
-            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="slider-nav-btn rt-next" aria-label="Вперёд">
-            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="swiper rt-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="rt-card">
-              <div class="rt-header">
-                <div class="rt-avatar">А</div>
-                <div>
-                  <div class="rt-author">Участница тренинга</div>
-                  <div class="rt-role">Вызов 7.0</div>
-                </div>
-              </div>
-              <p class="rt-text">Про тренинг «Вызов». Прошло несколько дней после тренинга. Я до сих пор испытываю противоречивые чувства. Шла я за конкретными упражнениями, методиками, какими-то «инструментами» для борьбы со скованностью и зажимами. Я прагматик по своей сути, мне нужны конкретные действия, конкретные результаты. Но получила нечто совсем другое... Точно могу сказать, что не зря, что интересно, что ново, необычно. Было и весело, и грустно, местами сумасшедше, но главное — душевно, искренне, открыто. Как интересный опыт — в копилку!</p>
-              <button class="rt-more" onclick="openTextModal('Про тренинг «Вызов». Прошло несколько дней после тренинга. Я до сих пор испытываю противоречивые чувства. Шла я за конкретными упражнениями, методиками, какими-то «инструментами» для борьбы со скованностью и зажимами. Я прагматик по своей сути, мне нужны конкретные действия, конкретные результаты. Но получила нечто совсем другое... Точно могу сказать, что не зря, что интересно, что ново, необычно. Было и весело, и грустно, местами сумасшедше, но главное — душевно, искренне, открыто. Как интересный опыт — в копилку!')">Читать полностью →</button>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="rt-card">
-              <div class="rt-header">
-                <div class="rt-avatar">М</div>
-                <div>
-                  <div class="rt-author">Участница тренинга</div>
-                  <div class="rt-role">Вызов 7.0</div>
-                </div>
-              </div>
-              <p class="rt-text">Максим, привет! Пишу отзыв текстом. Я рада была побывать на тренинге, очень благодарна, что Максим пригласил меня. Идя на тренинг я не ставила себе конкретные цели и задачи. Хотела просто действовать по отклику. Удалось почувствовать себя в состоянии потока как в детстве, когда ты не думаешь о том, кто на тебя смотрит, что о тебе скажут. Когда ты просто есть и ты проявляешься в мир, просто играешь свою игру.</p>
-              <button class="rt-more" onclick="openTextModal('Максим, привет! Пишу отзыв текстом. Я рада была побывать на тренинге, очень благодарна, что Максим пригласил меня. Идя на тренинг я не ставила себе конкретные цели и задачи. Хотела просто действовать по отклику. Удалось почувствовать себя в состоянии потока как в детстве, когда ты не думаешь о том, кто на тебя смотрит, что о тебе скажут. Когда ты просто есть и ты проявляешься в мир, просто играешь свою игру.')">Читать полностью →</button>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="rt-card">
-              <div class="rt-header">
-                <div class="rt-avatar">Е</div>
-                <div>
-                  <div class="rt-author">Участница тренинга</div>
-                  <div class="rt-role">Вызов 7.0</div>
-                </div>
-              </div>
-              <p class="rt-text">Здравствуйте Максим! Я когда вас услышала, точнее и увидела, и сразу для себя отметила, какой достойный человек на экране. То, о чём вы вещаете и то, как вы это транслируете, однозначно откликнется людям, столкнувшимся лично с теми или иными вопросами по жизни. Эти ситуации проживает каждый из нас, но не каждому дано это осознать. Однозначно буду следить за вашими работами.</p>
-              <button class="rt-more" onclick="openTextModal('Здравствуйте Максим! Я когда вас услышала, точнее и увидела, и сразу для себя отметила, какой достойный человек на экране. То, о чём вы вещаете и то, как вы это транслируете, однозначно откликнется людям, столкнувшимся лично с теми или иными вопросами по жизни. Эти ситуации проживает каждый из нас, но не каждому дано это осознать. Однозначно буду следить за вашими работами.')">Читать полностью →</button>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="rt-card">
-              <div class="rt-header">
-                <div class="rt-avatar">О</div>
-                <div>
-                  <div class="rt-author">Участница тренинга</div>
-                  <div class="rt-role">Вызов 7.0</div>
-                </div>
-              </div>
-              <p class="rt-text">Максим, была очень рада сегодня присутствовать на тренинге, мне понравилось, действительно, где мы можем ещё позволить себе танцевать, кривляться, играть, кроме как в подобном пространстве. Ты умеешь держать пространство, задавать энергию, вести за собой, мягко и бережно. Было комфортно, тепло, душевно и по-живому, с любовью.</p>
-              <button class="rt-more" onclick="openTextModal('Максим, была очень рада сегодня присутствовать на тренинге, мне понравилось, действительно, где мы можем ещё позволить себе танцевать, кривляться, играть, кроме как в подобном пространстве. Ты умеешь держать пространство, задавать энергию, вести за собой, мягко и бережно. Было комфортно, тепло, душевно и по-живому, с любовью.')">Читать полностью →</button>
-            </div>
+        <div class="rv-play">
+          <div class="review-video-play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </div>
         </div>
       </div>
-    </div>
 
+      <div class="col-texts">
+        <div class="re-card">
+          <div class="re-text-wrap">
+            <p class="re-text">Про тренинг «Вызов». Прошло несколько дней после тренинга. Я до сих пор испытываю противоречивые чувства. Шла я за конкретными упражнениями, методиками, какими-то «инструментами» для борьбы со скованностью и зажимами. Я прагматик по своей сути, мне нужны конкретные действия, конкретные результаты. Но получила нечто совсем другое... Точно могу сказать, что не зря, что интересно, что ново, необычно. Было и весело, и грустно, местами сумасшедше, но главное — душевно, искренне, открыто. Как интересный опыт — в копилку!</p>
+          </div>
+          <div class="re-footer">
+            <span class="re-author-name">Участница тренинга</span>
+            <button class="re-more" onclick="openTextModal('Про тренинг «Вызов». Прошло несколько дней после тренинга. Я до сих пор испытываю противоречивые чувства. Шла я за конкретными упражнениями, методиками, какими-то «инструментами» для борьбы со скованностью и зажимами. Я прагматик по своей сути, мне нужны конкретные действия, конкретные результаты. Но получила нечто совсем другое... Точно могу сказать, что не зря, что интересно, что ново, необычно. Было и весело, и грустно, местами сумасшедше, но главное — душевно, искренне, открыто. Как интересный опыт — в копилку!')">Читать полностью →</button>
+          </div>
+        </div>
+        <div class="re-card">
+          <div class="re-text-wrap">
+            <p class="re-text">Максим, привет! Пишу отзыв текстом. Я рада была побывать на тренинге, очень благодарна, что Максим пригласил меня. Идя на тренинг я не ставила себе конкретные цели и задачи. Хотела просто действовать по отклику. Удалось почувствовать себя в состоянии потока как в детстве, когда ты не думаешь о том, кто на тебя смотрит, что о тебе скажут. Когда ты просто есть и ты проявляешься в мир, просто играешь свою игру.</p>
+          </div>
+          <div class="re-footer">
+            <span class="re-author-name">Участница тренинга</span>
+            <button class="re-more" onclick="openTextModal('Максим, привет! Пишу отзыв текстом. Я рада была побывать на тренинге, очень благодарна, что Максим пригласил меня. Идя на тренинг я не ставила себе конкретные цели и задачи. Хотела просто действовать по отклику. Удалось почувствовать себя в состоянии потока как в детстве, когда ты не думаешь о том, кто на тебя смотрит, что о тебе скажут. Когда ты просто есть и ты проявляешься в мир, просто играешь свою игру.')">Читать полностью →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rv-card" data-video-id="Nt90WcHys88" data-ratio="16/9"
+           onclick="openVideoModal(this)" role="button" tabindex="0" aria-label="Видеоотзыв Артёма Самигуллина">
+        <div class="rv-bg" style="background-image:url('assets/reviews/Nt90WcHys88-crop.jpg')"></div>
+        <div class="rv-caption">
+          <div class="rv-name">Артём Самигуллин</div>
+          <div class="rv-role">актёр, режиссёр THE ТЕАТР Уфа</div>
+        </div>
+        <div class="rv-play">
+          <div class="review-video-play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-texts">
+        <div class="re-card">
+          <div class="re-text-wrap">
+            <p class="re-text">Здравствуйте Максим! Я когда вас услышала, точнее и увидела, и сразу для себя отметила, какой достойный человек на экране. То, о чём вы вещаете и то, как вы это транслируете, однозначно откликнется людям, столкнувшимся лично с теми или иными вопросами по жизни. Эти ситуации проживает каждый из нас, но не каждому дано это осознать. Однозначно буду следить за вашими работами.</p>
+          </div>
+          <div class="re-footer">
+            <span class="re-author-name">Участница тренинга</span>
+            <button class="re-more" onclick="openTextModal('Здравствуйте Максим! Я когда вас услышала, точнее и увидела, и сразу для себя отметила, какой достойный человек на экране. То, о чём вы вещаете и то, как вы это транслируете, однозначно откликнется людям, столкнувшимся лично с теми или иными вопросами по жизни. Эти ситуации проживает каждый из нас, но не каждому дано это осознать. Однозначно буду следить за вашими работами.')">Читать полностью →</button>
+          </div>
+        </div>
+        <div class="re-card">
+          <div class="re-text-wrap">
+            <p class="re-text">Максим, была очень рада сегодня присутствовать на тренинге, мне понравилось, действительно, где мы можем ещё позволить себе танцевать, кривляться, играть, кроме как в подобном пространстве. Ты умеешь держать пространство, задавать энергию, вести за собой, мягко и бережно. Было комфортно, тепло, душевно и по-живому, с любовью.</p>
+          </div>
+          <div class="re-footer">
+            <span class="re-author-name">Участница тренинга</span>
+            <button class="re-more" onclick="openTextModal('Максим, была очень рада сегодня присутствовать на тренинге, мне понравилось, действительно, где мы можем ещё позволить себе танцевать, кривляться, играть, кроме как в подобном пространстве. Ты умеешь держать пространство, задавать энергию, вести за собой, мягко и бережно. Было комфортно, тепло, душевно и по-живому, с любовью.')">Читать полностью →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1259,20 +1160,6 @@ var galSwiper = new Swiper('.gallery', {
     0:    { slidesPerView: 1.1, spaceBetween: 12 },
     1024: { slidesPerView: 1.4, spaceBetween: 24 }
   }
-});
-
-// ── Video reviews Swiper ──────────────────────────────────────
-var rvSwiper = new Swiper('.rv-swiper', {
-  slidesPerView: 'auto',
-  spaceBetween: 16,
-  navigation: { nextEl: '.rv-next', prevEl: '.rv-prev' }
-});
-
-// ── Text reviews Swiper ───────────────────────────────────────
-var rtSwiper = new Swiper('.rt-swiper', {
-  slidesPerView: 'auto',
-  spaceBetween: 24,
-  navigation: { nextEl: '.rt-next', prevEl: '.rt-prev' }
 });
 
 // ── Video Modal — YouTube IFrame API ─────────────────────────

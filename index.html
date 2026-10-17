@@ -1054,11 +1054,11 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-center .heading { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
   .hero-center .lead { max-width: 100%; overflow-wrap: break-word; }
   .hero-spot { display: none; }
-  /* мобайл: силуэт виден, по центру, поверх ленты; кнопка должна быть выше */
-  .hero-silhouette { display: block; }
-  .silhouette-img { height: 55vh; }
-  .hero-btn-wrap { margin-bottom: 56px; position: relative; z-index: 6; }
-  .hero-center { z-index: 6; }
+  /* кнопка hero: позиция z:10 + gap до силуэта */
+  .hero-btn-wrap { position: relative; z-index: 10; margin-bottom: 64px; }
+  /* силуэт: высота 46vh (голова начинается ниже кнопки), top:auto = позиция через bottom:0 */
+  .hero-silhouette { display: block; top: auto; margin-top: 0; }
+  .silhouette-img { height: 46vh; }
 
   /* reel-scene: убираем left:50%/transform чтобы layout-бокс не выходил за viewport */
   .reel-scene { left: 0; transform: none; width: 100%; }
@@ -1067,8 +1067,13 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .reel-card { width: 160px; height: 260px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; }
   .reel-card.rc-c { box-shadow: 0 0 30px rgba(224,87,75,.3), 0 20px 40px rgba(0,0,0,.5); }
 
-  .hero-features { gap: 24px; padding: 28px 24px 40px; flex-wrap: wrap; }
-  .hf-sep { height: 24px; }
+  /* полоса «по итогу»: колонкой, по центру, горизонтальные разделители */
+  .hero-features { flex-direction: column; align-items: center; text-align: center; gap: 0; padding: 28px 24px 40px; flex-wrap: nowrap; }
+  .hf-item { width: 100%; align-items: center; text-align: center; padding: 20px 0; }
+  .hf-title { font-size: 17px; font-weight: 500; }
+  .hf-desc { font-size: 14px; }
+  /* вертикальные разделители скрыть, горизонтальные показать */
+  .hf-sep { width: 60%; height: 1px; background: rgba(255,255,255,.08); align-self: center; }
 
   .forwho-row { grid-template-columns: 1fr; gap: 32px; }
   .forwho-row + .forwho-row { margin-top: 32px; }

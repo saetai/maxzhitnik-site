@@ -11,11 +11,12 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── ЦВЕТА ── */
 :root {
-  --bg:          #160A0B;
+  --bg:          #120809;   /* 0.1: чуть темнее, меньше коричневого */
   --bg-deep:     #0F0607;
-  --surface:     #211012;
-  --surface-2:   #2A1517;
+  --surface:     #1E0E10;
+  --surface-2:   #281315;
   --border:      rgba(255,220,215,.08);
   --text:        #F6EDEA;
   --text-muted:  rgba(246,237,234,.62);
@@ -37,60 +38,54 @@ body {
 
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
-/* ── НАВБАР ── */
+/* ── 0.3 НАВБАР — только логотип + кнопка ── */
 nav {
   position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
   z-index: 100; width: calc(100% - 48px); max-width: 1120px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px;
-  background: rgba(33,16,18,.8);
+  padding: 12px 20px;
+  background: rgba(30,14,16,.85);
   border: 1px solid var(--border);
   border-radius: 16px;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
 }
-.nav-logo { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 16px; color: var(--text); text-decoration: none; }
-.nav-links { display: flex; gap: 4px; list-style: none; }
-.nav-links a {
-  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 400;
-  color: var(--text-muted); text-decoration: none;
-  padding: 7px 14px; border-radius: 10px;
-  transition: background .2s, color .2s;
-}
-.nav-links a:hover { background: var(--surface-2); color: var(--text); }
+.nav-logo { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; color: var(--text); text-decoration: none; }
+/* nav-links убраны (ТЗ 0.3) */
 .nav-btn {
-  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
+  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500;
   color: var(--text-muted); text-decoration: none;
-  padding: 8px 18px; border-radius: 10px;
+  padding: 9px 20px; border-radius: 10px;
   background: var(--surface-2); border: 1px solid var(--border);
   transition: color .2s, border-color .2s;
 }
-.nav-btn:hover { color: var(--text); border-color: rgba(255,220,215,.18); }
+.nav-btn:hover { color: var(--text); border-color: rgba(255,220,215,.2); }
 
-/* ── КНОПКИ ── */
+/* ── 0.2 КНОПКИ — прямоугольные, не овальные ── */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 18px 40px; border-radius: 50px;
-  font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 500;
+  padding: 18px 32px; border-radius: 12px;
+  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
   text-decoration: none; border: none; cursor: pointer;
-  transition: box-shadow .25s;
+  transition: box-shadow .25s, transform .2s;
   position: relative;
 }
 .btn-primary {
   color: #fff;
   background: var(--accent);
-  border: 1px solid rgba(255,220,215,.35);
+  border: 1px solid rgba(255,220,215,.25);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.45),
-    0 0 0 3px rgba(224,87,75,.22),
-    0 0 24px 4px rgba(224,87,75,.55),
-    0 0 60px 10px rgba(224,87,75,.35);
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 0 0 2px rgba(224,87,75,.18),
+    0 0 24px 4px rgba(224,87,75,.45),
+    0 0 60px 10px rgba(224,87,75,.25);
 }
 .btn-primary:hover {
+  transform: translateY(-1px);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.5),
-    0 0 0 4px rgba(224,87,75,.3),
-    0 0 32px 6px rgba(224,87,75,.7),
-    0 0 90px 16px rgba(224,87,75,.45);
+    inset 0 1px 0 rgba(255,255,255,.45),
+    0 0 0 3px rgba(224,87,75,.25),
+    0 0 32px 6px rgba(224,87,75,.6),
+    0 0 90px 16px rgba(224,87,75,.35);
 }
 .btn-secondary {
   background: var(--surface-2); color: var(--text-muted);
@@ -102,113 +97,277 @@ nav {
 /* ── БЕЙДЖ ── */
 .badge {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 14px; border-radius: 10px;
+  padding: 7px 13px; border-radius: 10px;
   background: var(--surface); border: 1px solid var(--border);
-  font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500; line-height: 1;
-  color: rgba(246,237,234,.85);
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; line-height: 1;
+  color: rgba(246,237,234,.75);
 }
-.badge svg { width: 14px; height: 14px; flex-shrink: 0; opacity: .7; }
+.badge svg { width: 13px; height: 13px; flex-shrink: 0; opacity: .65; stroke: currentColor; fill: none; stroke-width: 1.5; }
 
-/* ── ЗАГОЛОВКИ ── */
+/* ── 0.4 СИСТЕМА ЗАГОЛОВКОВ ── */
 .heading { line-height: 1.05; }
-.h-onest { display: block; font-family: 'Onest', sans-serif; font-weight: 300; letter-spacing: -0.01em; color: var(--text); }
-.h-cormorant { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; color: var(--text); margin-top: 4px; }
+.h-onest {
+  display: block;
+  font-family: 'Onest', sans-serif; font-weight: 300;
+  letter-spacing: -0.01em; color: var(--text);
+}
+.h-cormorant {
+  display: block;
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+  /* 0.4: приглушённый серо-белый */
+  color: rgba(246,237,234,.52);
+  margin-top: 4px;
+}
 
-.h1 .h-onest     { font-size: 80px; line-height: 1.1; }
-.h1 .h-cormorant { font-size: 60px; line-height: 1.1; white-space: nowrap; }
-.h2 .h-onest     { font-size: 52px; line-height: 1.15; }
-.h2 .h-cormorant { font-size: 58px; line-height: 1.1; }
+/* Шкала размеров */
+.h1 .h-onest     { font-size: 72px; line-height: 1.08; }
+.h1 .h-cormorant { font-size: 80px; line-height: 1.05; }
+.h2 .h-onest     { font-size: 46px; line-height: 1.12; }
+.h2 .h-cormorant { font-size: 52px; line-height: 1.08; }
 
 .lead {
-  font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 400;
-  line-height: 1.6; color: var(--text-muted);
+  font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400;
+  line-height: 1.65; color: var(--text-muted);
 }
 
-/* ── КАРТОЧКИ ── */
+/* ── 0.4 СЕКЦИЯ-ШАПКА (badge → заголовок → подзаголовок) ── */
+.section-head {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: 0;
+  margin-bottom: 72px; width: 100%;
+}
+.section-head .badge  { margin-bottom: 24px; }
+.section-head .heading { margin-bottom: 20px; }
+.section-head .lead   { max-width: 520px; text-align: center; }
+
+/* ── 0.6 КАРТОЧКИ — матовое стекло ── */
 .card {
   position: relative;
-  background:
-    radial-gradient(120% 80% at 0% 0%, rgba(255,235,230,.06), transparent 60%),
-    linear-gradient(180deg,#2A1517 0%,#1A0E10 100%);
-  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid rgba(255,255,255,.08);
   border-radius: 20px;
-  padding: 36px;
+  padding: 32px;
   text-align: left;
   overflow: hidden;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 20px 40px rgba(0,0,0,.3);
-  transition: border-color .25s, box-shadow .25s;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 0 0 1px rgba(224,87,75,.04),
+    0 0 40px rgba(224,87,75,.06),
+    0 30px 60px rgba(0,0,0,.45);
+  transition: border-color .3s, box-shadow .3s;
 }
 .card:hover {
-  border-color: rgba(224,87,75,.25);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 0 40px rgba(224,87,75,.12), 0 20px 40px rgba(0,0,0,.35);
+  border-color: rgba(255,255,255,.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 0 0 1px rgba(224,87,75,.08),
+    0 0 50px rgba(224,87,75,.12),
+    0 30px 60px rgba(0,0,0,.5);
 }
 .card .icon {
-  width: 48px; height: 48px; border-radius: 14px;
+  width: 44px; height: 44px; border-radius: 12px;
   background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
   border: 1px solid rgba(255,255,255,.08);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
   display: grid; place-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 .card .icon svg { width: 18px; height: 18px; stroke: var(--text); stroke-width: 1.5; fill: none; }
 .card-title {
-  font-family: 'Manrope', sans-serif; font-size: 24px; font-weight: 500;
-  line-height: 1.3; color: var(--text); margin-bottom: 12px;
+  font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 500;
+  line-height: 1.3; color: var(--text); margin-bottom: 10px;
 }
 .card-text {
-  font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 400;
-  line-height: 1.6; color: var(--text-muted);
+  font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400;
+  line-height: 1.65; color: var(--text-muted);
 }
 
-/* ── СЕКЦИИ ── */
-section { padding: 160px 0; position: relative; background: var(--bg); }
+/* ── 0.5 СЕКЦИИ — плавные переходы, без полос ── */
+section {
+  padding: 160px 0;
+  position: relative;
+  background: var(--bg);
+}
 section .wrap { display: flex; flex-direction: column; position: relative; z-index: 1; }
 
+/* Мягкое пятно сверху каждой секции (кроме hero), прозрачность ≤ .12 */
 section:not(.hero)::before {
   content: '';
   position: absolute; left: 0; right: 0; top: 0;
-  height: 400px; pointer-events: none; z-index: 0;
-  background: radial-gradient(600px 400px at 50% 0%, rgba(224,87,75,.12), transparent 70%);
+  height: 500px; pointer-events: none; z-index: 0;
+  background: radial-gradient(700px 500px at 50% -5%, rgba(224,87,75,.1), transparent 70%);
 }
 
-.section-head {
-  display: flex; flex-direction: column; gap: 24px;
-  align-items: center; text-align: center;
-  margin-bottom: 64px; width: 100%;
+/* ── 1. ГЕРОЙ ── */
+.hero {
+  min-height: 100vh;
+  padding-top: calc(80px + 56px);
+  padding-bottom: 0;
+  position: relative;
+  display: flex; align-items: flex-start;
 }
-.section-head .lead { max-width: 560px; text-align: center; }
-/* ── Section title (prototype: left-aligned, Cormorant italic, no badge) ── */
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic; font-weight: 500;
-  font-size: 54px; line-height: 1.1;
-  color: var(--text);
-  letter-spacing: -0.01em;
-  margin-bottom: 52px;
-  align-self: flex-start;
+
+/* Центральное пятно (прозрачность ≤ .25) */
+.hero-halo {
+  position: absolute; left: 50%; top: -60px; transform: translateX(-50%);
+  width: 1000px; height: 700px; border-radius: 50%; pointer-events: none; z-index: 0;
+  background: radial-gradient(closest-side,
+    rgba(224,87,75,.22) 0%,
+    rgba(194,70,60,.1) 50%,
+    transparent 100%);
+  filter: blur(50px);
 }
-/* ── Forwho list ── */
+
+/* Центрирующая обёртка героя */
+.hero-center {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  position: relative; z-index: 2;
+  padding-bottom: 0;
+}
+.hero-center .badge   { margin-bottom: 24px; }
+.hero-center .heading { margin-bottom: 20px; }
+.hero-center .lead    { max-width: 500px; margin: 0 auto; }
+
+.hero-btn-wrap { margin-top: 36px; }
+
+/* ── ВИДЕО-ЛЕНТА (раздел 1.2) ── */
+.reel-scene {
+  position: relative;
+  width: 100vw;          /* на всю ширину окна */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 64px 0 72px;
+  overflow: hidden;
+}
+
+/* Вертикальная терракотовая линия по центру */
+.reel-vline {
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 1px; transform: translateX(-50%);
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(224,87,75,.45) 15%,
+    rgba(224,87,75,.65) 45%,
+    rgba(224,87,75,.45) 85%,
+    transparent 100%);
+  pointer-events: none; z-index: 0;
+}
+.reel-vline::after {
+  content: '';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 80px; height: 260px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(224,87,75,.35) 0%, transparent 70%);
+  filter: blur(24px);
+}
+
+.reel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: relative; z-index: 1;
+  will-change: transform;
+}
+
+/* Базовая карточка */
+.reel-card {
+  flex-shrink: 0;
+  width: 196px;
+  height: 310px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255,220,215,.06);
+  transition: opacity .3s, transform .3s;
+}
+.reel-inner {
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform .4s;
+  filter: grayscale(1) brightness(.65);
+}
+.reel-card:hover .reel-inner { transform: scale(1.04); }
+
+/* Центральная карточка — цветная, с терракотовым свечением */
+.reel-card.rc-c {
+  border-color: rgba(224,87,75,.28);
+  box-shadow:
+    0 0 0 1px rgba(224,87,75,.18),
+    0 0 40px rgba(224,87,75,.35),
+    0 40px 70px rgba(0,0,0,.6);
+  z-index: 2;
+}
+.reel-card.rc-c .reel-inner {
+  filter: brightness(.9) saturate(1.05);
+}
+
+/* 3D-перспектива: барабан */
+.reel-card.rc-4l { transform: perspective(1100px) rotateY(44deg) scale(.60) translateX(-16px); opacity: .25; }
+.reel-card.rc-3l { transform: perspective(1100px) rotateY(34deg) scale(.70) translateX(-12px); opacity: .38; }
+.reel-card.rc-2l { transform: perspective(1100px) rotateY(23deg) scale(.82) translateX(-8px);  opacity: .56; }
+.reel-card.rc-1l { transform: perspective(1100px) rotateY(12deg) scale(.91) translateX(-4px);  opacity: .78; }
+.reel-card.rc-c  { transform: perspective(1100px) rotateY(0deg)  scale(1.12);                  opacity: 1; }
+.reel-card.rc-1r { transform: perspective(1100px) rotateY(-12deg) scale(.91) translateX(4px);  opacity: .78; }
+.reel-card.rc-2r { transform: perspective(1100px) rotateY(-23deg) scale(.82) translateX(8px);  opacity: .56; }
+.reel-card.rc-3r { transform: perspective(1100px) rotateY(-34deg) scale(.70) translateX(12px); opacity: .38; }
+
+/* Видео внутри карточки */
+.reel-card video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) brightness(.65);
+  display: block;
+}
+.reel-card.rc-c video {
+  filter: brightness(.9) saturate(1.05);
+}
+
+/* ── ТРИ ФИЧИ ПОД ЛЕНТОЙ ── */
+.hero-features {
+  display: flex; align-items: center; justify-content: center;
+  gap: 40px;
+  padding: 40px 0 80px;
+  border-top: 1px solid rgba(255,220,215,.08);
+  width: 100vw; left: 50%; transform: translateX(-50%);
+  position: relative;
+}
+.hf-sep { width: 1px; height: 36px; background: rgba(255,220,215,.12); flex-shrink: 0; }
+.hf-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.hf-title {
+  font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 600;
+  color: var(--text); letter-spacing: .01em;
+}
+.hf-desc {
+  font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* ── КОМУ ── */
 .forwho-list {
   list-style: none;
-  display: flex; flex-direction: column; gap: 20px;
-  width: 100%; max-width: 760px;
+  display: flex; flex-direction: column; gap: 18px;
+  width: 100%; max-width: 720px;
+  margin: 0 auto;
 }
 .forwho-list li {
   font-family: 'Manrope', sans-serif;
-  font-size: 18px; font-weight: 400;
-  color: var(--text-muted); line-height: 1.65;
+  font-size: 17px; font-weight: 400;
+  color: var(--text-muted); line-height: 1.7;
   padding-left: 24px; position: relative;
 }
 .forwho-list li::before {
   content: '';
   position: absolute; left: 0; top: 10px;
-  width: 8px; height: 8px; border-radius: 50%;
+  width: 6px; height: 6px; border-radius: 50%;
   background: var(--accent);
 }
-/* ── Method description text ── */
+
+/* ── МЕТОД ── */
 .method-desc {
-  width: 100%; max-width: 760px;
-  margin-bottom: 48px;
+  width: 100%; max-width: 720px;
+  margin: 0 auto 48px;
 }
 .method-desc p {
   font-family: 'Manrope', sans-serif;
@@ -217,132 +376,39 @@ section:not(.hero)::before {
   margin-bottom: 16px;
 }
 .method-desc p:last-child { margin-bottom: 0; }
-
-/* ── HERO ── */
-.hero {
-  min-height: 100vh;
-  padding-top: calc(80px + 60px);
-  padding-bottom: 80px;
-  position: relative;
-}
-.hero-bg {
-  position: absolute; inset: 0;
-  overflow: hidden; pointer-events: none; z-index: 0;
-}
-.hero-bg::before {
-  content: '';
-  position: absolute; left: 50%; top: 0; transform: translateX(-50%);
-  width: 1400px; height: 700px;
-  background: radial-gradient(ellipse 55% 55% at 50% 0%, rgba(224,87,75,.38) 0%, rgba(224,87,75,.12) 45%, transparent 72%);
-  pointer-events: none;
-}
-.hero .wrap {
-  display: grid;
-  grid-template-columns: minmax(0, 620px) 1fr;
-  align-items: end;
-  gap: 48px;
-  position: relative; z-index: 2;
-  min-height: calc(100vh - 140px - 80px);
-}
-.hero-left { display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 48px; }
-.hero-right {
-  position: relative;
-  height: 680px;
-  align-self: end;
-}
-.hero-right::before {
-  content: '';
-  position: absolute;
-  right: -10%; top: 5%;
-  width: 900px; height: 900px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(224,87,75,.5) 0%, rgba(224,87,75,.2) 45%, transparent 75%);
-  filter: blur(30px);
-  pointer-events: none;
-  z-index: 1;
-  transform: translateZ(0);
-}
-.hero-photo {
-  position: absolute;
-  right: 0; bottom: 0;
-  height: 90%;
-  aspect-ratio: 1106 / 1613;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  z-index: 2;
-  filter: brightness(.95) contrast(1.05);
-  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 22%);
-  mask-image: linear-gradient(to top, transparent 0%, #000 22%);
-}
-.arc {
-  position: absolute; border-radius: 50%; pointer-events: none;
-  background: none;
-  box-shadow: inset 0 0 0 1px rgba(224,87,75,.35), inset 0 0 80px rgba(224,87,75,.35), 0 0 120px rgba(224,87,75,.15);
-}
-.arc::before, .arc::after { content: ''; position: absolute; border-radius: 50%; border: 1px solid rgba(224,87,75,.18); }
-.arc::before { inset: -40px; }
-.arc::after  { inset: -80px; }
-.arc-left  { left: -280px; top: -100px; width: 680px; height: 680px; }
-.arc-right { right: -280px; top: -100px; width: 680px; height: 680px; }
-.hero .badge { margin-bottom: 24px; }
-.hero .heading { margin-bottom: 16px; }
-.hero .lead { margin-bottom: 36px; max-width: 520px; }
-.hero-btns { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
-.hero-tags { display: flex; gap: 10px; flex-wrap: wrap; }
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 10px 14px; border-radius: 10px;
-  background: var(--surface); border: 1px solid var(--border);
-  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 400;
-  color: var(--text-muted);
-}
-.hero-tag svg { width: 14px; height: 14px; stroke-width: 1.5; fill: none; stroke: currentColor; opacity: .6; }
-
-/* ── КОМУ ── */
-.forwho-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
-
-/* ── МЕТОД ── */
 .method-outer {
   width: 100%;
-  background:
-    radial-gradient(120% 80% at 0% 0%, rgba(255,235,230,.06), transparent 60%),
-    linear-gradient(180deg,#2A1517 0%,#1A0E10 100%);
-  border: 1px solid var(--border);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 20px 40px rgba(0,0,0,.3);
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 30px 60px rgba(0,0,0,.4);
   border-radius: 28px; padding: 32px;
 }
-.method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
 .method-grid .card {
-  background:
-    radial-gradient(120% 80% at 0% 0%, rgba(255,235,230,.06), transparent 60%),
-    linear-gradient(180deg,#2A1517 0%,#1A0E10 100%);
-  border-color: var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
 }
 .card--accent {
   background:
     radial-gradient(80% 65% at 50% 108%, rgba(255,90,65,1.0) 0%, rgba(240,87,75,.8) 25%, rgba(224,87,75,.45) 50%, transparent 72%),
-    radial-gradient(55% 40% at 88% 0%, rgba(224,87,75,.28), transparent 65%),
-    linear-gradient(180deg, #1E0E10 0%, #2A1517 30%, #782020 100%) !important;
-  border: 1px solid rgba(240,120,105,.45) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 80px rgba(224,87,75,.4), 0 30px 60px rgba(0,0,0,.45) !important;
+    radial-gradient(55% 40% at 88% 0%, rgba(224,87,75,.22), transparent 65%),
+    linear-gradient(180deg, #1E0E10 0%, #281315 30%, #6E1A1A 100%) !important;
+  border: 1px solid rgba(240,120,105,.35) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 0 80px rgba(224,87,75,.35),
+    0 30px 60px rgba(0,0,0,.5) !important;
   padding-bottom: 140px;
-}
-.card--accent:hover {
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 80px rgba(224,87,75,.4), 0 20px 40px rgba(0,0,0,.4) !important;
-  border-color: rgba(240,120,105,.5) !important;
 }
 .card--accent .icon {
   background: rgba(255,255,255,.12) !important;
   border: 1px solid rgba(255,255,255,.18) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.18) !important;
 }
 .card--accent > * { position: relative; z-index: 1; }
 .wave-svg {
   position: absolute; left: 0; right: 0; bottom: 24px;
   width: 100%; height: 110px;
-  pointer-events: none; z-index: 0;
-  overflow: visible;
+  pointer-events: none; z-index: 0; overflow: visible;
 }
 @media (prefers-reduced-motion: no-preference) {
   .wave-path { animation: wave-shift 8s ease-in-out infinite; }
@@ -355,40 +421,38 @@ section:not(.hero)::before {
 }
 @keyframes wave-shift {
   0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(-12px); }
+  50%       { transform: translateX(-12px); }
 }
 
 /* ── ПРОГРАММА ── */
 .program-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
 .prog-card {
-  background:
-    radial-gradient(120% 80% at 0% 0%, rgba(255,235,230,.06), transparent 60%),
-    linear-gradient(180deg,#2A1517 0%,#1A0E10 100%);
-  border: 1px solid var(--border);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 20px 40px rgba(0,0,0,.3);
-  border-radius: 20px; padding: 48px;
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 20px 40px rgba(0,0,0,.4);
+  border-radius: 20px; padding: 44px;
 }
-.prog-card h3 { font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 22px; margin-bottom: 6px; }
+.prog-card h3 { font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 21px; margin-bottom: 6px; }
 .prog-card h3 b { font-weight: 600; }
-.prog-day-sub { font-size: 15px; color: var(--text-muted); margin-bottom: 32px; }
-.prog-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
-.prog-list li { font-size: 17px; font-weight: 400; color: var(--text-muted); padding-left: 22px; position: relative; line-height: 1.65; }
-.prog-list li::before { content: '•'; position: absolute; left: 0; color: rgba(246,237,234,.25); }
-.result-box { background: rgba(224,87,75,.08); border: 1px solid rgba(224,87,75,.2); border-radius: 12px; padding: 24px 28px; }
-.result-label { font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500; color: var(--accent); margin-bottom: 10px; display: block; }
-.result-box p { font-size: 16px; font-weight: 400; color: rgba(246,237,234,.62); line-height: 1.7; }
+.prog-day-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+.prog-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.prog-list li { font-size: 15px; font-weight: 400; color: var(--text-muted); padding-left: 20px; position: relative; line-height: 1.65; }
+.prog-list li::before { content: '•'; position: absolute; left: 0; color: rgba(246,237,234,.2); }
+.result-box { background: rgba(224,87,75,.07); border: 1px solid rgba(224,87,75,.16); border-radius: 12px; padding: 22px 24px; }
+.result-label { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 8px; display: block; }
+.result-box p { font-size: 15px; font-weight: 400; color: rgba(246,237,234,.6); line-height: 1.7; }
 
 /* ── РЕЗУЛЬТАТЫ ── */
-.outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+.outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
 
 /* ── СТОИМОСТЬ ── */
 .price-card {
-  max-width: 600px; width: 100%;
-  background:
-    radial-gradient(120% 80% at 0% 0%, rgba(255,235,230,.06), transparent 60%),
-    linear-gradient(180deg,#2A1517 0%,#1A0E10 100%);
-  border: 1px solid var(--border);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 20px 40px rgba(0,0,0,.3);
+  max-width: 580px; width: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 30px 60px rgba(0,0,0,.5);
   border-radius: 24px; padding: 52px;
   position: relative; overflow: hidden; text-align: left;
 }
@@ -396,48 +460,37 @@ section:not(.hero)::before {
   content: '';
   position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%);
   width: 500px; height: 300px;
-  background: radial-gradient(ellipse, rgba(224,87,75,.2) 0%, transparent 65%);
+  background: radial-gradient(ellipse, rgba(224,87,75,.18) 0%, transparent 65%);
   filter: blur(30px); pointer-events: none;
 }
 .price-num {
   font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
-  font-size: 80px; line-height: 1; letter-spacing: -.01em;
-  color: var(--text); margin-bottom: 36px; position: relative;
+  font-size: 76px; line-height: 1; letter-spacing: -.01em;
+  color: var(--text); margin-bottom: 32px; position: relative;
 }
-.price-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
-.price-list li { font-size: 18px; font-weight: 400; color: var(--text-muted); padding-left: 22px; position: relative; line-height: 1.6; }
-.price-list li::before { content: '•'; position: absolute; left: 0; color: rgba(246,237,234,.25); }
+.price-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+.price-list li { font-size: 16px; font-weight: 400; color: var(--text-muted); padding-left: 20px; position: relative; line-height: 1.6; }
+.price-list li::before { content: '•'; position: absolute; left: 0; color: rgba(246,237,234,.2); }
 
 /* ── ТРЕНЕР ── */
-.trainer-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 42px; color: var(--accent); margin-bottom: 4px; }
-.trainer-role { font-size: 16px; font-weight: 400; color: var(--accent); opacity: .65; margin-bottom: 48px; }
+.trainer-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 40px; color: var(--accent); margin-bottom: 4px; }
+.trainer-role { font-size: 15px; font-weight: 400; color: var(--accent); opacity: .6; margin-bottom: 44px; }
 .trainer-cards { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 
-/* ── ГАЛЕРЕЯ SWIPER (Point 4) ── */
+/* ── ГАЛЕРЕЯ SWIPER ── */
 .gallery-wrap { position: relative; width: 100%; }
-.gallery {
-  width: 100%;
-  overflow: hidden;
-}
+.gallery { width: 100%; overflow: hidden; }
 .gallery .swiper-wrapper { align-items: center; }
 .gallery .swiper-slide {
-  height: 560px;
-  border-radius: 24px;
-  overflow: hidden;
-  opacity: .4;
-  transform: scale(.9);
+  height: 540px; border-radius: 24px; overflow: hidden;
+  opacity: .4; transform: scale(.9);
   transition: opacity .5s ease, transform .5s ease;
   cursor: pointer;
 }
-.gallery .swiper-slide-active {
-  opacity: 1;
-  transform: scale(1);
-}
-/* Point 5: div вместо img */
+.gallery .swiper-slide-active { opacity: 1; transform: scale(1); }
 .gal-slide {
   width: 100%; height: 100%;
-  background-size: cover;
-  background-position: center;
+  background-size: cover; background-position: center;
   transition: transform .45s ease;
 }
 .gallery .swiper-slide:hover .gal-slide { transform: scale(1.03); }
@@ -446,52 +499,32 @@ section:not(.hero)::before {
   gap: 16px; margin-top: 28px;
 }
 .gal-btn {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--surface-2); border: 1px solid var(--border);
   color: var(--text); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   transition: box-shadow .25s, border-color .25s;
 }
 .gal-btn:hover {
-  box-shadow: 0 0 0 3px rgba(224,87,75,.22), 0 0 24px 4px rgba(224,87,75,.35);
-  border-color: rgba(224,87,75,.35);
+  box-shadow: 0 0 0 3px rgba(224,87,75,.22), 0 0 24px 4px rgba(224,87,75,.3);
+  border-color: rgba(224,87,75,.3);
 }
 .gal-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
-.gal-dots {
-  display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center;
-}
+.gal-dots { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
 .gal-dots .swiper-pagination-bullet {
-  width: 8px; height: 8px;
-  background: rgba(255,255,255,.2);
-  border-radius: 4px;
-  opacity: 1;
-  cursor: pointer;
-  transition: width .3s, background .3s;
-  margin: 0 !important;
+  width: 8px; height: 8px; background: rgba(255,255,255,.18);
+  border-radius: 4px; opacity: 1; cursor: pointer;
+  transition: width .3s, background .3s; margin: 0 !important;
 }
-.gal-dots .swiper-pagination-bullet-active {
-  width: 28px;
-  background: var(--accent);
-}
+.gal-dots .swiper-pagination-bullet-active { width: 28px; background: var(--accent); }
 
-/* ── СЕТКА ОТЗЫВОВ — фиксированная сетка 4 колонки ── */
+/* ── ОТЗЫВЫ ── */
 .reviews-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  height: 640px;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 20px; height: 620px;
 }
-.reviews-row + .reviews-row { margin-top: 24px; }
-.col-texts {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: 24px;
-  min-height: 0;
-}
-
-/* Видеокарточка */
+.reviews-row + .reviews-row { margin-top: 20px; }
+.col-texts { display: grid; grid-template-rows: 1fr 1fr; gap: 20px; min-height: 0; }
 .rv-card {
   position: relative; border-radius: 20px; overflow: hidden;
   cursor: pointer; background: #0F0607; height: 100%;
@@ -504,100 +537,63 @@ section:not(.hero)::before {
 .rv-card:hover .rv-bg { transform: scale(1.04); }
 .rv-caption {
   position: absolute; top: 0; left: 0; right: 0;
-  padding: 24px 20px 60px;
+  padding: 20px 18px 50px;
   background: linear-gradient(to bottom, rgba(15,6,7,.85), transparent 55%);
   pointer-events: none; z-index: 2;
 }
-.rv-name {
-  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
-  color: var(--text); line-height: 1.3; margin-bottom: 4px;
-}
-.rv-role {
-  font-family: 'Manrope', sans-serif; font-size: 13px;
-  color: var(--text-muted); line-height: 1.4;
-}
+.rv-name { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
+.rv-role { font-family: 'Manrope', sans-serif; font-size: 12px; color: var(--text-muted); line-height: 1.4; }
 .rv-play {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
   pointer-events: none; z-index: 2;
 }
 .review-video-play {
-  width: 64px; height: 64px; border-radius: 50%;
+  width: 60px; height: 60px; border-radius: 50%;
   background: var(--accent);
-  border: 1px solid rgba(255,220,215,.35);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.45),
-    0 0 0 3px rgba(224,87,75,.22),
-    0 0 20px 4px rgba(224,87,75,.55),
-    0 0 50px 8px rgba(224,87,75,.35);
+  border: 1px solid rgba(255,220,215,.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 0 20px 4px rgba(224,87,75,.5), 0 0 50px 8px rgba(224,87,75,.3);
   display: flex; align-items: center; justify-content: center;
   transition: box-shadow .2s;
 }
 .rv-card:hover .review-video-play {
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.5),
-    0 0 0 4px rgba(224,87,75,.3),
-    0 0 28px 6px rgba(224,87,75,.7),
-    0 0 70px 12px rgba(224,87,75,.45);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 0 28px 6px rgba(224,87,75,.65), 0 0 70px 12px rgba(224,87,75,.4);
 }
-.review-video-play svg { width: 22px; height: 22px; fill: #fff; margin-left: 4px; }
-
-/* Текстовая карточка */
+.review-video-play svg { width: 20px; height: 20px; fill: #fff; margin-left: 4px; }
 .re-card {
-  padding: 24px;
-  background:
-    radial-gradient(120% 80% at 0% 0%, rgba(255,235,230,.06), transparent 60%),
-    linear-gradient(180deg,#2A1517 0%,#1A0E10 100%);
-  border: 1px solid var(--border);
+  padding: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
   border-radius: 20px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
-  overflow: hidden; height: 100%; box-sizing: border-box;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+  overflow: hidden; height: 100%;
   display: flex; flex-direction: column;
   transition: border-color .25s, box-shadow .25s;
 }
-.re-card:hover {
-  border-color: rgba(224,87,75,.2);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(224,87,75,.1);
-}
+.re-card:hover { border-color: rgba(255,255,255,.14); }
 .re-text-wrap {
   flex: 1; overflow: hidden; min-height: 0;
-  -webkit-mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
 }
-.re-text {
-  font-family: 'Manrope', sans-serif;
-  font-size: 15px; font-weight: 400; color: var(--text-muted);
-  line-height: 1.55; margin: 0;
-}
-.re-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-top: 12px; flex-shrink: 0;
-}
-.re-author-name {
-  font-family: 'Manrope', sans-serif; font-size: 13px; color: var(--text-muted);
-}
-.re-more {
-  font-size: 13px; font-weight: 500; color: var(--accent);
-  background: none; border: none; cursor: pointer; padding: 0;
-  font-family: 'Manrope';
-}
+.re-text { font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 400; color: var(--text-muted); line-height: 1.6; margin: 0; }
+.re-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; flex-shrink: 0; }
+.re-author-name { font-family: 'Manrope', sans-serif; font-size: 12px; color: var(--text-muted); }
+.re-more { font-size: 12px; font-weight: 500; color: var(--accent); background: none; border: none; cursor: pointer; padding: 0; font-family: 'Manrope'; }
 .re-more:hover { text-decoration: underline; }
 
-/* ── VIDEO MODAL (Point 2) ── */
+/* ── VIDEO MODAL ── */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 1000;
-  background: rgba(15,6,7,.88);
-  backdrop-filter: blur(10px);
+  background: rgba(15,6,7,.9); backdrop-filter: blur(10px);
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity .3s;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
 }
 .modal-overlay.is-active { opacity: 1; pointer-events: all; }
 .modal-box {
-  position: relative;
-  border-radius: 20px; overflow: hidden;
-  box-shadow: 0 40px 80px rgba(0,0,0,.7);
-  background: #000;
+  position: relative; border-radius: 20px; overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,.7); background: #000;
   transform: scale(.95); transition: transform .3s;
 }
 .modal-box[data-ratio="16/9"] { width: min(90vw,1100px); aspect-ratio: 16/9; height: auto; }
@@ -609,47 +605,38 @@ section:not(.hero)::before {
   background: rgba(255,255,255,.1); border: none;
   color: #fff; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: background .2s, box-shadow .2s;
+  transition: background .2s;
 }
-.modal-close:hover { background: rgba(224,87,75,.45); box-shadow: 0 0 20px rgba(224,87,75,.4); }
+.modal-close:hover { background: rgba(224,87,75,.45); }
 .modal-close svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2.5; fill: none; }
 #videoFrame { width: 100%; height: 100%; position: relative; }
 #videoFrame iframe, #videoFrame > div { width: 100% !important; height: 100% !important; border: none; }
 .modal-unmute {
   position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
   padding: 10px 22px; background: rgba(15,6,7,.85);
-  border: 1px solid rgba(255,220,215,.2); border-radius: 50px;
+  border: 1px solid rgba(255,220,215,.2); border-radius: 12px;
   color: var(--text); font-family: 'Manrope',sans-serif; font-size: 14px; font-weight: 500;
   cursor: pointer; z-index: 20; display: none; align-items: center; gap: 8px;
   white-space: nowrap; transition: background .2s;
 }
 .modal-unmute:hover { background: rgba(224,87,75,.25); }
 .modal-unmute.visible { display: flex; }
-@media (max-width: 600px) {
-  .modal-close { top: 12px; right: 12px; }
-  .modal-box[data-ratio="9/16"] { height: min(92vh,640px); }
-}
 
 /* ── TEXT REVIEW MODAL ── */
 .text-modal-overlay {
   position: fixed; inset: 0; z-index: 1002;
-  background: rgba(10,5,6,.9);
-  backdrop-filter: blur(8px);
-  display: flex; align-items: center; justify-content: center;
-  padding: 24px;
-  opacity: 0; pointer-events: none;
-  transition: opacity .3s;
+  background: rgba(10,5,6,.9); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
 }
 .text-modal-overlay.is-active { opacity: 1; pointer-events: all; }
 .text-modal-box {
-  background: linear-gradient(180deg,#2A1517 0%,#1A0E10 100%);
-  border: 1px solid rgba(255,220,215,.1);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,.1);
   border-radius: 20px; padding: 48px;
-  max-width: 580px; width: 100%;
-  max-height: 82vh; overflow-y: auto;
-  position: relative;
-  transform: scale(.95);
-  transition: transform .3s;
+  max-width: 560px; width: 100%; max-height: 82vh; overflow-y: auto;
+  position: relative; transform: scale(.95); transition: transform .3s;
   box-shadow: 0 40px 80px rgba(0,0,0,.7);
 }
 .text-modal-overlay.is-active .text-modal-box { transform: scale(1); }
@@ -662,120 +649,181 @@ section:not(.hero)::before {
   transition: background .2s;
 }
 .text-modal-close:hover { background: rgba(224,87,75,.5); }
-.text-modal-body {
-  font-family: 'Manrope', sans-serif;
-  font-size: 16px; line-height: 1.75;
-  color: var(--text-muted); white-space: pre-line;
-}
+.text-modal-body { font-family: 'Manrope', sans-serif; font-size: 16px; line-height: 1.75; color: var(--text-muted); white-space: pre-line; }
 
 /* ── CTA ── */
 .cta { text-align: center; }
 .cta::before {
   content: '';
   position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
-  width: 900px; height: 600px; border-radius: 50%; pointer-events: none;
-  background: radial-gradient(closest-side, rgba(224,87,75,.35), rgba(194,70,60,.15) 50%, rgba(22,10,11,0) 100%);
+  width: 800px; height: 500px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(224,87,75,.22), rgba(194,70,60,.1) 50%, transparent 100%);
   filter: blur(40px);
 }
 .cta .wrap { align-items: center; padding: 120px 24px; }
-.cta .heading { margin-bottom: 20px; position: relative; }
-.cta .lead { text-align: center; margin: 0 auto 36px; position: relative; max-width: 560px; }
+.cta .section-head { margin-bottom: 36px; }
 .cta .btn-primary { position: relative; }
 
 /* ── ФУТЕР ── */
 footer { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; }
-footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-spacing: .04em; }
+footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); }
 
-/* ── MOBILE ── */
+/* ── МОБАЙЛ ── */
 @media (max-width: 960px) {
-  nav { width: calc(100% - 48px); top: 12px; }
-  .nav-links { display: none; }
+  nav { width: calc(100% - 32px); top: 12px; }
   section { padding: 96px 0; }
-  .hero { padding-top: calc(70px + 48px); padding-bottom: 60px; }
-  .hero .wrap { grid-template-columns: 1fr; min-height: unset; }
-  .hero-right { height: 440px; margin-top: 40px; overflow: hidden; }
-  .hero-photo { position: absolute; left: 50%; right: unset; transform: translateX(-50%); height: 100%; aspect-ratio: 1106/1613; }
-  .hero-glow { left: 50%; right: unset; transform: translateX(-50%); width: 600px; height: 600px; }
-  .h1 .h-onest { font-size: 42px; }
-  .h1 .h-cormorant { font-size: 46px; white-space: normal; }
-  .h2 .h-onest { font-size: 34px; }
-  .h2 .h-cormorant { font-size: 38px; }
-  .lead { font-size: 17px; }
-  .forwho-grid { grid-template-columns: 1fr; }
-  .method-outer { padding: 20px; }
+  .hero { padding-top: calc(70px + 44px); }
+
+  .h1 .h-onest     { font-size: 40px; }
+  .h1 .h-cormorant { font-size: 44px; }
+  .h2 .h-onest     { font-size: 32px; }
+  .h2 .h-cormorant { font-size: 36px; }
+  .lead { font-size: 16px; }
+
+  /* Лента на мобайле — горизонтальный скролл */
+  .reel {
+    overflow-x: auto; overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    padding: 0 24px;
+    gap: 12px;
+  }
+  .reel::-webkit-scrollbar { display: none; }
+  .reel-card {
+    width: 160px; height: 260px;
+    transform: none !important;
+    opacity: 1 !important;
+    scroll-snap-align: center;
+    flex-shrink: 0;
+  }
+  .reel-card.rc-c {
+    box-shadow: 0 0 30px rgba(224,87,75,.3), 0 20px 40px rgba(0,0,0,.5);
+  }
+
+  .hero-features { gap: 24px; padding: 32px 24px 60px; }
+  .hf-sep { height: 24px; }
+
   .method-grid { grid-template-columns: 1fr; }
+  .method-outer { padding: 20px; }
   .program-grid { grid-template-columns: 1fr; }
   .outcomes-grid { grid-template-columns: 1fr; }
-  .prog-card { padding: 28px 24px; }
+  .prog-card { padding: 28px 22px; }
   .price-card { padding: 36px 24px; }
-  .price-num { font-size: 58px; }
+  .price-num { font-size: 56px; }
   .gallery .swiper-slide { height: 260px; }
   .reviews-row {
     display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; height: auto; padding-bottom: 12px; gap: 16px;
+    -webkit-overflow-scrolling: touch; height: auto; padding-bottom: 12px; gap: 14px;
   }
   .reviews-row::-webkit-scrollbar { display: none; }
-  .rv-card { width: 280px; height: 500px; flex-shrink: 0; scroll-snap-align: start; }
+  .rv-card { width: 260px; height: 480px; flex-shrink: 0; scroll-snap-align: start; }
   .col-texts { display: contents; }
-  .re-card { width: 280px; height: 500px; flex-shrink: 0; scroll-snap-align: start; box-sizing: border-box; }
-  .text-modal-box { padding: 28px 24px; }
+  .re-card { width: 260px; height: 480px; flex-shrink: 0; scroll-snap-align: start; }
+}
+@media (max-width: 600px) {
+  .modal-close { top: 12px; right: 12px; }
+  .modal-box[data-ratio="9/16"] { height: min(92vh,640px); }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ═══ НАВБАР: логотип + кнопка (nav-links убраны ТЗ 0.3) ═══ -->
 <nav>
   <a href="#" class="nav-logo">Максим Житник</a>
-  <ul class="nav-links">
-    <li><a href="#method">Метод</a></li>
-    <li><a href="#program">Программа</a></li>
-    <li><a href="#trainer">О тренере</a></li>
-    <li><a href="#reviews">Отзывы</a></li>
-  </ul>
   <a href="#price" class="nav-btn">Записаться</a>
 </nav>
 
-<!-- ═══ HERO ═══ -->
+<!-- ═══ 1. ГЕРОЙ — центрированный, без фото ═══ -->
 <section class="hero">
-  <div class="hero-bg">
-    <div class="arc arc-left"></div>
-    <div class="arc arc-right"></div>
-  </div>
-  <div class="wrap">
-    <div class="hero-left">
-      <div class="badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Двухдневный тренинг · офлайн · Москва
-      </div>
-      <div class="heading h1">
-        <span class="h-onest">Вызов 7.0</span>
-        <span class="h-cormorant">сильные роли и диалог</span>
-      </div>
-      <p class="lead">Двухдневный тренинг для предпринимателей, руководителей и экспертов: раскройте сильные роли и управляйте диалогом в любой ситуации.</p>
-      <div class="hero-btns">
-        <a href="#program" class="btn btn-primary">Познакомиться с программой</a>
-        <a href="#trainer" class="btn btn-secondary">О тренере</a>
-      </div>
-      <div class="hero-tags">
-        <span class="hero-tag">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          2 дня офлайн
-        </span>
-        <span class="hero-tag">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-          Малые группы
-        </span>
-        <span class="hero-tag">
-          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          Stage-Psy Fusion
-        </span>
+  <div class="hero-halo"></div>
+  <div class="wrap hero-center">
+
+    <!-- Плашка (из прототипа дословно) -->
+    <div class="badge">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Двухдневный тренинг · офлайн · Москва
+    </div>
+
+    <!-- Заголовок из 2 шрифтов (из прототипа дословно) -->
+    <div class="heading h1">
+      <span class="h-onest">Вызов 7.0</span>
+      <span class="h-cormorant">сильные роли и уверенный диалог</span>
+    </div>
+
+    <!-- Подзаголовок (из прототипа) -->
+    <p class="lead" style="margin-top:20px;">
+      Двухдневный тренинг для предпринимателей, руководителей и&nbsp;экспертов: раскройте сильные роли и управляйте диалогом в любой ситуации.
+    </p>
+
+    <!-- Одна кнопка -->
+    <div class="hero-btn-wrap">
+      <a href="#program" class="btn btn-primary">Познакомиться с программой</a>
+    </div>
+
+    <!-- ═══ ВИДЕО-ЛЕНТА ═══ -->
+    <!-- TODO: заменить reel-inner на <video autoplay muted loop playsinline preload="none"> с нарезками из тренинга -->
+    <div class="reel-scene">
+      <div class="reel-vline"></div>
+      <div class="reel">
+
+        <!-- Карточка 1 — дальний левый -->
+        <div class="reel-card rc-3l">
+          <div class="reel-inner" style="background-image:url('assets/group-CHPK3272.jpg')"></div>
+        </div>
+
+        <!-- Карточка 2 -->
+        <div class="reel-card rc-2l">
+          <div class="reel-inner" style="background-image:url('assets/__352.jpg')"></div>
+        </div>
+
+        <!-- Карточка 3 -->
+        <div class="reel-card rc-1l">
+          <div class="reel-inner" style="background-image:url('assets/IMG_7163.jpg')"></div>
+        </div>
+
+        <!-- Карточка 4 — центральная, цветная, с терракотовым свечением -->
+        <div class="reel-card rc-c">
+          <div class="reel-inner" style="background-image:url('assets/IKZ10140.jpg')"></div>
+        </div>
+
+        <!-- Карточка 5 -->
+        <div class="reel-card rc-1r">
+          <div class="reel-inner" style="background-image:url('assets/group-CHPK3183.jpg')"></div>
+        </div>
+
+        <!-- Карточка 6 -->
+        <div class="reel-card rc-2r">
+          <div class="reel-inner" style="background-image:url('assets/2B3A9543.jpg')"></div>
+        </div>
+
+        <!-- Карточка 7 — дальний правый -->
+        <div class="reel-card rc-3r">
+          <div class="reel-inner" style="background-image:url('assets/group-CHPK2995.jpg')"></div>
+        </div>
+
       </div>
     </div>
-    <div class="hero-right">
-      <div class="hero-photo" role="img" aria-label="Максим Житник"
-           style="background-image:url('assets/maxim-hero.png')"></div>
+
+    <!-- 3 фичи под лентой -->
+    <div class="hero-features">
+      <div class="hf-item">
+        <span class="hf-title">2 дня офлайн</span>
+        <span class="hf-desc">Интенсивная практика в группе</span>
+      </div>
+      <div class="hf-sep"></div>
+      <div class="hf-item">
+        <span class="hf-title">Малые группы</span>
+        <span class="hf-desc">До 16 участников — каждый в фокусе</span>
+      </div>
+      <div class="hf-sep"></div>
+      <div class="hf-item">
+        <span class="hf-title">Stage-Psy Fusion</span>
+        <span class="hf-desc">Актёрские и психологические практики</span>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -784,13 +832,14 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
   <div class="wrap">
     <div class="section-head">
       <div class="badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
         Для кого
       </div>
       <div class="heading h2">
         <span class="h-onest">Кому полезен</span>
-        <span class="h-cormorant">тренинг</span>
+        <span class="h-cormorant">этот тренинг</span>
       </div>
+      <p class="lead"><!-- TODO текст: 1–2 предложения о целевой аудитории --></p>
     </div>
     <ul class="forwho-list">
       <li>Привыкли всё контролировать и перепроверять. Но от этого испытываете постоянное напряжение.</li>
@@ -805,11 +854,16 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
 <!-- ═══ МЕТОД ═══ -->
 <section id="method">
   <div class="wrap">
-    <h2 class="section-title">В чём суть метода</h2>
-    <div class="method-desc">
-      <p>Вы находите в себе те сильные роли, которые в вас уже заложены. Учитесь между ними переключаться естественно, без масок. И благодаря этому чувствуете смелость и уверенность в любой коммуникации: в переговорах, работе с командой, на сцене.</p>
-      <p>Мы соединяем психологические и актёрские практики — и любая коммуникация, переговоры или выступление превращаются в игровой процесс, которым вы управляете.</p>
-      <p>Мы не учим красиво говорить на камеру. Мы учим естественно проявлять свою харизму — и не обращать внимания на то, как вы выглядите со стороны.</p>
+    <div class="section-head">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        Метод Stage-Psy Fusion
+      </div>
+      <div class="heading h2">
+        <span class="h-onest">В чём суть</span>
+        <span class="h-cormorant">метода</span>
+      </div>
+      <p class="lead">Соединяем глубинную психологию и актёрские практики — уверенность появляется изнутри, а не надевается как маска.</p>
     </div>
     <div class="method-outer">
       <div class="method-grid">
@@ -854,7 +908,17 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
 <!-- ═══ ПРОГРАММА ═══ -->
 <section id="program">
   <div class="wrap">
-    <h2 class="section-title">Программа тренинга</h2>
+    <div class="section-head">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Программа
+      </div>
+      <div class="heading h2">
+        <span class="h-onest">Два дня</span>
+        <span class="h-cormorant">практики и трансформации</span>
+      </div>
+      <p class="lead"><!-- TODO текст: 1–2 предложения о структуре двух дней --></p>
+    </div>
     <div class="program-grid">
       <div class="prog-card">
         <h3><b>День 1:</b> сонастройка с собой</h3>
@@ -872,7 +936,7 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
       </div>
       <div class="prog-card">
         <h3><b>День 2:</b> коммуникация и влияние</h3>
-        <p class="prog-day-sub">&nbsp;</p>
+        <p class="prog-day-sub"><!-- TODO текст: подзаголовок второго дня --></p>
         <ul class="prog-list">
           <li>Моделируем ваши реальные ситуации: переговоры, публичные выступления, работа с командой (под запросы группы)</li>
           <li>Репетируете и пробуете в парах и в группах</li>
@@ -891,7 +955,17 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
 <!-- ═══ РЕЗУЛЬТАТЫ ═══ -->
 <section id="outcomes">
   <div class="wrap">
-    <h2 class="section-title">Какие изменения будут в жизни по итогу тренинга</h2>
+    <div class="section-head">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        После тренинга
+      </div>
+      <div class="heading h2">
+        <span class="h-onest">Какие изменения</span>
+        <span class="h-cormorant">в жизни после тренинга</span>
+      </div>
+      <p class="lead"><!-- TODO текст: 1–2 предложения о том, что меняется --></p>
+    </div>
     <div class="outcomes-grid">
       <div class="card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
@@ -901,7 +975,7 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
       <div class="card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
         <div class="card-title">Свобода проявляться</div>
-        <p class="card-text">Сможете свободно снимать видео, органично общаться, выступать на сцене, проводить лидерские планёрки: всё будет естественно, органично и уверенно.</p>
+        <p class="card-text">Сможете свободно снимать видео, органично общаться, выступать на сцене, проводить лидерские планёрки: всё будет естественно и уверенно.</p>
       </div>
       <div class="card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
@@ -920,7 +994,17 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
 <!-- ═══ СТОИМОСТЬ ═══ -->
 <section id="price">
   <div class="wrap" style="align-items:center;text-align:center;">
-    <h2 class="section-title" style="align-self:center;">Стоимость участия</h2>
+    <div class="section-head">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Стоимость участия
+      </div>
+      <div class="heading h2">
+        <span class="h-onest">Ваши инвестиции</span>
+        <span class="h-cormorant">в уверенность и свободу</span>
+      </div>
+      <p class="lead"><!-- TODO текст: что входит кратко --></p>
+    </div>
     <div class="price-card">
       <div class="price-num">20 000 ₽</div>
       <ul class="price-list">
@@ -937,7 +1021,17 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
 <!-- ═══ ТРЕНЕР ═══ -->
 <section id="trainer">
   <div class="wrap">
-    <h2 class="section-title">Кто ведёт тренинг</h2>
+    <div class="section-head">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        О тренере
+      </div>
+      <div class="heading h2">
+        <span class="h-onest">Кто ведёт</span>
+        <span class="h-cormorant">тренинг</span>
+      </div>
+      <p class="lead"><!-- TODO текст: 1–2 предложения о Максиме --></p>
+    </div>
     <p class="trainer-name">Максим Житник</p>
     <p class="trainer-role">Психолог, бизнес-коуч, профессиональный актёр</p>
     <div class="trainer-cards">
@@ -959,50 +1053,34 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
   </div>
 </section>
 
-<!-- ═══ КАК ПРОХОДИТ ТРЕНИНГ — Swiper карусель (Point 4 + Point 5) ═══ -->
+<!-- ═══ КАК ПРОХОДИТ ТРЕНИНГ ═══ -->
 <section id="process">
   <div class="wrap">
-    <h2 class="section-title">Как проходит тренинг</h2>
+    <div class="section-head">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        Атмосфера
+      </div>
+      <div class="heading h2">
+        <span class="h-onest">Как проходит</span>
+        <span class="h-cormorant">тренинг</span>
+      </div>
+      <p class="lead"><!-- TODO текст: 1–2 предложения об атмосфере и формате --></p>
+    </div>
     <div class="gallery-wrap">
-      <!-- Point 5: div + background-image вместо img -->
       <div class="swiper gallery">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/group-CHPK2995.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/__224.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/IKZ10140.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/group-CHPK3183.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/IMG_7163.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/2B3A9543.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/__352.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/group-CHPK3272.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/IMG_7127.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/__70_2.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/IMG_7050.jpg')"></div>
-          </div>
-          <div class="swiper-slide">
-            <div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/training1.jpg')"></div>
-          </div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/group-CHPK2995.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/__224.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/IKZ10140.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/group-CHPK3183.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/IMG_7163.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/2B3A9543.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/__352.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/group-CHPK3272.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/IMG_7127.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/__70_2.jpg')"></div></div>
+          <div class="swiper-slide"><div class="gal-slide" role="img" aria-label="Тренинг Вызов" style="background-image:url('assets/IMG_7050.jpg')"></div></div>
         </div>
       </div>
       <div class="gal-controls">
@@ -1018,14 +1096,22 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
   </div>
 </section>
 
-<!-- ═══ ОТЗЫВЫ — фиксированная сетка 4 колонки ═══ -->
+<!-- ═══ ОТЗЫВЫ ═══ -->
 <section id="reviews">
   <div class="wrap">
-    <h2 class="section-title">Что говорят участники тренинга</h2>
+    <div class="section-head">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Отзывы
+      </div>
+      <div class="heading h2">
+        <span class="h-onest">Что говорят</span>
+        <span class="h-cormorant">участники тренинга</span>
+      </div>
+      <p class="lead"><!-- TODO текст: 1–2 предложения об отзывах --></p>
+    </div>
 
-    <!-- Ряд 1: видео | тексты | видео | тексты -->
     <div class="reviews-row">
-
       <div class="rv-card" data-video-id="znoFm5Oy4S8" data-ratio="9/16"
            onclick="openVideoModal(this)" role="button" tabindex="0" aria-label="Видеоотзыв о тренинге Вызов">
         <div class="rv-bg" style="background-image:url('assets/reviews/znoFm5Oy4S8.jpg')"></div>
@@ -1042,7 +1128,7 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
       <div class="col-texts">
         <div class="re-card">
           <div class="re-text-wrap">
-            <p class="re-text">Про тренинг «Вызов». Прошло несколько дней после тренинга. Я до сих пор испытываю противоречивые чувства. Шла я за конкретными упражнениями, методиками, какими-то «инструментами» для борьбы со скованностью и зажимами. Я прагматик по своей сути, мне нужны конкретные действия, конкретные результаты. Но получила нечто совсем другое... Точно могу сказать, что не зря, что интересно, что ново, необычно. Было и весело, и грустно, местами сумасшедше, но главное — душевно, искренне, открыто. Как интересный опыт — в копилку!</p>
+            <p class="re-text">Про тренинг «Вызов». Прошло несколько дней после тренинга. Я до сих пор испытываю противоречивые чувства. Шла я за конкретными упражнениями, методиками, какими-то «инструментами» для борьбы со скованностью и зажимами. Но получила нечто совсем другое... Точно могу сказать, что не зря, что интересно, что ново, необычно. Было и весело, и грустно, местами сумасшедше, но главное — душевно, искренне, открыто.</p>
           </div>
           <div class="re-footer">
             <span class="re-author-name">Участница тренинга</span>
@@ -1051,7 +1137,7 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
         </div>
         <div class="re-card">
           <div class="re-text-wrap">
-            <p class="re-text">Максим, привет! Пишу отзыв текстом. Я рада была побывать на тренинге, очень благодарна, что Максим пригласил меня. Идя на тренинг я не ставила себе конкретные цели и задачи. Хотела просто действовать по отклику. Удалось почувствовать себя в состоянии потока как в детстве, когда ты не думаешь о том, кто на тебя смотрит, что о тебе скажут. Когда ты просто есть и ты проявляешься в мир, просто играешь свою игру.</p>
+            <p class="re-text">Максим, привет! Пишу отзыв текстом. Я рада была побывать на тренинге, очень благодарна. Идя на тренинг я не ставила себе конкретные цели. Хотела просто действовать по отклику. Удалось почувствовать себя в состоянии потока как в детстве, когда ты не думаешь о том, кто на тебя смотрит, что о тебе скажут. Когда ты просто есть и проявляешься в мир, просто играешь свою игру.</p>
           </div>
           <div class="re-footer">
             <span class="re-author-name">Участница тренинга</span>
@@ -1077,7 +1163,7 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
       <div class="col-texts">
         <div class="re-card">
           <div class="re-text-wrap">
-            <p class="re-text">Здравствуйте Максим! Я когда вас услышала, точнее и увидела, и сразу для себя отметила, какой достойный человек на экране. То, о чём вы вещаете и то, как вы это транслируете, однозначно откликнется людям, столкнувшимся лично с теми или иными вопросами по жизни. Эти ситуации проживает каждый из нас, но не каждому дано это осознать. Однозначно буду следить за вашими работами.</p>
+            <p class="re-text">Здравствуйте Максим! Я когда вас услышала, точнее и увидела, сразу для себя отметила — какой достойный человек на экране. То, о чём вы вещаете и то, как вы это транслируете, однозначно откликнется людям, столкнувшимся лично с теми или иными вопросами по жизни. Эти ситуации проживает каждый из нас, но не каждому дано это осознать.</p>
           </div>
           <div class="re-footer">
             <span class="re-author-name">Участница тренинга</span>
@@ -1094,7 +1180,6 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -1102,15 +1187,17 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
 <!-- ═══ CTA ═══ -->
 <section class="cta" id="cta">
   <div class="wrap">
-    <div class="badge">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16h.19z"/></svg>
-      Записаться
+    <div class="section-head">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16h.19z"/></svg>
+        Записаться
+      </div>
+      <div class="heading h2">
+        <span class="h-onest">Готовы сделать</span>
+        <span class="h-cormorant">следующий шаг?</span>
+      </div>
+      <p class="lead">Напишите в Telegram или оставьте заявку — обсудим формат и выберем удобное время.</p>
     </div>
-    <div class="heading h2">
-      <span class="h-onest">Готовы сделать</span>
-      <span class="h-cormorant">следующий шаг?</span>
-    </div>
-    <p class="lead">Напишите в Telegram или оставьте заявку — обсудим формат и выберем удобное время.</p>
     <a href="https://payform.ru/tqcOOBV/" class="btn btn-primary">Занять место на тренинге</a>
   </div>
 </section>
@@ -1146,7 +1233,7 @@ footer p { font-size: 14px; font-weight: 400; color: var(--text-muted); letter-s
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
 <script>
-// ── Gallery Swiper (Point 4) ──────────────────────────────────
+// ── Gallery Swiper ──────────────────────────────────────────────
 var galSwiper = new Swiper('.gallery', {
   slidesPerView: 1.4,
   centeredSlides: true,
@@ -1162,7 +1249,7 @@ var galSwiper = new Swiper('.gallery', {
   }
 });
 
-// ── Video Modal — YouTube IFrame API ─────────────────────────
+// ── Video Modal — YouTube IFrame API ──────────────────────────
 var videoModal  = document.getElementById('videoModal');
 var videoBox    = document.getElementById('videoBox');
 var videoFrame  = document.getElementById('videoFrame');
@@ -1171,7 +1258,6 @@ var ytPlayer    = null;
 var ytApiReady  = false;
 var pendingId   = null;
 
-// Load YouTube IFrame API
 (function(){
   var s = document.createElement('script');
   s.src = 'https://www.youtube.com/iframe_api';
@@ -1195,52 +1281,41 @@ function _createPlayer(videoId) {
       onReady: function(e) {
         e.target.playVideo();
         modalUnmute.classList.add('visible');
-      },
-      onStateChange: function(e) {
-        if (e.data === YT.PlayerState.PLAYING && ytPlayer && !ytPlayer.isMuted()) {
-          modalUnmute.classList.remove('visible');
-        }
       }
     }
   });
 }
 
-function openVideoModal(el) {
-  var id    = el.dataset.videoId;
-  var ratio = el.dataset.ratio || '16/9';
-  if (!id) return;
+function openVideoModal(card) {
+  var videoId = card.getAttribute('data-video-id');
+  var ratio   = card.getAttribute('data-ratio') || '16/9';
   videoBox.setAttribute('data-ratio', ratio);
-  videoFrame.innerHTML = '';
-  modalUnmute.classList.remove('visible');
-  if (ytApiReady) { _createPlayer(id); } else { pendingId = id; }
   videoModal.classList.add('is-active');
   document.body.style.overflow = 'hidden';
+  modalUnmute.classList.remove('visible');
+
+  if (ytApiReady) { _createPlayer(videoId); }
+  else            { pendingId = videoId; }
 }
 
-function closeVideo() {
-  if (ytPlayer) { try { ytPlayer.destroy(); } catch(e) {} ytPlayer = null; }
-  videoFrame.innerHTML = '';
-  modalUnmute.classList.remove('visible');
+function closeVideoModal() {
   videoModal.classList.remove('is-active');
   document.body.style.overflow = '';
+  if (ytPlayer && ytPlayer.destroy) { ytPlayer.destroy(); ytPlayer = null; }
+  else { videoFrame.innerHTML = ''; }
+  modalUnmute.classList.remove('visible');
 }
 
+document.getElementById('modalClose').addEventListener('click', closeVideoModal);
+videoModal.addEventListener('click', function(e) { if (e.target === videoModal) closeVideoModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeVideoModal(); closeTextModal(); } });
+
 modalUnmute.addEventListener('click', function() {
-  if (ytPlayer) { ytPlayer.unMute(); ytPlayer.setVolume(100); }
+  if (ytPlayer && ytPlayer.unMute) { ytPlayer.unMute(); ytPlayer.setVolume(80); }
   modalUnmute.classList.remove('visible');
 });
 
-document.getElementById('modalClose').addEventListener('click', closeVideo);
-videoModal.addEventListener('click', function(e) { if (e.target === videoModal) closeVideo(); });
-
-// rv-card keyboard support
-document.querySelectorAll('.rv-card').forEach(function(card) {
-  card.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
-  });
-});
-
-// ── Text Review Modal ─────────────────────────────────────────
+// ── Text Review Modal ──────────────────────────────────────────
 var textModal = document.getElementById('textModal');
 var textModalBody = document.getElementById('textModalBody');
 
@@ -1253,14 +1328,9 @@ function closeTextModal() {
   textModal.classList.remove('is-active');
   document.body.style.overflow = '';
 }
+
 textModal.querySelector('.text-modal-close').addEventListener('click', closeTextModal);
 textModal.addEventListener('click', function(e) { if (e.target === textModal) closeTextModal(); });
-
-// ── Keyboard ──────────────────────────────────────────────────
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeVideo(); closeTextModal(); }
-});
 </script>
-
 </body>
 </html>

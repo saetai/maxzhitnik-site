@@ -810,27 +810,29 @@ section:not(.hero)::before {
 .price-section {
   background: #0A0808 !important;
   position: relative; overflow: hidden;
+  padding-top: 100px;
 }
-/* Зерно */
-.price-section::before {
+/* Фоновые градиенты + зерно */
+.price-bg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(75% 60% at 0% 100%, rgba(224,87,75,.55), transparent 70%),
+    radial-gradient(60% 50% at 100% 100%, rgba(240,200,185,.30), transparent 70%),
+    radial-gradient(40% 35% at 50% 55%, rgba(224,87,75,.18), transparent);
+}
+.price-bg::after {
   content: '';
   position: absolute; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px;
   mix-blend-mode: overlay;
-  pointer-events: none; z-index: 0; opacity: .10;
+  opacity: .10;
 }
 .price-glow-left {
-  position: absolute; bottom: 0; left: 0;
-  width: 70%; height: 75%;
-  background: radial-gradient(70% 60% at 0% 100%, rgba(224,87,75,.55) 0%, transparent 100%);
-  pointer-events: none; z-index: 0;
+  display: none;
 }
 .price-glow-right {
-  position: absolute; bottom: 0; right: 0;
-  width: 65%; height: 70%;
-  background: radial-gradient(60% 50% at 100% 100%, rgba(240,200,185,.30) 0%, transparent 100%);
-  pointer-events: none; z-index: 0;
+  display: none;
 }
 /* Grid сетка под кривой */
 .price-grid-bg {
@@ -2169,8 +2171,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
 <!-- ═══ 6. СТОИМОСТЬ ═══ -->
 <section id="price" class="price-section">
-  <div class="price-glow-left" aria-hidden="true"></div>
-  <div class="price-glow-right" aria-hidden="true"></div>
+  <div class="price-bg" aria-hidden="true"></div>
   <div class="price-grid-bg" aria-hidden="true"></div>
 
   <!-- Шар (HTML div, позиция через JS + resize) -->
@@ -2241,18 +2242,18 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
         <!-- Слой 1: внешнее свечение -->
         <path
-          d="M -100,240 C 200,255 400,320 620,290 C 790,265 882,148 1100,65 C 1280,0 1460,-55 1660,-95"
+          d="M -150,230 C 150,250 380,325 660,305 C 860,288 950,160 1130,70 C 1290,-5 1440,-80 1720,-230"
           fill="none" stroke="url(#sg-glow-grad)" stroke-width="42" stroke-linecap="round"
           filter="url(#sg-blur)"/>
 
         <!-- Слой 2: основная трубка -->
-        <path id="sg-path" class="s-curve-path" style="--dl:2750;stroke-dasharray:2750"
-          d="M -100,240 C 200,255 400,320 620,290 C 790,265 882,148 1100,65 C 1280,0 1460,-55 1660,-95"
+        <path id="sg-path" class="s-curve-path" style="--dl:2800;stroke-dasharray:2800"
+          d="M -150,230 C 150,250 380,325 660,305 C 860,288 950,160 1130,70 C 1290,-5 1440,-80 1720,-230"
           fill="none" stroke="url(#sg-main)" stroke-width="14" stroke-linecap="round"/>
 
-        <!-- Слой 3: мягкое ядро (размытое, без резкой белой полосы) -->
-        <path class="s-curve-path" style="--dl:2750;stroke-dasharray:2750"
-          d="M -100,240 C 200,255 400,320 620,290 C 790,265 882,148 1100,65 C 1280,0 1460,-55 1660,-95"
+        <!-- Слой 3: мягкое ядро -->
+        <path class="s-curve-path" style="--dl:2800;stroke-dasharray:2800"
+          d="M -150,230 C 150,250 380,325 660,305 C 860,288 950,160 1130,70 C 1290,-5 1440,-80 1720,-230"
           fill="none" stroke="url(#sg-core-soft)" stroke-width="6" stroke-linecap="round"
           filter="url(#sg-core-f)"/>
       </svg>
@@ -2283,18 +2284,18 @@ footer p { font-size: 14px; color: var(--text-muted); }
           </radialGradient>
         </defs>
         <!-- Outer glow -->
-        <path d="M -30,155 C 60,165 130,205 220,190 C 290,176 330,120 390,80 C 420,62 435,48 450,28"
+        <path d="M -40,148 C 60,162 140,202 235,188 C 312,174 358,110 430,58 C 460,36 490,10 520,-30"
           fill="none" stroke="rgba(224,87,75,.25)" stroke-width="32" stroke-linecap="round" filter="url(#sgm-blur)"/>
         <!-- Mid tube -->
-        <path class="s-curve-path" style="--dl:700;stroke-dasharray:700"
-          d="M -30,155 C 60,165 130,205 220,190 C 290,176 330,120 390,80 C 420,62 435,48 450,28"
+        <path class="s-curve-path" style="--dl:720;stroke-dasharray:720"
+          d="M -40,148 C 60,162 140,202 235,188 C 312,174 358,110 430,58 C 460,36 490,10 520,-30"
           fill="none" stroke="url(#sgm-main)" stroke-width="10" stroke-linecap="round"/>
         <!-- Core -->
-        <path class="s-curve-path" style="--dl:700;stroke-dasharray:700"
-          d="M -30,155 C 60,165 130,205 220,190 C 290,176 330,120 390,80 C 420,62 435,48 450,28"
+        <path class="s-curve-path" style="--dl:720;stroke-dasharray:720"
+          d="M -40,148 C 60,162 140,202 235,188 C 312,174 358,110 430,58 C 460,36 490,10 520,-30"
           fill="none" stroke="url(#sgm-core)" stroke-width="3" stroke-linecap="round"/>
         <!-- Ball mobile -->
-        <g id="sgm-ball" transform="translate(222,190)" opacity="0">
+        <g id="sgm-ball" transform="translate(237,188)" opacity="0">
           <circle r="15" fill="url(#sgm-ball-fill)" filter="url(#sgm-ball-f)"/>
           <circle r="5"  cx="-5" cy="-6" fill="rgba(255,255,255,.9)"/>
         </g>

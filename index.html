@@ -334,10 +334,19 @@ section:not(.hero)::before {
   position: relative;
   top: auto; left: auto; transform: none;
   width: 100%;
-  margin-top: 48px;
-  padding: 36px 0 64px;
+  margin-top: 40px;
+  padding: 92px 0 92px;
   overflow: hidden;
   z-index: 1;
+}
+/* Терракотовое пятно за центральной карточкой */
+.reel-scene::after {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px; height: 600px;
+  background: radial-gradient(closest-side, rgba(224,87,75,.45), transparent);
+  z-index: 0; pointer-events: none;
 }
 /* Аудитория (сидящие зрители) */
 .hero-audience {
@@ -348,35 +357,29 @@ section:not(.hero)::before {
 
 .reel-vline {
   position: absolute; left: 50%; top: 0; bottom: 0;
-  width: 1px; transform: translateX(-50%);
+  width: 2px; transform: translateX(-50%);
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(224,87,75,.45) 15%,
-    rgba(224,87,75,.65) 45%,
-    rgba(224,87,75,.45) 85%,
+    rgba(224,87,75,.70) 15%,
+    rgba(224,87,75,.90) 45%,
+    rgba(224,87,75,.70) 85%,
     transparent 100%);
+  box-shadow: 0 0 10px rgba(224,87,75,.75), 0 0 24px rgba(224,87,75,.40);
   pointer-events: none; z-index: -1;
-}
-.reel-vline::after {
-  content: '';
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  width: 80px; height: 260px; border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(224,87,75,.35) 0%, transparent 70%);
-  filter: blur(24px);
 }
 
 .reel {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   position: relative; z-index: 1;
 }
 
 .reel-card {
   flex-shrink: 0;
-  width: 196px; height: 284px; /* 9:13 */
-  border-radius: 18px;
+  width: 220px; height: 319px; /* 9:13 */
+  border-radius: 10px;
   overflow: hidden;
   position: relative;
   border: 1px solid rgba(255,220,215,.06);
@@ -392,11 +395,8 @@ section:not(.hero)::before {
 .reel-card:hover .reel-inner { transform: scale(1.04); }
 
 .reel-card.rc-c {
-  border-color: rgba(224,87,75,.5);
-  box-shadow:
-    0 20px 40px rgba(0,0,0,.5),
-    0 0 50px rgba(224,87,75,.45),
-    0 0 110px rgba(224,87,75,.22);
+  border-color: rgba(224,87,75,.45);
+  box-shadow: 0 0 40px rgba(224,87,75,.35), 0 16px 40px rgba(0,0,0,.5);
   z-index: 2;
 }
 .reel-card.rc-c .reel-inner {
@@ -407,14 +407,14 @@ section:not(.hero)::before {
 .reel-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:1; filter: grayscale(1) brightness(.8); }
 .reel-card.rc-c .reel-video { filter: grayscale(1) brightness(1.1); }
 
-/* Вогнутая лента: крайние карточки самые большие */
-.reel-card.rc-3l { transform: perspective(900px) rotateY(44deg) scale(1.24); opacity: .86; }
-.reel-card.rc-2l { transform: perspective(900px) rotateY(26deg) scale(1.05); opacity: .88; }
-.reel-card.rc-1l { transform: perspective(900px) rotateY(13deg) scale(0.88); opacity: .80; }
-.reel-card.rc-c  { transform: scale(0.74);                                   opacity: .66; }
-.reel-card.rc-1r { transform: perspective(900px) rotateY(-13deg) scale(0.88); opacity: .80; }
-.reel-card.rc-2r { transform: perspective(900px) rotateY(-26deg) scale(1.05); opacity: .88; }
-.reel-card.rc-3r { transform: perspective(900px) rotateY(-44deg) scale(1.24); opacity: .86; }
+/* Вогнутая лента: крайние ~480px, к центру меньше, центральная ≥ соседних */
+.reel-card.rc-3l { transform: perspective(1200px) rotateY(42deg) scale(1.50); opacity: .90; }
+.reel-card.rc-2l { transform: perspective(1200px) rotateY(25deg) scale(1.19); opacity: .92; }
+.reel-card.rc-1l { transform: perspective(1200px) rotateY(12deg) scale(0.89); opacity: .85; }
+.reel-card.rc-c  { transform: scale(0.97);                                    opacity: .95; }
+.reel-card.rc-1r { transform: perspective(1200px) rotateY(-12deg) scale(0.89); opacity: .85; }
+.reel-card.rc-2r { transform: perspective(1200px) rotateY(-25deg) scale(1.19); opacity: .92; }
+.reel-card.rc-3r { transform: perspective(1200px) rotateY(-42deg) scale(1.50); opacity: .90; }
 
 /* Текст/кнопка hero выше ленты */
 .hero-center { z-index: 5; }
@@ -1314,7 +1314,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-center { width: 100%; }
   .reel { overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 24px; gap: 12px; }
   .reel::-webkit-scrollbar { display: none; }
-  .reel-card { width: 154px; height: 224px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; }
+  .reel-card { width: 160px; height: 232px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; border-radius: 10px; }
   .reel-card.rc-c { box-shadow: 0 0 20px rgba(224,87,75,.25), 0 10px 30px rgba(0,0,0,.5); }
 
   /* полоса «по итогу»: колонкой, по центру, горизонтальные разделители */
@@ -1451,7 +1451,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <!-- clip_4.mp4: заменить на реальное видео от клиента -->
         </video>
-        <div class="reel-inner" style="background-image:url('assets/training2.jpg');background-position:45% top;"></div>
+        <div class="reel-inner" style="background-image:url('assets/2B3A9543.jpg');background-size:280%;background-position:55% 0%;"></div>
       </div>
 
       <div class="reel-card rc-1r">

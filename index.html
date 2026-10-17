@@ -138,23 +138,23 @@ nav {
   margin-top: 4px;
 }
 
-/* Hero заголовок — полная яркость, без затухания */
+/* Hero заголовок: 1-я строка — полная яркость; 2-я строка Cormorant — затухающий градиент */
 .hero .h-onest {
   background: none !important;
   -webkit-background-clip: unset !important; background-clip: unset !important;
   color: var(--text) !important;
 }
 .hero .h-cormorant {
-  background: none !important;
-  -webkit-background-clip: unset !important; background-clip: unset !important;
-  color: rgba(246,237,234,.52) !important;
+  background: linear-gradient(180deg, rgba(246,237,234,.62) 0%, rgba(246,237,234,.22) 100%) !important;
+  -webkit-background-clip: text !important; background-clip: text !important;
+  color: transparent !important;
 }
 
 /* 11.1 Размеры: H1 64px, H2 48–52px */
 .h1 .h-onest     { font-size: 64px; line-height: 1.08; }
-.h1 .h-cormorant { font-size: 64px; line-height: 1.05; }
+.h1 .h-cormorant { font-size: 71px; line-height: 1.05; }
 .h2 .h-onest     { font-size: 52px; line-height: 1.12; }
-.h2 .h-cormorant { font-size: 56px; line-height: 1.08; }
+.h2 .h-cormorant { font-size: 58px; line-height: 1.08; }
 
 .lead {
   font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 400;
@@ -251,7 +251,7 @@ section:not(.hero)::before {
   padding-top: calc(80px + 36px);
   padding-bottom: 0;
   position: relative;
-  display: flex; align-items: flex-start;
+  display: flex; flex-direction: column; align-items: stretch;
   overflow: hidden;
 }
 /* Hero bottom fade into next section */
@@ -328,11 +328,11 @@ section:not(.hero)::before {
 
 /* ── ВИДЕО-ЛЕНТА ── */
 .reel-scene {
-  position: absolute;
-  top: 44vh;
-  left: 50%; transform: translateX(-50%);
-  width: 100vw;
-  padding: 36px 0 72px;
+  position: relative;
+  top: auto; left: auto; transform: none;
+  width: 100%;
+  margin-top: 48px;
+  padding: 36px 0 0;
   overflow: hidden;
   z-index: 1;
 }
@@ -388,17 +388,20 @@ section:not(.hero)::before {
 .reel-card:hover .reel-inner { transform: scale(1.04); }
 
 .reel-card.rc-c {
-  border-color: rgba(224,87,75,.15);
-  box-shadow: 0 20px 40px rgba(0,0,0,.5);
+  border-color: rgba(224,87,75,.28);
+  box-shadow: 0 20px 40px rgba(0,0,0,.5), 0 0 40px rgba(224,87,75,.18);
   z-index: 2;
 }
-/* Крайние справа — цветные, остальные ч/б */
-.reel-card.rc-2r .reel-inner, .reel-card.rc-3r .reel-inner { filter: none; }
-.reel-card:not(.rc-2r):not(.rc-3r) .reel-inner { filter: grayscale(1) brightness(.65); }
+.reel-card.rc-c .reel-inner {
+  box-shadow: inset 0 0 60px rgba(224,87,75,.12);
+}
+/* Центральная + правые — цветные, остальные ч/б */
+.reel-card.rc-c .reel-inner, .reel-card.rc-2r .reel-inner, .reel-card.rc-3r .reel-inner { filter: none; }
+.reel-card:not(.rc-c):not(.rc-2r):not(.rc-3r) .reel-inner { filter: grayscale(1) brightness(.65); }
 /* Видео в карточках */
 .reel-video { width:100%; height:100%; object-fit:cover; display:block; }
-.reel-card.rc-2r .reel-video, .reel-card.rc-3r .reel-video { filter: none; }
-.reel-card:not(.rc-2r):not(.rc-3r) .reel-video { filter: grayscale(1) brightness(.65); }
+.reel-card.rc-c .reel-video, .reel-card.rc-2r .reel-video, .reel-card.rc-3r .reel-video { filter: none; }
+.reel-card:not(.rc-c):not(.rc-2r):not(.rc-3r) .reel-video { filter: grayscale(1) brightness(.65); }
 
 /* Вогнутая лента: крайние карточки самые большие */
 .reel-card.rc-3l { transform: perspective(900px) rotateY(44deg) scale(1.24); opacity: .86; }
@@ -412,21 +415,23 @@ section:not(.hero)::before {
 /* Текст/кнопка hero выше ленты */
 .hero-center { z-index: 5; }
 
-/* 16.1 Тёмная ghost-кнопка hero */
+/* 16.1 Тёмная ghost-кнопка hero с терракотовой обводкой */
 .btn-hero {
   background: rgba(14,11,11,.60);
   color: var(--text);
-  border: 1px solid rgba(246,237,234,.22);
+  border: 1px solid var(--accent);
   border-radius: 28px;
   backdrop-filter: blur(10px);
   padding: 14px 34px;
   font-size: 15px; font-family: 'Manrope', sans-serif; font-weight: 500;
   text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-  cursor: pointer; transition: background .25s, border-color .25s;
+  cursor: pointer; transition: background .25s, border-color .25s, box-shadow .25s;
+  box-shadow: 0 0 12px rgba(224,87,75,.35), 0 0 28px rgba(224,87,75,.15);
 }
 .btn-hero:hover {
   background: rgba(14,11,11,.85);
-  border-color: rgba(246,237,234,.38);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(224,87,75,.55), 0 0 44px rgba(224,87,75,.25);
 }
 
 /* 16.1 Терракотовая черта перед кнопкой */
@@ -444,7 +449,7 @@ section:not(.hero)::before {
 }
 .hero-features {
   display: flex; align-items: flex-start; justify-content: center;
-  gap: 72px; padding: 48px 0 64px;
+  gap: 72px; padding: 36px 0 64px;
   width: 100%; position: relative;
 }
 .hf-sep { width: 1px; height: 36px; background: rgba(255,220,215,.12); flex-shrink: 0; display: none; }
@@ -859,22 +864,45 @@ section:not(.hero)::before {
 .price-what-text {
   font-size: 15px; color: rgba(246,237,234,.5); line-height: 1.65; max-width: 560px;
 }
-.btn-price-cta {
-  border: 1.5px solid rgba(224,87,75,.6); color: var(--text); background: transparent;
-  padding: 16px 40px; border-radius: 12px;
-  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
-  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 0 20px rgba(224,87,75,.12), inset 0 0 30px rgba(224,87,75,.04);
-  transition: background .25s, color .25s, box-shadow .25s;
+/* Тарифные карточки */
+.price-tariffs {
+  display: flex; gap: 16px; justify-content: center; width: 100%; margin-top: 8px;
 }
-.btn-price-cta:hover {
-  background: var(--accent); color: #fff;
-  box-shadow: 0 0 30px rgba(224,87,75,.5), 0 0 60px rgba(224,87,75,.25);
+.tariff-card {
+  flex: 1; max-width: 300px;
+  background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px; padding: 28px 20px;
+  text-align: center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 8px 32px rgba(0,0,0,.4);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
-.price-links { font-size: 13px; color: rgba(246,237,234,.38); }
-.price-links a { color: rgba(246,237,234,.38); text-decoration: underline; text-underline-offset: 3px; transition: color .2s; }
-.price-links a:hover { color: rgba(246,237,234,.65); }
+.tariff-card-title { font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); }
+.tariff-card-sub { font-family: 'Manrope', sans-serif; font-size: 13px; color: var(--text-muted); }
+.tariff-card-price {
+  font-family: 'Onest', sans-serif; font-size: 30px; font-weight: 200;
+  color: var(--text); margin: 10px 0 14px; line-height: 1;
+}
+.tariff-btn {
+  width: 100%; display: inline-flex; align-items: center; justify-content: center;
+  padding: 13px 20px; border-radius: 10px;
+  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500;
+  text-decoration: none; cursor: pointer;
+  transition: background .25s, box-shadow .25s, border-color .25s, transform .2s;
+}
+.tariff-btn-primary {
+  background: var(--accent); color: #fff; border: none;
+  box-shadow: 0 0 18px rgba(224,87,75,.4), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.tariff-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 28px rgba(224,87,75,.6); }
+.tariff-btn-outline {
+  background: transparent; color: var(--text); border: 1.5px solid rgba(224,87,75,.5);
+}
+.tariff-btn-outline:hover { border-color: var(--accent); background: rgba(224,87,75,.08); }
+.tariff-btn-ghost {
+  background: transparent; color: rgba(246,237,234,.55); border: 1px solid rgba(255,220,215,.12);
+}
+.tariff-btn-ghost:hover { border-color: rgba(255,220,215,.25); color: var(--text); }
 
 /* ── РАЗДЕЛ 7: КТО ВЕДЁТ ── */
 .trainer-card {
@@ -1258,9 +1286,9 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
   /* 11.1 мобайл: H1 34px, H2 30px */
   .h1 .h-onest     { font-size: 34px; }
-  .h1 .h-cormorant { font-size: 36px; white-space: normal; word-break: break-word; }
+  .h1 .h-cormorant { font-size: 38px; white-space: normal; word-break: break-word; }
   .h2 .h-onest     { font-size: 30px; }
-  .h2 .h-cormorant { font-size: 34px; }
+  .h2 .h-cormorant { font-size: 33px; }
   .lead { font-size: 16px; }
 
   /* мобайл hero: текстовый блок не выходит за края */
@@ -1311,6 +1339,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .price-rub { font-size: 48px; }
   .price-s-curve-svg-desktop { display: none; }
   .price-s-curve-svg-mobile  { display: block; }
+  .price-tariffs { flex-direction: column; align-items: center; }
+  .tariff-card { max-width: 400px; width: 100%; }
 
   .trainer-card { aspect-ratio: auto; min-height: 500px; }
   .trainer-photo-wrap { width: 100%; height: 300px; position: relative; }
@@ -1376,7 +1406,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
     <div class="heading h1">
       <span class="h-onest">Вызов 7.0</span>
-      <span class="h-onest" style="background:linear-gradient(180deg,rgba(246,237,234,.62) 0%,rgba(246,237,234,.22) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;">сильные роли и диалог</span>
+      <span class="h-cormorant">сильные роли и диалог</span>
     </div>
 
     <p class="lead" style="margin-top:20px;">
@@ -1420,7 +1450,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <source src="assets/video/clip_4.mp4" type="video/mp4">
         </video>
-        <div class="reel-inner" style="background-image:url('assets/IKZ10140.jpg')"></div>
+        <div class="reel-inner" style="background-image:url('assets/2B3A9543.jpg');background-position:center top;"></div>
       </div>
 
       <div class="reel-card rc-1r">
@@ -1434,7 +1464,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <source src="assets/video/clip_6.mp4" type="video/mp4">
         </video>
-        <div class="reel-inner" style="background-image:url('assets/2B3A9543.jpg')"></div>
+        <div class="reel-inner" style="background-image:url('assets/IKZ10140.jpg')"></div>
       </div>
 
       <div class="reel-card rc-3r">
@@ -1447,31 +1477,29 @@ footer p { font-size: 14px; color: var(--text-muted); }
     </div>
   </div>
 
-
-
-</section>
-
-<!-- Полоса «по итогу» — 3 результата тренинга -->
-<div class="hero-features-band">
-  <div class="wrap">
-    <div class="hero-features">
-      <div class="hf-item">
-        <span class="hf-title">Раскроете в себе<br>сильные роли</span>
-        <span class="hf-desc">Перестанете «сжиматься» в ключевые моменты</span>
-      </div>
-      <div class="hf-sep"></div>
-      <div class="hf-item">
-        <span class="hf-title">Научитесь управлять<br>диалогом</span>
-        <span class="hf-desc">Влияние, границы, уверенный голос</span>
-      </div>
-      <div class="hf-sep"></div>
-      <div class="hf-item">
-        <span class="hf-title">Изменения остаются<br>надолго</span>
-        <span class="hf-desc">Не два дня практики, а новый способ быть собой</span>
+  <!-- Полоса «по итогу» — 3 результата тренинга (внутри hero) -->
+  <div class="hero-features-band">
+    <div class="wrap">
+      <div class="hero-features">
+        <div class="hf-item">
+          <span class="hf-title">Раскроете в себе<br>сильные роли</span>
+          <span class="hf-desc">Перестанете «сжиматься» в ключевые моменты</span>
+        </div>
+        <div class="hf-sep"></div>
+        <div class="hf-item">
+          <span class="hf-title">Научитесь управлять<br>диалогом</span>
+          <span class="hf-desc">Влияние, границы, уверенный голос</span>
+        </div>
+        <div class="hf-sep"></div>
+        <div class="hf-item">
+          <span class="hf-title">Изменения остаются<br>надолго</span>
+          <span class="hf-desc">Не два дня практики, а новый способ быть собой</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+</section>
 
 <!-- ═══ 2. КОМУ ПОЛЕЗЕН — 2 ряда × 3 с цифрами ═══ -->
 <section id="forwho" class="section-grid">
@@ -1488,7 +1516,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Кому полезен</span>
-        <span class="h-onest">этот тренинг</span>
+        <span class="h-cormorant">этот тренинг</span>
       </div>
       <p class="lead">Тренинг подходит тем, кто чувствует внутренний потенциал, но в нужный момент теряет уверенность и свободу проявляться.</p>
     </div>
@@ -1878,7 +1906,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
             </div>
             <div class="heading h2">
               <span class="h-onest">В чём суть</span>
-              <span class="h-onest">метода</span>
+              <span class="h-cormorant">метода</span>
             </div>
             <p class="lead">Метод Stage-Psy Fusion объединяет актёрские техники и глубинную психологию. Работаете не над «маской», а над настоящими изменениями.</p>
           </div>
@@ -1925,7 +1953,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Два дня</span>
-        <span class="h-onest">практики и трансформации</span>
+        <span class="h-cormorant">практики и трансформации</span>
       </div>
       <p class="lead">Каждый день — это завершённый блок практик. Первый строит внутреннюю опору, второй выводит её в живое взаимодействие.</p>
     </div>
@@ -2009,7 +2037,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Какие изменения будут</span>
-        <span class="h-onest">в жизни после тренинга</span>
+        <span class="h-cormorant">в жизни после тренинга</span>
       </div>
       <p class="lead">Уверенность, которая останется с вами — не только на два дня, а как новый способ быть собой.</p>
     </div>
@@ -2183,12 +2211,26 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="price-below-curve">
       <h3 class="price-what-h3">Что входит в тренинг</h3>
       <p class="price-what-text">2 дня практики · психологические и телесные упражнения · актёрские техники · работа в группе · ответы тренера на ваши реальные ситуации<!-- TODO: текст от Максима --></p>
-      <a href="#pay-full" class="btn-price-cta">Записаться →<!-- TODO: ссылка --></a>
-      <p class="price-links">
-        <a href="#pay-prepay">Внести предоплату 3 000 ₽<!-- TODO --></a>
-        &nbsp;·&nbsp;
-        <a href="#telegram">Задать вопрос в Telegram<!-- TODO --></a>
-      </p>
+      <div class="price-tariffs">
+        <div class="tariff-card">
+          <div class="tariff-card-title">Оплатить полностью</div>
+          <div class="tariff-card-sub">Вся стоимость сейчас</div>
+          <div class="tariff-card-price">20 000 ₽</div>
+          <a href="#pay-full" class="tariff-btn tariff-btn-primary">Записаться →<!-- TODO: ссылка --></a>
+        </div>
+        <div class="tariff-card">
+          <div class="tariff-card-title">Внести предоплату</div>
+          <div class="tariff-card-sub">Остаток — на месте</div>
+          <div class="tariff-card-price">3 000 ₽</div>
+          <a href="#pay-prepay" class="tariff-btn tariff-btn-outline">Внести предоплату<!-- TODO --></a>
+        </div>
+        <div class="tariff-card">
+          <div class="tariff-card-title">Задать вопрос</div>
+          <div class="tariff-card-sub">Расскажем подробнее</div>
+          <div class="tariff-card-price">Telegram</div>
+          <a href="#telegram" class="tariff-btn tariff-btn-ghost">Написать в Telegram<!-- TODO --></a>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -2214,7 +2256,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Кто ведёт</span>
-        <span class="h-onest">тренинг</span>
+        <span class="h-cormorant">тренинг</span>
       </div>
       <p class="lead">17 лет на сцене и в кабинете психолога — Максим знает, что мешает людям быть собой в полную силу.</p>
     </div>
@@ -2288,7 +2330,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
             <span class="av-plus">+</span>
           </span>
         </span>
-        <span class="h-onest">участники тренинга</span>
+        <span class="h-cormorant">участники тренинга</span>
       </div>
       <p class="lead">Более 500 человек прошли «Вызов». Вот что они говорят.</p>
     </div>

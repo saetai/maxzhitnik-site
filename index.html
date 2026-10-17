@@ -811,15 +811,16 @@ section:not(.hero)::before {
 .price-glow-left {
   position: absolute; bottom: 0; left: 0;
   width: 65%; height: 70%;
-  background: radial-gradient(ellipse at 0% 100%, rgba(224,87,75,.45) 0%, transparent 60%);
+  background: radial-gradient(60% 50% at 0% 100%, rgba(224,87,75,.58) 0%, transparent 100%);
   pointer-events: none; z-index: 0;
 }
 .price-glow-right {
   position: absolute; bottom: 0; right: 0;
-  width: 55%; height: 60%;
-  background: radial-gradient(ellipse at 100% 100%, rgba(240,140,115,.35) 0%, transparent 60%);
+  width: 60%; height: 65%;
+  background: radial-gradient(55% 45% at 100% 100%, rgba(246,190,170,.40) 0%, transparent 100%);
   pointer-events: none; z-index: 0;
 }
+.price-s-curve-svg-mobile { display: none; }
 /* Маленькая подпись + стрелка */
 .price-label {
   font-family: 'Manrope', sans-serif; font-size: 14px; color: rgba(246,237,234,.5);
@@ -1308,6 +1309,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
   .price-num-big { font-size: 72px; }
   .price-rub { font-size: 48px; }
+  .price-s-curve-svg-desktop { display: none; }
+  .price-s-curve-svg-mobile  { display: block; }
 
   .trainer-card { aspect-ratio: auto; min-height: 500px; }
   .trainer-photo-wrap { width: 100%; height: 300px; position: relative; }
@@ -2106,38 +2109,73 @@ footer p { font-size: 14px; color: var(--text-muted); }
       20 000 <span class="price-rub">₽</span>
     </div>
 
-    <!-- S-кривая (десктоп) -->
+    <!-- S-кривая (десктоп + мобайл) -->
     <div class="price-s-curve-wrap">
+      <!-- Desktop -->
       <svg class="price-s-curve-svg-desktop" viewBox="0 0 1120 240" preserveAspectRatio="none" overflow="visible">
         <defs>
+          <!-- Gradient: left darker terracotta → right bright/warm -->
           <linearGradient id="s-curve-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#F2A08F"/>
-            <stop offset="100%" stop-color="#E0574B"/>
+            <stop offset="0%"   stop-color="rgba(224,87,75,.5)"/>
+            <stop offset="100%" stop-color="#F6B4A4"/>
           </linearGradient>
-          <filter id="s-curve-glow" x="-20%" y="-60%" width="140%" height="220%">
-            <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="rgba(224,87,75,.85)"/>
-            <feDropShadow dx="0" dy="0" stdDeviation="24" flood-color="rgba(224,87,75,.45)"/>
+          <!-- Glow: pure blur, large userSpaceOnUse bounds, no clipping -->
+          <filter id="s-glow-blur" filterUnits="userSpaceOnUse" x="-200" y="-120" width="1720" height="480">
+            <feGaussianBlur stdDeviation="10"/>
           </filter>
-          <filter id="s-ball-glow" x="-100%" y="-100%" width="300%" height="300%">
-            <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="rgba(224,87,75,1)"/>
-            <feDropShadow dx="0" dy="0" stdDeviation="22" flood-color="rgba(224,87,75,.65)"/>
+          <!-- Ball: very large % bounds to prevent square clipping -->
+          <filter id="s-ball-glow" x="-500%" y="-500%" width="1100%" height="1100%">
+            <feDropShadow dx="0" dy="0" stdDeviation="8"  flood-color="rgba(246,180,160,.9)"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="24" flood-color="rgba(224,87,75,.65)"/>
           </filter>
-          <radialGradient id="ball-fill" cx="38%" cy="32%" r="62%">
-            <stop offset="0%" stop-color="#FFFFFF" stop-opacity=".95"/>
-            <stop offset="45%" stop-color="#F4C0A8" stop-opacity=".88"/>
-            <stop offset="100%" stop-color="#E0574B" stop-opacity=".75"/>
+          <radialGradient id="ball-fill" cx="35%" cy="30%" r="62%">
+            <stop offset="0%"   stop-color="#FFFFFF"/>
+            <stop offset="35%"  stop-color="#F6C9BE"/>
+            <stop offset="100%" stop-color="#E0574B" stop-opacity=".8"/>
           </radialGradient>
         </defs>
-        <!-- Свечение под кривой -->
-        <path d="M -20,200 C 120,220 260,230 420,175 C 560,125 660,55 840,35 C 980,18 1100,60 1160,52"
-              fill="none" stroke="rgba(224,87,75,.25)" stroke-width="20" filter="url(#s-curve-glow)"/>
-        <!-- Основная S-кривая -->
+        <!-- Glow path (blur only, thick, under main) -->
+        <path
+          d="M -120,132 C 60,165 260,196 440,158 C 590,125 680,60 840,36 C 980,16 1100,8 1260,-8"
+          fill="none" stroke="rgba(224,87,75,.65)" stroke-width="22" stroke-linecap="round"
+          filter="url(#s-glow-blur)" opacity=".45"/>
+        <!-- Main line: gradient, single clean tube -->
         <path class="s-curve-path" style="--dl:2200;stroke-dasharray:2200"
-              d="M -20,200 C 120,220 260,230 420,175 C 560,125 660,55 840,35 C 980,18 1100,60 1160,52"
-              fill="none" stroke="url(#s-curve-grad)" stroke-width="7" filter="url(#s-curve-glow)"/>
-        <!-- Шарик на точке перегиба -->
-        <circle class="s-curve-ball" cx="560" cy="110" r="14" fill="url(#ball-fill)" filter="url(#s-ball-glow)"/>
-        <circle class="s-curve-ball" cx="553" cy="103" r="4" fill="rgba(255,255,255,.55)"/>
+          d="M -120,132 C 60,165 260,196 440,158 C 590,125 680,60 840,36 C 980,16 1100,8 1260,-8"
+          fill="none" stroke="url(#s-curve-grad)" stroke-width="6" stroke-linecap="round"/>
+        <!-- Ball at inflection (~x=470, y=152 on the path) — NO square: large filter -->
+        <circle class="s-curve-ball" cx="468" cy="150" r="15" fill="url(#ball-fill)" filter="url(#s-ball-glow)"/>
+        <circle class="s-curve-ball" cx="461" cy="143" r="5"  fill="rgba(255,255,255,.75)"/>
+      </svg>
+
+      <!-- Mobile (390px): own path, also edge to edge -->
+      <svg class="price-s-curve-svg-mobile" viewBox="0 0 390 200" preserveAspectRatio="none" overflow="visible">
+        <defs>
+          <filter id="s-glow-blur-m" filterUnits="userSpaceOnUse" x="-80" y="-80" width="550" height="360">
+            <feGaussianBlur stdDeviation="8"/>
+          </filter>
+          <filter id="s-ball-glow-m" x="-500%" y="-500%" width="1100%" height="1100%">
+            <feDropShadow dx="0" dy="0" stdDeviation="6"  flood-color="rgba(246,180,160,.9)"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="18" flood-color="rgba(224,87,75,.6)"/>
+          </filter>
+          <radialGradient id="ball-fill-m" cx="35%" cy="30%" r="62%">
+            <stop offset="0%"   stop-color="#FFFFFF"/>
+            <stop offset="35%"  stop-color="#F6C9BE"/>
+            <stop offset="100%" stop-color="#E0574B" stop-opacity=".8"/>
+          </radialGradient>
+        </defs>
+        <!-- Mobile glow -->
+        <path
+          d="M -40,110 C 30,135 90,162 185,140 C 265,122 305,70 375,40 C 400,28 420,16 430,-5"
+          fill="none" stroke="rgba(224,87,75,.65)" stroke-width="18" stroke-linecap="round"
+          filter="url(#s-glow-blur-m)" opacity=".45"/>
+        <!-- Mobile main line -->
+        <path class="s-curve-path" style="--dl:800;stroke-dasharray:800"
+          d="M -40,110 C 30,135 90,162 185,140 C 265,122 305,70 375,40 C 400,28 420,16 430,-5"
+          fill="none" stroke="url(#s-curve-grad)" stroke-width="5" stroke-linecap="round"/>
+        <!-- Mobile ball -->
+        <circle class="s-curve-ball" cx="190" cy="138" r="12" fill="url(#ball-fill-m)" filter="url(#s-ball-glow-m)"/>
+        <circle class="s-curve-ball" cx="185" cy="133" r="4"  fill="rgba(255,255,255,.75)"/>
       </svg>
     </div>
 

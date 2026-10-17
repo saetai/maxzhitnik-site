@@ -6,7 +6,7 @@
 <title>Вызов 7.0 — Максим Житник</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Onest:wght@200;300;400&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Onest:wght@200;300;400&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -132,29 +132,32 @@ nav {
 }
 .h-cormorant {
   display: block;
-  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
-  background: linear-gradient(180deg, rgba(246,237,234,.52) 0%, rgba(246,237,234,.22) 100%);
+  font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+  background: linear-gradient(180deg, rgba(246,237,234,.55) 0%, rgba(246,237,234,.22) 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
   margin-top: 4px;
 }
 
-/* Hero заголовок: 1-я строка — полная яркость; 2-я строка Cormorant — затухающий градиент */
+/* Hero заголовок: 1-я строка — полная яркость; 2-я строка Playfair — затухающий градиент */
 .hero .h-onest {
+  font-weight: 300 !important;
   background: none !important;
   -webkit-background-clip: unset !important; background-clip: unset !important;
   color: var(--text) !important;
+  text-align: center;
 }
 .hero .h-cormorant {
   background: linear-gradient(180deg, rgba(246,237,234,.62) 0%, rgba(246,237,234,.22) 100%) !important;
   -webkit-background-clip: text !important; background-clip: text !important;
   color: transparent !important;
+  text-align: center;
 }
 
 /* 11.1 Размеры: H1 64px, H2 48–52px */
 .h1 .h-onest     { font-size: 64px; line-height: 1.08; }
-.h1 .h-cormorant { font-size: 71px; line-height: 1.05; }
+.h1 .h-cormorant { font-size: 64px; line-height: 1.08; }
 .h2 .h-onest     { font-size: 52px; line-height: 1.12; }
-.h2 .h-cormorant { font-size: 58px; line-height: 1.08; }
+.h2 .h-cormorant { font-size: 52px; line-height: 1.12; }
 
 .lead {
   font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 400;
@@ -395,13 +398,17 @@ section:not(.hero)::before {
 .reel-card.rc-c .reel-inner {
   box-shadow: inset 0 0 60px rgba(224,87,75,.12);
 }
-/* Центральная + правые — цветные, остальные ч/б */
-.reel-card.rc-c .reel-inner, .reel-card.rc-2r .reel-inner, .reel-card.rc-3r .reel-inner { filter: none; }
-.reel-card:not(.rc-c):not(.rc-2r):not(.rc-3r) .reel-inner { filter: grayscale(1) brightness(.65); }
+/* Градиент ч/б → цвет слева направо */
+.reel-card.rc-3l .reel-inner, .reel-card.rc-2l .reel-inner { filter: grayscale(1) brightness(.65); }
+.reel-card.rc-1l .reel-inner { filter: grayscale(.5) brightness(.80); }
+.reel-card.rc-c  .reel-inner { filter: none; }
+.reel-card.rc-1r .reel-inner, .reel-card.rc-2r .reel-inner, .reel-card.rc-3r .reel-inner { filter: saturate(.85); }
 /* Видео в карточках */
 .reel-video { width:100%; height:100%; object-fit:cover; display:block; }
-.reel-card.rc-c .reel-video, .reel-card.rc-2r .reel-video, .reel-card.rc-3r .reel-video { filter: none; }
-.reel-card:not(.rc-c):not(.rc-2r):not(.rc-3r) .reel-video { filter: grayscale(1) brightness(.65); }
+.reel-card.rc-3l .reel-video, .reel-card.rc-2l .reel-video { filter: grayscale(1) brightness(.65); }
+.reel-card.rc-1l .reel-video { filter: grayscale(.5) brightness(.80); }
+.reel-card.rc-c .reel-video { filter: none; }
+.reel-card.rc-1r .reel-video, .reel-card.rc-2r .reel-video, .reel-card.rc-3r .reel-video { filter: saturate(.85); }
 
 /* Вогнутая лента: крайние карточки самые большие */
 .reel-card.rc-3l { transform: perspective(900px) rotateY(44deg) scale(1.24); opacity: .86; }
@@ -417,21 +424,19 @@ section:not(.hero)::before {
 
 /* 16.1 Тёмная ghost-кнопка hero с терракотовой обводкой */
 .btn-hero {
-  background: rgba(14,11,11,.60);
-  color: var(--text);
-  border: 1px solid var(--accent);
-  border-radius: 28px;
-  backdrop-filter: blur(10px);
-  padding: 14px 34px;
+  background: #E0574B;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 28px;
   font-size: 15px; font-family: 'Manrope', sans-serif; font-weight: 500;
   text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-  cursor: pointer; transition: background .25s, border-color .25s, box-shadow .25s;
-  box-shadow: 0 0 12px rgba(224,87,75,.35), 0 0 28px rgba(224,87,75,.15);
+  cursor: pointer; transition: box-shadow .25s, transform .2s;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 8px 28px rgba(224,87,75,.45), 0 0 60px rgba(224,87,75,.25);
 }
 .btn-hero:hover {
-  background: rgba(14,11,11,.85);
-  border-color: var(--accent);
-  box-shadow: 0 0 20px rgba(224,87,75,.55), 0 0 44px rgba(224,87,75,.25);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.18) inset, 0 8px 36px rgba(224,87,75,.65), 0 0 80px rgba(224,87,75,.4);
+  transform: translateY(-1px);
 }
 
 /* 16.1 Терракотовая черта перед кнопкой */
@@ -1284,11 +1289,11 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-halo { width: min(100vw, 600px); left: 50%; transform: translateX(-50%); }
   .hero-arcs { overflow: hidden; }
 
-  /* 11.1 мобайл: H1 34px, H2 30px */
-  .h1 .h-onest     { font-size: 34px; }
-  .h1 .h-cormorant { font-size: 38px; white-space: normal; word-break: break-word; }
+  /* 11.1 мобайл: H1 36px, H2 30px */
+  .h1 .h-onest     { font-size: 36px; }
+  .h1 .h-cormorant { font-size: 36px; white-space: normal; word-break: break-word; }
   .h2 .h-onest     { font-size: 30px; }
-  .h2 .h-cormorant { font-size: 33px; }
+  .h2 .h-cormorant { font-size: 30px; }
   .lead { font-size: 16px; }
 
   /* мобайл hero: текстовый блок не выходит за края */
@@ -1414,7 +1419,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
     </p>
 
     <div class="hero-btn-wrap">
-      <div class="hero-accent-bar" aria-hidden="true"></div>
       <a href="#program" class="btn btn-hero">Познакомиться с программой →</a>
     </div>
 
@@ -1429,49 +1433,49 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <source src="assets/video/clip_1.mp4" type="video/mp4">
         </video>
-        <div class="reel-inner" style="background-image:url('assets/group-CHPK3272.jpg')"></div>
+        <div class="reel-inner" style="background-image:url('assets/__352_group.jpg');background-position:center 20%;"></div>
       </div>
 
       <div class="reel-card rc-2l">
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <source src="assets/video/clip_2.mp4" type="video/mp4">
         </video>
-        <div class="reel-inner" style="background-image:url('assets/__352.jpg')"></div>
+        <div class="reel-inner" style="background-image:url('assets/training1.jpg');background-position:center 10%;"></div>
       </div>
 
       <div class="reel-card rc-1l">
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <source src="assets/video/clip_3.mp4" type="video/mp4">
         </video>
-        <div class="reel-inner" style="background-image:url('assets/IMG_7163.jpg')"></div>
+        <div class="reel-inner" style="background-image:url('assets/IMG_4236.jpg');background-position:center top;"></div>
       </div>
 
       <div class="reel-card rc-c">
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <source src="assets/video/clip_4.mp4" type="video/mp4">
         </video>
-        <div class="reel-inner" style="background-image:url('assets/2B3A9543.jpg');background-position:center top;"></div>
+        <div class="reel-inner" style="background-image:url('assets/2B3A9543.jpg');background-position:center 15%;"></div>
       </div>
 
       <div class="reel-card rc-1r">
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <source src="assets/video/clip_5.mp4" type="video/mp4">
         </video>
-        <div class="reel-inner" style="background-image:url('assets/group-CHPK3183.jpg')"></div>
+        <div class="reel-inner" style="background-image:url('assets/__38_2.jpg');background-position:40% 30%;"></div>
       </div>
 
       <div class="reel-card rc-2r">
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <source src="assets/video/clip_6.mp4" type="video/mp4">
         </video>
-        <div class="reel-inner" style="background-image:url('assets/IKZ10140.jpg')"></div>
+        <div class="reel-inner" style="background-image:url('assets/group-CHPK3183.jpg');background-position:center 5%;"></div>
       </div>
 
       <div class="reel-card rc-3r">
         <video class="reel-video" autoplay muted loop playsinline preload="none">
           <source src="assets/video/clip_7.mp4" type="video/mp4">
         </video>
-        <div class="reel-inner" style="background-image:url('assets/group-CHPK2995.jpg')"></div>
+        <div class="reel-inner" style="background-image:url('assets/group-CHPK2995.jpg');background-position:center center;"></div>
       </div>
 
     </div>

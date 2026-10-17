@@ -1141,6 +1141,59 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .inf-node, .s-curve-ball { opacity: 1 !important; }
 }
 
+/* ── 16.2 КОМУ ПОЛЕЗЕН: новая структура ── */
+.fw-ticker-wrap {
+  width: 100%; overflow: hidden; position: relative;
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 10px 0; margin-bottom: 64px;
+}
+.fw-ticker-wrap::before, .fw-ticker-wrap::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+}
+.fw-ticker-wrap::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+.fw-ticker-wrap::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+.fw-ticker { display: flex; white-space: nowrap; animation: fw-ticker-move 28s linear infinite; }
+.fw-ticker-text {
+  font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 500;
+  letter-spacing: .08em; color: rgba(246,237,234,.52);
+  text-transform: uppercase; padding-right: 32px; flex-shrink: 0;
+}
+@keyframes fw-ticker-move {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) { .fw-ticker { animation: none; } }
+
+.fw-row-block { margin-bottom: 52px; }
+.fw-nums-clip {
+  height: 62px; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+}
+.fw-num-big {
+  font-family: 'Onest', sans-serif; font-weight: 300; font-size: 112px;
+  line-height: .94; letter-spacing: -.03em;
+  background: linear-gradient(180deg, #E0574B 0%, rgba(168,52,58,.55) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  display: block; user-select: none;
+}
+.fw-cut-line {
+  height: 1px; background: rgba(255,255,255,.12); margin-bottom: 20px;
+}
+.fw-cards-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+}
+.fw-card-title {
+  font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 500;
+  color: var(--text); margin-bottom: 12px; line-height: 1.3;
+}
+.fw-card-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.fw-card-list li {
+  font-size: 13px; color: var(--text-muted); line-height: 1.5;
+  padding-left: 14px; position: relative;
+}
+.fw-card-list li::before { content: '·'; position: absolute; left: 0; color: rgba(224,87,75,.6); }
+
 /* ── МОБАЙЛ ── */
 @media (max-width: 960px) {
   nav { width: calc(100% - 32px); top: 12px; }
@@ -1190,6 +1243,9 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
   .forwho-row { grid-template-columns: 1fr; gap: 32px; }
   .forwho-row + .forwho-row { margin-top: 32px; }
+  .fw-cards-row { grid-template-columns: 1fr; gap: 24px; }
+  .fw-nums-clip { grid-template-columns: 1fr 1fr 1fr; height: 46px; }
+  .fw-num-big { font-size: 84px; }
 
   .method-layout { grid-template-columns: 1fr; }
   .method-outer { padding: 24px; }
@@ -1381,62 +1437,88 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <p class="lead">Тренинг подходит тем, кто чувствует внутренний потенциал, но в нужный момент теряет уверенность и свободу проявляться.</p>
     </div>
 
-    <div class="forwho-grid">
-      <!-- Ряд 1 -->
-      <div class="forwho-divider"></div>
-      <div class="forwho-row" style="padding-top:24px;">
-        <div class="forwho-item">
-          <span class="forwho-num">01</span>
-          <div class="forwho-icon-wrap">
-            <span class="forwho-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
-            <div class="forwho-title">Перфекционисты и контролёры</div>
-          </div>
-          <p class="forwho-text">Привыкли всё контролировать и перепроверять. Но от этого испытываете постоянное напряжение.</p>
+    <!-- Бегущая строка -->
+    <div class="fw-ticker-wrap" aria-hidden="true">
+      <div class="fw-ticker">
+        <span class="fw-ticker-text">ДЛЯ ТЕХ, КТО ЧУВСТВУЕТ ПОТЕНЦИАЛ, НО ТЕРЯЕТСЯ В ВАЖНЫЙ МОМЕНТ // ДЛЯ ТЕХ, КТО ХОЧЕТ БЫТЬ СОБОЙ В ПОЛНУЮ СИЛУ // ДЛЯ ТЕХ, КТО УСТАЛ СЖИМАТЬСЯ В КЛЮЧЕВЫЕ МОМЕНТЫ // ДЛЯ ТЕХ, КТО ВИДИТ ВОЗМОЖНОСТИ, НО СТОПОРИТСЯ СТРАХОМ // </span>
+        <span class="fw-ticker-text" aria-hidden="true">ДЛЯ ТЕХ, КТО ЧУВСТВУЕТ ПОТЕНЦИАЛ, НО ТЕРЯЕТСЯ В ВАЖНЫЙ МОМЕНТ // ДЛЯ ТЕХ, КТО ХОЧЕТ БЫТЬ СОБОЙ В ПОЛНУЮ СИЛУ // ДЛЯ ТЕХ, КТО УСТАЛ СЖИМАТЬСЯ В КЛЮЧЕВЫЕ МОМЕНТЫ // ДЛЯ ТЕХ, КТО ВИДИТ ВОЗМОЖНОСТИ, НО СТОПОРИТСЯ СТРАХОМ // </span>
+      </div>
+    </div>
+
+    <!-- Ряд 01–03: цифры наполовину спрятаны -->
+    <div class="fw-row-block">
+      <div class="fw-nums-clip">
+        <span class="fw-num-big">01</span>
+        <span class="fw-num-big">02</span>
+        <span class="fw-num-big">03</span>
+      </div>
+      <div class="fw-cut-line"></div>
+      <div class="fw-cards-row">
+        <div class="fw-card">
+          <h3 class="fw-card-title">Перфекционисты и контролёры</h3>
+          <ul class="fw-card-list">
+            <li>Привыкли всё контролировать и перепроверять</li>
+            <li>Испытывают постоянное напряжение от этого</li>
+            <li>Хотят расслабиться, но не получается</li>
+            <li>Теряются, когда план нарушается</li>
+          </ul>
         </div>
-        <div class="forwho-item">
-          <span class="forwho-num">02</span>
-          <div class="forwho-icon-wrap">
-            <span class="forwho-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span>
-            <div class="forwho-title">«Отличники» с зажатостью</div>
-          </div>
-          <p class="forwho-text">Делаете всё правильно, но чувствуете скованность и постоянно думаете о том, как выглядите.</p>
+        <div class="fw-card">
+          <h3 class="fw-card-title">«Отличники» с зажатостью</h3>
+          <ul class="fw-card-list">
+            <li>Делают всё правильно, но чувствуют скованность</li>
+            <li>Постоянно думают о том, как выглядят</li>
+            <li>Боятся осуждения и публичных ошибок</li>
+            <li>Не позволяют себе расслабиться в компании</li>
+          </ul>
         </div>
-        <div class="forwho-item">
-          <span class="forwho-num">03</span>
-          <div class="forwho-icon-wrap">
-            <span class="forwho-icon"><svg viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-1"/><path d="M4.72 4.72 3 3"/><path d="M3 21 13 11"/></svg></span>
-            <div class="forwho-title">Те, кто теряется на переговорах</div>
-          </div>
-          <p class="forwho-text">На сложных встречах или планёрках голос становится тише. Чувствуете скованность, теряете уверенность.</p>
+        <div class="fw-card">
+          <h3 class="fw-card-title">Те, кто теряется на переговорах</h3>
+          <ul class="fw-card-list">
+            <li>На встречах голос становится тише</li>
+            <li>Чувствуют скованность под давлением</li>
+            <li>Трудно отстаивать свою позицию</li>
+            <li>Позволяют продавливать себя на невыгодные условия</li>
+          </ul>
         </div>
       </div>
+    </div>
 
-      <!-- Ряд 2 -->
-      <div class="forwho-divider" style="margin-top:40px;"></div>
-      <div class="forwho-row" style="padding-top:24px;">
-        <div class="forwho-item">
-          <span class="forwho-num">04</span>
-          <div class="forwho-icon-wrap">
-            <span class="forwho-icon"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg></span>
-            <div class="forwho-title">Те, кто откладывает публичность</div>
-          </div>
-          <p class="forwho-text">Давно хотите вести блог, выступать, заниматься личным брендом — но из года в год откладываете.</p>
+    <!-- Ряд 04–06 -->
+    <div class="fw-row-block">
+      <div class="fw-nums-clip">
+        <span class="fw-num-big">04</span>
+        <span class="fw-num-big">05</span>
+        <span class="fw-num-big">06</span>
+      </div>
+      <div class="fw-cut-line"></div>
+      <div class="fw-cards-row">
+        <div class="fw-card">
+          <h3 class="fw-card-title">Те, кто откладывает публичность</h3>
+          <ul class="fw-card-list">
+            <li>Давно хотят вести блог или выступать</li>
+            <li>Откладывают «на потом» из года в год</li>
+            <li>Нет уверенности, что «я интересен»</li>
+            <li>Страх быть осмеянным или непонятым</li>
+          </ul>
         </div>
-        <div class="forwho-item">
-          <span class="forwho-num">05</span>
-          <div class="forwho-icon-wrap">
-            <span class="forwho-icon"><svg viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg></span>
-            <div class="forwho-title">«Скучные» (по их мнению)</div>
-          </div>
-          <p class="forwho-text">Считаете, что вы неинтересны и никого не привлечёте. Именно вам тренинг нужен сильнее всего.</p>
+        <div class="fw-card">
+          <h3 class="fw-card-title">«Скучные» (по собственному мнению)</h3>
+          <ul class="fw-card-list">
+            <li>Считают себя неинтересными собеседниками</li>
+            <li>Думают, что им «нечего сказать»</li>
+            <li>Завидуют тем, кто легко держится на людях</li>
+            <li>Именно им тренинг нужен сильнее всего</li>
+          </ul>
         </div>
-        <div class="forwho-item">
-          <span class="forwho-num">06</span>
-          <div class="forwho-icon-wrap">
-            <span class="forwho-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-            <div class="forwho-title">Лидеры с командой<!-- TODO: уточнить у клиента 6-й пункт --></div>
-          </div>
-          <p class="forwho-text">Руководители, которые хотят выстроить влияние без давления и научить команду открытой коммуникации.<!-- TODO --></p>
+        <div class="fw-card">
+          <h3 class="fw-card-title">Лидеры с командой<!-- TODO: уточнить 6-й пункт --></h3>
+          <ul class="fw-card-list">
+            <li>Хотят влиять без давления и страха</li>
+            <li>Строят коммуникацию в команде осознанно</li>
+            <li>Хотят, чтобы люди слышали их с первого слова</li>
+            <li>Ищут живого контакта, а не формальных схем<!-- TODO --></li>
+          </ul>
         </div>
       </div>
     </div>

@@ -260,7 +260,7 @@ section:not(.hero)::before {
   pointer-events: none;
 }
 .silhouette-img {
-  height: 70vh; width: auto;
+  height: 60vh; width: auto;
   object-fit: contain; object-position: bottom center;
   -webkit-mask-image: linear-gradient(to top, transparent 0%, black 12%);
   mask-image: linear-gradient(to top, transparent 0%, black 12%);
@@ -275,25 +275,27 @@ section:not(.hero)::before {
   z-index: 0;
 }
 
-/* ── ВАРИАНТ A — тонкая светлая кайма + мягкое тёплое свечение ── */
+/* ── ВАРИАНТ A — яркая оранжевая кайма по контуру + тёплое свечение ── */
 body[data-hero="a"] .silhouette-img {
-  filter: brightness(.22) contrast(1.4)
-    drop-shadow(0 0 1px rgba(255,230,200,.9))
-    drop-shadow(0 0 4px rgba(255,190,140,.8))
-    drop-shadow(0 0 12px rgba(240,130,80,.6))
-    drop-shadow(0 0 28px rgba(224,87,75,.4));
+  filter: brightness(.18) contrast(1.5)
+    drop-shadow(0 0 1px rgba(255,245,215,1))
+    drop-shadow(0 0 4px rgba(255,210,160,1))
+    drop-shadow(0 0 10px rgba(255,170,90,.95))
+    drop-shadow(0 0 22px rgba(240,120,55,.85))
+    drop-shadow(0 0 46px rgba(224,87,75,.65))
+    drop-shadow(0 0 80px rgba(200,60,30,.4));
 }
 body[data-hero="a"] .hero-spot {
-  width: 580px; height: 580px;
+  width: 620px; height: 620px;
   background: radial-gradient(circle,
-    rgba(230,110,55,.52)  0%,
-    rgba(210,80,40,.38)  28%,
-    rgba(180,55,20,.18)  52%,
+    rgba(240,120,50,.60)  0%,
+    rgba(220,85,40,.44)  28%,
+    rgba(190,55,20,.22)  52%,
     transparent          72%);
-  filter: blur(32px);
+  filter: blur(36px);
 }
 
-/* ── ВАРИАНТ B — чёрный силуэт на кремовом пятне ── */
+/* ── ВАРИАНТ B — чёрный силуэт на кремовом пятне, без каймы ── */
 body[data-hero="b"] .silhouette-img {
   filter: brightness(0) contrast(2);
 }
@@ -402,15 +404,16 @@ body[data-hero="b"] .hero-halo { opacity: 0; }
 /* Текст/кнопка hero выше ленты */
 .hero-center { z-index: 5; }
 
-/* ── 3 ФИЧИ ── */
+/* ── 3 ФИЧИ — отдельная полоса под hero ── */
+.hero-features-band {
+  background: var(--bg);
+  border-top: 1px solid rgba(255,220,215,.08);
+  position: relative; z-index: 10;
+}
 .hero-features {
   display: flex; align-items: center; justify-content: center;
-  gap: 40px;
-  padding: 40px 0 80px;
-  border-top: 1px solid rgba(255,220,215,.08);
-  width: 100vw; left: 50%; transform: translateX(-50%);
-  position: relative;
-  z-index: 5;
+  gap: 40px; padding: 40px 0 60px;
+  width: 100%; position: relative;
 }
 .hf-sep { width: 1px; height: 36px; background: rgba(255,220,215,.12); flex-shrink: 0; }
 .hf-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
@@ -527,7 +530,7 @@ body[data-hero="b"] .hero-halo { opacity: 0; }
 .mc-num svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.5; fill: none; opacity: .7; }
 .mc-title { font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
 .mc-text  { font-family: 'Manrope', sans-serif; font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
-.mc-infographic { position: relative; height: 60px; }
+/* mc-infographic height overridden below (90px) */
 
 /* 14.4 — 4 равноценных карточки метода со своими цветами */
 .method-card-v1 { --mc: #E0574B; }
@@ -544,6 +547,21 @@ body[data-hero="b"] .hero-halo { opacity: 0; }
 }
 
 .method-card .mc-num { color: var(--mc, rgba(255,255,255,.35)); }
+
+/* Свечение снизу карточки — нижняя треть окрашена цветом карточки */
+.method-card-v1::after, .method-card-v2::after, .method-card-v3::after, .method-card-v4::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 45%; border-radius: 0 0 20px 20px;
+  pointer-events: none; z-index: 0;
+}
+.method-card-v1::after { background: linear-gradient(to top, rgba(224,87,75,.55) 0%, rgba(224,87,75,.18) 50%, transparent 100%); }
+.method-card-v2::after { background: linear-gradient(to top, rgba(232,154,91,.55) 0%, rgba(232,154,91,.18) 50%, transparent 100%); }
+.method-card-v3::after { background: linear-gradient(to top, rgba(217,120,122,.55) 0%, rgba(217,120,122,.18) 50%, transparent 100%); }
+.method-card-v4::after { background: linear-gradient(to top, rgba(168,52,58,.55) 0%, rgba(168,52,58,.18) 50%, transparent 100%); }
+
+/* Инфографика в карточках метода — высота ~40% */
+.mc-infographic { position: relative; height: 90px; }
 .voice-text {
   font-family: 'Manrope', sans-serif; font-size: 14px; color: rgba(246,237,234,.6);
   line-height: 1.6; margin-bottom: 16px;
@@ -578,6 +596,36 @@ body[data-hero="b"] .hero-halo { opacity: 0; }
 
 /* SVG инфографика карточек */
 .mc-infographic svg { overflow: visible; }
+
+/* Анимации инфографики карточек 02–04 метода */
+@keyframes mc-ring-pulse {
+  0%, 100% { opacity: .18; }
+  50%       { opacity: .55; }
+}
+@keyframes mc-node-flow {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -20; }
+}
+@keyframes mc-dot-glow {
+  0%, 100% { opacity: .6; }
+  50%       { opacity: 1; }
+}
+@keyframes mc-line-draw {
+  0%, 20%  { stroke-dashoffset: 400; }
+  80%, 100% { stroke-dashoffset: 0; }
+}
+.mc-ring-outer { animation: mc-ring-pulse 3s ease-in-out infinite; }
+.mc-ring-mid   { animation: mc-ring-pulse 3s ease-in-out .6s infinite; }
+.mc-ring-inner { animation: mc-ring-pulse 2s ease-in-out 1.2s infinite; }
+.mc-node-line  { animation: mc-node-flow 2.5s linear infinite; }
+.mc-node-dot   { animation: mc-dot-glow 2s ease-in-out infinite; }
+.mc-scene-line { stroke-dasharray: 400; animation: mc-line-draw 4s ease-in-out infinite; }
+.mc-scene-dot  { animation: mc-dot-glow 2s ease-in-out .8s infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .mc-ring-outer, .mc-ring-mid, .mc-ring-inner,
+  .mc-node-line, .mc-node-dot,
+  .mc-scene-line, .mc-scene-dot { animation: none; }
+}
 
 /* ── РАЗДЕЛ 4: ПРОГРАММА — аккордеон ── */
 .accordion { display: flex; flex-direction: column; gap: 16px; width: 100%; }
@@ -1014,7 +1062,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .reel-card { width: 160px; height: 260px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; }
   .reel-card.rc-c { box-shadow: 0 0 30px rgba(224,87,75,.3), 0 20px 40px rgba(0,0,0,.5); }
 
-  .hero-features { gap: 24px; padding: 32px 24px 60px; }
+  .hero-features { gap: 24px; padding: 28px 24px 40px; flex-wrap: wrap; }
   .hf-sep { height: 24px; }
 
   .forwho-row { grid-template-columns: 1fr; gap: 32px; }
@@ -1176,7 +1224,12 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
     </div>
 
-    <!-- 3 фичи под лентой -->
+  </div>
+</section>
+
+<!-- Полоса «по итогу» — 3 результата тренинга -->
+<div class="hero-features-band">
+  <div class="wrap">
     <div class="hero-features">
       <div class="hf-item">
         <span class="hf-title">Раскроете в себе<br>сильные роли</span>
@@ -1189,13 +1242,12 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="hf-sep"></div>
       <div class="hf-item">
-        <span class="hf-title">Изменения остаются<br>надолго</span><!-- TODO уточнить 3-й пункт у клиента -->
+        <span class="hf-title">Изменения остаются<br>надолго</span>
         <span class="hf-desc">Не два дня практики, а новый способ быть собой</span>
       </div>
     </div>
-
   </div>
-</section>
+</div>
 
 <!-- ═══ 2. КОМУ ПОЛЕЗЕН — 2 ряда × 3 с цифрами ═══ -->
 <section id="forwho" class="section-grid">
@@ -1272,13 +1324,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="method-glow-spot"></div>
   </div>
   <div class="wrap">
-    <div class="section-head" style="align-items:flex-start;text-align:left;margin-bottom:40px;">
-      <div class="badge">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-        Метод Stage-Psy Fusion
-      </div>
-    </div>
-
     <div class="method-outer">
       <div class="method-layout">
 
@@ -1320,13 +1365,13 @@ footer p { font-size: 14px; color: var(--text-muted); }
               <div class="mc-title">Тело</div>
               <p class="mc-text">Снятие зажимов, устойчивость, присутствие, энергия — чтобы перестать «сжиматься» в моменте.</p>
               <div class="mc-infographic">
-                <svg viewBox="0 0 160 60" width="100%" height="60">
-                  <circle cx="80" cy="30" r="25" fill="none" stroke="rgba(246,237,234,.12)" stroke-width="1"/>
-                  <circle cx="80" cy="30" r="18" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-                  <circle cx="80" cy="30" r="10" fill="none" stroke="rgba(224,87,75,.4)" stroke-width="1.5" filter="url(#glow1)"/>
-                  <circle cx="80" cy="30" r="3" fill="rgba(224,87,75,.7)"/>
-                  <line x1="80" y1="0" x2="80" y2="60" stroke="rgba(246,237,234,.08)" stroke-width="1"/>
-                  <line x1="50" y1="30" x2="110" y2="30" stroke="rgba(246,237,234,.08)" stroke-width="1"/>
+                <svg viewBox="0 0 160 90" width="100%" height="90">
+                  <circle class="mc-ring-outer" cx="80" cy="45" r="38" fill="none" stroke="rgba(246,237,234,.14)" stroke-width="1"/>
+                  <circle class="mc-ring-mid"   cx="80" cy="45" r="27" fill="none" stroke="rgba(246,237,234,.22)" stroke-width="1"/>
+                  <circle class="mc-ring-inner" cx="80" cy="45" r="15" fill="none" stroke="rgba(232,154,91,.5)" stroke-width="1.5"/>
+                  <circle class="mc-node-dot"   cx="80" cy="45" r="4"  fill="rgba(232,154,91,.8)"/>
+                  <line x1="80" y1="4"  x2="80" y2="86" stroke="rgba(246,237,234,.07)" stroke-width="1"/>
+                  <line x1="38" y1="45" x2="122" y2="45" stroke="rgba(246,237,234,.07)" stroke-width="1"/>
                 </svg>
               </div>
             </div>
@@ -1340,13 +1385,16 @@ footer p { font-size: 14px; color: var(--text-muted); }
               <div class="mc-title">Взаимодействие</div>
               <p class="mc-text">Контакт, границы, импровизация — быть сильными и тёплыми одновременно.</p>
               <div class="mc-infographic">
-                <svg viewBox="0 0 160 60" width="100%" height="60">
-                  <circle cx="40" cy="30" r="12" fill="none" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
-                  <circle cx="120" cy="30" r="12" fill="none" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
-                  <line x1="52" y1="30" x2="108" y2="30" stroke="rgba(224,87,75,.5)" stroke-width="1" stroke-dasharray="4 3"/>
-                  <circle cx="40" cy="30" r="5" fill="rgba(246,237,234,.3)"/>
-                  <circle cx="120" cy="30" r="5" fill="rgba(246,237,234,.3)"/>
-                  <circle cx="80" cy="30" r="4" fill="rgba(224,87,75,.6)"/>
+                <svg viewBox="0 0 160 90" width="100%" height="90">
+                  <circle cx="30"  cy="45" r="16" fill="none" stroke="rgba(246,237,234,.22)" stroke-width="1"/>
+                  <circle cx="130" cy="45" r="16" fill="none" stroke="rgba(246,237,234,.22)" stroke-width="1"/>
+                  <circle cx="80"  cy="20" r="10" fill="none" stroke="rgba(217,120,122,.4)"  stroke-width="1"/>
+                  <circle cx="80"  cy="70" r="10" fill="none" stroke="rgba(217,120,122,.4)"  stroke-width="1"/>
+                  <line class="mc-node-line" x1="46" y1="45" x2="114" y2="45" stroke="rgba(217,120,122,.6)" stroke-width="1.2" stroke-dasharray="6 4"/>
+                  <line x1="80" y1="30" x2="80" y2="60" stroke="rgba(217,120,122,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+                  <circle cx="30"  cy="45" r="6" fill="rgba(246,237,234,.3)"/>
+                  <circle cx="130" cy="45" r="6" fill="rgba(246,237,234,.3)"/>
+                  <circle class="mc-node-dot" cx="80" cy="45" r="5" fill="rgba(217,120,122,.8)"/>
                 </svg>
               </div>
             </div>
@@ -1360,11 +1408,18 @@ footer p { font-size: 14px; color: var(--text-muted); }
               <div class="mc-title">Сцена и импровизация<!-- TODO: уточнить название у клиента --></div>
               <p class="mc-text">Актёрские упражнения на сцене: роль, присутствие, реакция. Импровизация убирает страх ошибки.<!-- TODO --></p>
               <div class="mc-infographic">
-                <svg viewBox="0 0 160 60" width="100%" height="60">
-                  <polyline points="10,50 40,20 70,40 100,15 130,35 155,10" fill="none" stroke="rgba(224,87,75,.6)" stroke-width="2"/>
-                  <circle cx="155" cy="10" r="4" fill="rgba(224,87,75,.8)" filter="url(#glow1)"/>
-                  <polyline points="10,50 40,20 70,40 100,15 130,35 155,10" fill="none" stroke="rgba(224,87,75,.2)" stroke-width="8"/>
-                  <defs><filter id="glow1"><feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="rgba(224,87,75,.8)"/></filter></defs>
+                <svg viewBox="0 0 160 90" width="100%" height="90">
+                  <defs>
+                    <filter id="glow1"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="rgba(168,52,58,.9)"/></filter>
+                    <filter id="glow2"><feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="rgba(168,52,58,.7)"/></filter>
+                  </defs>
+                  <!-- Ореол под линией -->
+                  <polyline points="8,78 38,50 68,66 98,36 128,55 156,18" fill="none" stroke="rgba(168,52,58,.15)" stroke-width="10"/>
+                  <!-- Основная линия — анимированная отрисовка -->
+                  <polyline class="mc-scene-line" points="8,78 38,50 68,66 98,36 128,55 156,18" fill="none" stroke="rgba(168,52,58,.75)" stroke-width="2" filter="url(#glow2)"/>
+                  <!-- Точка на конце -->
+                  <circle class="mc-scene-dot" cx="156" cy="18" r="5" fill="rgba(168,52,58,.9)" filter="url(#glow1)"/>
+                  <circle cx="156" cy="18" r="2.5" fill="#F6EDEA"/>
                 </svg>
               </div>
             </div>
@@ -1372,9 +1427,13 @@ footer p { font-size: 14px; color: var(--text-muted); }
           </div>
         </div>
 
-        <!-- Справа: заголовок + фото -->
+        <!-- Справа: плашка + заголовок + фото -->
         <div class="method-right">
           <div class="section-head" style="margin-bottom:24px;">
+            <div class="badge" style="margin-bottom:20px;">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+              Метод Stage-Psy Fusion
+            </div>
             <div class="heading h2">
               <span class="h-onest">В чём суть</span>
               <span class="h-cormorant">метода</span>
@@ -1512,12 +1571,12 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <div class="card-title">Больше смелости и решительности</div>
         <p class="card-text">Сможете легко делать то, что раньше откладывали и стеснялись, принимать сложные решения.</p>
-        <div style="margin-top:16px;height:72px;">
-          <svg viewBox="0 0 160 72" width="100%" height="72">
+        <div style="margin-top:16px;height:96px;">
+          <svg viewBox="0 0 160 96" width="100%" height="96">
             <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(224,87,75,.3)"/><stop offset="1" stop-color="transparent"/></linearGradient></defs>
-            <polyline points="0,60 32,44 64,30 96,18 128,10 160,4" fill="none" stroke="rgba(224,87,75,.7)" stroke-width="2"/>
-            <polygon points="0,60 32,44 64,30 96,18 128,10 160,4 160,72 0,72" fill="url(#ga)"/>
-            <circle cx="160" cy="4" r="4" fill="rgba(224,87,75,.9)" filter="url(#glow1)"/>
+            <polyline points="0,82 32,62 64,46 96,30 128,18 160,6" fill="none" stroke="rgba(224,87,75,.7)" stroke-width="2"/>
+            <polygon points="0,82 32,62 64,46 96,30 128,18 160,6 160,96 0,96" fill="url(#ga)"/>
+            <circle cx="160" cy="6" r="4" fill="rgba(224,87,75,.9)" filter="url(#glow1)"/>
           </svg>
         </div>
       </div>
@@ -1526,15 +1585,15 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
         <div class="card-title">Свобода проявляться</div>
         <p class="card-text">Снимать видео, органично общаться, выступать, проводить планёрки — всё будет естественно и уверенно.</p>
-        <div style="margin-top:16px;height:72px;">
-          <svg viewBox="0 0 160 72" width="100%" height="72">
-            <circle cx="80" cy="36" r="30" fill="none" stroke="rgba(246,237,234,.12)" stroke-width="1"/>
-            <circle cx="80" cy="36" r="20" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle cx="80" cy="36" r="10" fill="none" stroke="rgba(224,87,75,.5)" stroke-width="1.5"/>
-            <circle cx="80" cy="6" r="3" fill="rgba(224,87,75,.6)"/>
-            <circle cx="110" cy="36" r="3" fill="rgba(224,87,75,.4)"/>
-            <circle cx="80" cy="66" r="3" fill="rgba(224,87,75,.4)"/>
-            <circle cx="50" cy="36" r="3" fill="rgba(224,87,75,.4)"/>
+        <div style="margin-top:16px;height:96px;">
+          <svg viewBox="0 0 160 96" width="100%" height="96">
+            <circle cx="80" cy="48" r="38" fill="none" stroke="rgba(246,237,234,.12)" stroke-width="1"/>
+            <circle cx="80" cy="48" r="26" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
+            <circle cx="80" cy="48" r="13" fill="none" stroke="rgba(224,87,75,.5)" stroke-width="1.5"/>
+            <circle cx="80" cy="10" r="3" fill="rgba(224,87,75,.6)"/>
+            <circle cx="118" cy="48" r="3" fill="rgba(224,87,75,.4)"/>
+            <circle cx="80" cy="86" r="3" fill="rgba(224,87,75,.4)"/>
+            <circle cx="42" cy="48" r="3" fill="rgba(224,87,75,.4)"/>
           </svg>
         </div>
       </div>
@@ -1543,16 +1602,16 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="card-title">Уверенность в переговорах</div>
         <p class="card-text">Чувствуете себя увереннее в переговорах и не даёте «продавливать» себя на невыгодные условия.</p>
-        <div style="margin-top:16px;height:72px;">
-          <svg viewBox="0 0 160 72" width="100%" height="72">
-            <circle cx="40" cy="36" r="14" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle cx="120" cy="36" r="14" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle cx="80" cy="36" r="16" fill="none" stroke="rgba(224,87,75,.4)" stroke-width="1.5" filter="url(#glow1)"/>
-            <line x1="54" y1="36" x2="64" y2="36" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="96" y1="36" x2="106" y2="36" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <circle cx="40" cy="36" r="5" fill="rgba(246,237,234,.25)"/>
-            <circle cx="120" cy="36" r="5" fill="rgba(246,237,234,.25)"/>
-            <circle cx="80" cy="36" r="6" fill="rgba(224,87,75,.7)"/>
+        <div style="margin-top:16px;height:96px;">
+          <svg viewBox="0 0 160 96" width="100%" height="96">
+            <circle cx="40" cy="48" r="18" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
+            <circle cx="120" cy="48" r="18" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
+            <circle cx="80" cy="48" r="20" fill="none" stroke="rgba(224,87,75,.4)" stroke-width="1.5" filter="url(#glow1)"/>
+            <line x1="58" y1="48" x2="60" y2="48" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="100" y1="48" x2="102" y2="48" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <circle cx="40" cy="48" r="6" fill="rgba(246,237,234,.25)"/>
+            <circle cx="120" cy="48" r="6" fill="rgba(246,237,234,.25)"/>
+            <circle cx="80" cy="48" r="7" fill="rgba(224,87,75,.7)"/>
           </svg>
         </div>
       </div>
@@ -1561,17 +1620,17 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="card-title">Команда без конфликтов</div>
         <p class="card-text">Выстроите эффективную коммуникацию в команде без конфликтов, даже с разными поколениями.</p>
-        <div style="margin-top:16px;height:72px;">
-          <svg viewBox="0 0 160 72" width="100%" height="72">
-            <circle cx="30" cy="58" r="8" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
-            <circle cx="80" cy="14" r="11" fill="rgba(224,87,75,.25)" stroke="rgba(224,87,75,.5)" stroke-width="1"/>
-            <circle cx="130" cy="58" r="8" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
-            <circle cx="55" cy="58" r="6" fill="rgba(246,237,234,.15)"/>
-            <circle cx="105" cy="58" r="6" fill="rgba(246,237,234,.15)"/>
-            <line x1="30" y1="50" x2="74" y2="24" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="130" y1="50" x2="86" y2="24" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="55" y1="52" x2="76" y2="24" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="105" y1="52" x2="84" y2="24" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
+        <div style="margin-top:16px;height:96px;">
+          <svg viewBox="0 0 160 96" width="100%" height="96">
+            <circle cx="30" cy="74" r="10" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
+            <circle cx="80" cy="18" r="14" fill="rgba(224,87,75,.25)" stroke="rgba(224,87,75,.5)" stroke-width="1"/>
+            <circle cx="130" cy="74" r="10" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
+            <circle cx="55" cy="74" r="7" fill="rgba(246,237,234,.15)"/>
+            <circle cx="105" cy="74" r="7" fill="rgba(246,237,234,.15)"/>
+            <line x1="30" y1="64" x2="70" y2="32" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="130" y1="64" x2="90" y2="32" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="55" y1="67" x2="74" y2="32" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="105" y1="67" x2="86" y2="32" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
           </svg>
         </div>
       </div>
@@ -1677,10 +1736,9 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="trainer-card">
       <!-- Фото слева с crossfade -->
       <div class="trainer-photo-wrap">
-        <img class="trainer-photo" src="assets/IKZ09936.jpg" alt="Максим Житник" id="tp0">
+        <img class="trainer-photo" src="assets/2B3A9543.jpg" alt="Максим Житник" id="tp0">
         <img class="trainer-photo is-hidden" src="assets/__70_2.jpg" alt="Максим Житник" id="tp1">
-        <img class="trainer-photo is-hidden" src="assets/IMG_7163.jpg" alt="Максим Житник" id="tp2">
-        <img class="trainer-photo is-hidden" src="assets/2B3A9543.jpg" alt="Максим Житник" id="tp3">
+        <img class="trainer-photo is-hidden" src="assets/IKZ09936.jpg" alt="Максим Житник" id="tp2">
       </div>
       <!-- Текст справа -->
       <div class="trainer-info">

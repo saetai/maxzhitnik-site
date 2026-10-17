@@ -127,7 +127,7 @@ nav {
   display: block;
   font-family: 'Onest', sans-serif; font-weight: 200;
   letter-spacing: -0.01em;
-  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 35%, rgba(246,237,234,.28) 100%);
+  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 35%, rgba(246,237,234,.45) 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .h-cormorant {
@@ -446,7 +446,7 @@ section:not(.hero)::before {
 
 /* ── 3 ФИЧИ — отдельная полоса под hero ── */
 .hero-features-band {
-  background: var(--bg);
+  background: transparent;
   position: relative; z-index: 10;
 }
 .hero-features {
@@ -455,11 +455,15 @@ section:not(.hero)::before {
   width: 100%; position: relative;
 }
 .hf-sep { width: 1px; height: 36px; background: rgba(255,220,215,.12); flex-shrink: 0; display: none; }
-.hf-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.hf-title { font-family: 'Onest', sans-serif; font-size: 22px; font-weight: 300; color: var(--text); letter-spacing: -.01em; line-height: 1.2; text-align: center; }
-.hf-desc  { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; color: var(--text-muted); text-align: center; }
+.hf-item { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.hf-title { font-family: 'Onest', sans-serif; font-size: 22px; font-weight: 300; color: rgba(246,237,234,.9); letter-spacing: -.01em; line-height: 1.25; text-align: center; }
+.hf-desc  { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; color: rgba(246,237,234,.5); text-align: center; margin-top: 10px; }
 
 /* ── РАЗДЕЛ 2: КОМУ ПОЛЕЗЕН — сетка с цифрами ── */
+#forwho {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 200px);
+  mask-image: linear-gradient(to bottom, transparent, #000 200px);
+}
 .forwho-grid {
   width: 100%;
   display: flex; flex-direction: column; gap: 0;
@@ -806,6 +810,8 @@ section:not(.hero)::before {
 .price-section {
   background: #0A0808 !important;
   position: relative; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 200px, #000 calc(100% - 180px), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 200px, #000 calc(100% - 180px), transparent);
 }
 /* Зерно */
 .price-section::before {
@@ -843,7 +849,7 @@ section:not(.hero)::before {
 .price-num-big {
   font-family: 'Onest', sans-serif; font-weight: 200; font-size: 140px;
   line-height: 1; letter-spacing: -.02em;
-  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 35%, rgba(246,237,234,.28) 100%);
+  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 35%, rgba(246,237,234,.45) 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
   margin-bottom: 0; position: relative; z-index: 1;
 }
@@ -1320,7 +1326,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
   /* полоса «по итогу»: колонкой, по центру, горизонтальные разделители */
   .hero-features { flex-direction: column; align-items: center; text-align: center; gap: 0; padding: 28px 24px 40px; flex-wrap: nowrap; }
   .hf-item { width: 100%; align-items: center; text-align: center; padding: 20px 0; }
-  .hf-title { font-size: 17px; font-weight: 500; }
+  .hf-title { font-size: 18px; }
   .hf-desc { font-size: 14px; }
   /* вертикальные разделители скрыть, горизонтальные показать */
   .hf-sep { width: 60%; height: 1px; background: rgba(255,255,255,.08); align-self: center; }

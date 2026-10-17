@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero-эскиз Г — живая эмоция: жестикулирует — Максим Житник</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Onest:wght@200;300;400&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── ЦВЕТА ── */
+:root {
+  --bg:          #0E0B0B;
+  --bg-deep:     #0A0808;
+  --surface:     #171212;
+  --surface-2:   #1E1717;
+  --border:      rgba(255,220,215,.08);
+  --text:        #F6EDEA;
+  --text-muted:  rgba(246,237,234,.62);
+  --accent:      #E0574B;
+  --accent-soft: #C2463C;
+  --glow:        rgba(224,87,75,.45);
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* ── НАВБАР ── */
+nav {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 100; width: calc(100% - 48px); max-width: 1120px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(23,18,18,.85);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+}
+.nav-logo { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; color: var(--text); text-decoration: none; }
+.nav-btn {
+  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500;
+  color: #fff; text-decoration: none;
+  padding: 10px 20px; border-radius: 10px;
+  background: var(--accent);
+  border: 1px solid rgba(255,220,215,.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 0 14px rgba(224,87,75,.40),
+    0 0 32px rgba(224,87,75,.18);
+  transition: box-shadow .25s, transform .2s;
+}
+.nav-btn:hover {
+  color: #fff; transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 0 20px rgba(224,87,75,.55),
+    0 0 48px rgba(224,87,75,.28);
+}
+
+/* ── КНОПКИ ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 18px 32px; border-radius: 12px;
+  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: box-shadow .25s, transform .2s;
+  position: relative;
+}
+.btn-primary {
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid rgba(255,220,215,.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 0 0 2px rgba(224,87,75,.18),
+    0 0 24px 4px rgba(224,87,75,.45),
+    0 0 60px 10px rgba(224,87,75,.25);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.45),
+    0 0 0 3px rgba(224,87,75,.25),
+    0 0 32px 6px rgba(224,87,75,.6),
+    0 0 90px 16px rgba(224,87,75,.35);
+}
+.btn-secondary {
+  background: transparent; color: var(--text-muted);
+  border: 1px solid rgba(224,87,75,.4);
+}
+.btn-secondary:hover { color: var(--text); border-color: rgba(224,87,75,.7); }
+.btn-ghost {
+  background: transparent; color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { color: var(--text); border-color: rgba(255,220,215,.2); }
+.btn-full { width: 100%; }
+
+/* ── БЕЙДЖ ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 13px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; line-height: 1;
+  color: rgba(246,237,234,.75);
+}
+.badge svg { width: 13px; height: 13px; flex-shrink: 0; opacity: .65; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+/* ── 0.4 СИСТЕМА ЗАГОЛОВКОВ ── */
+.heading { line-height: 1.05; }
+
+/* 11.1 Затухание строк */
+.h-onest {
+  display: block;
+  font-family: 'Onest', sans-serif; font-weight: 200;
+  letter-spacing: -0.01em;
+  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 35%, rgba(246,237,234,.45) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.h-cormorant {
+  display: block;
+  font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+  background: linear-gradient(180deg, rgba(246,237,234,.55) 0%, rgba(246,237,234,.22) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-top: 4px;
+}
+
+/* Hero заголовок: 1-я строка — полная яркость; 2-я строка Playfair — затухающий градиент */
+.hero .h-onest {
+  font-weight: 300 !important;
+  background: none !important;
+  -webkit-background-clip: unset !important; background-clip: unset !important;
+  color: var(--text) !important;
+  text-align: center;
+}
+.hero .h-cormorant {
+  background: linear-gradient(180deg, rgba(246,237,234,.62) 0%, rgba(246,237,234,.22) 100%) !important;
+  -webkit-background-clip: text !important; background-clip: text !important;
+  color: transparent !important;
+  text-align: center;
+}
+
+/* 11.1 Размеры: H1 64px, H2 48–52px */
+.h1 .h-onest     { font-size: 64px; line-height: 1.08; }
+.h1 .h-cormorant { font-size: 64px; line-height: 1.08; }
+.h2 .h-onest     { font-size: 52px; line-height: 1.12; }
+.h2 .h-cormorant { font-size: 52px; line-height: 1.12; }
+
+.lead {
+  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 400;
+  line-height: 1.65; color: rgba(246,237,234,.5);
+}
+
+/* ── СЕКЦИЯ-ШАПКА ── */
+.section-head {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: 0;
+  margin-bottom: 72px; width: 100%;
+}
+.section-head .badge  { margin-bottom: 24px; }
+.section-head .heading { margin-bottom: 20px; }
+.section-head .lead   { max-width: 520px; text-align: center; }
+
+/* ── 0.6 КАРТОЧКИ — матовое стекло ── */
+.card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px;
+  padding: 28px;
+  text-align: left;
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 0 0 1px rgba(224,87,75,.04),
+    0 0 40px rgba(224,87,75,.06),
+    0 30px 60px rgba(0,0,0,.45);
+  transition: border-color .3s, box-shadow .3s;
+}
+.card:hover {
+  border-color: rgba(255,255,255,.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 0 0 1px rgba(224,87,75,.08),
+    0 0 50px rgba(224,87,75,.12),
+    0 30px 60px rgba(0,0,0,.5);
+}
+.card .icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+  display: grid; place-items: center;
+  margin-bottom: 20px;
+}
+.card .icon svg { width: 18px; height: 18px; stroke: var(--text); stroke-width: 1.5; fill: none; }
+.card-title {
+  font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 500;
+  line-height: 1.3; color: var(--text); margin-bottom: 8px;
+}
+.card-text {
+  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 400;
+  line-height: 1.65; color: var(--text-muted);
+}
+
+/* ── СЕКЦИИ ── */
+section {
+  padding: 180px 0;
+  position: relative;
+  background: var(--bg);
+}
+section .wrap { display: flex; flex-direction: column; position: relative; z-index: 1; }
+
+section:not(.hero)::before {
+  content: '';
+  position: absolute; left: 0; right: 0; top: 0;
+  height: 500px; pointer-events: none; z-index: 0;
+  background: radial-gradient(700px 500px at 50% -5%, rgba(224,87,75,.08), transparent 70%);
+}
+
+/* ── 0.7 СЕКЦИИ С ФОН-ФОТО ── */
+.section-bg-photo {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  filter: grayscale(1) blur(3px);
+  opacity: .14;
+  pointer-events: none; z-index: 0;
+}
+.section-bg-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right, var(--bg) 0%, transparent 20%, transparent 80%, var(--bg) 100%),
+    linear-gradient(to bottom, var(--bg) 0%, transparent 15%, transparent 85%, var(--bg) 100%);
+}
+
+/* ── 1. ГЕРОЙ ── */
+.hero {
+  min-height: 100vh;
+  padding-top: calc(80px + 36px);
+  padding-bottom: 0;
+  position: relative;
+  display: flex; flex-direction: column; align-items: stretch;
+  overflow: hidden;
+}
+/* Hero bottom fade into next section */
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  z-index: 4; pointer-events: none;
+}
+
+.hero-halo {
+  position: absolute; left: 50%; top: -60px; transform: translateX(-50%);
+  width: 1000px; height: 700px; border-radius: 50%; pointer-events: none; z-index: 0;
+  background: radial-gradient(closest-side,
+    rgba(224,87,75,.18) 0%,
+    rgba(194,70,60,.08) 50%,
+    transparent 100%);
+  filter: blur(50px);
+}
+
+/* Силуэт Максима (11.3) */
+.hero-silhouette {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  z-index: 2; /* под текстом(5), над лентой(1) */
+  pointer-events: none;
+}
+.silhouette-img {
+  height: 60vh; width: auto;
+  object-fit: contain; object-position: bottom center;
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 12%);
+  mask-image: linear-gradient(to top, transparent 0%, black 12%);
+  position: relative; z-index: 2;
+}
+/* Пятно за силуэтом: z-index:0 — под лентой(1) и силуэтом(2) */
+.hero-spot {
+  position: absolute;
+  /* голова полуростового силуэта ≈ 28-32% сверху hero */
+  top: 27%; left: 50%; transform: translateX(-50%);
+  border-radius: 50%; pointer-events: none;
+  z-index: 0;
+}
+
+/* ── СИЛУЭТ — яркая оранжевая кайма по контуру + тёплое свечение ── */
+.silhouette-img {
+  filter: brightness(.45) contrast(1.1)
+    drop-shadow(0 0 2px rgba(255,245,215,.9))
+    drop-shadow(0 0 6px rgba(255,210,160,.85))
+    drop-shadow(0 0 14px rgba(255,170,90,.75))
+    drop-shadow(0 0 28px rgba(240,120,55,.65))
+    drop-shadow(0 0 55px rgba(224,87,75,.50))
+    drop-shadow(0 0 90px rgba(200,60,30,.30));
+}
+.hero-spot {
+  width: 620px; height: 620px;
+  background: radial-gradient(circle,
+    rgba(240,120,50,.60)  0%,
+    rgba(220,85,40,.44)  28%,
+    rgba(190,55,20,.22)  52%,
+    transparent          72%);
+  filter: blur(36px);
+}
+
+.hero-center {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  position: relative; z-index: 5;
+  padding-bottom: 0;
+}
+.hero-center .badge   { margin-bottom: 24px; }
+.hero-center .heading { margin-bottom: 20px; }
+.hero-center .lead    { max-width: 500px; margin: 0 auto; }
+
+.hero-btn-wrap { margin-top: 36px; }
+
+/* ── ВИДЕО-ЛЕНТА ── */
+.reel-scene {
+  position: relative;
+  top: auto; left: auto; transform: none;
+  width: 100%;
+  margin-top: 40px;
+  padding: 92px 0 92px;
+  overflow: hidden;
+  z-index: 1;
+}
+/* Терракотовое пятно за центральной карточкой */
+.reel-scene::after {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px; height: 600px;
+  background: radial-gradient(closest-side, rgba(224,87,75,.45), transparent);
+  z-index: 0; pointer-events: none;
+}
+/* Аудитория (сидящие зрители) */
+.hero-audience {
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  z-index: 3; pointer-events: none;
+}
+.hero-audience svg { display: block; width: 100%; }
+
+.reel-vline {
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px; transform: translateX(-50%);
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(224,87,75,.70) 15%,
+    rgba(224,87,75,.90) 45%,
+    rgba(224,87,75,.70) 85%,
+    transparent 100%);
+  box-shadow: 0 0 10px rgba(224,87,75,.75), 0 0 24px rgba(224,87,75,.40);
+  pointer-events: none; z-index: -1;
+}
+
+.reel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: relative; z-index: 1;
+}
+
+.reel-card {
+  flex-shrink: 0;
+  width: 220px; height: 319px; /* 9:13 */
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255,220,215,.06);
+  transition: opacity .3s, transform .3s;
+}
+.reel-inner {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform .4s;
+  filter: grayscale(1) brightness(.8);
+  z-index: 0;
+}
+.reel-card:hover .reel-inner { transform: scale(1.04); }
+
+.reel-card.rc-c {
+  border-color: rgba(224,87,75,.45);
+  box-shadow: 0 0 40px rgba(224,87,75,.35), 0 16px 40px rgba(0,0,0,.5);
+  z-index: 2;
+}
+.reel-card.rc-c .reel-inner {
+  filter: grayscale(1) brightness(1.1);
+  box-shadow: inset 0 0 60px rgba(224,87,75,.18);
+}
+/* Видео в карточках */
+.reel-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:1; filter: grayscale(1) brightness(.8); }
+.reel-card.rc-c .reel-video { filter: grayscale(1) brightness(1.1); }
+
+/* Вогнутая лента: крайние ~480px, к центру меньше, центральная ≥ соседних */
+.reel-card.rc-3l { transform: perspective(1200px) rotateY(42deg) scale(1.50); opacity: .90; }
+.reel-card.rc-2l { transform: perspective(1200px) rotateY(25deg) scale(1.19); opacity: .92; }
+.reel-card.rc-1l { transform: perspective(1200px) rotateY(12deg) scale(0.89); opacity: .85; }
+.reel-card.rc-c  { transform: scale(0.97);                                    opacity: .95; }
+.reel-card.rc-1r { transform: perspective(1200px) rotateY(-12deg) scale(0.89); opacity: .85; }
+.reel-card.rc-2r { transform: perspective(1200px) rotateY(-25deg) scale(1.19); opacity: .92; }
+.reel-card.rc-3r { transform: perspective(1200px) rotateY(-42deg) scale(1.50); opacity: .90; }
+
+/* Текст/кнопка hero выше ленты */
+.hero-center { z-index: 5; }
+
+/* 16.1 Тёмная ghost-кнопка hero с терракотовой обводкой */
+.btn-hero {
+  background: #E0574B;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 28px;
+  font-size: 15px; font-family: 'Manrope', sans-serif; font-weight: 500;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  cursor: pointer; transition: box-shadow .25s, transform .2s;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 8px 28px rgba(224,87,75,.45), 0 0 60px rgba(224,87,75,.25);
+}
+.btn-hero:hover {
+  box-shadow: 0 0 0 1px rgba(255,255,255,.18) inset, 0 8px 36px rgba(224,87,75,.65), 0 0 80px rgba(224,87,75,.4);
+  transform: translateY(-1px);
+}
+
+/* 16.1 Терракотовая черта перед кнопкой */
+.hero-accent-bar {
+  width: 120px; height: 2px; border-radius: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 8px 3px rgba(224,87,75,.65), 0 0 22px rgba(224,87,75,.35);
+  margin: 0 auto 18px;
+}
+
+/* ── 3 ФИЧИ — отдельная полоса под hero ── */
+.hero-features-band {
+  background: transparent;
+  position: relative; z-index: 10;
+}
+.hero-features {
+  display: flex; align-items: flex-start; justify-content: center;
+  gap: 72px; padding: 36px 0 64px;
+  width: 100%; position: relative;
+}
+.hf-sep { width: 1px; height: 36px; background: rgba(255,220,215,.12); flex-shrink: 0; display: none; }
+.hf-item { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.hf-title { font-family: 'Onest', sans-serif; font-size: 22px; font-weight: 300; color: rgba(246,237,234,.9); letter-spacing: -.01em; line-height: 1.25; text-align: center; }
+.hf-desc  { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; color: rgba(246,237,234,.5); text-align: center; margin-top: 10px; }
+
+/* ── РАЗДЕЛ 2: КОМУ ПОЛЕЗЕН — сетка с цифрами ── */
+#forwho {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 200px);
+  mask-image: linear-gradient(to bottom, transparent, #000 200px);
+}
+.forwho-grid {
+  width: 100%;
+  display: flex; flex-direction: column; gap: 0;
+}
+.forwho-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+}
+.forwho-row + .forwho-row { margin-top: 48px; }
+.forwho-divider {
+  width: 100%; height: 1px;
+  background: rgba(255,255,255,.12);
+  margin-bottom: 0;
+  position: relative;
+}
+.forwho-item {
+  padding: 0 32px 0 0;
+  position: relative;
+}
+.forwho-num {
+  font-family: 'Onest', sans-serif; font-weight: 200;
+  font-size: 100px; line-height: .85;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(224,87,75,.5);
+  background: linear-gradient(180deg, rgba(224,87,75,.7) 0%, transparent 100%);
+  -webkit-background-clip: text; background-clip: text;
+  display: block;
+  margin-bottom: 16px;
+  margin-top: -8px; /* немного выше линии */
+  pointer-events: none;
+  user-select: none;
+}
+.forwho-title {
+  font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 500;
+  color: var(--text); margin-bottom: 8px; line-height: 1.3;
+}
+.forwho-text {
+  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 400;
+  color: var(--text-muted); line-height: 1.65;
+}
+
+/* ── РАЗДЕЛ 3: МЕТОД ── */
+.method-outer {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 30px 60px rgba(0,0,0,.4);
+  border-radius: 32px; padding: 48px;
+}
+.method-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px; align-items: start;
+}
+.method-left { display: flex; flex-direction: column; gap: 16px; }
+.method-right { display: flex; flex-direction: column; gap: 24px; }
+.method-right .section-head {
+  align-items: flex-start; text-align: left; margin-bottom: 0;
+}
+.method-right .section-head .lead { text-align: left; }
+
+/* Фото в методе */
+.method-photos { display: flex; flex-direction: column; gap: 10px; }
+.method-photo-main {
+  width: 100%; aspect-ratio: 16/10; border-radius: 16px; overflow: hidden;
+  position: relative; cursor: pointer;
+}
+.method-photo-main img { width:100%; height:100%; object-fit:cover; transition: transform .4s; }
+.method-photo-main:hover img { transform: scale(1.04); }
+.method-play-icon {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.3);
+}
+.method-play-icon span {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(224,87,75,.85); display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,220,215,.3);
+  box-shadow: 0 0 24px rgba(224,87,75,.6);
+}
+.method-play-icon span svg { width: 18px; height: 18px; fill: #fff; margin-left: 3px; }
+.method-photos-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.method-photo-sm {
+  aspect-ratio: 16/10; border-radius: 12px; overflow: hidden;
+  position: relative; cursor: pointer;
+}
+.method-photo-sm img { width:100%; height:100%; object-fit:cover; transition: transform .4s; }
+.method-photo-sm:hover img { transform: scale(1.04); }
+.method-photo-sm .method-play-icon span { width: 40px; height: 40px; }
+.method-photo-sm .method-play-icon span svg { width: 14px; height: 14px; }
+
+/* Сетка 2×2 карточек метода */
+.method-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.method-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px; padding: 24px;
+  overflow: hidden;
+}
+.mc-num {
+  font-family: 'Onest', sans-serif; font-weight: 300; font-size: 40px;
+  color: rgba(255,255,255,.3); line-height: 1; display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.mc-num.accent { color: var(--accent); }
+.mc-num svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.5; fill: none; opacity: .7; }
+.mc-title { font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+.mc-text  { font-family: 'Manrope', sans-serif; font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+/* mc-infographic height overridden below (90px) */
+
+/* 14.4 — 4 равноценных карточки метода со своими цветами */
+.method-card-v1 { --mc: #E0574B; }
+.method-card-v2 { --mc: #E89A5B; }
+.method-card-v3 { --mc: #D9787A; }
+.method-card-v4 { --mc: #A8343A; }
+
+.method-card-v1, .method-card-v2, .method-card-v3, .method-card-v4 {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1),
+              0 0 0 1px rgba(255,255,255,.06),
+              0 0 30px rgba(0,0,0,.5),
+              0 0 50px color-mix(in srgb, var(--mc) 20%, transparent);
+  border-bottom: 2px solid var(--mc);
+}
+
+.method-card .mc-num { color: var(--mc, rgba(255,255,255,.35)); }
+
+/* Свечение снизу карточки — нижняя треть окрашена цветом карточки */
+.method-card-v1::after, .method-card-v2::after, .method-card-v3::after, .method-card-v4::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 45%; border-radius: 0 0 20px 20px;
+  pointer-events: none; z-index: 0;
+}
+.method-card-v1::after { background: linear-gradient(to top, rgba(224,87,75,.55) 0%, rgba(224,87,75,.18) 50%, transparent 100%); }
+.method-card-v2::after { background: linear-gradient(to top, rgba(232,154,91,.55) 0%, rgba(232,154,91,.18) 50%, transparent 100%); }
+.method-card-v3::after { background: linear-gradient(to top, rgba(217,120,122,.55) 0%, rgba(217,120,122,.18) 50%, transparent 100%); }
+.method-card-v4::after { background: linear-gradient(to top, rgba(168,52,58,.55) 0%, rgba(168,52,58,.18) 50%, transparent 100%); }
+
+/* Инфографика в карточках метода — высота ~40% */
+.mc-infographic { position: relative; height: 120px; overflow: visible; }
+.voice-text {
+  font-family: 'Manrope', sans-serif; font-size: 14px; color: rgba(246,237,234,.6);
+  line-height: 1.6; margin-bottom: 16px;
+}
+.voice-text strong { color: var(--text); font-weight: 500; }
+.voice-waves {
+  width: 100%; height: 70px; position: relative; margin-bottom: 16px;
+}
+.voice-waves svg { width: 100%; height: 100%; overflow: visible; }
+
+/* Анимация волн */
+@media (prefers-reduced-motion: no-preference) {
+  .wave-path { animation: wave-shift 8s ease-in-out infinite; }
+  .wave-path:nth-child(2) { animation-delay: -2.5s; }
+  .wave-path:nth-child(3) { animation-delay: -5s; }
+  .wave-path:nth-child(4) { animation-delay: -1.5s; }
+  .wave-path:nth-child(5) { animation-delay: -4s; }
+}
+@keyframes wave-shift {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(-12px); }
+}
+
+.voice-mic-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #fff; border: none; cursor: pointer;
+  box-shadow: 0 0 16px rgba(255,255,255,.3);
+  margin: 0 auto;
+}
+.voice-mic-btn svg { width: 20px; height: 20px; stroke: #120809; stroke-width: 2; fill: none; }
+
+/* SVG инфографика карточек */
+.mc-infographic svg { overflow: visible; }
+
+/* Анимации инфографики карточек 02–04 метода */
+@keyframes mc-ring-pulse {
+  0%, 100% { opacity: .18; }
+  50%       { opacity: .55; }
+}
+@keyframes mc-node-flow {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -20; }
+}
+@keyframes mc-dot-glow {
+  0%, 100% { opacity: .6; }
+  50%       { opacity: 1; }
+}
+@keyframes mc-line-draw {
+  0%, 20%  { stroke-dashoffset: 400; }
+  80%, 100% { stroke-dashoffset: 0; }
+}
+.mc-ring-outer { animation: mc-ring-pulse 3s ease-in-out infinite; }
+.mc-ring-mid   { animation: mc-ring-pulse 3s ease-in-out .6s infinite; }
+.mc-ring-inner { animation: mc-ring-pulse 2s ease-in-out 1.2s infinite; }
+.mc-node-line  { animation: mc-node-flow 2.5s linear infinite; }
+.mc-node-dot   { animation: mc-dot-glow 2s ease-in-out infinite; }
+.mc-scene-line { stroke-dasharray: 400; animation: mc-line-draw 4s ease-in-out infinite; }
+.mc-scene-dot  { animation: mc-dot-glow 2s ease-in-out .8s infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .mc-ring-outer, .mc-ring-mid, .mc-ring-inner,
+  .mc-node-line, .mc-node-dot,
+  .mc-scene-line, .mc-scene-dot { animation: none; }
+}
+
+/* ═══ 16.3 Method: Glass Infographics ══════════════════════════════ */
+
+/* — Card 1: Equalizer — */
+.mc-infographic--voice { height: auto; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.eq-bar { transform-box: fill-box; transform-origin: 50% 100%; }
+.eq-mic-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.eq-mic-ring {
+  position: absolute; width: 44px; height: 44px; border-radius: 50%;
+  border: 1.5px solid rgba(224,87,75,.55); pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .eq-bar.b1{animation:eq-br 2.1s ease-in-out infinite}
+  .eq-bar.b2{animation:eq-br 1.8s ease-in-out infinite -.55s}
+  .eq-bar.b3{animation:eq-br 2.4s ease-in-out infinite -.3s}
+  .eq-bar.b4{animation:eq-br 1.6s ease-in-out infinite -.85s}
+  .eq-bar.b5{animation:eq-br 1.9s ease-in-out infinite -.1s}
+  .eq-bar.b6{animation:eq-br 1.7s ease-in-out infinite -.5s}
+  .eq-bar.b7{animation:eq-br 2.3s ease-in-out infinite -.7s}
+  .eq-bar.b8{animation:eq-br 1.95s ease-in-out infinite -.4s}
+  .eq-bar.b9{animation:eq-br 2.15s ease-in-out infinite -.2s}
+  @keyframes eq-br{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.38)}}
+  .mc-visible .eq-wave{animation:eq-wave-draw 1.4s ease-out forwards}
+  @keyframes eq-wave-draw{to{stroke-dashoffset:0}}
+  .eq-mic-ring{animation:eq-ring-pulse 2.4s ease-out infinite}
+  @keyframes eq-ring-pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.6);opacity:0}}
+}
+
+/* — Card 2: Body & energy rings — */
+@media (prefers-reduced-motion: no-preference) {
+  .body-ring{animation:body-ring-pulse 3.5s ease-in-out infinite}
+  .body-edot{animation:body-dot-glow 2.8s ease-in-out infinite}
+  @keyframes body-ring-pulse{0%,100%{opacity:.12}50%{opacity:.5}}
+  @keyframes body-dot-glow{0%,100%{opacity:.55}50%{opacity:1}}
+}
+
+/* — Card 3: Interaction glass tiles — */
+.ia-line { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) { .ia-flow-dot{display:none} }
+
+/* — Card 4: Scene spotlight particles — */
+@media (prefers-reduced-motion: no-preference) {
+  .scene-ptcl{animation:scene-float 4s ease-in-out infinite}
+  .scene-ptcl:nth-child(2){animation-delay:-1.3s;animation-duration:3.6s}
+  .scene-ptcl:nth-child(3){animation-delay:-2.7s;animation-duration:4.8s}
+  .scene-ptcl:nth-child(4){animation-delay:-.7s;animation-duration:3.2s}
+  .scene-ptcl:nth-child(5){animation-delay:-2.1s;animation-duration:5s}
+  @keyframes scene-float{
+    0%,100%{transform:translate(0,0);opacity:.3}
+    40%{transform:translate(5px,-9px);opacity:.9}
+    70%{transform:translate(-3px,-5px);opacity:.55}
+  }
+}
+
+/* ── РАЗДЕЛ 4: ПРОГРАММА — аккордеон ── */
+.accordion { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.acc-item {
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px; overflow: hidden;
+}
+.acc-header {
+  display: flex; align-items: center; gap: 24px;
+  padding: 28px 32px;
+  cursor: pointer; user-select: none;
+  background: linear-gradient(90deg, rgba(224,87,75,.07) 0%, transparent 60%);
+  border-left: 2px solid rgba(224,87,75,.45);
+  position: relative;
+}
+.acc-header::before {
+  content: '';
+  position: absolute; left: 0; top: 0; width: 140px; height: 100%;
+  background: radial-gradient(ellipse at 0% 50%, rgba(224,87,75,.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+.acc-day {
+  font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600;
+  color: var(--accent); text-transform: uppercase; letter-spacing: .08em;
+  white-space: nowrap; min-width: 56px;
+}
+.acc-title-group { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.acc-title { font-family: 'Manrope', sans-serif; font-size: 19px; font-weight: 500; color: var(--text); }
+.acc-header-sub { font-size: 13px; color: var(--text-muted); font-weight: 400; line-height: 1.3; }
+
+/* ── Иконки «Кому полезен» ── */
+.forwho-icon-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.forwho-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid rgba(224,87,75,.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 0 12px rgba(224,87,75,.08);
+}
+.forwho-icon svg { width: 18px; height: 18px; stroke: rgba(224,87,75,.8); stroke-width: 1.5; fill: none; }
+.acc-toggle {
+  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+  background: var(--accent); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 16px rgba(224,87,75,.4);
+  transition: background .2s;
+  font-family: 'Manrope', sans-serif; font-size: 24px; font-weight: 300; color: #fff;
+  line-height: 1;
+}
+.acc-item.is-open .acc-toggle { background: rgba(224,87,75,.6); }
+.acc-toggle-icon { display: block; transition: transform .3s; }
+.acc-item.is-open .acc-toggle-icon { transform: rotate(45deg); }
+
+.acc-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height .4s ease, padding .4s ease;
+}
+.acc-item.is-open .acc-body { max-height: 600px; }
+.acc-content { padding: 0 32px 32px; }
+.acc-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+.acc-list {
+  list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;
+}
+.acc-list li {
+  font-size: 15px; font-weight: 400; color: var(--text-muted);
+  padding-left: 20px; position: relative; line-height: 1.65;
+}
+.acc-list li::before { content: '•'; position: absolute; left: 0; color: rgba(246,237,234,.2); }
+.result-box { background: rgba(224,87,75,.07); border: 1px solid rgba(224,87,75,.16); border-radius: 12px; padding: 20px 24px; }
+.result-label { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 8px; display: block; }
+.result-box p { font-size: 14px; color: rgba(246,237,234,.6); line-height: 1.7; }
+
+/* ── РАЗДЕЛ 5: ИЗМЕНЕНИЯ ── */
+.outcomes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; width: 100%; }
+@media (max-width: 960px) { .outcomes-grid { grid-template-columns: 1fr 1fr; } }
+
+#outcomes .card {
+  box-shadow: 0 0 0 1px rgba(224,87,75,.2),
+              0 0 30px rgba(224,87,75,.12),
+              0 30px 60px rgba(0,0,0,.4);
+}
+
+/* ── РАЗДЕЛ 6: СТОИМОСТЬ — новый дизайн ── */
+.price-section {
+  background: #0A0808 !important;
+  position: relative; overflow: hidden;
+  padding-top: 100px;
+}
+/* Фоновые градиенты + зерно */
+.price-bg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(75% 60% at 0% 100%, rgba(224,87,75,.55), transparent 70%),
+    radial-gradient(60% 50% at 100% 100%, rgba(240,200,185,.30), transparent 70%),
+    radial-gradient(40% 35% at 50% 55%, rgba(224,87,75,.18), transparent);
+}
+.price-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px;
+  mix-blend-mode: overlay;
+  opacity: .10;
+}
+.price-glow-left {
+  display: none;
+}
+.price-glow-right {
+  display: none;
+}
+/* Grid сетка под кривой */
+.price-grid-bg {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 480px;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 100%, black 10%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 75% at 50% 100%, black 10%, transparent 80%);
+  pointer-events: none; z-index: 0;
+}
+/* Искры */
+.price-sparks { position: absolute; inset: 0; pointer-events: none; z-index: 3; overflow: hidden; }
+.pk {
+  position: absolute; display: block;
+  width: var(--sz, 2px); height: var(--sz, 2px); border-radius: 50%;
+  background: var(--c, rgba(255,215,200,.85));
+  animation: pk-twinkle var(--dur, 8s) var(--d, 0s) ease-in-out infinite;
+}
+@keyframes pk-twinkle {
+  0%, 100% { opacity: 0; }
+  40%, 60%  { opacity: .9; }
+}
+/* Шар — HTML div поверх SVG */
+.price-ball-div {
+  position: absolute; width: 40px; height: 40px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff 0%, #FBD5CB 28%, #E0574B 72%, #8E2F27 100%);
+  box-shadow: 0 0 16px 6px rgba(224,87,75,.65), 0 0 44px 18px rgba(224,87,75,.28);
+  animation: ball-breathe 4s ease-in-out infinite;
+  pointer-events: none; z-index: 5;
+  opacity: 0; transition: opacity .6s ease;
+  transform: translate(-50%, -50%);
+}
+.price-ball-div.visible { opacity: 1; }
+/* Блик на шаре */
+.price-ball-div::before {
+  content: ''; position: absolute;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: rgba(255,255,255,.88);
+  top: 6px; left: 7px;
+}
+@keyframes ball-breathe {
+  0%, 100% { box-shadow: 0 0 16px 6px rgba(224,87,75,.65), 0 0 44px 18px rgba(224,87,75,.28); }
+  50%       { box-shadow: 0 0 24px 12px rgba(224,87,75,1.0), 0 0 64px 26px rgba(224,87,75,.55); }
+}
+.price-s-curve-svg-mobile { display: none; }
+/* Маленькая подпись + стрелка */
+.price-label {
+  font-family: 'Manrope', sans-serif; font-size: 14px; color: rgba(246,237,234,.5);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
+  letter-spacing: .03em;
+}
+.price-label-arrow {
+  display: inline-flex; align-items: center;
+  filter: drop-shadow(0 0 6px rgba(224,87,75,.7));
+}
+.price-label-arrow svg { width: 22px; height: 22px; stroke: var(--accent); stroke-width: 2; fill: none; }
+/* Большая цена */
+.price-num-big {
+  font-family: 'Onest', sans-serif; font-weight: 200; font-size: 140px;
+  line-height: 1; letter-spacing: -.02em;
+  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 35%, rgba(246,237,234,.45) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-bottom: 0; position: relative; z-index: 1;
+}
+.price-rub { font-size: 80px; opacity: .65; }
+/* S-кривая */
+.price-s-curve-wrap {
+  position: relative; width: 100%; height: 400px;
+  z-index: 1; margin: -10px 0 12px;
+}
+.price-s-curve-wrap svg { width: 100%; height: 100%; overflow: visible; }
+/* Контент под кривой */
+.price-below-curve {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 20px; text-align: center; position: relative; z-index: 1;
+  margin-top: 16px;
+}
+.price-what-h3 {
+  font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 500; color: var(--text);
+}
+.price-what-text {
+  font-size: 15px; color: rgba(246,237,234,.5); line-height: 1.65; max-width: 560px;
+}
+/* Тарифные карточки */
+.price-tariffs {
+  display: flex; gap: 16px; justify-content: center; width: 100%; margin-top: 8px;
+}
+.tariff-card {
+  flex: 1; max-width: 300px;
+  background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px; padding: 28px 20px;
+  text-align: center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 8px 32px rgba(0,0,0,.4);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.tariff-card-title { font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); }
+.tariff-card-sub { font-family: 'Manrope', sans-serif; font-size: 13px; color: var(--text-muted); }
+.tariff-card-price {
+  font-family: 'Onest', sans-serif; font-size: 30px; font-weight: 200;
+  color: var(--text); margin: 10px 0 14px; line-height: 1;
+}
+.tariff-btn {
+  width: 100%; display: inline-flex; align-items: center; justify-content: center;
+  padding: 13px 20px; border-radius: 10px;
+  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500;
+  text-decoration: none; cursor: pointer;
+  transition: background .25s, box-shadow .25s, border-color .25s, transform .2s;
+}
+.tariff-btn-primary {
+  background: var(--accent); color: #fff; border: none;
+  box-shadow: 0 0 18px rgba(224,87,75,.4), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.tariff-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 28px rgba(224,87,75,.6); }
+.tariff-btn-outline {
+  background: transparent; color: var(--text); border: 1.5px solid rgba(224,87,75,.5);
+}
+.tariff-btn-outline:hover { border-color: var(--accent); background: rgba(224,87,75,.08); }
+.tariff-btn-ghost {
+  background: transparent; color: rgba(246,237,234,.55); border: 1px solid rgba(255,220,215,.12);
+}
+.tariff-btn-ghost:hover { border-color: rgba(255,220,215,.25); color: var(--text); }
+
+/* ── РАЗДЕЛ 7: КТО ВЕДЁТ ── */
+.trainer-card {
+  width: 100%; aspect-ratio: 16/7; border-radius: 28px;
+  overflow: hidden; position: relative;
+  background: var(--surface);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 40px 80px rgba(0,0,0,.5);
+}
+.trainer-photo-wrap {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 55%;
+}
+.trainer-photo {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: opacity .8s ease;
+  position: absolute; inset: 0;
+}
+.trainer-photo.is-hidden { opacity: 0; }
+/* Терракотовый градиент от правого края фото */
+.trainer-photo-wrap::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, transparent 50%, var(--surface) 95%);
+}
+.trainer-info {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 50%;
+  padding: 40px 40px 40px 20px;
+  display: flex; flex-direction: column; justify-content: center; gap: 16px;
+}
+.trainer-name {
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+  font-size: 38px; color: var(--text); line-height: 1.1; margin-bottom: 4px;
+}
+.trainer-role { font-size: 14px; color: var(--text-muted); }
+.trainer-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;
+}
+.t-stat {
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+  border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 16px;
+  position: relative; overflow: hidden;
+}
+.t-stat::after {
+  content: '';
+  position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+  width: 120px; height: 60px;
+  background: radial-gradient(ellipse, rgba(224,87,75,.2) 0%, transparent 70%);
+  filter: blur(10px);
+}
+.t-stat-num {
+  font-family: 'Onest', sans-serif; font-weight: 300; font-size: 36px;
+  color: var(--text); line-height: 1; display: block; margin-bottom: 4px;
+}
+.t-stat-label { font-size: 12px; color: var(--text-muted); }
+.trainer-bio { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+.trainer-clients {
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+  margin-top: 8px; opacity: .45;
+}
+.trainer-client-logo {
+  font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600;
+  color: var(--text); text-transform: uppercase; letter-spacing: .06em;
+  filter: grayscale(1);
+}
+
+/* 11.2 Аватарки в заголовке */
+.av-row { display:inline-flex; align-items:center; gap:0; vertical-align:middle; margin-left:10px; }
+.av { width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid var(--bg); margin-left:-12px; flex-shrink:0; vertical-align:middle; }
+.av-row .av:first-child { margin-left:0; }
+.av-plus {
+  width:30px; height:30px; border-radius:50%;
+  background:var(--accent); color:#fff; font-size:14px; font-weight:600;
+  display:inline-flex; align-items:center; justify-content:center;
+  border:2px solid var(--bg); margin-left:-8px; flex-shrink:0;
+}
+
+/* ── ОТЗЫВЫ ── */
+.reviews-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 20px; height: 620px;
+}
+.reviews-row + .reviews-row { margin-top: 20px; }
+.col-texts { display: grid; grid-template-rows: 1fr 1fr; gap: 20px; min-height: 0; }
+.rv-card {
+  position: relative; border-radius: 20px; overflow: hidden;
+  cursor: pointer; background: #0F0607; height: 100%;
+}
+.rv-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform .35s ease;
+}
+.rv-card:hover .rv-bg { transform: scale(1.04); }
+.rv-caption {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 20px 18px 50px;
+  background: linear-gradient(to bottom, rgba(15,6,7,.85), transparent 55%);
+  pointer-events: none; z-index: 2;
+}
+.rv-name { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.rv-role { font-size: 12px; color: var(--text-muted); }
+.rv-play {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none; z-index: 2;
+}
+.review-video-play {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--accent);
+  border: 1px solid rgba(255,220,215,.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 0 20px 4px rgba(224,87,75,.5), 0 0 50px 8px rgba(224,87,75,.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.rv-card:hover .review-video-play {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 0 28px 6px rgba(224,87,75,.65), 0 0 70px 12px rgba(224,87,75,.4);
+}
+.review-video-play svg { width: 20px; height: 20px; fill: #fff; margin-left: 4px; }
+.re-card {
+  padding: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+  overflow: hidden; height: 100%;
+  display: flex; flex-direction: column;
+}
+.re-text-wrap {
+  flex: 1; overflow: hidden; min-height: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+}
+.re-text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+.re-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; flex-shrink: 0; }
+.re-author-name { font-size: 12px; color: var(--text-muted); }
+.re-more { font-size: 12px; font-weight: 500; color: var(--accent); background: none; border: none; cursor: pointer; padding: 0; font-family: 'Manrope'; }
+.re-more:hover { text-decoration: underline; }
+
+/* 13.4 Градиент-подложка под подписью в карточках отзывов */
+.rv-card::after, .re-card::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.4) 60%, transparent 100%);
+  border-radius: 0 0 16px 16px;
+  pointer-events: none; z-index: 1;
+}
+.rv-caption, .rv-play, .re-footer { position: relative; z-index: 2; }
+
+/* ── VIDEO MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(15,6,7,.9); backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.modal-overlay.is-active { opacity: 1; pointer-events: all; }
+.modal-box {
+  position: relative; border-radius: 20px; overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,.7); background: #000;
+  transform: scale(.95); transition: transform .3s;
+}
+.modal-box[data-ratio="16/9"] { width: min(90vw,1100px); aspect-ratio: 16/9; height: auto; }
+.modal-box[data-ratio="9/16"] { height: min(86vh,860px); aspect-ratio: 9/16; width: auto; }
+.modal-overlay.is-active .modal-box { transform: scale(1); }
+.modal-close {
+  position: absolute; top: -56px; right: 0; z-index: 10;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,.1); border: none; color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: background .2s;
+}
+.modal-close:hover { background: rgba(224,87,75,.45); }
+.modal-close svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2.5; fill: none; }
+#videoFrame { width: 100%; height: 100%; position: relative; }
+#videoFrame iframe, #videoFrame > div { width: 100% !important; height: 100% !important; border: none; }
+.modal-unmute {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  padding: 10px 22px; background: rgba(15,6,7,.85);
+  border: 1px solid rgba(255,220,215,.2); border-radius: 12px;
+  color: var(--text); font-family: 'Manrope',sans-serif; font-size: 14px; font-weight: 500;
+  cursor: pointer; z-index: 20; display: none; align-items: center; gap: 8px;
+  white-space: nowrap; transition: background .2s;
+}
+.modal-unmute:hover { background: rgba(224,87,75,.25); }
+.modal-unmute.visible { display: flex; }
+
+/* ── TEXT MODAL ── */
+.text-modal-overlay {
+  position: fixed; inset: 0; z-index: 1002;
+  background: rgba(10,5,6,.9); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.text-modal-overlay.is-active { opacity: 1; pointer-events: all; }
+.text-modal-box {
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px; padding: 48px;
+  max-width: 560px; width: 100%; max-height: 82vh; overflow-y: auto;
+  position: relative; transform: scale(.95); transition: transform .3s;
+  box-shadow: 0 40px 80px rgba(0,0,0,.7);
+}
+.text-modal-overlay.is-active .text-modal-box { transform: scale(1); }
+.text-modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  color: var(--text); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: background .2s;
+}
+.text-modal-close:hover { background: rgba(224,87,75,.5); }
+.text-modal-body { font-size: 16px; line-height: 1.75; color: var(--text-muted); white-space: pre-line; }
+
+/* ── ФУТЕР ── */
+footer { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; }
+footer p { font-size: 14px; color: var(--text-muted); }
+
+/* ── 12.1 ЗЕРНО НА ВЕСЬ САЙТ ── */
+.grain-overlay {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  mix-blend-mode: overlay;
+  opacity: .65;
+}
+
+/* ── 12.2 SPARKLES В HERO ── */
+.hero-sparkles { position:absolute; inset:0; pointer-events:none; z-index:0; }
+.sp {
+  position:absolute; border-radius:50%;
+  background: rgba(246,237,234,.4);
+  box-shadow: 0 0 6px 2px rgba(246,237,234,.3);
+  animation: sparkle 4s ease-in-out infinite;
+}
+@keyframes sparkle {
+  0%,100% { opacity:.15; transform: scale(1); }
+  50% { opacity:.7; transform: scale(1.3); }
+}
+@media (prefers-reduced-motion: reduce) { .sp { animation: none; } }
+
+/* ── 12.3 СЕТКА В «КОМУ ПОЛЕЗЕН» И «ОТЗЫВЫ» ── */
+.section-grid::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── 12.4 КОНЦЕНТРИЧЕСКИЕ ДУГИ В HERO ── */
+.hero-arcs {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 100%; height: 100%; pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.hero-arcs svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ── 12. ДЕКОРАТИВНЫЕ СЛОИ ОСТАЛЬНЫХ СЕКЦИЙ ── */
+.section-decor {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+/* Method — мягкое терракотовое пятно за рамкой карточек */
+.method-glow-spot {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 700px; height: 500px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(224,87,75,.07), transparent 100%);
+  filter: blur(50px);
+}
+/* Program — вертикальная светящаяся кривая слева */
+.program-curve {
+  position: absolute; left: 0; top: 0; width: 200px; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+.program-curve svg { width: 100%; height: 100%; }
+/* Price — тонкая сетка под блоком кнопок */
+.price-grid {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 280px;
+  pointer-events: none; z-index: 1;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 100% at 50% 100%, black 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 100% at 50% 100%, black 10%, transparent 75%);
+}
+
+/* ── 15.8 Анимация прорисовки инфографики ── */
+@media (prefers-reduced-motion: no-preference) {
+  .inf-draw {
+    stroke-dashoffset: var(--dl, 400);
+    transition: stroke-dashoffset 1.2s ease;
+  }
+  .inf-node {
+    opacity: 0;
+    transition: opacity .4s ease 1s, filter .4s ease 1s;
+  }
+  .inf-visible .inf-draw { stroke-dashoffset: 0; }
+  .inf-visible .inf-node { opacity: 1; }
+  @keyframes inf-node-pulse {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(224,87,75,.4)); }
+    50%       { filter: drop-shadow(0 0 12px rgba(224,87,75,.9)); }
+  }
+  .inf-visible .inf-node { animation: inf-node-pulse 2.5s ease-in-out 1.4s infinite; }
+  /* S-кривая в стоимости */
+  .s-curve-path {
+    stroke-dashoffset: var(--dl, 2700);
+    transition: stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1);
+  }
+  .price-s-drawn .s-curve-path { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inf-draw, .s-curve-path { stroke-dashoffset: 0 !important; }
+  .inf-node { opacity: 1 !important; }
+}
+
+/* ── 16.2 КОМУ ПОЛЕЗЕН: новая структура ── */
+.fw-ticker-wrap {
+  width: 100%; overflow: hidden; position: relative;
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 10px 0; margin-bottom: 64px;
+}
+.fw-ticker-wrap::before, .fw-ticker-wrap::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+}
+.fw-ticker-wrap::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+.fw-ticker-wrap::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+.fw-ticker { display: flex; white-space: nowrap; animation: fw-ticker-move 28s linear infinite; }
+.fw-ticker-text {
+  font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 500;
+  letter-spacing: .08em; color: rgba(246,237,234,.52);
+  text-transform: uppercase; padding-right: 32px; flex-shrink: 0;
+}
+@keyframes fw-ticker-move {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) { .fw-ticker { animation: none; } }
+
+.fw-row-block { margin-bottom: 52px; }
+.fw-nums-clip {
+  height: 62px; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+}
+.fw-num-big {
+  font-family: 'Onest', sans-serif; font-weight: 300; font-size: 112px;
+  line-height: .94; letter-spacing: -.03em;
+  background: linear-gradient(180deg, #E0574B 0%, rgba(168,52,58,.55) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  display: block; user-select: none;
+}
+.fw-cut-line {
+  height: 1px; background: rgba(255,255,255,.12); margin-bottom: 20px;
+}
+.fw-cards-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+}
+.fw-card-title {
+  font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 500;
+  color: var(--text); margin-bottom: 12px; line-height: 1.3;
+}
+.fw-card-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.fw-card-list li {
+  font-size: 13px; color: var(--text-muted); line-height: 1.5;
+  padding-left: 14px; position: relative;
+}
+.fw-card-list li::before { content: '·'; position: absolute; left: 0; color: rgba(224,87,75,.6); }
+
+/* ── МОБАЙЛ ── */
+@media (max-width: 960px) {
+  nav { width: calc(100% - 32px); top: 12px; }
+  section { padding: 110px 0; }
+  .hero { padding-top: calc(70px + 44px); overflow: hidden; }
+  .hero-halo { width: min(100vw, 600px); left: 50%; transform: translateX(-50%); }
+  .hero-arcs { overflow: hidden; }
+
+  /* 11.1 мобайл: H1 36px, H2 30px */
+  .h1 .h-onest     { font-size: 36px; }
+  .h1 .h-cormorant { font-size: 36px; white-space: normal; word-break: break-word; }
+  .h2 .h-onest     { font-size: 30px; }
+  .h2 .h-cormorant { font-size: 30px; }
+  .lead { font-size: 16px; }
+
+  /* мобайл hero: текстовый блок не выходит за края */
+  .hero-center { padding: 0 20px; box-sizing: border-box; max-width: 100%; overflow-wrap: break-word; }
+  .hero-center .heading { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
+  .hero-center .lead { max-width: 100%; overflow-wrap: break-word; }
+  .hero-spot { display: none; }
+  /* кнопка hero: позиция z:10 + gap до силуэта */
+  .hero-btn-wrap { position: relative; z-index: 10; margin-bottom: 64px; }
+  /* силуэт: высота 46vh (голова начинается ниже кнопки), top:auto = позиция через bottom:0 */
+  .hero-silhouette { display: block; top: auto; margin-top: 0; }
+  .silhouette-img { height: 46vh; }
+
+  /* hero: колонка на мобайле — текст сверху, лента снизу */
+  .hero { flex-direction: column; align-items: center; }
+  /* reel-scene на мобайле: обратно в поток под кнопкой */
+  .reel-scene { position: relative; top: auto; left: 0; transform: none; width: 100%; padding: 32px 0 40px; }
+  .hero-audience { display: none; }
+  .hero::after { height: 80px; }
+  /* hero-center полная ширина */
+  .hero-center { width: 100%; }
+  .reel { overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 24px; gap: 12px; }
+  .reel::-webkit-scrollbar { display: none; }
+  .reel-card { width: 160px; height: 232px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; border-radius: 10px; }
+  .reel-card.rc-c { box-shadow: 0 0 20px rgba(224,87,75,.25), 0 10px 30px rgba(0,0,0,.5); }
+
+  /* полоса «по итогу»: колонкой, по центру, горизонтальные разделители */
+  .hero-features { flex-direction: column; align-items: center; text-align: center; gap: 0; padding: 28px 24px 40px; flex-wrap: nowrap; }
+  .hf-item { width: 100%; align-items: center; text-align: center; padding: 20px 0; }
+  .hf-title { font-size: 18px; }
+  .hf-desc { font-size: 14px; }
+  /* вертикальные разделители скрыть, горизонтальные показать */
+  .hf-sep { width: 60%; height: 1px; background: rgba(255,255,255,.08); align-self: center; }
+
+  .forwho-row { grid-template-columns: 1fr; gap: 32px; }
+  .forwho-row + .forwho-row { margin-top: 32px; }
+  .fw-cards-row { grid-template-columns: 1fr; gap: 24px; }
+  .fw-nums-clip { grid-template-columns: 1fr 1fr 1fr; height: 46px; }
+  .fw-num-big { font-size: 84px; }
+
+  .method-layout { grid-template-columns: 1fr; }
+  .method-outer { padding: 24px; }
+  .method-cards { grid-template-columns: 1fr; }
+
+  .outcomes-grid { grid-template-columns: 1fr; }
+
+  .price-num-big { font-size: 72px; }
+  .price-rub { font-size: 48px; }
+  .price-s-curve-svg-desktop { display: none; }
+  .price-s-curve-svg-mobile  { display: block; }
+  .price-s-curve-wrap { height: 260px; }
+  .price-tariffs { flex-direction: column; align-items: center; }
+  .tariff-card { max-width: 400px; width: 100%; }
+  .price-sparks { display: none; }
+
+  .trainer-card { aspect-ratio: auto; min-height: 500px; }
+  .trainer-photo-wrap { width: 100%; height: 300px; position: relative; }
+  .trainer-info { position: relative; width: 100%; padding: 28px 24px; }
+  .trainer-stats { grid-template-columns: 1fr 1fr; }
+
+  .reviews-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; height: auto; padding-bottom: 12px; gap: 14px; }
+  .reviews-row::-webkit-scrollbar { display: none; }
+  .rv-card { width: 260px; height: 480px; flex-shrink: 0; scroll-snap-align: start; }
+  .col-texts { display: contents; }
+  .re-card { width: 260px; height: 480px; flex-shrink: 0; scroll-snap-align: start; }
+
+  /* .hero-silhouette visible on mobile — set above */
+}
+@media (max-width: 600px) {
+  .modal-close { top: 12px; right: 12px; }
+  .modal-box[data-ratio="9/16"] { height: min(92vh,640px); }
+}
+</style>
+
+<style>
+
+/* ── ФИГУРА МАКСИМА ── */
+.hero-maxim-figure {
+  position: absolute;
+  bottom: 60px;
+  left: 50%; transform: translateX(-50%);
+  z-index: 3;
+  width: 560px;
+  pointer-events: none;
+}
+.hero-maxim-img {
+  width: 100%; height: auto; display: block;
+  filter: grayscale(1) contrast(1.25) brightness(1.05)
+    drop-shadow(0 0 2px rgba(255,200,175,.9))
+    drop-shadow(0 0 8px rgba(255,170,130,.55));
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
+    linear-gradient(to bottom, #000 62%, rgba(0,0,0,.4) 80%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
+    linear-gradient(to bottom, #000 62%, rgba(0,0,0,.4) 80%, transparent 100%);
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+}
+/* Центральная карточка убрана */
+.reel-card.rc-c { opacity: 0 !important; }
+
+body { background: var(--bg); overflow-x: hidden; }
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-halo"></div>
+
+  <div class="hero-sparkles" aria-hidden="true">
+    <span class="sp" style="left:8%;top:22%;width:5px;height:5px;animation-delay:0s"></span>
+    <span class="sp" style="left:18%;top:55%;width:3px;height:3px;animation-delay:1.2s"></span>
+    <span class="sp" style="left:75%;top:18%;width:4px;height:4px;animation-delay:0.7s"></span>
+    <span class="sp" style="left:85%;top:48%;width:3px;height:3px;animation-delay:2s"></span>
+    <span class="sp" style="left:92%;top:72%;width:5px;height:5px;animation-delay:0.4s"></span>
+    <span class="sp" style="left:5%;top:80%;width:3px;height:3px;animation-delay:1.8s"></span>
+    <span class="sp" style="left:45%;top:8%;width:4px;height:4px;animation-delay:1s"></span>
+  </div>
+
+  <!-- 12.4 Концентрические дуги -->
+  <div class="hero-arcs" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <circle cx="720" cy="450" r="380" fill="none" stroke="rgba(224,87,75,.06)" stroke-width="1"/>
+      <circle cx="720" cy="450" r="480" fill="none" stroke="rgba(224,87,75,.04)" stroke-width="1"/>
+      <circle cx="720" cy="450" r="600" fill="none" stroke="rgba(224,87,75,.03)" stroke-width="1"/>
+      <!-- Дуга с градиентом справа -->
+      <path d="M1380,50 A750,750 0 0,1 1380,850" fill="none" stroke="rgba(224,87,75,.12)" stroke-width="1.5"/>
+      <path d="M60,50 A750,750 0 0,0 60,850" fill="none" stroke="rgba(224,87,75,.08)" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- ТЕКСТ + КНОПКА (сначала в DOM — для мобайла: flex-column) -->
+  <div class="wrap hero-center">
+
+    <div class="badge">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Двухдневный тренинг · офлайн · Москва
+    </div>
+
+    <div class="heading h1">
+      <span class="h-onest">Вызов 7.0</span>
+      <span class="h-cormorant">сильные роли и диалог</span>
+    </div>
+
+    <p class="lead" style="margin-top:20px;">
+      Двухдневный тренинг для предпринимателей, руководителей и&nbsp;экспертов: раскройте сильные роли и управляйте диалогом в любой ситуации.
+    </p>
+
+    <div class="hero-btn-wrap">
+      <a href="#program" class="btn btn-hero">Познакомиться с программой →</a>
+    </div>
+
+  </div>
+
+
+  <div style="position:absolute;bottom:80px;left:50%;transform:translateX(-50%) ;z-index:0;pointer-events:none;
+  width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(252,145,95,.72) 0%,rgba(224,87,75,.42) 48%,transparent 100%);
+  filter:blur(52px);"></div>
+  <div class="hero-maxim-figure">
+    <img class="hero-maxim-img" src="maxim-crop-d.png" alt="Максим Житник" style="">
+  </div>
+  <!-- ВИДЕО-ЛЕНТА (абсолютная на десктопе; под кнопкой на мобайле) -->
+  <div class="reel-scene">
+    <div class="reel-vline"></div>
+    <div class="reel">
+
+      <div class="reel-card rc-3l">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <!-- clip_1.mp4: заменить на реальное видео от клиента -->
+        </video>
+        <div class="reel-inner" style="background-image:url('../assets/__352_group.jpg');background-position:center 20%;"></div>
+      </div>
+
+      <div class="reel-card rc-2l">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <!-- clip_2.mp4: заменить на реальное видео от клиента -->
+        </video>
+        <div class="reel-inner" style="background-image:url('../assets/training1.jpg');background-position:center 10%;"></div>
+      </div>
+
+      <div class="reel-card rc-1l">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <!-- clip_3.mp4: заменить на реальное видео от клиента -->
+        </video>
+        <div class="reel-inner" style="background-image:url('../assets/__224.jpg');background-position:62% 20%;"></div>
+      </div>
+
+      <div class="reel-card rc-c">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <!-- clip_4.mp4: заменить на реальное видео от клиента -->
+        </video>
+        <div class="reel-inner" style="background-image:url('../assets/2B3A9543.jpg');background-size:280%;background-position:55% 0%;"></div>
+      </div>
+
+      <div class="reel-card rc-1r">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <!-- clip_5.mp4: заменить на реальное видео от клиента -->
+        </video>
+        <div class="reel-inner" style="background-image:url('../assets/__38_2.jpg');background-position:40% 30%;"></div>
+      </div>
+
+      <div class="reel-card rc-2r">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <!-- clip_6.mp4: заменить на реальное видео от клиента -->
+        </video>
+        <div class="reel-inner" style="background-image:url('../assets/group-CHPK3183.jpg');background-position:center 5%;"></div>
+      </div>
+
+      <div class="reel-card rc-3r">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <!-- clip_7.mp4: заменить на реальное видео от клиента -->
+        </video>
+        <div class="reel-inner" style="background-image:url('../assets/group-CHPK2995.jpg');background-position:center center;"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Полоса «по итогу» — 3 результата тренинга (внутри hero) -->
+  <div class="hero-features-band">
+    <div class="wrap">
+      <div class="hero-features">
+        <div class="hf-item">
+          <span class="hf-title">Раскроете в себе<br>сильные роли</span>
+          <span class="hf-desc">Перестанете «сжиматься» в ключевые моменты</span>
+        </div>
+        <div class="hf-sep"></div>
+        <div class="hf-item">
+          <span class="hf-title">Научитесь управлять<br>диалогом</span>
+          <span class="hf-desc">Влияние, границы, уверенный голос</span>
+        </div>
+        <div class="hf-sep"></div>
+        <div class="hf-item">
+          <span class="hf-title">Изменения остаются<br>надолго</span>
+          <span class="hf-desc">Не два дня практики, а новый способ быть собой</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+</body>
+</html>

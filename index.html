@@ -273,9 +273,9 @@ section:not(.hero)::before {
 /* Базовая карточка */
 .reel-card {
   flex-shrink: 0;
-  width: 196px;
-  height: 310px;
-  border-radius: 16px;
+  width: 214px;
+  height: 370px;
+  border-radius: 18px;
   overflow: hidden;
   position: relative;
   border: 1px solid rgba(255,220,215,.06);
@@ -303,15 +303,14 @@ section:not(.hero)::before {
   filter: brightness(.9) saturate(1.05);
 }
 
-/* 3D-перспектива: барабан */
-.reel-card.rc-4l { transform: perspective(1100px) rotateY(44deg) scale(.60) translateX(-16px); opacity: .25; }
-.reel-card.rc-3l { transform: perspective(1100px) rotateY(34deg) scale(.70) translateX(-12px); opacity: .38; }
-.reel-card.rc-2l { transform: perspective(1100px) rotateY(23deg) scale(.82) translateX(-8px);  opacity: .56; }
-.reel-card.rc-1l { transform: perspective(1100px) rotateY(12deg) scale(.91) translateX(-4px);  opacity: .78; }
-.reel-card.rc-c  { transform: perspective(1100px) rotateY(0deg)  scale(1.12);                  opacity: 1; }
-.reel-card.rc-1r { transform: perspective(1100px) rotateY(-12deg) scale(.91) translateX(4px);  opacity: .78; }
-.reel-card.rc-2r { transform: perspective(1100px) rotateY(-23deg) scale(.82) translateX(8px);  opacity: .56; }
-.reel-card.rc-3r { transform: perspective(1100px) rotateY(-34deg) scale(.70) translateX(12px); opacity: .38; }
+/* 3D-перспектива: барабан (ref 01 — «Create Intelligent Robots») */
+.reel-card.rc-3l { transform: perspective(1200px) rotateY(38deg) scale(.65) translateX(-18px); opacity: .30; }
+.reel-card.rc-2l { transform: perspective(1200px) rotateY(24deg) scale(.78) translateX(-10px); opacity: .52; }
+.reel-card.rc-1l { transform: perspective(1200px) rotateY(13deg) scale(.90) translateX(-5px);  opacity: .76; }
+.reel-card.rc-c  { transform: perspective(1200px) rotateY(0deg)  scale(1.14);                  opacity: 1; }
+.reel-card.rc-1r { transform: perspective(1200px) rotateY(-13deg) scale(.90) translateX(5px);  opacity: .76; }
+.reel-card.rc-2r { transform: perspective(1200px) rotateY(-24deg) scale(.78) translateX(10px); opacity: .52; }
+.reel-card.rc-3r { transform: perspective(1200px) rotateY(-38deg) scale(.65) translateX(18px); opacity: .30; }
 
 /* Видео внутри карточки */
 .reel-card video {

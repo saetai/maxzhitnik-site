@@ -1056,6 +1056,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-silhouette { display: block; }
   .silhouette-img { height: 55vh; }
 
+  /* reel-scene: убираем left:50%/transform чтобы layout-бокс не выходил за viewport */
+  .reel-scene { left: 0; transform: none; width: 100%; }
   .reel { overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 24px; gap: 12px; }
   .reel::-webkit-scrollbar { display: none; }
   .reel-card { width: 160px; height: 260px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; }

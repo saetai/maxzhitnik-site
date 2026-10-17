@@ -386,30 +386,26 @@ section:not(.hero)::before {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
   transition: transform .4s;
-  filter: grayscale(1) brightness(.65);
+  filter: brightness(.8);
   z-index: 0;
 }
 .reel-card:hover .reel-inner { transform: scale(1.04); }
 
 .reel-card.rc-c {
-  border-color: rgba(224,87,75,.28);
-  box-shadow: 0 20px 40px rgba(0,0,0,.5), 0 0 40px rgba(224,87,75,.18);
+  border-color: rgba(224,87,75,.5);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.5),
+    0 0 50px rgba(224,87,75,.45),
+    0 0 110px rgba(224,87,75,.22);
   z-index: 2;
 }
 .reel-card.rc-c .reel-inner {
-  box-shadow: inset 0 0 60px rgba(224,87,75,.12);
+  filter: brightness(1.1);
+  box-shadow: inset 0 0 60px rgba(224,87,75,.18);
 }
-/* Градиент ч/б → цвет слева направо */
-.reel-card.rc-3l .reel-inner, .reel-card.rc-2l .reel-inner { filter: grayscale(1) brightness(.65); }
-.reel-card.rc-1l .reel-inner { filter: grayscale(.5) brightness(.80); }
-.reel-card.rc-c  .reel-inner { filter: none; }
-.reel-card.rc-1r .reel-inner, .reel-card.rc-2r .reel-inner, .reel-card.rc-3r .reel-inner { filter: saturate(.85); }
 /* Видео в карточках */
-.reel-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:1; }
-.reel-card.rc-3l .reel-video, .reel-card.rc-2l .reel-video { filter: grayscale(1) brightness(.65); }
-.reel-card.rc-1l .reel-video { filter: grayscale(.5) brightness(.80); }
-.reel-card.rc-c .reel-video { filter: none; }
-.reel-card.rc-1r .reel-video, .reel-card.rc-2r .reel-video, .reel-card.rc-3r .reel-video { filter: saturate(.85); }
+.reel-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:1; filter: brightness(.8); }
+.reel-card.rc-c .reel-video { filter: brightness(1.1); }
 
 /* Вогнутая лента: крайние карточки самые большие */
 .reel-card.rc-3l { transform: perspective(900px) rotateY(44deg) scale(1.24); opacity: .86; }

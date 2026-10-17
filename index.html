@@ -1054,9 +1054,11 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-center .heading { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
   .hero-center .lead { max-width: 100%; overflow-wrap: break-word; }
   .hero-spot { display: none; }
-  /* мобайл: силуэт виден, по центру, поверх ленты */
+  /* мобайл: силуэт виден, по центру, поверх ленты; кнопка должна быть выше */
   .hero-silhouette { display: block; }
   .silhouette-img { height: 55vh; }
+  .hero-btn-wrap { margin-bottom: 56px; position: relative; z-index: 6; }
+  .hero-center { z-index: 6; }
 
   /* reel-scene: убираем left:50%/transform чтобы layout-бокс не выходил за viewport */
   .reel-scene { left: 0; transform: none; width: 100%; }

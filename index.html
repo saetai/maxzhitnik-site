@@ -593,7 +593,7 @@ section:not(.hero)::before {
 .method-card-v4::after { background: linear-gradient(to top, rgba(168,52,58,.55) 0%, rgba(168,52,58,.18) 50%, transparent 100%); }
 
 /* Инфографика в карточках метода — высота ~40% */
-.mc-infographic { position: relative; height: 90px; }
+.mc-infographic { position: relative; height: 120px; overflow: visible; }
 .voice-text {
   font-family: 'Manrope', sans-serif; font-size: 14px; color: rgba(246,237,234,.6);
   line-height: 1.6; margin-bottom: 16px;
@@ -657,6 +657,59 @@ section:not(.hero)::before {
   .mc-ring-outer, .mc-ring-mid, .mc-ring-inner,
   .mc-node-line, .mc-node-dot,
   .mc-scene-line, .mc-scene-dot { animation: none; }
+}
+
+/* ═══ 16.3 Method: Glass Infographics ══════════════════════════════ */
+
+/* — Card 1: Equalizer — */
+.mc-infographic--voice { height: auto; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.eq-bar { transform-box: fill-box; transform-origin: 50% 100%; }
+.eq-mic-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.eq-mic-ring {
+  position: absolute; width: 44px; height: 44px; border-radius: 50%;
+  border: 1.5px solid rgba(224,87,75,.55); pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .eq-bar.b1{animation:eq-br 2.1s ease-in-out infinite}
+  .eq-bar.b2{animation:eq-br 1.8s ease-in-out infinite -.55s}
+  .eq-bar.b3{animation:eq-br 2.4s ease-in-out infinite -.3s}
+  .eq-bar.b4{animation:eq-br 1.6s ease-in-out infinite -.85s}
+  .eq-bar.b5{animation:eq-br 1.9s ease-in-out infinite -.1s}
+  .eq-bar.b6{animation:eq-br 1.7s ease-in-out infinite -.5s}
+  .eq-bar.b7{animation:eq-br 2.3s ease-in-out infinite -.7s}
+  .eq-bar.b8{animation:eq-br 1.95s ease-in-out infinite -.4s}
+  .eq-bar.b9{animation:eq-br 2.15s ease-in-out infinite -.2s}
+  @keyframes eq-br{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.38)}}
+  .mc-visible .eq-wave{animation:eq-wave-draw 1.4s ease-out forwards}
+  @keyframes eq-wave-draw{to{stroke-dashoffset:0}}
+  .eq-mic-ring{animation:eq-ring-pulse 2.4s ease-out infinite}
+  @keyframes eq-ring-pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.6);opacity:0}}
+}
+
+/* — Card 2: Body & energy rings — */
+@media (prefers-reduced-motion: no-preference) {
+  .body-ring{animation:body-ring-pulse 3.5s ease-in-out infinite}
+  .body-edot{animation:body-dot-glow 2.8s ease-in-out infinite}
+  @keyframes body-ring-pulse{0%,100%{opacity:.12}50%{opacity:.5}}
+  @keyframes body-dot-glow{0%,100%{opacity:.55}50%{opacity:1}}
+}
+
+/* — Card 3: Interaction glass tiles — */
+.ia-line { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) { .ia-flow-dot{display:none} }
+
+/* — Card 4: Scene spotlight particles — */
+@media (prefers-reduced-motion: no-preference) {
+  .scene-ptcl{animation:scene-float 4s ease-in-out infinite}
+  .scene-ptcl:nth-child(2){animation-delay:-1.3s;animation-duration:3.6s}
+  .scene-ptcl:nth-child(3){animation-delay:-2.7s;animation-duration:4.8s}
+  .scene-ptcl:nth-child(4){animation-delay:-.7s;animation-duration:3.2s}
+  .scene-ptcl:nth-child(5){animation-delay:-2.1s;animation-duration:5s}
+  @keyframes scene-float{
+    0%,100%{transform:translate(0,0);opacity:.3}
+    40%{transform:translate(5px,-9px);opacity:.9}
+    70%{transform:translate(-3px,-5px);opacity:.55}
+  }
 }
 
 /* ── РАЗДЕЛ 4: ПРОГРАММА — аккордеон ── */
@@ -1550,22 +1603,61 @@ footer p { font-size: 14px; color: var(--text-muted); }
                 <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
               </div>
               <div class="mc-title">Голос</div>
-              <p class="voice-text">Опора, дыхание, тембр — чтобы ваш голос звучал <strong>уверенно…</strong></p>
-              <div class="voice-waves">
-                <svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true">
+              <p class="mc-text">Опора, дыхание, тембр — чтобы ваш голос звучал <strong>уверенно…</strong></p>
+              <div class="mc-infographic mc-infographic--voice" aria-hidden="true">
+                <svg viewBox="0 0 200 92" width="100%" height="92" overflow="visible">
                   <defs>
-                    <filter id="wg"><feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="rgba(255,140,120,.7)"/></filter>
+                    <linearGradient id="eq-bar-g" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="rgba(255,255,255,.18)"/>
+                      <stop offset="100%" stop-color="rgba(255,255,255,.04)"/>
+                    </linearGradient>
+                    <linearGradient id="eq-wave-g" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="rgba(224,87,75,0)"/>
+                      <stop offset="25%" stop-color="rgba(224,87,75,.9)"/>
+                      <stop offset="75%" stop-color="rgba(224,87,75,.9)"/>
+                      <stop offset="100%" stop-color="rgba(224,87,75,0)"/>
+                    </linearGradient>
+                    <filter id="eq-glow-f" x="-100%" y="-100%" width="300%" height="300%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="rgba(224,87,75,.85)"/>
+                    </filter>
+                    <filter id="eq-bar-f" x="-80%" y="-60%" width="260%" height="220%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="rgba(224,87,75,.4)"/>
+                    </filter>
+                    <pattern id="eq-grid" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                      <circle cx="1.5" cy="1.5" r="1" fill="rgba(255,255,255,.07)"/>
+                    </pattern>
+                    <radialGradient id="eq-grid-m" cx="50%" cy="50%" r="60%">
+                      <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                    </radialGradient>
+                    <mask id="eq-grid-mask">
+                      <rect width="200" height="92" fill="url(#eq-grid-m)"/>
+                    </mask>
                   </defs>
-                  <path class="wave-path" d="M0,40 Q37,15 75,40 T150,40 T225,40 T300,40" fill="none" stroke="rgba(255,200,190,.55)" stroke-width="1.3"/>
-                  <path class="wave-path" d="M0,50 Q45,25 90,50 T180,50 T270,50" fill="none" stroke="rgba(255,200,190,.6)" stroke-width="1.3"/>
-                  <path class="wave-path" d="M0,35 Q30,55 60,35 T120,35 T180,35 T240,35 T300,35" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2" filter="url(#wg)"/>
-                  <path class="wave-path" d="M0,58 Q50,35 100,58 T200,58 T300,58" fill="none" stroke="rgba(255,200,190,.45)" stroke-width="1.2"/>
-                  <path class="wave-path" d="M0,28 Q40,48 80,28 T160,28 T240,28" fill="none" stroke="rgba(255,200,190,.4)" stroke-width="1.2"/>
+                  <rect width="200" height="92" fill="url(#eq-grid)" mask="url(#eq-grid-mask)"/>
+                  <!-- bars, all bottom at y=86 -->
+                  <rect class="eq-bar b1" x="5"   y="59" width="14" height="27" rx="3" fill="url(#eq-bar-g)" stroke="rgba(255,255,255,.11)" stroke-width="0.5"/>
+                  <rect class="eq-bar b2" x="27"  y="37" width="14" height="49" rx="3" fill="url(#eq-bar-g)" stroke="rgba(255,255,255,.13)" stroke-width="0.5"/>
+                  <rect class="eq-bar b3" x="49"  y="46" width="14" height="40" rx="3" fill="url(#eq-bar-g)" stroke="rgba(255,255,255,.12)" stroke-width="0.5"/>
+                  <rect class="eq-bar b4" x="71"  y="22" width="14" height="64" rx="3" fill="url(#eq-bar-g)" stroke="rgba(255,255,255,.15)" stroke-width="0.5" filter="url(#eq-bar-f)"/>
+                  <rect class="eq-bar b5" x="93"  y="6"  width="14" height="80" rx="3" fill="url(#eq-bar-g)" stroke="rgba(224,87,75,.30)" stroke-width="0.8" filter="url(#eq-bar-f)"/>
+                  <rect class="eq-bar b6" x="115" y="14" width="14" height="72" rx="3" fill="url(#eq-bar-g)" stroke="rgba(224,87,75,.24)" stroke-width="0.7" filter="url(#eq-bar-f)"/>
+                  <rect class="eq-bar b7" x="137" y="30" width="14" height="56" rx="3" fill="url(#eq-bar-g)" stroke="rgba(255,255,255,.13)" stroke-width="0.5"/>
+                  <rect class="eq-bar b8" x="159" y="44" width="14" height="42" rx="3" fill="url(#eq-bar-g)" stroke="rgba(255,255,255,.12)" stroke-width="0.5"/>
+                  <rect class="eq-bar b9" x="181" y="56" width="14" height="30" rx="3" fill="url(#eq-bar-g)" stroke="rgba(255,255,255,.11)" stroke-width="0.5"/>
+                  <!-- glowing wave through bars -->
+                  <path class="eq-wave"
+                    d="M0,74 C22,50 44,80 66,28 S100,2 130,12 S165,42 186,66 L200,72"
+                    fill="none" stroke="url(#eq-wave-g)" stroke-width="2.2"
+                    filter="url(#eq-glow-f)" stroke-dasharray="600" stroke-dashoffset="600"/>
                 </svg>
+                <div class="eq-mic-wrap">
+                  <div class="eq-mic-ring"></div>
+                  <button class="voice-mic-btn" aria-label="Голос">
+                    <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+                  </button>
+                </div>
               </div>
-              <button class="voice-mic-btn" aria-label="Голосовой ассистент">
-                <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
-              </button>
             </div>
 
             <!-- Карточка 2: Тело -->
@@ -1576,14 +1668,50 @@ footer p { font-size: 14px; color: var(--text-muted); }
               </div>
               <div class="mc-title">Тело</div>
               <p class="mc-text">Снятие зажимов, устойчивость, присутствие, энергия — чтобы перестать «сжиматься» в моменте.</p>
-              <div class="mc-infographic">
-                <svg viewBox="0 0 160 90" width="100%" height="90">
-                  <circle class="mc-ring-outer" cx="80" cy="45" r="38" fill="none" stroke="rgba(246,237,234,.14)" stroke-width="1"/>
-                  <circle class="mc-ring-mid"   cx="80" cy="45" r="27" fill="none" stroke="rgba(246,237,234,.22)" stroke-width="1"/>
-                  <circle class="mc-ring-inner" cx="80" cy="45" r="15" fill="none" stroke="rgba(232,154,91,.5)" stroke-width="1.5"/>
-                  <circle class="mc-node-dot"   cx="80" cy="45" r="4"  fill="rgba(232,154,91,.8)"/>
-                  <line x1="80" y1="4"  x2="80" y2="86" stroke="rgba(246,237,234,.07)" stroke-width="1"/>
-                  <line x1="38" y1="45" x2="122" y2="45" stroke="rgba(246,237,234,.07)" stroke-width="1"/>
+              <div class="mc-infographic" aria-hidden="true">
+                <svg viewBox="0 0 160 120" width="100%" height="120" overflow="visible" style="position:absolute;inset:0">
+                  <defs>
+                    <filter id="body-glow-f" x="-100%" y="-100%" width="300%" height="300%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="rgba(232,154,91,.9)"/>
+                    </filter>
+                    <radialGradient id="floor-ell-g" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="rgba(232,154,91,.32)"/>
+                      <stop offset="100%" stop-color="rgba(232,154,91,0)"/>
+                    </radialGradient>
+                    <filter id="floor-glow-f" x="-60%" y="-200%" width="220%" height="500%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="rgba(232,154,91,.45)"/>
+                    </filter>
+                    <pattern id="bd-grid" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                      <circle cx="1.5" cy="1.5" r="1" fill="rgba(255,255,255,.07)"/>
+                    </pattern>
+                    <radialGradient id="bd-grid-m" cx="50%" cy="50%" r="70%">
+                      <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                    </radialGradient>
+                    <mask id="bd-grid-mask"><rect width="160" height="120" fill="url(#bd-grid-m)"/></mask>
+                  </defs>
+                  <rect width="160" height="120" fill="url(#bd-grid)" mask="url(#bd-grid-mask)"/>
+                  <!-- 3 concentric ellipses (aura) -->
+                  <ellipse class="body-ring" cx="80" cy="52" rx="55" ry="40" fill="none" stroke="rgba(246,237,234,.10)" stroke-width="1" style="animation-delay:0s"/>
+                  <ellipse class="body-ring" cx="80" cy="52" rx="38" ry="28" fill="none" stroke="rgba(246,237,234,.16)" stroke-width="1" style="animation-delay:-1.1s"/>
+                  <ellipse class="body-ring" cx="80" cy="52" rx="22" ry="17" fill="none" stroke="rgba(232,154,91,.45)" stroke-width="1.2" style="animation-delay:-2.3s"/>
+                  <!-- Floor ellipse glow -->
+                  <ellipse cx="80" cy="111" rx="30" ry="7" fill="url(#floor-ell-g)" filter="url(#floor-glow-f)"/>
+                  <!-- Stick figure silhouette -->
+                  <g fill="none" stroke="rgba(246,237,234,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="80" cy="14" r="8"/>
+                    <line x1="80" y1="22" x2="80" y2="62"/>
+                    <path d="M80,32 L58,46 M80,32 L102,46"/>
+                    <path d="M80,62 L64,90 M80,62 L96,90"/>
+                  </g>
+                  <!-- 5 energy centres -->
+                  <g filter="url(#body-glow-f)">
+                    <circle class="body-edot" cx="80" cy="14" r="3.5" fill="rgba(232,154,91,.9)" style="animation-delay:0s"/>
+                    <circle class="body-edot" cx="80" cy="25" r="3"   fill="rgba(232,154,91,.8)" style="animation-delay:-.56s"/>
+                    <circle class="body-edot" cx="80" cy="37" r="3.5" fill="rgba(232,154,91,.9)" style="animation-delay:-1.12s"/>
+                    <circle class="body-edot" cx="80" cy="50" r="3"   fill="rgba(232,154,91,.8)" style="animation-delay:-1.68s"/>
+                    <circle class="body-edot" cx="80" cy="78" r="3.5" fill="rgba(232,154,91,.9)" style="animation-delay:-2.24s"/>
+                  </g>
                 </svg>
               </div>
             </div>
@@ -1596,17 +1724,81 @@ footer p { font-size: 14px; color: var(--text-muted); }
               </div>
               <div class="mc-title">Взаимодействие</div>
               <p class="mc-text">Контакт, границы, импровизация — быть сильными и тёплыми одновременно.</p>
-              <div class="mc-infographic">
-                <svg viewBox="0 0 160 90" width="100%" height="90">
-                  <circle cx="30"  cy="45" r="16" fill="none" stroke="rgba(246,237,234,.22)" stroke-width="1"/>
-                  <circle cx="130" cy="45" r="16" fill="none" stroke="rgba(246,237,234,.22)" stroke-width="1"/>
-                  <circle cx="80"  cy="20" r="10" fill="none" stroke="rgba(217,120,122,.4)"  stroke-width="1"/>
-                  <circle cx="80"  cy="70" r="10" fill="none" stroke="rgba(217,120,122,.4)"  stroke-width="1"/>
-                  <line class="mc-node-line" x1="46" y1="45" x2="114" y2="45" stroke="rgba(217,120,122,.6)" stroke-width="1.2" stroke-dasharray="6 4"/>
-                  <line x1="80" y1="30" x2="80" y2="60" stroke="rgba(217,120,122,.3)" stroke-width="1" stroke-dasharray="4 3"/>
-                  <circle cx="30"  cy="45" r="6" fill="rgba(246,237,234,.3)"/>
-                  <circle cx="130" cy="45" r="6" fill="rgba(246,237,234,.3)"/>
-                  <circle class="mc-node-dot" cx="80" cy="45" r="5" fill="rgba(217,120,122,.8)"/>
+              <div class="mc-infographic" aria-hidden="true">
+                <svg viewBox="0 0 200 120" width="100%" height="120" overflow="visible" style="position:absolute;inset:0">
+                  <defs>
+                    <linearGradient id="ia-tile-g" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="rgba(255,255,255,.14)"/>
+                      <stop offset="100%" stop-color="rgba(255,255,255,.04)"/>
+                    </linearGradient>
+                    <linearGradient id="ia-tile-lg-g" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="rgba(217,120,122,.22)"/>
+                      <stop offset="100%" stop-color="rgba(217,120,122,.06)"/>
+                    </linearGradient>
+                    <filter id="ia-dot-f" x="-100%" y="-100%" width="300%" height="300%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="3.5" flood-color="rgba(217,120,122,.9)"/>
+                    </filter>
+                    <filter id="ia-lg-f" x="-40%" y="-25%" width="180%" height="150%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="9" flood-color="rgba(217,120,122,.28)"/>
+                    </filter>
+                    <pattern id="ia-dots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                      <circle cx="1.5" cy="1.5" r="1" fill="rgba(255,255,255,.07)"/>
+                    </pattern>
+                    <radialGradient id="ia-dots-m" cx="50%" cy="50%" r="70%">
+                      <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                    </radialGradient>
+                    <mask id="ia-dots-mask"><rect width="200" height="120" fill="url(#ia-dots-m)"/></mask>
+                  </defs>
+                  <rect width="200" height="120" fill="url(#ia-dots)" mask="url(#ia-dots-mask)"/>
+                  <!-- 3 small glass tiles (left), w=52 h=28, gap=9 -->
+                  <!-- Tile 1: y=8..36 -->
+                  <rect x="6" y="8"  width="52" height="28" rx="8" fill="url(#ia-tile-g)" stroke="rgba(255,255,255,.14)" stroke-width="0.8"/>
+                  <rect x="7" y="9"  width="50" height="5"  rx="7" fill="rgba(255,255,255,.14)"/>
+                  <!-- Tile 2: y=45..73 -->
+                  <rect x="6" y="45" width="52" height="28" rx="8" fill="url(#ia-tile-g)" stroke="rgba(255,255,255,.14)" stroke-width="0.8"/>
+                  <rect x="7" y="46" width="50" height="5"  rx="7" fill="rgba(255,255,255,.14)"/>
+                  <!-- Tile 3: y=82..110 -->
+                  <rect x="6" y="82" width="52" height="28" rx="8" fill="url(#ia-tile-g)" stroke="rgba(255,255,255,.14)" stroke-width="0.8"/>
+                  <rect x="7" y="83" width="50" height="5"  rx="7" fill="rgba(255,255,255,.14)"/>
+                  <!-- Icons in small tiles (Lucide, 16px, centered) -->
+                  <!-- user icon, tile 1 center (32,22) -->
+                  <g transform="translate(24,14) scale(0.667)" stroke="rgba(246,237,234,.72)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  </g>
+                  <!-- message-circle icon, tile 2 center (32,59) -->
+                  <g transform="translate(24,51) scale(0.667)" stroke="rgba(246,237,234,.72)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </g>
+                  <!-- heart icon, tile 3 center (32,96) -->
+                  <g transform="translate(24,88) scale(0.667)" stroke="rgba(246,237,234,.72)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </g>
+                  <!-- Large glass tile (right), x=134..198, y=12..108 -->
+                  <rect x="134" y="12" width="62" height="96" rx="12" fill="url(#ia-tile-lg-g)" stroke="rgba(217,120,122,.28)" stroke-width="0.8" filter="url(#ia-lg-f)"/>
+                  <rect x="135" y="13" width="60" height="7"  rx="11" fill="rgba(255,255,255,.14)"/>
+                  <!-- users icon, large tile center (165,60) -->
+                  <g transform="translate(153,47) scale(0.75)" stroke="rgba(217,120,122,.95)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#ia-dot-f)">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </g>
+                  <!-- Dotted curved lines converging: from right edge of tiles (x=58) → left edge large tile (x=134) -->
+                  <!-- Tile y-centers: 22, 59, 96. Large tile center y: 60 -->
+                  <path class="ia-line" d="M58,22 C96,22 96,60 134,60" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2" stroke-dasharray="5 6"/>
+                  <path class="ia-line" d="M58,59 C96,59 96,60 134,60" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2" stroke-dasharray="5 6"/>
+                  <path class="ia-line" d="M58,96 C96,96 96,60 134,60" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2" stroke-dasharray="5 6"/>
+                  <!-- Flowing dots along lines -->
+                  <circle class="ia-flow-dot" r="3.5" fill="rgba(217,120,122,.9)" filter="url(#ia-dot-f)">
+                    <animateMotion dur="2.2s" repeatCount="indefinite" path="M58,22 C96,22 96,60 134,60"/>
+                  </circle>
+                  <circle class="ia-flow-dot" r="3.5" fill="rgba(217,120,122,.9)" filter="url(#ia-dot-f)">
+                    <animateMotion dur="2.2s" repeatCount="indefinite" begin="-0.73s" path="M58,59 C96,59 96,60 134,60"/>
+                  </circle>
+                  <circle class="ia-flow-dot" r="3.5" fill="rgba(217,120,122,.9)" filter="url(#ia-dot-f)">
+                    <animateMotion dur="2.2s" repeatCount="indefinite" begin="-1.47s" path="M58,96 C96,96 96,60 134,60"/>
+                  </circle>
                 </svg>
               </div>
             </div>
@@ -1619,19 +1811,54 @@ footer p { font-size: 14px; color: var(--text-muted); }
               </div>
               <div class="mc-title">Сцена и импровизация<!-- TODO: уточнить название у клиента --></div>
               <p class="mc-text">Актёрские упражнения на сцене: роль, присутствие, реакция. Импровизация убирает страх ошибки.<!-- TODO --></p>
-              <div class="mc-infographic">
-                <svg viewBox="0 0 160 90" width="100%" height="90">
+              <div class="mc-infographic" aria-hidden="true">
+                <svg viewBox="0 0 160 120" width="100%" height="120" overflow="visible" style="position:absolute;inset:0">
                   <defs>
-                    <filter id="glow1"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="rgba(168,52,58,.9)"/></filter>
-                    <filter id="glow2"><feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="rgba(168,52,58,.7)"/></filter>
+                    <linearGradient id="spot-cone-g" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="rgba(200,70,65,.85)"/>
+                      <stop offset="50%" stop-color="rgba(168,52,58,.35)"/>
+                      <stop offset="100%" stop-color="rgba(168,52,58,0)"/>
+                    </linearGradient>
+                    <radialGradient id="spot-floor-g" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="rgba(168,52,58,.38)"/>
+                      <stop offset="100%" stop-color="rgba(168,52,58,0)"/>
+                    </radialGradient>
+                    <filter id="cone-blur-f" x="-25%" y="-10%" width="150%" height="130%">
+                      <feGaussianBlur stdDeviation="3"/>
+                    </filter>
+                    <filter id="scene-ptcl-f" x="-200%" y="-200%" width="500%" height="500%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="rgba(168,52,58,.6)"/>
+                    </filter>
+                    <filter id="floor-f" x="-60%" y="-200%" width="220%" height="500%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="rgba(168,52,58,.4)"/>
+                    </filter>
+                    <pattern id="sc-grid" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                      <circle cx="1.5" cy="1.5" r="1" fill="rgba(255,255,255,.07)"/>
+                    </pattern>
+                    <radialGradient id="sc-grid-m" cx="50%" cy="50%" r="70%">
+                      <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                    </radialGradient>
+                    <mask id="sc-grid-mask"><rect width="160" height="120" fill="url(#sc-grid-m)"/></mask>
                   </defs>
-                  <!-- Ореол под линией -->
-                  <polyline points="8,78 38,50 68,66 98,36 128,55 156,18" fill="none" stroke="rgba(168,52,58,.15)" stroke-width="10"/>
-                  <!-- Основная линия — анимированная отрисовка -->
-                  <polyline class="mc-scene-line" points="8,78 38,50 68,66 98,36 128,55 156,18" fill="none" stroke="rgba(168,52,58,.75)" stroke-width="2" filter="url(#glow2)"/>
-                  <!-- Точка на конце -->
-                  <circle class="mc-scene-dot" cx="156" cy="18" r="5" fill="rgba(168,52,58,.9)" filter="url(#glow1)"/>
-                  <circle cx="156" cy="18" r="2.5" fill="#F6EDEA"/>
+                  <rect width="160" height="120" fill="url(#sc-grid)" mask="url(#sc-grid-mask)"/>
+                  <!-- Spotlight cone (blurred) -->
+                  <polygon points="80,0 34,112 126,112" fill="url(#spot-cone-g)" filter="url(#cone-blur-f)"/>
+                  <!-- Floor glow ellipse -->
+                  <ellipse cx="80" cy="112" rx="44" ry="9" fill="url(#spot-floor-g)" filter="url(#floor-f)"/>
+                  <!-- Person silhouette in spotlight -->
+                  <g fill="none" stroke="rgba(246,237,234,.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="80" cy="72" r="5.5" fill="rgba(246,237,234,.12)"/>
+                    <line x1="80" y1="78" x2="80" y2="98"/>
+                    <path d="M73,87 L80,84 L87,87"/>
+                    <path d="M80,98 L74,109 M80,98 L86,109"/>
+                  </g>
+                  <!-- Floating dust particles in beam -->
+                  <circle class="scene-ptcl" cx="60"  cy="50" r="1.5" fill="rgba(246,237,234,.65)" filter="url(#scene-ptcl-f)"/>
+                  <circle class="scene-ptcl" cx="74"  cy="33" r="1"   fill="rgba(246,237,234,.55)"/>
+                  <circle class="scene-ptcl" cx="93"  cy="42" r="1.5" fill="rgba(246,237,234,.6)"  filter="url(#scene-ptcl-f)"/>
+                  <circle class="scene-ptcl" cx="104" cy="62" r="1"   fill="rgba(246,237,234,.45)"/>
+                  <circle class="scene-ptcl" cx="69"  cy="68" r="1"   fill="rgba(246,237,234,.5)"/>
                 </svg>
               </div>
             </div>
@@ -2255,6 +2482,20 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
       }
     });
   }, { threshold: 0.3 });
+  cards.forEach(function(c) { obs.observe(c); });
+})();
+
+// ── 16.3 Анимация glass-инфографики карточек метода ─────────────────
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (mq && mq.matches) return;
+  var cards = document.querySelectorAll('.method-card');
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('mc-visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.35 });
   cards.forEach(function(c) { obs.observe(c); });
 })();
 

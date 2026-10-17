@@ -264,29 +264,58 @@ section:not(.hero)::before {
   object-fit: contain; object-position: bottom center;
   -webkit-mask-image: linear-gradient(to top, transparent 0%, black 10%);
   mask-image: linear-gradient(to top, transparent 0%, black 10%);
+  position: relative; z-index: 2;
+}
+/* Пятно за силуэтом: прямой дочерний элемент .hero, без ограничений stacking context */
+.hero-spot {
+  position: absolute;
+  /* Голова силуэта — примерно 25-35% сверху hero (силуэт = 80vh, стоит bottom:0) */
+  top: 18%; left: 50%; transform: translateX(-50%);
+  border-radius: 50%; pointer-events: none;
+  z-index: 2; /* между hero-halo (0) и silhouette (3) */
 }
 
-/* Вариант A — контровой свет */
+/* ── ВАРИАНТ A — КОНТРОВОЙ СВЕТ (оранжево-терракотовое пятно + rim light) ── */
 body[data-hero="a"] .silhouette-img {
-  filter: brightness(.22) contrast(1.3) drop-shadow(0 0 2px rgba(255,170,120,.9)) drop-shadow(0 0 22px rgba(240,110,80,.7));
+  /* тёмный силуэт + яркое оранжевое свечение по контуру (rim light) */
+  filter:
+    brightness(.16) contrast(1.6)
+    drop-shadow(0 0 1px rgba(255,160,60,1))
+    drop-shadow(0 0 4px rgba(255,130,45,1))
+    drop-shadow(0 0 12px rgba(230,90,40,.95))
+    drop-shadow(0 0 28px rgba(210,70,30,.8))
+    drop-shadow(0 0 55px rgba(190,50,20,.5));
 }
-body[data-hero="a"] .hero-silhouette::after {
-  content:''; position:absolute; top:5%; left:50%; transform:translateX(-50%);
-  width:400px; height:400px; border-radius:50%; pointer-events:none;
-  background: radial-gradient(closest-side, rgba(240,120,80,.85) 0%, rgba(224,87,75,.4) 45%, transparent 100%);
-  filter:blur(50px); z-index:-1;
+body[data-hero="a"] .hero-spot {
+  width: 620px; height: 620px;
+  background: radial-gradient(circle,
+    rgba(255,150,60,1)    0%,
+    rgba(245,115,48,.97) 20%,
+    rgba(224,87,75,.8)   42%,
+    rgba(170,45,20,.3)   65%,
+    transparent          80%);
+  filter: blur(24px);
 }
 
-/* Вариант B — чистый контраст */
+/* ── ВАРИАНТ B — ЧЁРНЫЙ СИЛУЭТ НА СВЕТЛОМ ПЯТНЕ (графичный минимализм) ── */
 body[data-hero="b"] .silhouette-img {
-  filter: brightness(.05) contrast(1.5);
+  /* абсолютно чёрный силуэт, без свечения */
+  filter: brightness(0) contrast(2);
 }
-body[data-hero="b"] .hero-silhouette::after {
-  content:''; position:absolute; top:10%; left:50%; transform:translateX(-50%);
-  width:500px; height:500px; border-radius:50%; pointer-events:none;
-  background: radial-gradient(closest-side, rgba(246,237,234,.7) 0%, rgba(224,87,75,.2) 55%, transparent 100%);
-  filter:blur(60px); z-index:-1;
+body[data-hero="b"] .hero-spot {
+  /* яркое кремово-белое пятно — как прожектор сзади */
+  width: 720px; height: 720px;
+  background: radial-gradient(circle,
+    rgba(255,252,248,1)   0%,
+    rgba(250,244,240,1)  12%,
+    rgba(246,237,234,.94) 28%,
+    rgba(240,228,222,.65) 48%,
+    rgba(230,210,200,.2)  66%,
+    transparent           80%);
+  filter: blur(16px);
 }
+/* В варианте B гасим тёплый hero-halo — минималистичный образ, без свечений */
+body[data-hero="b"] .hero-halo { opacity: 0; }
 
 .hero-center {
   display: flex; flex-direction: column; align-items: center; text-align: center;
@@ -931,6 +960,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
 <!-- ═══ 1. ГЕРОЙ ═══ -->
 <section class="hero">
   <div class="hero-halo"></div>
+  <!-- Пятно за силуэтом (позиция: верхняя треть hero, по центру) -->
+  <div class="hero-spot"></div>
 
   <!-- Силуэт Максима (11.3) — z-index:3, между лентой и текстом -->
   <div class="hero-silhouette">
@@ -1453,7 +1484,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <div class="price-opt">
         <div class="price-opt-title">Задать вопрос</div>
         <div class="price-opt-sub">Расскажем подробнее</div>
-        <a href="https://t.me/maxzhitnik" class="btn btn-ghost" style="margin-top:auto;" target="_blank">Написать в Telegram</a>
+        <!-- TODO уточнить Telegram у клиента -->
+        <a href="#" class="btn btn-ghost" style="margin-top:auto;">Написать в Telegram</a>
       </div>
     </div>
 

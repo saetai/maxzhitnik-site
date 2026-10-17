@@ -13,10 +13,10 @@
 
 /* ── ЦВЕТА ── */
 :root {
-  --bg:          #120809;
-  --bg-deep:     #0F0607;
-  --surface:     #1E0E10;
-  --surface-2:   #281315;
+  --bg:          #0E0B0B;
+  --bg-deep:     #0A0808;
+  --surface:     #171212;
+  --surface-2:   #1E1717;
   --border:      rgba(255,220,215,.08);
   --text:        #F6EDEA;
   --text-muted:  rgba(246,237,234,.62);
@@ -44,7 +44,7 @@ nav {
   z-index: 100; width: calc(100% - 48px); max-width: 1120px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 20px;
-  background: rgba(30,14,16,.85);
+  background: rgba(23,18,18,.85);
   border: 1px solid var(--border);
   border-radius: 16px;
   backdrop-filter: blur(16px);
@@ -127,7 +127,7 @@ nav {
   display: block;
   font-family: 'Onest', sans-serif; font-weight: 200;
   letter-spacing: -0.01em;
-  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 30%, rgba(246,237,234,.35) 100%);
+  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 35%, rgba(246,237,234,.28) 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .h-cormorant {
@@ -153,12 +153,12 @@ nav {
 /* 11.1 Размеры: H1 64px, H2 48–52px */
 .h1 .h-onest     { font-size: 64px; line-height: 1.08; }
 .h1 .h-cormorant { font-size: 64px; line-height: 1.05; }
-.h2 .h-onest     { font-size: 50px; line-height: 1.12; }
+.h2 .h-onest     { font-size: 52px; line-height: 1.12; }
 .h2 .h-cormorant { font-size: 56px; line-height: 1.08; }
 
 .lead {
-  font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400;
-  line-height: 1.65; color: var(--text-muted);
+  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 400;
+  line-height: 1.65; color: rgba(246,237,234,.5);
 }
 
 /* ── СЕКЦИЯ-ШАПКА ── */
@@ -216,7 +216,7 @@ nav {
 
 /* ── СЕКЦИИ ── */
 section {
-  padding: 160px 0;
+  padding: 180px 0;
   position: relative;
   background: var(--bg);
 }
@@ -252,6 +252,15 @@ section:not(.hero)::before {
   padding-bottom: 0;
   position: relative;
   display: flex; align-items: flex-start;
+  overflow: hidden;
+}
+/* Hero bottom fade into next section */
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  z-index: 4; pointer-events: none;
 }
 
 .hero-halo {
@@ -288,13 +297,13 @@ section:not(.hero)::before {
 
 /* ── СИЛУЭТ — яркая оранжевая кайма по контуру + тёплое свечение ── */
 .silhouette-img {
-  filter: brightness(.18) contrast(1.5)
-    drop-shadow(0 0 1px rgba(255,245,215,1))
-    drop-shadow(0 0 4px rgba(255,210,160,1))
-    drop-shadow(0 0 10px rgba(255,170,90,.95))
-    drop-shadow(0 0 22px rgba(240,120,55,.85))
-    drop-shadow(0 0 46px rgba(224,87,75,.65))
-    drop-shadow(0 0 80px rgba(200,60,30,.4));
+  filter: brightness(.45) contrast(1.1)
+    drop-shadow(0 0 2px rgba(255,245,215,.9))
+    drop-shadow(0 0 6px rgba(255,210,160,.85))
+    drop-shadow(0 0 14px rgba(255,170,90,.75))
+    drop-shadow(0 0 28px rgba(240,120,55,.65))
+    drop-shadow(0 0 55px rgba(224,87,75,.50))
+    drop-shadow(0 0 90px rgba(200,60,30,.30));
 }
 .hero-spot {
   width: 620px; height: 620px;
@@ -319,13 +328,20 @@ section:not(.hero)::before {
 
 /* ── ВИДЕО-ЛЕНТА ── */
 .reel-scene {
-  position: relative;
-  width: 100vw;
+  position: absolute;
+  top: 28vh;
   left: 50%; transform: translateX(-50%);
+  width: 100vw;
   padding: 64px 0 72px;
   overflow: hidden;
   z-index: 1;
 }
+/* Аудитория (сидящие зрители) */
+.hero-audience {
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  z-index: 3; pointer-events: none;
+}
+.hero-audience svg { display: block; width: 100%; }
 
 .reel-vline {
   position: absolute; left: 50%; top: 0; bottom: 0;
@@ -402,7 +418,6 @@ section:not(.hero)::before {
 /* ── 3 ФИЧИ — отдельная полоса под hero ── */
 .hero-features-band {
   background: var(--bg);
-  border-top: 1px solid rgba(255,220,215,.08);
   position: relative; z-index: 10;
 }
 .hero-features {
@@ -634,14 +649,35 @@ section:not(.hero)::before {
   display: flex; align-items: center; gap: 24px;
   padding: 28px 32px;
   cursor: pointer; user-select: none;
-  background: linear-gradient(90deg, rgba(224,87,75,.25), rgba(224,87,75,.05) 60%, transparent);
+  background: linear-gradient(90deg, rgba(224,87,75,.07) 0%, transparent 60%);
+  border-left: 2px solid rgba(224,87,75,.45);
+  position: relative;
+}
+.acc-header::before {
+  content: '';
+  position: absolute; left: 0; top: 0; width: 140px; height: 100%;
+  background: radial-gradient(ellipse at 0% 50%, rgba(224,87,75,.10) 0%, transparent 70%);
+  pointer-events: none;
 }
 .acc-day {
   font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600;
   color: var(--accent); text-transform: uppercase; letter-spacing: .08em;
   white-space: nowrap; min-width: 56px;
 }
-.acc-title { font-family: 'Manrope', sans-serif; font-size: 19px; font-weight: 500; color: var(--text); flex: 1; }
+.acc-title-group { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.acc-title { font-family: 'Manrope', sans-serif; font-size: 19px; font-weight: 500; color: var(--text); }
+.acc-header-sub { font-size: 13px; color: var(--text-muted); font-weight: 400; line-height: 1.3; }
+
+/* ── Иконки «Кому полезен» ── */
+.forwho-icon-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.forwho-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid rgba(224,87,75,.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 0 12px rgba(224,87,75,.08);
+}
+.forwho-icon svg { width: 18px; height: 18px; stroke: rgba(224,87,75,.8); stroke-width: 1.5; fill: none; }
 .acc-toggle {
   width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
   background: var(--accent); border: none; cursor: pointer;
@@ -684,67 +720,85 @@ section:not(.hero)::before {
               0 30px 60px rgba(0,0,0,.4);
 }
 
-/* ── РАЗДЕЛ 6: СТОИМОСТЬ — Velovis-стиль ── */
+/* ── РАЗДЕЛ 6: СТОИМОСТЬ — новый дизайн ── */
 .price-section {
-  background: linear-gradient(160deg,
-    #120809 0%,
-    #120809 45%,
-    #1a0d0e 55%,
-    #2d1210 70%,
-    #3d1a15 82%,
-    #e8d0c5 110%) !important;
+  background: #0A0808 !important;
   position: relative; overflow: hidden;
 }
+/* Зерно */
 .price-section::before {
   content: '';
   position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  pointer-events: none; z-index: 0; mix-blend-mode: overlay;
-}
-/* Зернистый фон */
-.price-section::after {
-  content: '';
-  position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  opacity: .07;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px;
+  pointer-events: none; z-index: 0; opacity: .08;
 }
-.price-gradient-spot {
-  position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%);
-  width: 800px; height: 500px; border-radius: 50%; pointer-events: none; z-index: 0;
-  background: radial-gradient(closest-side, rgba(224,87,75,.18), rgba(194,70,60,.08) 60%, transparent);
-  filter: blur(40px);
+.price-glow-left {
+  position: absolute; bottom: 0; left: 0;
+  width: 65%; height: 70%;
+  background: radial-gradient(ellipse at 0% 100%, rgba(224,87,75,.45) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
 }
+.price-glow-right {
+  position: absolute; bottom: 0; right: 0;
+  width: 55%; height: 60%;
+  background: radial-gradient(ellipse at 100% 100%, rgba(240,140,115,.35) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+/* Маленькая подпись + стрелка */
+.price-label {
+  font-family: 'Manrope', sans-serif; font-size: 14px; color: rgba(246,237,234,.5);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
+  letter-spacing: .03em;
+}
+.price-label-arrow {
+  display: inline-flex; align-items: center;
+  filter: drop-shadow(0 0 6px rgba(224,87,75,.7));
+}
+.price-label-arrow svg { width: 22px; height: 22px; stroke: var(--accent); stroke-width: 2; fill: none; }
+/* Большая цена */
 .price-num-big {
-  font-family: 'Onest', sans-serif; font-weight: 200; font-size: 120px;
-  line-height: 1; letter-spacing: -.02em; color: var(--text);
-  display: flex; align-items: center; gap: 16px;
-  margin-bottom: 8px;
+  font-family: 'Onest', sans-serif; font-weight: 200; font-size: 140px;
+  line-height: 1; letter-spacing: -.02em;
+  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 35%, rgba(246,237,234,.28) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-bottom: 0; position: relative; z-index: 1;
 }
-.price-arrow {
-  font-size: 36px; color: var(--accent); line-height: 1;
+.price-rub { font-size: 80px; opacity: .65; }
+/* S-кривая */
+.price-s-curve-wrap {
+  position: relative; width: 100%; height: 240px;
+  z-index: 1; margin: -20px 0 8px;
 }
-
-/* Кривая SVG */
-.price-curve-wrap {
-  position: relative; width: 100%; height: 100px;
-  margin: 24px 0 32px;
+.price-s-curve-wrap svg { width: 100%; height: 100%; overflow: visible; }
+/* Контент под кривой */
+.price-below-curve {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 20px; text-align: center; position: relative; z-index: 1;
+  margin-top: 16px;
 }
-.price-curve-wrap svg { width: 100%; height: 100%; overflow: visible; }
-
-/* Карточки оплаты */
-.price-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; width: 100%; }
-.price-opt {
-  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 20px; padding: 28px 24px;
-  display: flex; flex-direction: column; gap: 12px;
+.price-what-h3 {
+  font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 500; color: var(--text);
 }
-.price-opt-title { font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500; color: var(--text); }
-.price-opt-sub { font-size: 13px; color: var(--text-muted); }
+.price-what-text {
+  font-size: 15px; color: rgba(246,237,234,.5); line-height: 1.65; max-width: 560px;
+}
+.btn-price-cta {
+  border: 1.5px solid rgba(224,87,75,.6); color: var(--text); background: transparent;
+  padding: 16px 40px; border-radius: 12px;
+  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(224,87,75,.12), inset 0 0 30px rgba(224,87,75,.04);
+  transition: background .25s, color .25s, box-shadow .25s;
+}
+.btn-price-cta:hover {
+  background: var(--accent); color: #fff;
+  box-shadow: 0 0 30px rgba(224,87,75,.5), 0 0 60px rgba(224,87,75,.25);
+}
+.price-links { font-size: 13px; color: rgba(246,237,234,.38); }
+.price-links a { color: rgba(246,237,234,.38); text-decoration: underline; text-underline-offset: 3px; transition: color .2s; }
+.price-links a:hover { color: rgba(246,237,234,.65); }
 
 /* ── РАЗДЕЛ 7: КТО ВЕДЁТ ── */
 .trainer-card {
@@ -817,7 +871,7 @@ section:not(.hero)::before {
   width:30px; height:30px; border-radius:50%;
   background:var(--accent); color:#fff; font-size:14px; font-weight:600;
   display:inline-flex; align-items:center; justify-content:center;
-  border:2px solid #120809; margin-left:-8px; flex-shrink:0;
+  border:2px solid var(--bg); margin-left:-8px; flex-shrink:0;
 }
 
 /* ── ОТЗЫВЫ ── */
@@ -1034,10 +1088,41 @@ footer p { font-size: 14px; color: var(--text-muted); }
   mask-image: radial-gradient(ellipse 90% 100% at 50% 100%, black 10%, transparent 75%);
 }
 
+/* ── 15.8 Анимация прорисовки инфографики ── */
+@media (prefers-reduced-motion: no-preference) {
+  .inf-draw {
+    stroke-dashoffset: var(--dl, 400);
+    transition: stroke-dashoffset 1.2s ease;
+  }
+  .inf-node {
+    opacity: 0;
+    transition: opacity .4s ease 1s, filter .4s ease 1s;
+  }
+  .inf-visible .inf-draw { stroke-dashoffset: 0; }
+  .inf-visible .inf-node { opacity: 1; }
+  @keyframes inf-node-pulse {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(224,87,75,.4)); }
+    50%       { filter: drop-shadow(0 0 12px rgba(224,87,75,.9)); }
+  }
+  .inf-visible .inf-node { animation: inf-node-pulse 2.5s ease-in-out 1.4s infinite; }
+  /* S-кривая в стоимости */
+  .s-curve-path {
+    stroke-dashoffset: var(--dl, 2000);
+    transition: stroke-dashoffset 1.6s ease;
+  }
+  .s-curve-ball { opacity: 0; transition: opacity .5s ease 1.6s; }
+  .price-s-drawn .s-curve-path { stroke-dashoffset: 0; }
+  .price-s-drawn .s-curve-ball { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inf-draw, .s-curve-path { stroke-dashoffset: 0 !important; }
+  .inf-node, .s-curve-ball { opacity: 1 !important; }
+}
+
 /* ── МОБАЙЛ ── */
 @media (max-width: 960px) {
   nav { width: calc(100% - 32px); top: 12px; }
-  section { padding: 96px 0; }
+  section { padding: 110px 0; }
   .hero { padding-top: calc(70px + 44px); overflow: hidden; }
   .hero-halo { width: min(100vw, 600px); left: 50%; transform: translateX(-50%); }
   .hero-arcs { overflow: hidden; }
@@ -1060,8 +1145,14 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-silhouette { display: block; top: auto; margin-top: 0; }
   .silhouette-img { height: 46vh; }
 
-  /* reel-scene: убираем left:50%/transform чтобы layout-бокс не выходил за viewport */
-  .reel-scene { left: 0; transform: none; width: 100%; }
+  /* hero: колонка на мобайле — текст сверху, лента снизу */
+  .hero { flex-direction: column; align-items: center; }
+  /* reel-scene на мобайле: обратно в поток под кнопкой */
+  .reel-scene { position: relative; top: auto; left: 0; transform: none; width: 100%; padding: 32px 0 40px; }
+  .hero-audience { display: none; }
+  .hero::after { height: 80px; }
+  /* hero-center полная ширина */
+  .hero-center { width: 100%; }
   .reel { overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 24px; gap: 12px; }
   .reel::-webkit-scrollbar { display: none; }
   .reel-card { width: 160px; height: 260px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; }
@@ -1085,7 +1176,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .outcomes-grid { grid-template-columns: 1fr; }
 
   .price-num-big { font-size: 72px; }
-  .price-options { grid-template-columns: 1fr; }
+  .price-rub { font-size: 48px; }
 
   .trainer-card { aspect-ratio: auto; min-height: 500px; }
   .trainer-photo-wrap { width: 100%; height: 300px; position: relative; }
@@ -1149,6 +1240,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <img src="assets/maxim-silhouette.png" class="silhouette-img" alt="">
   </div>
 
+  <!-- ТЕКСТ + КНОПКА (сначала в DOM — для мобайла: flex-column) -->
   <div class="wrap hero-center">
 
     <div class="badge">
@@ -1158,7 +1250,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
     <div class="heading h1">
       <span class="h-onest">Вызов 7.0</span>
-      <span class="h-cormorant">сильные роли и диалог</span>
+      <span class="h-onest" style="background:linear-gradient(180deg,rgba(246,237,234,.62) 0%,rgba(246,237,234,.22) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;">сильные роли и диалог</span>
     </div>
 
     <p class="lead" style="margin-top:20px;">
@@ -1169,65 +1261,101 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <a href="#program" class="btn btn-primary">Познакомиться с программой</a>
     </div>
 
-    <!-- ВИДЕО-ЛЕНТА -->
-    <div class="reel-scene">
-      <div class="reel-vline"></div>
-      <div class="reel">
-
-        <div class="reel-card rc-3l">
-          <video class="reel-video" autoplay muted loop playsinline preload="none">
-            <source src="assets/video/clip_1.mp4" type="video/mp4">
-          </video>
-          <!-- fallback если нет видео -->
-          <div class="reel-inner" style="background-image:url('assets/group-CHPK3272.jpg')"></div>
-        </div>
-
-        <div class="reel-card rc-2l">
-          <video class="reel-video" autoplay muted loop playsinline preload="none">
-            <source src="assets/video/clip_2.mp4" type="video/mp4">
-          </video>
-          <div class="reel-inner" style="background-image:url('assets/__352.jpg')"></div>
-        </div>
-
-        <div class="reel-card rc-1l">
-          <video class="reel-video" autoplay muted loop playsinline preload="none">
-            <source src="assets/video/clip_3.mp4" type="video/mp4">
-          </video>
-          <div class="reel-inner" style="background-image:url('assets/IMG_7163.jpg')"></div>
-        </div>
-
-        <div class="reel-card rc-c">
-          <video class="reel-video" autoplay muted loop playsinline preload="none">
-            <source src="assets/video/clip_4.mp4" type="video/mp4">
-          </video>
-          <div class="reel-inner" style="background-image:url('assets/IKZ10140.jpg')"></div>
-        </div>
-
-        <div class="reel-card rc-1r">
-          <video class="reel-video" autoplay muted loop playsinline preload="none">
-            <source src="assets/video/clip_5.mp4" type="video/mp4">
-          </video>
-          <div class="reel-inner" style="background-image:url('assets/group-CHPK3183.jpg')"></div>
-        </div>
-
-        <div class="reel-card rc-2r">
-          <video class="reel-video" autoplay muted loop playsinline preload="none">
-            <source src="assets/video/clip_6.mp4" type="video/mp4">
-          </video>
-          <div class="reel-inner" style="background-image:url('assets/2B3A9543.jpg')"></div>
-        </div>
-
-        <div class="reel-card rc-3r">
-          <video class="reel-video" autoplay muted loop playsinline preload="none">
-            <source src="assets/video/clip_7.mp4" type="video/mp4">
-          </video>
-          <div class="reel-inner" style="background-image:url('assets/group-CHPK2995.jpg')"></div>
-        </div>
-
-      </div>
-    </div>
-
   </div>
+
+  <!-- ВИДЕО-ЛЕНТА (абсолютная на десктопе; под кнопкой на мобайле) -->
+  <div class="reel-scene">
+    <div class="reel-vline"></div>
+    <div class="reel">
+
+      <div class="reel-card rc-3l">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <source src="assets/video/clip_1.mp4" type="video/mp4">
+        </video>
+        <div class="reel-inner" style="background-image:url('assets/group-CHPK3272.jpg')"></div>
+      </div>
+
+      <div class="reel-card rc-2l">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <source src="assets/video/clip_2.mp4" type="video/mp4">
+        </video>
+        <div class="reel-inner" style="background-image:url('assets/__352.jpg')"></div>
+      </div>
+
+      <div class="reel-card rc-1l">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <source src="assets/video/clip_3.mp4" type="video/mp4">
+        </video>
+        <div class="reel-inner" style="background-image:url('assets/IMG_7163.jpg')"></div>
+      </div>
+
+      <div class="reel-card rc-c">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <source src="assets/video/clip_4.mp4" type="video/mp4">
+        </video>
+        <div class="reel-inner" style="background-image:url('assets/IKZ10140.jpg')"></div>
+      </div>
+
+      <div class="reel-card rc-1r">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <source src="assets/video/clip_5.mp4" type="video/mp4">
+        </video>
+        <div class="reel-inner" style="background-image:url('assets/group-CHPK3183.jpg')"></div>
+      </div>
+
+      <div class="reel-card rc-2r">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <source src="assets/video/clip_6.mp4" type="video/mp4">
+        </video>
+        <div class="reel-inner" style="background-image:url('assets/2B3A9543.jpg')"></div>
+      </div>
+
+      <div class="reel-card rc-3r">
+        <video class="reel-video" autoplay muted loop playsinline preload="none">
+          <source src="assets/video/clip_7.mp4" type="video/mp4">
+        </video>
+        <div class="reel-inner" style="background-image:url('assets/group-CHPK2995.jpg')"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Силуэты зрителей со спины (перед Максимом, снизу) -->
+  <div class="hero-audience" aria-hidden="true">
+    <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="aud-backlight" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(224,87,75,.22)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </linearGradient>
+        <filter id="aud-rim">
+          <feDropShadow dx="0" dy="-5" stdDeviation="8" flood-color="rgba(224,87,75,.28)"/>
+        </filter>
+      </defs>
+      <!-- Контровой свет сверху аудитории -->
+      <rect x="0" y="0" width="1440" height="80" fill="url(#aud-backlight)"/>
+      <!-- Силуэты голов и плеч аудитории -->
+      <path d="M 0,160 L 0,125
+        C 30,125 42,100 55,100 C 68,100 80,125 110,125
+        C 125,100 138,78 158,78 C 178,78 191,100 206,125
+        C 224,125 237,102 250,102 C 263,102 275,125 305,125
+        C 320,100 333,78 353,78 C 373,78 386,100 401,125
+        C 419,125 432,102 445,102 C 458,102 470,125 500,125
+        C 515,100 528,78 548,78 C 568,78 581,100 596,125
+        C 614,125 627,102 640,102 C 653,102 665,125 695,125
+        C 710,100 723,78 743,78 C 763,78 776,100 791,125
+        C 809,125 822,102 835,102 C 848,102 860,125 890,125
+        C 905,100 918,78 938,78 C 958,78 971,100 986,125
+        C 1004,125 1017,102 1030,102 C 1043,102 1055,125 1085,125
+        C 1100,100 1113,78 1133,78 C 1153,78 1166,100 1181,125
+        C 1199,125 1212,102 1225,102 C 1238,102 1250,125 1280,125
+        C 1295,100 1308,78 1328,78 C 1348,78 1361,100 1376,125
+        L 1440,125 L 1440,160 Z"
+        fill="rgba(10,8,8,.97)" filter="url(#aud-rim)"/>
+    </svg>
+  </div>
+
+
 </section>
 
 <!-- Полоса «по итогу» — 3 результата тренинга -->
@@ -1267,7 +1395,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Кому полезен</span>
-        <span class="h-cormorant">этот тренинг</span>
+        <span class="h-onest">этот тренинг</span>
       </div>
       <p class="lead">Тренинг подходит тем, кто чувствует внутренний потенциал, но в нужный момент теряет уверенность и свободу проявляться.</p>
     </div>
@@ -1278,17 +1406,26 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <div class="forwho-row" style="padding-top:24px;">
         <div class="forwho-item">
           <span class="forwho-num">01</span>
-          <div class="forwho-title">Перфекционисты и контролёры</div>
+          <div class="forwho-icon-wrap">
+            <span class="forwho-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+            <div class="forwho-title">Перфекционисты и контролёры</div>
+          </div>
           <p class="forwho-text">Привыкли всё контролировать и перепроверять. Но от этого испытываете постоянное напряжение.</p>
         </div>
         <div class="forwho-item">
           <span class="forwho-num">02</span>
-          <div class="forwho-title">«Отличники» с зажатостью</div>
+          <div class="forwho-icon-wrap">
+            <span class="forwho-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span>
+            <div class="forwho-title">«Отличники» с зажатостью</div>
+          </div>
           <p class="forwho-text">Делаете всё правильно, но чувствуете скованность и постоянно думаете о том, как выглядите.</p>
         </div>
         <div class="forwho-item">
           <span class="forwho-num">03</span>
-          <div class="forwho-title">Те, кто теряется на переговорах</div>
+          <div class="forwho-icon-wrap">
+            <span class="forwho-icon"><svg viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-1"/><path d="M4.72 4.72 3 3"/><path d="M3 21 13 11"/></svg></span>
+            <div class="forwho-title">Те, кто теряется на переговорах</div>
+          </div>
           <p class="forwho-text">На сложных встречах или планёрках голос становится тише. Чувствуете скованность, теряете уверенность.</p>
         </div>
       </div>
@@ -1298,17 +1435,26 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <div class="forwho-row" style="padding-top:24px;">
         <div class="forwho-item">
           <span class="forwho-num">04</span>
-          <div class="forwho-title">Те, кто откладывает публичность</div>
+          <div class="forwho-icon-wrap">
+            <span class="forwho-icon"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg></span>
+            <div class="forwho-title">Те, кто откладывает публичность</div>
+          </div>
           <p class="forwho-text">Давно хотите вести блог, выступать, заниматься личным брендом — но из года в год откладываете.</p>
         </div>
         <div class="forwho-item">
           <span class="forwho-num">05</span>
-          <div class="forwho-title">«Скучные» (по их мнению)</div>
+          <div class="forwho-icon-wrap">
+            <span class="forwho-icon"><svg viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg></span>
+            <div class="forwho-title">«Скучные» (по их мнению)</div>
+          </div>
           <p class="forwho-text">Считаете, что вы неинтересны и никого не привлечёте. Именно вам тренинг нужен сильнее всего.</p>
         </div>
         <div class="forwho-item">
           <span class="forwho-num">06</span>
-          <div class="forwho-title">Лидеры с командой<!-- TODO: уточнить у клиента 6-й пункт --></div>
+          <div class="forwho-icon-wrap">
+            <span class="forwho-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <div class="forwho-title">Лидеры с командой<!-- TODO: уточнить у клиента 6-й пункт --></div>
+          </div>
           <p class="forwho-text">Руководители, которые хотят выстроить влияние без давления и научить команду открытой коммуникации.<!-- TODO --></p>
         </div>
       </div>
@@ -1439,7 +1585,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
             </div>
             <div class="heading h2">
               <span class="h-onest">В чём суть</span>
-              <span class="h-cormorant">метода</span>
+              <span class="h-onest">метода</span>
             </div>
             <p class="lead">Метод Stage-Psy Fusion объединяет актёрские техники и глубинную психологию. Работаете не над «маской», а над настоящими изменениями.</p>
           </div>
@@ -1486,7 +1632,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Два дня</span>
-        <span class="h-cormorant">практики и трансформации</span>
+        <span class="h-onest">практики и трансформации</span>
       </div>
       <p class="lead">Каждый день — это завершённый блок практик. Первый строит внутреннюю опору, второй выводит её в живое взаимодействие.</p>
     </div>
@@ -1496,7 +1642,10 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <div class="acc-item is-open">
         <div class="acc-header" onclick="toggleAcc(this)">
           <span class="acc-day">День 1</span>
-          <span class="acc-title">Сонастройка с собой</span>
+          <div class="acc-title-group">
+            <span class="acc-title">Сонастройка с собой</span>
+            <span class="acc-header-sub">Выстраиваете внутреннюю опору, находите свои сильные роли</span>
+          </div>
           <button class="acc-toggle" aria-label="Развернуть">
             <span class="acc-toggle-icon">+</span>
           </button>
@@ -1521,7 +1670,10 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <div class="acc-item">
         <div class="acc-header" onclick="toggleAcc(this)">
           <span class="acc-day">День 2</span>
-          <span class="acc-title">Коммуникация и влияние</span>
+          <div class="acc-title-group">
+            <span class="acc-title">Коммуникация и влияние</span>
+            <span class="acc-header-sub">Выводите опору в живое взаимодействие: переговоры, команда, сцена<!-- TODO: текст от Максима --></span>
+          </div>
           <button class="acc-toggle" aria-label="Развернуть">
             <span class="acc-toggle-icon">+</span>
           </button>
@@ -1564,7 +1716,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Какие изменения будут</span>
-        <span class="h-cormorant">в жизни после тренинга</span>
+        <span class="h-onest">в жизни после тренинга</span>
       </div>
       <p class="lead">Уверенность, которая останется с вами — не только на два дня, а как новый способ быть собой.</p>
     </div>
@@ -1574,12 +1726,14 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <div class="card-title">Больше смелости и решительности</div>
         <p class="card-text">Сможете легко делать то, что раньше откладывали и стеснялись, принимать сложные решения.</p>
-        <div style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
+        <div class="infographic-svg" style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
           <svg viewBox="0 0 160 120" width="100%" height="120">
-            <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(224,87,75,.3)"/><stop offset="1" stop-color="transparent"/></linearGradient></defs>
-            <polyline points="0,102 32,77 64,57 96,37 128,22 160,7" fill="none" stroke="rgba(224,87,75,.7)" stroke-width="2"/>
+            <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(224,87,75,.35)"/><stop offset="1" stop-color="transparent"/></linearGradient>
+            <linearGradient id="line-ga" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(224,87,75,.3)"/><stop offset="100%" stop-color="rgba(224,87,75,.9)"/></linearGradient>
+            </defs>
             <polygon points="0,102 32,77 64,57 96,37 128,22 160,7 160,120 0,120" fill="url(#ga)"/>
-            <circle cx="160" cy="7" r="4" fill="rgba(224,87,75,.9)" filter="url(#glow1)"/>
+            <polyline class="inf-draw" style="--dl:320" points="0,102 32,77 64,57 96,37 128,22 160,7" fill="none" stroke="url(#line-ga)" stroke-width="2" stroke-dasharray="320"/>
+            <circle class="inf-node" cx="160" cy="7" r="5" fill="rgba(224,87,75,.9)"/>
           </svg>
         </div>
       </div>
@@ -1588,15 +1742,15 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
         <div class="card-title">Свобода проявляться</div>
         <p class="card-text">Снимать видео, органично общаться, выступать, проводить планёрки — всё будет естественно и уверенно.</p>
-        <div style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
+        <div class="infographic-svg" style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
           <svg viewBox="0 0 160 120" width="100%" height="120">
-            <circle cx="80" cy="60" r="46" fill="none" stroke="rgba(246,237,234,.12)" stroke-width="1"/>
-            <circle cx="80" cy="60" r="32" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle cx="80" cy="60" r="16" fill="none" stroke="rgba(224,87,75,.5)" stroke-width="1.5"/>
-            <circle cx="80" cy="14" r="3" fill="rgba(224,87,75,.6)"/>
-            <circle cx="126" cy="60" r="3" fill="rgba(224,87,75,.4)"/>
-            <circle cx="80" cy="106" r="3" fill="rgba(224,87,75,.4)"/>
-            <circle cx="34" cy="60" r="3" fill="rgba(224,87,75,.4)"/>
+            <circle cx="80" cy="60" r="46" fill="none" stroke="rgba(246,237,234,.10)" stroke-width="1.5" class="inf-draw" style="--dl:290" stroke-dasharray="290"/>
+            <circle cx="80" cy="60" r="32" fill="none" stroke="rgba(246,237,234,.16)" stroke-width="1.5" class="inf-draw" style="--dl:202" stroke-dasharray="202"/>
+            <circle cx="80" cy="60" r="16" fill="none" stroke="rgba(224,87,75,.6)" stroke-width="2" class="inf-draw" style="--dl:101" stroke-dasharray="101"/>
+            <circle class="inf-node" cx="80" cy="14" r="4" fill="rgba(224,87,75,.8)"/>
+            <circle class="inf-node" cx="126" cy="60" r="3" fill="rgba(224,87,75,.55)"/>
+            <circle class="inf-node" cx="80" cy="106" r="3" fill="rgba(224,87,75,.55)"/>
+            <circle class="inf-node" cx="34" cy="60" r="3" fill="rgba(224,87,75,.55)"/>
           </svg>
         </div>
       </div>
@@ -1605,16 +1759,15 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="card-title">Уверенность в переговорах</div>
         <p class="card-text">Чувствуете себя увереннее в переговорах и не даёте «продавливать» себя на невыгодные условия.</p>
-        <div style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
+        <div class="infographic-svg" style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
           <svg viewBox="0 0 160 120" width="100%" height="120">
-            <circle cx="40" cy="60" r="22" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle cx="120" cy="60" r="22" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle cx="80" cy="60" r="24" fill="none" stroke="rgba(224,87,75,.4)" stroke-width="1.5" filter="url(#glow1)"/>
-            <line x1="62" y1="60" x2="64" y2="60" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="96" y1="60" x2="98" y2="60" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <circle cx="40" cy="60" r="7" fill="rgba(246,237,234,.25)"/>
-            <circle cx="120" cy="60" r="7" fill="rgba(246,237,234,.25)"/>
-            <circle cx="80" cy="60" r="9" fill="rgba(224,87,75,.7)"/>
+            <circle cx="40" cy="60" r="22" fill="none" stroke="rgba(246,237,234,.16)" stroke-width="1.5" class="inf-draw" style="--dl:138" stroke-dasharray="138"/>
+            <circle cx="120" cy="60" r="22" fill="none" stroke="rgba(246,237,234,.16)" stroke-width="1.5" class="inf-draw" style="--dl:138" stroke-dasharray="138"/>
+            <circle cx="80" cy="60" r="24" fill="none" stroke="rgba(224,87,75,.5)" stroke-width="2" class="inf-draw" style="--dl:151" stroke-dasharray="151"/>
+            <line class="inf-draw" style="--dl:80" x1="18" y1="60" x2="142" y2="60" stroke="rgba(224,87,75,.25)" stroke-width="1.5" stroke-dasharray="80"/>
+            <circle class="inf-node" cx="40" cy="60" r="6" fill="rgba(246,237,234,.22)"/>
+            <circle class="inf-node" cx="120" cy="60" r="6" fill="rgba(246,237,234,.22)"/>
+            <circle class="inf-node" cx="80" cy="60" r="9" fill="rgba(224,87,75,.8)"/>
           </svg>
         </div>
       </div>
@@ -1623,17 +1776,17 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="card-title">Команда без конфликтов</div>
         <p class="card-text">Выстроите эффективную коммуникацию в команде без конфликтов, даже с разными поколениями.</p>
-        <div style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
+        <div class="infographic-svg" style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
           <svg viewBox="0 0 160 120" width="100%" height="120">
-            <circle cx="30" cy="92" r="12" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
-            <circle cx="80" cy="22" r="17" fill="rgba(224,87,75,.25)" stroke="rgba(224,87,75,.5)" stroke-width="1"/>
-            <circle cx="130" cy="92" r="12" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
-            <circle cx="55" cy="92" r="9" fill="rgba(246,237,234,.15)"/>
-            <circle cx="105" cy="92" r="9" fill="rgba(246,237,234,.15)"/>
-            <line x1="30" y1="80" x2="70" y2="40" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="130" y1="80" x2="90" y2="40" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="55" y1="83" x2="74" y2="40" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="105" y1="83" x2="86" y2="40" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line class="inf-draw" style="--dl:60" x1="30" y1="80" x2="70" y2="40" stroke="rgba(224,87,75,.45)" stroke-width="1.5" stroke-dasharray="60"/>
+            <line class="inf-draw" style="--dl:60" x1="130" y1="80" x2="90" y2="40" stroke="rgba(224,87,75,.45)" stroke-width="1.5" stroke-dasharray="60"/>
+            <line class="inf-draw" style="--dl:48" x1="55" y1="83" x2="74" y2="40" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="48"/>
+            <line class="inf-draw" style="--dl:48" x1="105" y1="83" x2="86" y2="40" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="48"/>
+            <circle class="inf-node" cx="30"  cy="92" r="11" fill="rgba(246,237,234,.18)" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
+            <circle class="inf-node" cx="80"  cy="22" r="16" fill="rgba(224,87,75,.22)" stroke="rgba(224,87,75,.55)" stroke-width="1.5"/>
+            <circle class="inf-node" cx="130" cy="92" r="11" fill="rgba(246,237,234,.18)" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
+            <circle class="inf-node" cx="55"  cy="92" r="8" fill="rgba(246,237,234,.12)"/>
+            <circle class="inf-node" cx="105" cy="92" r="8" fill="rgba(246,237,234,.12)"/>
           </svg>
         </div>
       </div>
@@ -1642,69 +1795,72 @@ footer p { font-size: 14px; color: var(--text-muted); }
   </div>
 </section>
 
-<!-- ═══ 6. СТОИМОСТЬ — Velovis-стиль ═══ -->
+<!-- ═══ 6. СТОИМОСТЬ ═══ -->
 <section id="price" class="price-section">
-  <div class="price-gradient-spot"></div>
+  <div class="price-glow-left" aria-hidden="true"></div>
+  <div class="price-glow-right" aria-hidden="true"></div>
   <div class="price-grid" aria-hidden="true"></div>
+
   <div class="wrap" style="align-items:center;text-align:center;position:relative;z-index:1;">
-    <div class="section-head">
-      <div class="badge">
-        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        Стоимость участия
-      </div>
-      <div class="heading h2">
-        <span class="h-onest">Ваши инвестиции</span>
-        <span class="h-cormorant">в уверенность и свободу</span>
-      </div>
+
+    <!-- Маленькая подпись + стрелка (без бейджа) -->
+    <div class="price-label">
+      Стоимость участия
+      <span class="price-label-arrow">
+        <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </span>
     </div>
 
     <!-- Большая цена -->
     <div class="price-num-big">
-      20 000 ₽
-      <span class="price-arrow">↗</span>
+      20 000 <span class="price-rub">₽</span>
     </div>
-    <p style="font-size:14px;color:var(--text-muted);margin-bottom:0;">Что входит: 2 дня практики · психологические и телесные упражнения · актёрские техники · работа в группе · ответы тренера</p>
 
-    <!-- Светящаяся кривая SVG -->
-    <div class="price-curve-wrap">
-      <svg viewBox="0 0 1120 100" preserveAspectRatio="none">
+    <!-- S-кривая (десктоп) -->
+    <div class="price-s-curve-wrap">
+      <svg class="price-s-curve-svg-desktop" viewBox="0 0 1120 240" preserveAspectRatio="none" overflow="visible">
         <defs>
-          <filter id="curve-glow">
-            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="rgba(224,87,75,.8)"/>
-            <feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="rgba(224,87,75,.4)"/>
+          <linearGradient id="s-curve-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#F2A08F"/>
+            <stop offset="100%" stop-color="#E0574B"/>
+          </linearGradient>
+          <filter id="s-curve-glow" x="-20%" y="-60%" width="140%" height="220%">
+            <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="rgba(224,87,75,.85)"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="24" flood-color="rgba(224,87,75,.45)"/>
           </filter>
-          <filter id="ball-glow">
-            <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="rgba(224,87,75,.9)"/>
+          <filter id="s-ball-glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="rgba(224,87,75,1)"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="22" flood-color="rgba(224,87,75,.65)"/>
           </filter>
+          <radialGradient id="ball-fill" cx="38%" cy="32%" r="62%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity=".95"/>
+            <stop offset="45%" stop-color="#F4C0A8" stop-opacity=".88"/>
+            <stop offset="100%" stop-color="#E0574B" stop-opacity=".75"/>
+          </radialGradient>
         </defs>
-        <!-- Кривая линия -->
-        <path d="M0,80 Q200,80 350,50 Q500,20 560,50 Q620,80 800,60 Q950,40 1120,70"
-              fill="none" stroke="#F2A493" stroke-width="2.5" filter="url(#curve-glow)"/>
-        <!-- Шарик на изгибе -->
-        <circle cx="560" cy="50" r="10" fill="rgba(224,87,75,.9)" filter="url(#ball-glow)"/>
-        <circle cx="560" cy="50" r="6" fill="#F6EDEA"/>
-        <circle cx="557" cy="47" r="2" fill="rgba(255,255,255,.7)"/>
+        <!-- Свечение под кривой -->
+        <path d="M -20,200 C 120,220 260,230 420,175 C 560,125 660,55 840,35 C 980,18 1100,60 1160,52"
+              fill="none" stroke="rgba(224,87,75,.25)" stroke-width="20" filter="url(#s-curve-glow)"/>
+        <!-- Основная S-кривая -->
+        <path class="s-curve-path" style="--dl:2200;stroke-dasharray:2200"
+              d="M -20,200 C 120,220 260,230 420,175 C 560,125 660,55 840,35 C 980,18 1100,60 1160,52"
+              fill="none" stroke="url(#s-curve-grad)" stroke-width="7" filter="url(#s-curve-glow)"/>
+        <!-- Шарик на точке перегиба -->
+        <circle class="s-curve-ball" cx="560" cy="110" r="14" fill="url(#ball-fill)" filter="url(#s-ball-glow)"/>
+        <circle class="s-curve-ball" cx="553" cy="103" r="4" fill="rgba(255,255,255,.55)"/>
       </svg>
     </div>
 
-    <!-- 3 варианта оплаты -->
-    <div class="price-options" style="max-width:900px;margin:0 auto;">
-      <div class="price-opt">
-        <div class="price-opt-title">Оплатить полностью</div>
-        <div class="price-opt-sub">Вся стоимость сейчас</div>
-        <a href="#pay-full" class="btn btn-primary" style="margin-top:auto;">20 000 ₽<!-- TODO ссылка на оплату --></a>
-      </div>
-      <div class="price-opt">
-        <div class="price-opt-title">Внести предоплату</div>
-        <div class="price-opt-sub">Остаток — на месте</div>
-        <a href="#pay-prepay" class="btn btn-secondary" style="margin-top:auto;">3 000 ₽<!-- TODO ссылка на оплату --></a>
-      </div>
-      <div class="price-opt">
-        <div class="price-opt-title">Задать вопрос</div>
-        <div class="price-opt-sub">Расскажем подробнее</div>
-        <!-- TODO уточнить Telegram у клиента -->
-        <a href="#" class="btn btn-ghost" style="margin-top:auto;">Написать в Telegram</a>
-      </div>
+    <!-- Контент под кривой -->
+    <div class="price-below-curve">
+      <h3 class="price-what-h3">Что входит в тренинг</h3>
+      <p class="price-what-text">2 дня практики · психологические и телесные упражнения · актёрские техники · работа в группе · ответы тренера на ваши реальные ситуации<!-- TODO: текст от Максима --></p>
+      <a href="#pay-full" class="btn-price-cta">Записаться →<!-- TODO: ссылка --></a>
+      <p class="price-links">
+        <a href="#pay-prepay">Внести предоплату 3 000 ₽<!-- TODO --></a>
+        &nbsp;·&nbsp;
+        <a href="#telegram">Задать вопрос в Telegram<!-- TODO --></a>
+      </p>
     </div>
 
   </div>
@@ -1730,7 +1886,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Кто ведёт</span>
-        <span class="h-cormorant">тренинг</span>
+        <span class="h-onest">тренинг</span>
       </div>
       <p class="lead">17 лет на сцене и в кабинете психолога — Максим знает, что мешает людям быть собой в полную силу.</p>
     </div>
@@ -1804,7 +1960,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
             <span class="av-plus">+</span>
           </span>
         </span>
-        <span class="h-cormorant">участники тренинга</span>
+        <span class="h-onest">участники тренинга</span>
       </div>
       <p class="lead">Более 500 человек прошли «Вызов». Вот что они говорят.</p>
     </div>
@@ -2020,6 +2176,39 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
     });
   }, { rootMargin: '200px' });
   videos.forEach(function(v) { obs.observe(v); });
+})();
+
+// ── 15.8 Анимация прорисовки инфографики ─────────────────────────
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (mq && mq.matches) return;
+  var cards = document.querySelectorAll('.infographic-svg');
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('inf-visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  cards.forEach(function(c) { obs.observe(c); });
+})();
+
+// ── 15.9 Анимация S-кривой в разделе Стоимость ───────────────────
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (mq && mq.matches) return;
+  var wrap = document.querySelector('.price-s-curve-wrap');
+  if (!wrap) return;
+  var obs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) {
+      wrap.classList.add('price-s-drawn');
+      obs.disconnect();
+    }
+  }, { threshold: 0.2 });
+  obs.observe(wrap);
 })();
 </script>
 

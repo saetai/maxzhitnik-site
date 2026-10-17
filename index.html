@@ -52,12 +52,23 @@ nav {
 .nav-logo { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; color: var(--text); text-decoration: none; }
 .nav-btn {
   font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500;
-  color: var(--text-muted); text-decoration: none;
-  padding: 9px 20px; border-radius: 10px;
-  background: var(--surface-2); border: 1px solid var(--border);
-  transition: color .2s, border-color .2s;
+  color: #fff; text-decoration: none;
+  padding: 10px 20px; border-radius: 10px;
+  background: var(--accent);
+  border: 1px solid rgba(255,220,215,.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 0 14px rgba(224,87,75,.40),
+    0 0 32px rgba(224,87,75,.18);
+  transition: box-shadow .25s, transform .2s;
 }
-.nav-btn:hover { color: var(--text); border-color: rgba(255,220,215,.2); }
+.nav-btn:hover {
+  color: #fff; transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 0 20px rgba(224,87,75,.55),
+    0 0 48px rgba(224,87,75,.28);
+}
 
 /* ── КНОПКИ ── */
 .btn {
@@ -275,8 +286,8 @@ section:not(.hero)::before {
   z-index: 0;
 }
 
-/* ── ВАРИАНТ A — яркая оранжевая кайма по контуру + тёплое свечение ── */
-body[data-hero="a"] .silhouette-img {
+/* ── СИЛУЭТ — яркая оранжевая кайма по контуру + тёплое свечение ── */
+.silhouette-img {
   filter: brightness(.18) contrast(1.5)
     drop-shadow(0 0 1px rgba(255,245,215,1))
     drop-shadow(0 0 4px rgba(255,210,160,1))
@@ -285,7 +296,7 @@ body[data-hero="a"] .silhouette-img {
     drop-shadow(0 0 46px rgba(224,87,75,.65))
     drop-shadow(0 0 80px rgba(200,60,30,.4));
 }
-body[data-hero="a"] .hero-spot {
+.hero-spot {
   width: 620px; height: 620px;
   background: radial-gradient(circle,
     rgba(240,120,50,.60)  0%,
@@ -294,22 +305,6 @@ body[data-hero="a"] .hero-spot {
     transparent          72%);
   filter: blur(36px);
 }
-
-/* ── ВАРИАНТ B — чёрный силуэт на кремовом пятне, без каймы ── */
-body[data-hero="b"] .silhouette-img {
-  filter: brightness(0) contrast(2);
-}
-body[data-hero="b"] .hero-spot {
-  width: 680px; height: 680px;
-  background: radial-gradient(circle,
-    rgba(246,237,234,.90)  0%,
-    rgba(240,228,220,.72) 25%,
-    rgba(230,215,205,.40) 50%,
-    rgba(210,195,185,.1)  68%,
-    transparent           82%);
-  filter: blur(20px);
-}
-body[data-hero="b"] .hero-halo { opacity: 0; }
 
 .hero-center {
   display: flex; flex-direction: column; align-items: center; text-align: center;
@@ -1023,7 +1018,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
 }
 /* Program — вертикальная светящаяся кривая слева */
 .program-curve {
-  position: absolute; left: 0; top: 0; width: 160px; height: 100%;
+  position: absolute; left: 0; top: 0; width: 200px; height: 100%;
   pointer-events: none; z-index: 0;
 }
 .program-curve svg { width: 100%; height: 100%; }
@@ -1053,9 +1048,13 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .lead { font-size: 16px; }
 
   /* мобайл hero: текстовый блок не выходит за края */
-  .hero-center { padding: 0 20px; box-sizing: border-box; }
-  .hero-center .lead { max-width: 100%; }
-  .hero-spot { display: none; } /* на мобайле силуэт скрыт, пятно тоже */
+  .hero-center { padding: 0 20px; box-sizing: border-box; max-width: 100%; overflow-wrap: break-word; }
+  .hero-center .heading { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
+  .hero-center .lead { max-width: 100%; overflow-wrap: break-word; }
+  .hero-spot { display: none; }
+  /* мобайл: силуэт виден, по центру, поверх ленты */
+  .hero-silhouette { display: block; }
+  .silhouette-img { height: 55vh; }
 
   .reel { overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 24px; gap: 12px; }
   .reel::-webkit-scrollbar { display: none; }
@@ -1088,7 +1087,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .col-texts { display: contents; }
   .re-card { width: 260px; height: 480px; flex-shrink: 0; scroll-snap-align: start; }
 
-  .hero-silhouette { display: none; } /* На мобайле скрываем силуэт */
+  /* .hero-silhouette visible on mobile — set above */
 }
 @media (max-width: 600px) {
   .modal-close { top: 12px; right: 12px; }
@@ -1098,13 +1097,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
 </head>
 <body>
 
-<script>
-(function() {
-  var params = new URLSearchParams(location.search);
-  var v = params.get('hero') || 'a';
-  document.body.setAttribute('data-hero', v);
-})();
-</script>
 
 <!-- ═══ НАВБАР ═══ -->
 <nav>
@@ -1465,14 +1457,14 @@ footer p { font-size: 14px; color: var(--text-muted); }
 <!-- ═══ 4. ПРОГРАММА — аккордеон ═══ -->
 <section id="program">
   <div class="program-curve" aria-hidden="true">
-    <svg viewBox="0 0 160 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 200 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <filter id="pglow"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="rgba(224,87,75,.5)"/></filter>
+        <filter id="pglow"><feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="rgba(224,87,75,.7)"/></filter>
       </defs>
-      <path d="M25,0 C80,100 10,220 50,360 C90,500 15,620 45,740 C65,820 30,870 28,860"
-            fill="none" stroke="rgba(224,87,75,.22)" stroke-width="1.5" filter="url(#pglow)"/>
-      <path d="M60,0 C100,90 40,210 70,350 C95,460 45,570 65,700 C78,790 60,840 58,860"
-            fill="none" stroke="rgba(224,87,75,.07)" stroke-width="1"/>
+      <path d="M120,0 C170,110 95,250 140,390 C180,510 110,630 150,755 C168,820 145,870 142,860"
+            fill="none" stroke="rgba(224,87,75,.6)" stroke-width="2" filter="url(#pglow)"/>
+      <path d="M148,0 C185,95 130,235 165,370 C192,475 145,590 170,710 C182,790 162,848 160,858"
+            fill="none" stroke="rgba(224,87,75,.15)" stroke-width="1"/>
     </svg>
   </div>
   <div class="wrap">
@@ -1571,12 +1563,12 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <div class="card-title">Больше смелости и решительности</div>
         <p class="card-text">Сможете легко делать то, что раньше откладывали и стеснялись, принимать сложные решения.</p>
-        <div style="margin-top:16px;height:96px;">
-          <svg viewBox="0 0 160 96" width="100%" height="96">
+        <div style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
+          <svg viewBox="0 0 160 120" width="100%" height="120">
             <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(224,87,75,.3)"/><stop offset="1" stop-color="transparent"/></linearGradient></defs>
-            <polyline points="0,82 32,62 64,46 96,30 128,18 160,6" fill="none" stroke="rgba(224,87,75,.7)" stroke-width="2"/>
-            <polygon points="0,82 32,62 64,46 96,30 128,18 160,6 160,96 0,96" fill="url(#ga)"/>
-            <circle cx="160" cy="6" r="4" fill="rgba(224,87,75,.9)" filter="url(#glow1)"/>
+            <polyline points="0,102 32,77 64,57 96,37 128,22 160,7" fill="none" stroke="rgba(224,87,75,.7)" stroke-width="2"/>
+            <polygon points="0,102 32,77 64,57 96,37 128,22 160,7 160,120 0,120" fill="url(#ga)"/>
+            <circle cx="160" cy="7" r="4" fill="rgba(224,87,75,.9)" filter="url(#glow1)"/>
           </svg>
         </div>
       </div>
@@ -1585,15 +1577,15 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
         <div class="card-title">Свобода проявляться</div>
         <p class="card-text">Снимать видео, органично общаться, выступать, проводить планёрки — всё будет естественно и уверенно.</p>
-        <div style="margin-top:16px;height:96px;">
-          <svg viewBox="0 0 160 96" width="100%" height="96">
-            <circle cx="80" cy="48" r="38" fill="none" stroke="rgba(246,237,234,.12)" stroke-width="1"/>
-            <circle cx="80" cy="48" r="26" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle cx="80" cy="48" r="13" fill="none" stroke="rgba(224,87,75,.5)" stroke-width="1.5"/>
-            <circle cx="80" cy="10" r="3" fill="rgba(224,87,75,.6)"/>
-            <circle cx="118" cy="48" r="3" fill="rgba(224,87,75,.4)"/>
-            <circle cx="80" cy="86" r="3" fill="rgba(224,87,75,.4)"/>
-            <circle cx="42" cy="48" r="3" fill="rgba(224,87,75,.4)"/>
+        <div style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
+          <svg viewBox="0 0 160 120" width="100%" height="120">
+            <circle cx="80" cy="60" r="46" fill="none" stroke="rgba(246,237,234,.12)" stroke-width="1"/>
+            <circle cx="80" cy="60" r="32" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
+            <circle cx="80" cy="60" r="16" fill="none" stroke="rgba(224,87,75,.5)" stroke-width="1.5"/>
+            <circle cx="80" cy="14" r="3" fill="rgba(224,87,75,.6)"/>
+            <circle cx="126" cy="60" r="3" fill="rgba(224,87,75,.4)"/>
+            <circle cx="80" cy="106" r="3" fill="rgba(224,87,75,.4)"/>
+            <circle cx="34" cy="60" r="3" fill="rgba(224,87,75,.4)"/>
           </svg>
         </div>
       </div>
@@ -1602,16 +1594,16 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="card-title">Уверенность в переговорах</div>
         <p class="card-text">Чувствуете себя увереннее в переговорах и не даёте «продавливать» себя на невыгодные условия.</p>
-        <div style="margin-top:16px;height:96px;">
-          <svg viewBox="0 0 160 96" width="100%" height="96">
-            <circle cx="40" cy="48" r="18" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle cx="120" cy="48" r="18" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle cx="80" cy="48" r="20" fill="none" stroke="rgba(224,87,75,.4)" stroke-width="1.5" filter="url(#glow1)"/>
-            <line x1="58" y1="48" x2="60" y2="48" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="100" y1="48" x2="102" y2="48" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
-            <circle cx="40" cy="48" r="6" fill="rgba(246,237,234,.25)"/>
-            <circle cx="120" cy="48" r="6" fill="rgba(246,237,234,.25)"/>
-            <circle cx="80" cy="48" r="7" fill="rgba(224,87,75,.7)"/>
+        <div style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
+          <svg viewBox="0 0 160 120" width="100%" height="120">
+            <circle cx="40" cy="60" r="22" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
+            <circle cx="120" cy="60" r="22" fill="none" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
+            <circle cx="80" cy="60" r="24" fill="none" stroke="rgba(224,87,75,.4)" stroke-width="1.5" filter="url(#glow1)"/>
+            <line x1="62" y1="60" x2="64" y2="60" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="96" y1="60" x2="98" y2="60" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="3 2"/>
+            <circle cx="40" cy="60" r="7" fill="rgba(246,237,234,.25)"/>
+            <circle cx="120" cy="60" r="7" fill="rgba(246,237,234,.25)"/>
+            <circle cx="80" cy="60" r="9" fill="rgba(224,87,75,.7)"/>
           </svg>
         </div>
       </div>
@@ -1620,17 +1612,17 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="card-title">Команда без конфликтов</div>
         <p class="card-text">Выстроите эффективную коммуникацию в команде без конфликтов, даже с разными поколениями.</p>
-        <div style="margin-top:16px;height:96px;">
-          <svg viewBox="0 0 160 96" width="100%" height="96">
-            <circle cx="30" cy="74" r="10" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
-            <circle cx="80" cy="18" r="14" fill="rgba(224,87,75,.25)" stroke="rgba(224,87,75,.5)" stroke-width="1"/>
-            <circle cx="130" cy="74" r="10" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
-            <circle cx="55" cy="74" r="7" fill="rgba(246,237,234,.15)"/>
-            <circle cx="105" cy="74" r="7" fill="rgba(246,237,234,.15)"/>
-            <line x1="30" y1="64" x2="70" y2="32" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="130" y1="64" x2="90" y2="32" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="55" y1="67" x2="74" y2="32" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
-            <line x1="105" y1="67" x2="86" y2="32" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
+        <div style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
+          <svg viewBox="0 0 160 120" width="100%" height="120">
+            <circle cx="30" cy="92" r="12" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
+            <circle cx="80" cy="22" r="17" fill="rgba(224,87,75,.25)" stroke="rgba(224,87,75,.5)" stroke-width="1"/>
+            <circle cx="130" cy="92" r="12" fill="rgba(246,237,234,.2)" stroke="rgba(246,237,234,.2)" stroke-width="1"/>
+            <circle cx="55" cy="92" r="9" fill="rgba(246,237,234,.15)"/>
+            <circle cx="105" cy="92" r="9" fill="rgba(246,237,234,.15)"/>
+            <line x1="30" y1="80" x2="70" y2="40" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="130" y1="80" x2="90" y2="40" stroke="rgba(224,87,75,.3)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="55" y1="83" x2="74" y2="40" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="105" y1="83" x2="86" y2="40" stroke="rgba(246,237,234,.15)" stroke-width="1" stroke-dasharray="3 2"/>
           </svg>
         </div>
       </div>

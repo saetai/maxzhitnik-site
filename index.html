@@ -248,7 +248,7 @@ section:not(.hero)::before {
 /* ── 1. ГЕРОЙ ── */
 .hero {
   min-height: 100vh;
-  padding-top: calc(80px + 56px);
+  padding-top: calc(80px + 36px);
   padding-bottom: 0;
   position: relative;
   display: flex; align-items: flex-start;
@@ -329,10 +329,10 @@ section:not(.hero)::before {
 /* ── ВИДЕО-ЛЕНТА ── */
 .reel-scene {
   position: absolute;
-  top: 28vh;
+  top: 44vh;
   left: 50%; transform: translateX(-50%);
   width: 100vw;
-  padding: 64px 0 72px;
+  padding: 36px 0 72px;
   overflow: hidden;
   z-index: 1;
 }
@@ -366,13 +366,13 @@ section:not(.hero)::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   position: relative; z-index: 1;
 }
 
 .reel-card {
   flex-shrink: 0;
-  width: 214px; height: 370px;
+  width: 196px; height: 284px; /* 9:13 */
   border-radius: 18px;
   overflow: hidden;
   position: relative;
@@ -388,32 +388,54 @@ section:not(.hero)::before {
 .reel-card:hover .reel-inner { transform: scale(1.04); }
 
 .reel-card.rc-c {
-  border-color: rgba(224,87,75,.28);
-  box-shadow:
-    0 0 0 1px rgba(224,87,75,.18),
-    0 0 40px rgba(224,87,75,.35),
-    0 40px 70px rgba(0,0,0,.6);
+  border-color: rgba(224,87,75,.15);
+  box-shadow: 0 20px 40px rgba(0,0,0,.5);
   z-index: 2;
 }
-.reel-card.rc-c .reel-inner { filter: grayscale(1); }      /* центр — ч/б (перекрыт силуэтом) */
-.reel-card.rc-1l .reel-inner { filter: none; }             /* ← эта карточка цветная */
-
+/* Крайние справа — цветные, остальные ч/б */
+.reel-card.rc-2r .reel-inner, .reel-card.rc-3r .reel-inner { filter: none; }
+.reel-card:not(.rc-2r):not(.rc-3r) .reel-inner { filter: grayscale(1) brightness(.65); }
 /* Видео в карточках */
 .reel-video { width:100%; height:100%; object-fit:cover; display:block; }
-.reel-card:not(.rc-c):not(.rc-1l) .reel-video { filter:grayscale(1) brightness(.65); }
-.reel-card.rc-c .reel-video { filter:grayscale(1); }
-.reel-card.rc-1l .reel-video { filter:none; }
+.reel-card.rc-2r .reel-video, .reel-card.rc-3r .reel-video { filter: none; }
+.reel-card:not(.rc-2r):not(.rc-3r) .reel-video { filter: grayscale(1) brightness(.65); }
 
-.reel-card.rc-3l { transform: perspective(1200px) rotateY(38deg) scale(.65) translateX(-18px); opacity: .30; }
-.reel-card.rc-2l { transform: perspective(1200px) rotateY(24deg) scale(.78) translateX(-10px); opacity: .52; }
-.reel-card.rc-1l { transform: perspective(1200px) rotateY(13deg) scale(.90) translateX(-5px);  opacity: .76; }
-.reel-card.rc-c  { transform: perspective(1200px) rotateY(0deg)  scale(1.14);                  opacity: 1; }
-.reel-card.rc-1r { transform: perspective(1200px) rotateY(-13deg) scale(.90) translateX(5px);  opacity: .76; }
-.reel-card.rc-2r { transform: perspective(1200px) rotateY(-24deg) scale(.78) translateX(10px); opacity: .52; }
-.reel-card.rc-3r { transform: perspective(1200px) rotateY(-38deg) scale(.65) translateX(18px); opacity: .30; }
+/* Вогнутая лента: крайние карточки самые большие */
+.reel-card.rc-3l { transform: perspective(900px) rotateY(44deg) scale(1.24); opacity: .86; }
+.reel-card.rc-2l { transform: perspective(900px) rotateY(26deg) scale(1.05); opacity: .88; }
+.reel-card.rc-1l { transform: perspective(900px) rotateY(13deg) scale(0.88); opacity: .80; }
+.reel-card.rc-c  { transform: scale(0.74);                                   opacity: .66; }
+.reel-card.rc-1r { transform: perspective(900px) rotateY(-13deg) scale(0.88); opacity: .80; }
+.reel-card.rc-2r { transform: perspective(900px) rotateY(-26deg) scale(1.05); opacity: .88; }
+.reel-card.rc-3r { transform: perspective(900px) rotateY(-44deg) scale(1.24); opacity: .86; }
 
 /* Текст/кнопка hero выше ленты */
 .hero-center { z-index: 5; }
+
+/* 16.1 Тёмная ghost-кнопка hero */
+.btn-hero {
+  background: rgba(14,11,11,.60);
+  color: var(--text);
+  border: 1px solid rgba(246,237,234,.22);
+  border-radius: 28px;
+  backdrop-filter: blur(10px);
+  padding: 14px 34px;
+  font-size: 15px; font-family: 'Manrope', sans-serif; font-weight: 500;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  cursor: pointer; transition: background .25s, border-color .25s;
+}
+.btn-hero:hover {
+  background: rgba(14,11,11,.85);
+  border-color: rgba(246,237,234,.38);
+}
+
+/* 16.1 Терракотовая черта перед кнопкой */
+.hero-accent-bar {
+  width: 120px; height: 2px; border-radius: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 8px 3px rgba(224,87,75,.65), 0 0 22px rgba(224,87,75,.35);
+  margin: 0 auto 18px;
+}
 
 /* ── 3 ФИЧИ — отдельная полоса под hero ── */
 .hero-features-band {
@@ -421,14 +443,14 @@ section:not(.hero)::before {
   position: relative; z-index: 10;
 }
 .hero-features {
-  display: flex; align-items: center; justify-content: center;
-  gap: 40px; padding: 40px 0 60px;
+  display: flex; align-items: flex-start; justify-content: center;
+  gap: 72px; padding: 48px 0 64px;
   width: 100%; position: relative;
 }
-.hf-sep { width: 1px; height: 36px; background: rgba(255,220,215,.12); flex-shrink: 0; }
-.hf-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-.hf-title { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); letter-spacing: .01em; }
-.hf-desc  { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; color: var(--text-muted); }
+.hf-sep { width: 1px; height: 36px; background: rgba(255,220,215,.12); flex-shrink: 0; display: none; }
+.hf-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.hf-title { font-family: 'Onest', sans-serif; font-size: 22px; font-weight: 300; color: var(--text); letter-spacing: -.01em; line-height: 1.2; text-align: center; }
+.hf-desc  { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 400; color: var(--text-muted); text-align: center; }
 
 /* ── РАЗДЕЛ 2: КОМУ ПОЛЕЗЕН — сетка с цифрами ── */
 .forwho-grid {
@@ -1155,8 +1177,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-center { width: 100%; }
   .reel { overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 24px; gap: 12px; }
   .reel::-webkit-scrollbar { display: none; }
-  .reel-card { width: 160px; height: 260px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; }
-  .reel-card.rc-c { box-shadow: 0 0 30px rgba(224,87,75,.3), 0 20px 40px rgba(0,0,0,.5); }
+  .reel-card { width: 154px; height: 224px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; }
+  .reel-card.rc-c { box-shadow: 0 0 20px rgba(224,87,75,.25), 0 10px 30px rgba(0,0,0,.5); }
 
   /* полоса «по итогу»: колонкой, по центру, горизонтальные разделители */
   .hero-features { flex-direction: column; align-items: center; text-align: center; gap: 0; padding: 28px 24px 40px; flex-wrap: nowrap; }
@@ -1232,14 +1254,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
     </svg>
   </div>
 
-  <!-- Пятно за силуэтом (позиция: верхняя треть hero, по центру) -->
-  <div class="hero-spot"></div>
-
-  <!-- Силуэт Максима (11.3) — z-index:3, между лентой и текстом -->
-  <div class="hero-silhouette">
-    <img src="assets/maxim-silhouette.png" class="silhouette-img" alt="">
-  </div>
-
   <!-- ТЕКСТ + КНОПКА (сначала в DOM — для мобайла: flex-column) -->
   <div class="wrap hero-center">
 
@@ -1258,7 +1272,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
     </p>
 
     <div class="hero-btn-wrap">
-      <a href="#program" class="btn btn-primary">Познакомиться с программой</a>
+      <div class="hero-accent-bar" aria-hidden="true"></div>
+      <a href="#program" class="btn btn-hero">Познакомиться с программой →</a>
     </div>
 
   </div>
@@ -1320,40 +1335,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
     </div>
   </div>
 
-  <!-- Силуэты зрителей со спины (перед Максимом, снизу) -->
-  <div class="hero-audience" aria-hidden="true">
-    <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="aud-backlight" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(224,87,75,.22)"/>
-          <stop offset="100%" stop-color="transparent"/>
-        </linearGradient>
-        <filter id="aud-rim">
-          <feDropShadow dx="0" dy="-5" stdDeviation="8" flood-color="rgba(224,87,75,.28)"/>
-        </filter>
-      </defs>
-      <!-- Контровой свет сверху аудитории -->
-      <rect x="0" y="0" width="1440" height="80" fill="url(#aud-backlight)"/>
-      <!-- Силуэты голов и плеч аудитории -->
-      <path d="M 0,160 L 0,125
-        C 30,125 42,100 55,100 C 68,100 80,125 110,125
-        C 125,100 138,78 158,78 C 178,78 191,100 206,125
-        C 224,125 237,102 250,102 C 263,102 275,125 305,125
-        C 320,100 333,78 353,78 C 373,78 386,100 401,125
-        C 419,125 432,102 445,102 C 458,102 470,125 500,125
-        C 515,100 528,78 548,78 C 568,78 581,100 596,125
-        C 614,125 627,102 640,102 C 653,102 665,125 695,125
-        C 710,100 723,78 743,78 C 763,78 776,100 791,125
-        C 809,125 822,102 835,102 C 848,102 860,125 890,125
-        C 905,100 918,78 938,78 C 958,78 971,100 986,125
-        C 1004,125 1017,102 1030,102 C 1043,102 1055,125 1085,125
-        C 1100,100 1113,78 1133,78 C 1153,78 1166,100 1181,125
-        C 1199,125 1212,102 1225,102 C 1238,102 1250,125 1280,125
-        C 1295,100 1308,78 1328,78 C 1348,78 1361,100 1376,125
-        L 1440,125 L 1440,160 Z"
-        fill="rgba(10,8,8,.97)" filter="url(#aud-rim)"/>
-    </svg>
-  </div>
 
 
 </section>

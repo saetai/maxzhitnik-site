@@ -2721,30 +2721,53 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   var pos = 0, target = 0;
   var dragging = false, hover = false, touchPauseUntil = 0, inView = true;
 
+  /* Параметры слотов 0..K: масштаб и поворот заданы, а X каждого слота считается по РЕАЛЬНЫМ
+     краям повёрнутой карточки (браузер меряет пробную карточку), чтобы видимый зазор
+     между всеми соседними фото был одинаковым. */
+  var slots = null, slotsKey = '';
   function geom() {
-    return mqMobile.matches
-      ? { G: 170, SP: 162, C: 1.12, rot: 6, rotK: 6, sc: 0, maxA: 2.6 }
-      : { G: 330, SP: 250, C: 1.32, rot: 10, rotK: 14, sc: .12, maxA: 3.2 };
+    var m = mqMobile.matches;
+    var key = (m ? 'm' : 'd') + window.innerWidth;
+    if (slots && slotsKey === key) return slots;
+    var GAP = m ? 14 : 26, C = m ? 1.12 : 1.32, K = 6, list = [];
+    var probe = document.createElement('div');
+    probe.className = 'reel-card';
+    probe.style.visibility = 'hidden';
+    reel.appendChild(probe);
+    var cx = reel.getBoundingClientRect().left + reel.clientWidth / 2;
+    for (var k = 0; k <= K; k++) {
+      var sc = k === 0 ? C : 1 + (m ? 0 : (k - 1) * .12);
+      var ry = k === 0 ? 0 : Math.min((m ? 6 : 10) + (k - 1) * (m ? 6 : 14), 42);
+      /* подбираем X так, чтобы левый край этой карточки стоял ровно на GAP правее предыдущей
+         (перспектива зависит и от сдвига, поэтому меряем на месте, 4 итерации) */
+      var x = k === 0 ? 0 : list[k - 1].x + 240, r;
+      for (var it = 0; it < (k === 0 ? 1 : 4); it++) {
+        probe.style.transform = 'perspective(1200px) translateX(' + x + 'px) rotateY(' + (-ry) + 'deg) scale(' + sc + ')';
+        r = probe.getBoundingClientRect();
+        if (k > 0) x += (list[k - 1].Rabs + GAP) - (r.left - cx);
+      }
+      list.push({ sc: sc, ry: ry, x: x, Rabs: r.right - cx });
+    }
+    reel.removeChild(probe);
+    slots = { list: list, K: K, maxA: m ? 2.6 : 3.2 };
+    slotsKey = key;
+    return slots;
   }
   function wrap(s) { s = ((s % N) + N) % N; return s >= N / 2 ? s - N : s; }
 
   function render() {
-    var g = geom();
+    var g = geom(), L = g.list;
     cards.forEach(function(card, i) {
-      var s = wrap(i - pos), a = Math.abs(s), sg = s < 0 ? -1 : 1;
-      var x, sc, ry, op;
-      if (a < 1) {                        /* центр — за Максимом, крупнее; плавно переходит к соседнему месту */
-        var e = a * a * (3 - 2 * a);      /* smoothstep */
-        x = sg * g.G * e; sc = g.C + (1 - g.C) * e; ry = -sg * g.rot * e; op = .95;
-      } else {
-        var t = a - 1;
-        x = sg * (g.G + t * g.SP); sc = 1 + Math.min(t, 2.5) * g.sc;
-        ry = -sg * Math.min(g.rot + t * g.rotK, 42); op = .92;
-      }
-      op *= Math.max(0, Math.min(1, g.maxA + .5 - a));   /* дальние гаснут у краёв */
+      var s = wrap(i - pos), a = Math.min(Math.abs(s), g.K), sg = s < 0 ? -1 : 1;
+      var k = Math.floor(a), f = a - k, A = L[k], B = L[Math.min(k + 1, g.K)];
+      var e = f * f * (3 - 2 * f);                       /* smoothstep между слотами */
+      var x = sg * (A.x + (B.x - A.x) * e);
+      var sc = A.sc + (B.sc - A.sc) * e;
+      var ry = -sg * (A.ry + (B.ry - A.ry) * e);
+      var op = .94 * Math.max(0, Math.min(1, g.maxA + .5 - Math.abs(s)));   /* дальние гаснут у краёв */
       card.style.transform = 'perspective(1200px) translateX(' + x.toFixed(1) + 'px) rotateY(' + ry.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
       card.style.opacity = op.toFixed(3);
-      card.style.zIndex = String(10 - Math.round(a * 2));
+      card.style.zIndex = String(10 - Math.round(Math.abs(s) * 2));
       var v = card.firstElementChild, show = inView && op > .05;
       if (show && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function(){}); }
       else if (!show && !v.paused) v.pause();
@@ -2769,7 +2792,7 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   });
   reel.addEventListener('pointermove', function(e) {
     if (!dragging || e.pointerId !== pid) return;
-    target = startT - (e.clientX - startX) / geom().SP;
+    target = startT - (e.clientX - startX) / (geom().list[1].x);
     pos = target;
   });
   function endDrag(e) {
@@ -2784,7 +2807,7 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   scene.addEventListener('wheel', function(e) {
     if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
     e.preventDefault();
-    target += e.deltaX / geom().SP; pos = target;
+    target += e.deltaX / (geom().list[1].x); pos = target;
     clearTimeout(wheelTimer); wheelTimer = setTimeout(snap, 140);
   }, { passive: false });
 

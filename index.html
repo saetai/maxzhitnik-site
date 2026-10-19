@@ -38,38 +38,6 @@ body {
 
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
-/* ── НАВБАР ── */
-nav {
-  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-  z-index: 100; width: calc(100% - 48px); max-width: 1120px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 20px;
-  background: rgba(23,18,18,.85);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  backdrop-filter: blur(16px);
-}
-.nav-logo { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 15px; color: var(--text); text-decoration: none; }
-.nav-btn {
-  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500;
-  color: #fff; text-decoration: none;
-  padding: 10px 20px; border-radius: 10px;
-  background: var(--accent);
-  border: 1px solid rgba(255,220,215,.25);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.25),
-    0 0 14px rgba(224,87,75,.40),
-    0 0 32px rgba(224,87,75,.18);
-  transition: box-shadow .25s, transform .2s;
-}
-.nav-btn:hover {
-  color: #fff; transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.35),
-    0 0 20px rgba(224,87,75,.55),
-    0 0 48px rgba(224,87,75,.28);
-}
-
 /* ── КНОПКИ ── */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -213,6 +181,10 @@ nav {
   line-height: 1.65; color: var(--text-muted);
 }
 
+/* ── ПЕРЕНОСЫ: строки примерно одной длины, без висячих слов ── */
+p, li, .lead, .hf-desc { text-wrap: pretty; }
+.heading span, h1, h2, h3, .fw-card-title, .hf-title, .mc-title { text-wrap: balance; }
+
 /* ── СЕКЦИИ ── */
 section {
   padding: 180px 0;
@@ -248,7 +220,7 @@ section:not(.hero)::before {
 /* ── 1. ГЕРОЙ ── */
 .hero {
   min-height: 100vh;
-  padding-top: calc(80px + 36px);
+  padding-top: 56px;
   padding-bottom: 0;
   position: relative;
   display: flex; flex-direction: column; align-items: stretch;
@@ -320,35 +292,19 @@ section:not(.hero)::before {
   position: relative; z-index: 5;
   padding-bottom: 0;
 }
-.hero-center .badge   { margin-bottom: 24px; }
-.hero-center .heading { margin-bottom: 20px; }
+.hero-center .badge   { margin-bottom: 20px; }
+.hero-center .heading { margin-bottom: 14px; }
 .hero-center .lead    { max-width: 500px; margin: 0 auto; }
 
-.hero-btn-wrap { margin-top: 36px; }
-
-/* ── Hero описательные карточки ── */
-.hero-desc-cards {
-  display: flex; gap: 16px; margin-top: 28px; width: 100%; max-width: 820px;
-}
-.hero-desc-card {
-  flex: 1;
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 16px;
-  padding: 20px 22px;
-  text-align: left;
-  font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400;
-  line-height: 1.65; color: rgba(246,237,234,.75);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 20px 40px rgba(0,0,0,.4);
-}
+.hero-btn-wrap { margin-top: 28px; }
 
 /* ── ВИДЕО-ЛЕНТА ── */
 .reel-scene {
   position: relative;
   top: auto; left: auto; transform: none;
   width: 100%;
-  margin-top: 40px;
-  padding: 92px 0 92px;
+  margin-top: 12px;
+  padding: 40px 0 150px;
   overflow: hidden;
   z-index: 1;
 }
@@ -406,17 +362,26 @@ section:not(.hero)::before {
   box-shadow: inset 0 0 60px rgba(224,87,75,.18);
 }
 /* Видео в карточках */
-.reel-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:1; filter: grayscale(1) brightness(.8); }
+.reel-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:1; filter: grayscale(1) brightness(.8); opacity:0; transition: opacity .6s; }
+.reel-video.is-playing { opacity: 1; }
+/* Пока нет роликов — фото медленно «дышит» (наезд камеры) */
+@media (prefers-reduced-motion: no-preference) {
+  .reel-inner { animation: reel-kenburns 9s ease-in-out infinite alternate; }
+  .rc-1l .reel-inner, .rc-2r .reel-inner { animation-delay: -3s; }
+  .rc-c .reel-inner, .rc-1r .reel-inner { animation-delay: -6s; }
+}
+@keyframes reel-kenburns {
+  from { transform: scale(1.02) translate(0, 0); }
+  to   { transform: scale(1.14) translate(-2%, -2%); }
+}
 .reel-card.rc-c .reel-video { filter: grayscale(1) brightness(1.1); }
 
-/* scale подобран так что scale×cos(angle)≈1: визуальная ширина = layout-слоту → нет перекрытий */
-.reel-card.rc-3l { transform: perspective(1200px) rotateY(42deg) scale(1.35); opacity: .90; }
-.reel-card.rc-2l { transform: perspective(1200px) rotateY(25deg) scale(1.10); opacity: .92; }
-.reel-card.rc-1l { transform: perspective(1200px) rotateY(12deg) scale(1.02); opacity: .85; }
-.reel-card.rc-c  { transform: scale(0.97);                                    opacity: .95; }
-.reel-card.rc-1r { transform: perspective(1200px) rotateY(-12deg) scale(1.02); opacity: .85; }
-.reel-card.rc-2r { transform: perspective(1200px) rotateY(-25deg) scale(1.10); opacity: .92; }
-.reel-card.rc-3r { transform: perspective(1200px) rotateY(-42deg) scale(1.35); opacity: .90; }
+/* 5 карточек: центральная крупнее — стоит за Максимом */
+.reel-card.rc-2l { transform: perspective(1200px) rotateY(24deg) scale(1.12); opacity: .9; }
+.reel-card.rc-1l { transform: perspective(1200px) rotateY(10deg) scale(1.02); opacity: .85; }
+.reel-card.rc-c  { width: 300px; height: 400px; margin: 0 36px; opacity: .95; }
+.reel-card.rc-1r { transform: perspective(1200px) rotateY(-10deg) scale(1.02); opacity: .85; }
+.reel-card.rc-2r { transform: perspective(1200px) rotateY(-24deg) scale(1.12); opacity: .9; }
 
 /* Текст/кнопка hero выше ленты */
 .hero-center { z-index: 5; }
@@ -518,7 +483,7 @@ section:not(.hero)::before {
 }
 .method-layout {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 40px; align-items: start;
+  gap: 40px; align-items: stretch;
 }
 .method-left { display: flex; flex-direction: column; gap: 16px; }
 .method-right { display: flex; flex-direction: column; gap: 24px; }
@@ -528,10 +493,14 @@ section:not(.hero)::before {
 .method-right .section-head .lead { text-align: left; }
 
 /* Фото в методе */
-.method-photos { display: flex; flex-direction: column; gap: 10px; }
+.method-photos { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+@media (min-width: 961px) {
+  .method-left, .method-cards { height: 100%; }
+  .method-cards { grid-auto-rows: 1fr; }
+}
 .method-photo-main {
   width: 100%; aspect-ratio: 16/10; border-radius: 16px; overflow: hidden;
-  position: relative; cursor: pointer;
+  position: relative;
 }
 .method-photo-main img { width:100%; height:100%; object-fit:cover; transition: transform .4s; }
 .method-photo-main:hover img { transform: scale(1.04); }
@@ -549,7 +518,7 @@ section:not(.hero)::before {
 .method-photos-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .method-photo-sm {
   aspect-ratio: 16/10; border-radius: 12px; overflow: hidden;
-  position: relative; cursor: pointer;
+  position: relative;
 }
 .method-photo-sm img { width:100%; height:100%; object-fit:cover; transition: transform .4s; }
 .method-photo-sm:hover img { transform: scale(1.04); }
@@ -1242,6 +1211,39 @@ footer p { font-size: 14px; color: var(--text-muted); }
   pointer-events: none; z-index: 0;
 }
 
+/* «Кому полезен» → «Метод»: одна сетка без обрывов, в 2 раза прозрачнее, затухает по бокам */
+#forwho { padding-bottom: 96px; }
+#method  { padding-top: 96px; }
+#forwho.section-grid::after, #method.section-grid::after {
+  background-image:
+    linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+}
+/* в «Методе» сетка дополнительно мягко гаснет к низу — плавный переход в «Программу» */
+#method.section-grid::after {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent), linear-gradient(to bottom, #000 55%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent), linear-gradient(to bottom, #000 55%, transparent);
+  mask-composite: intersect;
+}
+/* у «Метода» нет пятна сверху — тёплые градиенты по краям */
+#method::before {
+  top: 0; bottom: 0; height: auto;
+  background:
+    radial-gradient(500px 600px at 0% 50%, rgba(224,87,75,.07), transparent 70%),
+    radial-gradient(500px 600px at 100% 50%, rgba(224,87,75,.07), transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 65%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 65%, transparent);
+}
+
+/* «Метод» → «Программа»: свечение не обрезано краем секции — плавный переход */
+#program::before {
+  height: 900px;
+  background: radial-gradient(700px 420px at 50% 360px, rgba(224,87,75,.07), transparent 70%);
+}
+
 /* ── 12.4 КОНЦЕНТРИЧЕСКИЕ ДУГИ В HERO ── */
 .hero-arcs {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
@@ -1332,7 +1334,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
 }
 @media (prefers-reduced-motion: reduce) { .fw-ticker { animation: none; } }
 
-.fw-row-block { margin-bottom: 80px; }
+.fw-row-block { margin-bottom: 112px; }
+.fw-row-block:last-child { margin-bottom: 0; }
 .fw-nums-clip {
   height: 62px; overflow: hidden;
   display: grid; grid-template-columns: 1fr 1fr 1fr;
@@ -1354,18 +1357,17 @@ footer p { font-size: 14px; color: var(--text-muted); }
   font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 500;
   color: var(--text); margin-bottom: 12px; line-height: 1.3;
 }
-.fw-card-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.fw-card-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .fw-card-list li {
-  font-size: 13px; color: var(--text-muted); line-height: 1.5;
+  font-size: 13px; color: var(--text-muted); line-height: 1.6;
   padding-left: 14px; position: relative;
 }
 .fw-card-list li::before { content: '·'; position: absolute; left: 0; color: rgba(224,87,75,.6); }
 
 /* ── МОБАЙЛ ── */
 @media (max-width: 960px) {
-  nav { width: calc(100% - 32px); top: 12px; }
   section { padding: 110px 0; }
-  .hero { padding-top: calc(70px + 44px); overflow: hidden; }
+  .hero { padding-top: 40px; overflow: hidden; }
   .hero-halo { width: min(100vw, 600px); left: 50%; transform: translateX(-50%); }
   .hero-arcs { overflow: hidden; }
 
@@ -1380,11 +1382,9 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-center { padding: 0 20px; box-sizing: border-box; max-width: 100%; overflow-wrap: break-word; }
   .hero-center .heading { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
   .hero-center .lead { max-width: 100%; overflow-wrap: break-word; }
-  .hero-desc-cards { flex-direction: column; }
-  .hero-desc-card { font-size: 14px; padding: 16px 18px; }
   .hero-spot { display: none; }
   /* кнопка hero: позиция z:10 + gap до силуэта */
-  .hero-btn-wrap { position: relative; z-index: 10; margin-bottom: 64px; }
+  .hero-btn-wrap { position: relative; z-index: 10; margin-bottom: 8px; }
   /* силуэт: высота 46vh (голова начинается ниже кнопки), top:auto = позиция через bottom:0 */
   .hero-silhouette { display: block; top: auto; margin-top: 0; }
   .silhouette-img { height: 46vh; }
@@ -1458,92 +1458,28 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
 .hero-maxim-figure {
   position: absolute;
-  top: 622px;
-  left: 50%; transform: translateX(-50%);
+  left: 50%; bottom: 0; transform: translateX(-50%);
   z-index: 3;
-  width: 300px;
+  width: 400px;
   pointer-events: none;
 }
 .hero-maxim-img {
   width: 100%; height: auto; display: block;
-  filter: brightness(.12) contrast(1.2)
-    drop-shadow(0 0 1.5px rgba(255,200,175,.9))
-    drop-shadow(0 0 10px rgba(240,130,100,.4));
-  -webkit-mask-image: linear-gradient(#000 50%, transparent 85%);
-  mask-image: linear-gradient(#000 50%, transparent 85%);
-}
-
-/* Луч — мягкое пятно, БЕЗ clip-path, z-index 0 (под лентой) */
-.hero-beam-wrap {
-  position: absolute;
-  left: calc(50% - 210px); width: 420px;
-  top: 532px; height: 600px;
-  z-index: 0;
-  pointer-events: none;
-  /* верхние 8% контейнера прозрачны → нет жёсткой горизонтальной границы */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 100%);
-}
-.hero-beam {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 42% 80% at 50% 20%,
-    rgba(250,165,135,.35),
-    transparent 72%);
-  filter: blur(26px);
-  mix-blend-mode: screen;
-}
-
-/* Вертикальная линия — строго от btn.bottom+20 до head_y */
-/* Ореол позади фигуры: центр на 45% → верхние 45% прозрачны (нет жёсткой границы) */
-.hero-beam-glow {
-  position: absolute;
-  top: 560px; left: 50%;
-  transform: translateX(-50%);
-  width: 560px; height: 480px;
-  background: radial-gradient(ellipse 50% 60% at 50% 45%,
-    rgba(250,165,120,.30) 0%,
-    rgba(224,87,75,.15)  50%,
-    transparent          76%);
-  filter: blur(26px);
-  mix-blend-mode: screen;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Пылинки */
-.hero-dust {
-  position: absolute;
-  left: calc(50% - 210px); width: 420px;
-  top: 532px; height: 220px;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Проём = плечи(240) + 40px с каждой стороны; spacer=272 → gap до плеча 40px */
-.reel-spacer { width: 272px; flex-shrink: 0; }
-
-@keyframes dust-float {
-  0%   { transform: translateY(0px)   scale(1);  opacity: 0; }
-  18%  { opacity: .85; }
-  82%  { opacity: .5; }
-  100% { transform: translateY(-46px) scale(.5); opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-dust span { animation: none !important; opacity: .3 !important; }
+  filter: contrast(1.05) drop-shadow(0 20px 40px rgba(0,0,0,.55));
+  -webkit-mask-image: linear-gradient(#000 58%, transparent 90%);
+  mask-image: linear-gradient(#000 58%, transparent 90%);
 }
 @media (max-width: 768px) {
-  .hero-maxim-figure { width: 62vw; top: auto; bottom: 20px; }
-  .hero-beam-wrap { top: 440px; height: 400px; left: calc(50% - 170px); width: 340px; }
-  .hero-beam-glow { top: 480px; width: 320px; height: 260px; }
-  .hero-dust { top: 440px; height: 180px; left: calc(50% - 170px); width: 340px; }
-  .reel-spacer { width: 0; }
+  .reel-scene { display: flex; flex-direction: column; padding: 16px 0 24px; }
+  .hero-maxim-figure { position: relative; left: auto; bottom: auto; transform: none; width: 78vw; max-width: 340px; margin: 0 auto -40px; order: -1; }
+  .reel-card.rc-c { width: 160px; height: 232px; margin: 0; }
 }
 
 /* Hero subtitle */
 .hero-sub {
-  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 400;
-  color: rgba(246,237,234,.45); line-height: 1.5;
-  margin-top: 10px; margin-bottom: 4px; text-align: center;
+  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 400;
+  color: rgba(246,237,234,.55); line-height: 1.5;
+  margin: 0; max-width: 460px; text-align: center; text-wrap: balance;
 }
 /* Trainer clients at top */
 .trainer-clients-top {
@@ -1583,10 +1519,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
 
 <!-- ═══ НАВБАР ═══ -->
-<nav>
-  <a href="#" class="nav-logo">Максим Житник</a>
-</nav>
-
 <!-- ═══ 1. ГЕРОЙ ═══ -->
 <section class="hero">
   <div class="hero-halo"></div>
@@ -1616,84 +1548,55 @@ footer p { font-size: 14px; color: var(--text-muted); }
   <!-- ТЕКСТ + КНОПКА (сначала в DOM — для мобайла: flex-column) -->
   <div class="wrap hero-center">
 
+    <div class="badge">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Офлайн-тренинг · Москва
+    </div>
+
     <div class="heading h1">
       <span class="h-onest">Вызов 7.0</span>
     </div>
 
-    <p class="hero-sub">Двухдневный тренинг для предпринимателей,&nbsp;руководителей и&nbsp;экспертов</p>
-
-    <div class="hero-desc-cards">
-      <div class="hero-desc-card">Раскроете в&nbsp;себе сильные роли, на&nbsp;которые сможете опираться и&nbsp;чувствовать себя естественно и&nbsp;уверенно.</div>
-      <div class="hero-desc-card">Научитесь влиять и&nbsp;управлять диалогом: в&nbsp;переговорах, на&nbsp;сцене, в&nbsp;работе с&nbsp;командой.</div>
-    </div>
+    <p class="hero-sub">Двухдневный тренинг для&nbsp;предпринимателей, руководителей и&nbsp;экспертов</p>
 
     <div class="hero-btn-wrap">
-      <a href="#program" class="btn btn-hero">Познакомиться с программой</a>
+      <a href="#program" class="btn btn-hero">Познакомиться с&nbsp;программой</a>
     </div>
 
   </div>
 
-  <!-- Луч (z-index 0 — под лентой и фигурой) -->
-  <div class="hero-beam-wrap" aria-hidden="true"><div class="hero-beam"></div></div>
-  <!-- Свечение за плечами (z-index 2) -->
-  <div class="hero-beam-glow" aria-hidden="true"></div>
-  <!-- Пылинки (z-index 0, clip-path конус) -->
-  <div class="hero-dust" aria-hidden="true"></div>
-  <!-- Силуэт (z-index 3) -->
-  <div class="hero-maxim-figure">
-    <img class="hero-maxim-img" src="assets/maxim-hero.png" alt="Максим Житник">
-  </div>
-
-  <!-- ВИДЕО-ЛЕНТА (абсолютная на десктопе; под кнопкой на мобайле) -->
+  <!-- ВИДЕО-ЛЕНТА: 5 карточек с короткими роликами (3–5 сек), Максим перед центральной -->
   <div class="reel-scene">
-    <div class="reel-vline"></div>
     <div class="reel">
 
-      <div class="reel-card rc-3l">
-        <video class="reel-video" autoplay muted loop playsinline preload="none">
-          <!-- clip_1.mp4: заменить на реальное видео от клиента -->
-        </video>
-        <div class="reel-inner" style="background-image:url('assets/__352_group.jpg');background-position:center 20%;"></div>
-      </div>
-
       <div class="reel-card rc-2l">
-        <video class="reel-video" autoplay muted loop playsinline preload="none">
-          <!-- clip_2.mp4: заменить на реальное видео от клиента -->
-        </video>
         <div class="reel-inner" style="background-image:url('assets/training1.jpg');background-position:center 10%;"></div>
+        <video class="reel-video" src="assets/video/hero-1.mp4" autoplay muted loop playsinline preload="auto"></video>
       </div>
 
       <div class="reel-card rc-1l">
-        <video class="reel-video" autoplay muted loop playsinline preload="none">
-          <!-- clip_3.mp4: заменить на реальное видео от клиента -->
-        </video>
         <div class="reel-inner" style="background-image:url('assets/__224.jpg');background-position:62% 20%;"></div>
+        <video class="reel-video" src="assets/video/hero-2.mp4" autoplay muted loop playsinline preload="auto"></video>
       </div>
 
-      <!-- Проём под силуэт Максима (плечи 240px + 40px с каждой стороны = 320px) -->
-      <div class="reel-spacer" aria-hidden="true"></div>
+      <div class="reel-card rc-c">
+        <div class="reel-inner" style="background-image:url('assets/group-CHPK2995.jpg');background-position:center center;"></div>
+        <video class="reel-video" src="assets/video/hero-3.mp4" autoplay muted loop playsinline preload="auto"></video>
+      </div>
 
       <div class="reel-card rc-1r">
-        <video class="reel-video" autoplay muted loop playsinline preload="none">
-          <!-- clip_5.mp4: заменить на реальное видео от клиента -->
-        </video>
         <div class="reel-inner" style="background-image:url('assets/__38_2.jpg');background-position:40% 30%;"></div>
+        <video class="reel-video" src="assets/video/hero-4.mp4" autoplay muted loop playsinline preload="auto"></video>
       </div>
 
       <div class="reel-card rc-2r">
-        <video class="reel-video" autoplay muted loop playsinline preload="none">
-          <!-- clip_6.mp4: заменить на реальное видео от клиента -->
-        </video>
         <div class="reel-inner" style="background-image:url('assets/group-CHPK3183.jpg');background-position:center 5%;"></div>
+        <video class="reel-video" src="assets/video/hero-5.mp4" autoplay muted loop playsinline preload="auto"></video>
       </div>
 
-      <div class="reel-card rc-3r">
-        <video class="reel-video" autoplay muted loop playsinline preload="none">
-          <!-- clip_7.mp4: заменить на реальное видео от клиента -->
-        </video>
-        <div class="reel-inner" style="background-image:url('assets/group-CHPK2995.jpg');background-position:center center;"></div>
-      </div>
-
+    </div>
+    <div class="hero-maxim-figure">
+      <img class="hero-maxim-img" src="assets/maxim-hero.png" alt="Максим Житник">
     </div>
   </div>
 
@@ -1702,8 +1605,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="wrap">
       <div class="hero-features">
         <div class="hf-item">
-          <span class="hf-title">Раскроете в себе<br>сильные роли</span>
-          <span class="hf-desc">Перестанете «сжиматься» в ключевые моменты</span>
+          <span class="hf-title">Раскроете в&nbsp;себе<br>сильные роли</span>
+          <span class="hf-desc">Перестанете «сжиматься» в&nbsp;ключевые моменты</span>
         </div>
         <div class="hf-sep"></div>
         <div class="hf-item">
@@ -1713,7 +1616,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="hf-sep"></div>
         <div class="hf-item">
           <span class="hf-title">Изменения остаются<br>надолго</span>
-          <span class="hf-desc">Не два дня практики, а новый способ быть собой</span>
+          <span class="hf-desc">Не&nbsp;два дня практики, а&nbsp;новый способ быть собой</span>
         </div>
       </div>
     </div>
@@ -1732,20 +1635,20 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="section-head">
       <div class="badge">
         <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
-        Для кого
+        Для&nbsp;кого
       </div>
       <div class="heading h2">
         <span class="h-onest">Кому полезен тренинг</span>
         <span class="h-cormorant">«Вызов 7.0»</span>
       </div>
-      <p class="lead">Тренинг подходит тем, кто чувствует внутренний потенциал, но&nbsp;в нужный момент теряет уверенность и&nbsp;свободу проявляться.</p>
+      <p class="lead">Тренинг подходит тем, кто чувствует внутренний потенциал, но&nbsp;в&nbsp;нужный момент теряет уверенность и&nbsp;свободу проявляться.</p>
     </div>
 
     <!-- Бегущая строка -->
     <div class="fw-ticker-wrap" aria-hidden="true">
       <div class="fw-ticker">
-        <span class="fw-ticker-text">ДЛЯ ТЕХ, КТО ЧУВСТВУЕТ ПОТЕНЦИАЛ, НО ТЕРЯЕТСЯ В ВАЖНЫЙ МОМЕНТ // ДЛЯ ТЕХ, КТО ХОЧЕТ БЫТЬ СОБОЙ В ПОЛНУЮ СИЛУ // ДЛЯ ТЕХ, КТО УСТАЛ СЖИМАТЬСЯ В КЛЮЧЕВЫЕ МОМЕНТЫ // ДЛЯ ТЕХ, КТО ВИДИТ ВОЗМОЖНОСТИ, НО СТОПОРИТСЯ СТРАХОМ // </span>
-        <span class="fw-ticker-text" aria-hidden="true">ДЛЯ ТЕХ, КТО ЧУВСТВУЕТ ПОТЕНЦИАЛ, НО ТЕРЯЕТСЯ В ВАЖНЫЙ МОМЕНТ // ДЛЯ ТЕХ, КТО ХОЧЕТ БЫТЬ СОБОЙ В ПОЛНУЮ СИЛУ // ДЛЯ ТЕХ, КТО УСТАЛ СЖИМАТЬСЯ В КЛЮЧЕВЫЕ МОМЕНТЫ // ДЛЯ ТЕХ, КТО ВИДИТ ВОЗМОЖНОСТИ, НО СТОПОРИТСЯ СТРАХОМ // </span>
+        <span class="fw-ticker-text">ДЛЯ&nbsp;ТЕХ, КТО ЧУВСТВУЕТ ПОТЕНЦИАЛ, НО&nbsp;ТЕРЯЕТСЯ В&nbsp;ВАЖНЫЙ МОМЕНТ // ДЛЯ&nbsp;ТЕХ, КТО ХОЧЕТ БЫТЬ СОБОЙ В&nbsp;ПОЛНУЮ СИЛУ // ДЛЯ&nbsp;ТЕХ, КТО УСТАЛ СЖИМАТЬСЯ В&nbsp;КЛЮЧЕВЫЕ МОМЕНТЫ // ДЛЯ&nbsp;ТЕХ, КТО ВИДИТ ВОЗМОЖНОСТИ, НО&nbsp;СТОПОРИТСЯ СТРАХОМ // </span>
+        <span class="fw-ticker-text" aria-hidden="true">ДЛЯ&nbsp;ТЕХ, КТО ЧУВСТВУЕТ ПОТЕНЦИАЛ, НО&nbsp;ТЕРЯЕТСЯ В&nbsp;ВАЖНЫЙ МОМЕНТ // ДЛЯ&nbsp;ТЕХ, КТО ХОЧЕТ БЫТЬ СОБОЙ В&nbsp;ПОЛНУЮ СИЛУ // ДЛЯ&nbsp;ТЕХ, КТО УСТАЛ СЖИМАТЬСЯ В&nbsp;КЛЮЧЕВЫЕ МОМЕНТЫ // ДЛЯ&nbsp;ТЕХ, КТО ВИДИТ ВОЗМОЖНОСТИ, НО&nbsp;СТОПОРИТСЯ СТРАХОМ // </span>
       </div>
     </div>
 
@@ -1759,30 +1662,30 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <div class="fw-cut-line"></div>
       <div class="fw-cards-row">
         <div class="fw-card">
-          <h3 class="fw-card-title">Перфекционисты и контролёры</h3>
+          <h3 class="fw-card-title">Перфекционисты и&nbsp;контролёры</h3>
           <ul class="fw-card-list">
-            <li>Привыкли всё контролировать и перепроверять</li>
-            <li>Испытывают постоянное напряжение от этого</li>
-            <li>Хотят расслабиться, но не получается</li>
+            <li>Привыкли всё контролировать и&nbsp;перепроверять</li>
+            <li>Испытывают постоянное напряжение от&nbsp;этого</li>
+            <li>Хотят расслабиться, но&nbsp;не&nbsp;получается</li>
             <li>Теряются, когда план нарушается</li>
           </ul>
         </div>
         <div class="fw-card">
-          <h3 class="fw-card-title">«Отличники» с зажатостью</h3>
+          <h3 class="fw-card-title">«Отличники» с&nbsp;зажатостью</h3>
           <ul class="fw-card-list">
-            <li>Делают всё правильно, но чувствуют скованность</li>
-            <li>Постоянно думают о том, как выглядят</li>
-            <li>Боятся осуждения и публичных ошибок</li>
-            <li>Не позволяют себе расслабиться в компании</li>
+            <li>Делают всё правильно, но&nbsp;чувствуют скованность</li>
+            <li>Постоянно думают о&nbsp;том, как&nbsp;выглядят</li>
+            <li>Боятся осуждения и&nbsp;публичных ошибок</li>
+            <li>Не&nbsp;позволяют себе расслабиться в&nbsp;компании</li>
           </ul>
         </div>
         <div class="fw-card">
-          <h3 class="fw-card-title">Те, кто теряется на переговорах</h3>
+          <h3 class="fw-card-title">Те, кто теряется на&nbsp;переговорах</h3>
           <ul class="fw-card-list">
-            <li>На встречах голос становится тише</li>
-            <li>Чувствуют скованность под давлением</li>
+            <li>На&nbsp;встречах голос становится тише</li>
+            <li>Чувствуют скованность под&nbsp;давлением</li>
             <li>Трудно отстаивать свою позицию</li>
-            <li>Позволяют продавливать себя<br>на невыгодные условия</li>
+            <li>Позволяют продавливать себя<br>на&nbsp;невыгодные условия</li>
           </ul>
         </div>
       </div>
@@ -1800,28 +1703,28 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="fw-card">
           <h3 class="fw-card-title">Те, кто откладывает публичность</h3>
           <ul class="fw-card-list">
-            <li>Давно хотят вести блог или выступать</li>
-            <li>Откладывают «на потом» из года в год</li>
-            <li>Нет уверенности, что «я интересен»</li>
-            <li>Страх быть осмеянным или непонятым</li>
+            <li>Давно хотят вести блог или&nbsp;выступать</li>
+            <li>Откладывают «на&nbsp;потом» из&nbsp;года в&nbsp;год</li>
+            <li>Нет уверенности, что&nbsp;«я интересен»</li>
+            <li>Страх быть осмеянным или&nbsp;непонятым</li>
           </ul>
         </div>
         <div class="fw-card">
-          <h3 class="fw-card-title">«Скучные» (по собственному мнению)</h3>
+          <h3 class="fw-card-title">«Скучные» (по&nbsp;собственному мнению)</h3>
           <ul class="fw-card-list">
             <li>Считают себя неинтересными собеседниками</li>
-            <li>Думают, что им «нечего сказать»</li>
-            <li>Завидуют тем, кто легко держится на людях</li>
+            <li>Думают, что&nbsp;им «нечего сказать»</li>
+            <li>Завидуют тем, кто легко держится на&nbsp;людях</li>
             <li>Именно им тренинг нужен сильнее всего</li>
           </ul>
         </div>
         <div class="fw-card">
-          <h3 class="fw-card-title">Лидеры с командой<!-- TODO: уточнить 6-й пункт --></h3>
+          <h3 class="fw-card-title">Лидеры с&nbsp;командой<!-- TODO: уточнить 6-й пункт --></h3>
           <ul class="fw-card-list">
-            <li>Хотят влиять без давления и страха</li>
-            <li>Строят коммуникацию в команде осознанно</li>
-            <li>Хотят, чтобы люди слышали их с первого слова</li>
-            <li>Ищут живого контакта, а не формальных схем<!-- TODO --></li>
+            <li>Хотят влиять без&nbsp;давления и&nbsp;страха</li>
+            <li>Строят коммуникацию в&nbsp;команде осознанно</li>
+            <li>Хотят, чтобы&nbsp;люди слышали их с&nbsp;первого слова</li>
+            <li>Ищут живого контакта, а&nbsp;не&nbsp;формальных схем<!-- TODO --></li>
           </ul>
         </div>
       </div>
@@ -1830,7 +1733,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
 </section>
 
 <!-- ═══ 3. МЕТОД — карточки + фото ═══ -->
-<section id="method">
+<section id="method" class="section-grid">
   <div class="section-decor" aria-hidden="true">
     <span class="sp" style="left:6%;top:20%;width:4px;height:4px;animation-delay:1s"></span>
     <span class="sp" style="left:15%;top:58%;width:3px;height:3px;animation-delay:2.5s"></span>
@@ -1854,7 +1757,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
                 <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
               </div>
               <div class="mc-title">Голос</div>
-              <p class="mc-text">Опора, дыхание, тембр — чтобы ваш голос звучал <strong>уверенно…</strong></p>
+              <p class="mc-text">Опора, дыхание, тембр&nbsp;— чтобы&nbsp;ваш голос звучал <strong>уверенно…</strong></p>
               <div class="mc-infographic mc-infographic--voice" aria-hidden="true">
                 <svg viewBox="0 0 200 92" width="100%" height="92" overflow="visible">
                   <defs>
@@ -1918,7 +1821,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><path d="m9 20 3-6 3 6"/><path d="m6 8 6 4 6-4"/><line x1="12" y1="12" x2="12" y2="14"/></svg>
               </div>
               <div class="mc-title">Тело</div>
-              <p class="mc-text">Снятие зажимов, устойчивость, присутствие, энергия — чтобы перестать «сжиматься» в моменте.</p>
+              <p class="mc-text">Снятие зажимов, устойчивость, присутствие, энергия&nbsp;— чтобы&nbsp;перестать «сжиматься» в&nbsp;моменте.</p>
               <div class="mc-infographic" aria-hidden="true">
                 <svg viewBox="0 0 160 120" width="100%" height="120" overflow="visible" style="position:absolute;inset:0">
                   <defs>
@@ -1974,7 +1877,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
                 <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </div>
               <div class="mc-title">Взаимодействие</div>
-              <p class="mc-text">Контакт, границы, импровизация — быть сильными и тёплыми одновременно.</p>
+              <p class="mc-text">Контакт, границы, импровизация&nbsp;— быть сильными и&nbsp;тёплыми одновременно.</p>
               <div class="mc-infographic" aria-hidden="true">
                 <svg viewBox="0 0 200 120" width="100%" height="120" overflow="visible" style="position:absolute;inset:0">
                   <defs>
@@ -2060,8 +1963,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
                 04
                 <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </div>
-              <div class="mc-title">Сцена и импровизация<!-- TODO: уточнить название у клиента --></div>
-              <p class="mc-text">Актёрские упражнения на сцене: роль, присутствие, реакция. Импровизация убирает страх ошибки.<!-- TODO --></p>
+              <div class="mc-title">Сцена и&nbsp;импровизация<!-- TODO: уточнить название у клиента --></div>
+              <p class="mc-text">Актёрские упражнения на&nbsp;сцене: роль, присутствие, реакция. Импровизация убирает страх ошибки.<!-- TODO --></p>
               <div class="mc-infographic" aria-hidden="true">
                 <svg viewBox="0 0 160 120" width="100%" height="120" overflow="visible" style="position:absolute;inset:0">
                   <defs>
@@ -2125,20 +2028,18 @@ footer p { font-size: 14px; color: var(--text-muted); }
               Метод Stage-Psy Fusion
             </div>
             <div class="heading h2">
-              <span class="h-onest">В чём суть</span>
+              <span class="h-onest">В&nbsp;чём суть</span>
               <span class="h-cormorant">метода</span>
             </div>
-            <p class="lead">Метод Stage-Psy Fusion объединяет актёрские техники и глубинную психологию. Работаете не над «маской», а над настоящими изменениями.</p>
+            <p class="lead">Метод Stage-Psy Fusion объединяет актёрские техники и&nbsp;глубинную психологию. Работаете не&nbsp;над&nbsp;«маской», а&nbsp;над&nbsp;настоящими изменениями.</p>
           </div>
           <div class="method-photos">
-            <div class="method-photo-main" data-video-id="znoFm5Oy4S8" data-ratio="9/16" onclick="openVideoModal(this)" role="button" tabindex="0">
+            <div class="method-photo-main">
               <img src="assets/IKZ10140.jpg" alt="Тренинг Вызов">
-              <div class="method-play-icon"><span><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></div>
             </div>
             <div class="method-photos-row">
-              <div class="method-photo-sm" data-video-id="Nt90WcHys88" data-ratio="16/9" onclick="openVideoModal(this)" role="button" tabindex="0">
+              <div class="method-photo-sm">
                 <img src="assets/group-CHPK3183.jpg" alt="Тренинг Вызов">
-                <div class="method-play-icon"><span><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></span></div>
               </div>
               <div class="method-photo-sm">
                 <img src="assets/__352.jpg" alt="Тренинг Вызов">
@@ -2173,9 +2074,9 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Два дня</span>
-        <span class="h-cormorant">практики и трансформации</span>
+        <span class="h-cormorant">практики и&nbsp;трансформации</span>
       </div>
-      <p class="lead">Каждый день — это завершённый блок практик. Первый строит внутреннюю опору, второй выводит её в живое взаимодействие.</p>
+      <p class="lead">Каждый день&nbsp;— это завершённый блок практик. Первый строит внутреннюю опору, второй выводит её в&nbsp;живое взаимодействие.</p>
     </div>
 
     <div class="accordion">
@@ -2184,7 +2085,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="acc-header" onclick="toggleAcc(this)">
           <span class="acc-day">День 1</span>
           <div class="acc-title-group">
-            <span class="acc-title">Сонастройка с собой</span>
+            <span class="acc-title">Сонастройка с&nbsp;собой</span>
             <span class="acc-header-sub">Выстраиваете внутреннюю опору, находите свои сильные роли</span>
           </div>
           <button class="acc-toggle" aria-label="Развернуть">
@@ -2195,14 +2096,14 @@ footer p { font-size: 14px; color: var(--text-muted); }
           <div class="acc-content">
             <p class="acc-sub">Выстраиваете внутреннюю опору, находите свои сильные роли.</p>
             <ul class="acc-list">
-              <li>Упражнение для красивого и глубокого голоса</li>
-              <li>Упражнение на снятие зажимов, скованности и напряжения</li>
-              <li>Упражнение на избавление от мнения окружающих</li>
-              <li>Групповые упражнения на считывание партнёра</li>
+              <li>Упражнение для&nbsp;красивого и&nbsp;глубокого голоса</li>
+              <li>Упражнение на&nbsp;снятие зажимов, скованности и&nbsp;напряжения</li>
+              <li>Упражнение на&nbsp;избавление от&nbsp;мнения окружающих</li>
+              <li>Групповые упражнения на&nbsp;считывание партнёра</li>
             </ul>
             <div class="result-box">
-              <span class="result-label">По итогу дня</span>
-              <p>Вы раскроете в себе ту сильную роль, которая всегда в вас была, — и будете опираться на неё в сложных решениях, которые раньше боялись принять.</p>
+              <span class="result-label">По&nbsp;итогу дня</span>
+              <p>Вы раскроете в&nbsp;себе ту сильную роль, которая всегда в&nbsp;вас была, — и&nbsp;будете опираться на&nbsp;неё в&nbsp;сложных решениях, которые раньше боялись принять.</p>
             </div>
           </div>
         </div>
@@ -2212,8 +2113,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <div class="acc-header" onclick="toggleAcc(this)">
           <span class="acc-day">День 2</span>
           <div class="acc-title-group">
-            <span class="acc-title">Коммуникация и влияние</span>
-            <span class="acc-header-sub">Выводите опору в живое взаимодействие: переговоры, команда, сцена<!-- TODO: текст от Максима --></span>
+            <span class="acc-title">Коммуникация и&nbsp;влияние</span>
+            <span class="acc-header-sub">Выводите опору в&nbsp;живое взаимодействие: переговоры, команда, сцена<!-- TODO: текст от Максима --></span>
           </div>
           <button class="acc-toggle" aria-label="Развернуть">
             <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
@@ -2221,16 +2122,16 @@ footer p { font-size: 14px; color: var(--text-muted); }
         </div>
         <div class="acc-body">
           <div class="acc-content">
-            <p class="acc-sub">Выводите внутреннюю опору в реальное взаимодействие: переговоры, команда, сцена.</p>
+            <p class="acc-sub">Выводите внутреннюю опору в&nbsp;реальное взаимодействие: переговоры, команда, сцена.</p>
             <ul class="acc-list">
-              <li>Моделируем ваши реальные ситуации: переговоры, публичные выступления, работа с командой</li>
-              <li>Репетируете и пробуете в парах и в группах</li>
-              <li>Учитесь управлять процессом и замечать своё состояние</li>
+              <li>Моделируем ваши реальные ситуации: переговоры, публичные выступления, работа с&nbsp;командой</li>
+              <li>Репетируете и&nbsp;пробуете в&nbsp;парах и&nbsp;в&nbsp;группах</li>
+              <li>Учитесь управлять процессом и&nbsp;замечать своё состояние</li>
               <li>Учитесь считывать партнёра: эмоции, язык тела</li>
             </ul>
             <div class="result-box">
-              <span class="result-label">По итогу дня</span>
-              <p>Если раньше что-то в разговоре шло не по плану, вы тревожились или раздражались. Теперь вы управляете: отслеживаете своё состояние, считываете партнёра и относитесь к этому как к игровому процессу.</p>
+              <span class="result-label">По&nbsp;итогу дня</span>
+              <p>Если раньше что-то в&nbsp;разговоре шло не&nbsp;по&nbsp;плану, вы тревожились или&nbsp;раздражались. Теперь вы управляете: отслеживаете своё состояние, считываете партнёра и&nbsp;относитесь к&nbsp;этому как&nbsp;к&nbsp;игровому процессу.</p>
             </div>
           </div>
         </div>
@@ -2257,34 +2158,34 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <div class="heading h2">
         <span class="h-onest">Какие изменения будут</span>
-        <span class="h-cormorant">в жизни после тренинга</span>
+        <span class="h-cormorant">в&nbsp;жизни после тренинга</span>
       </div>
-      <p class="lead">Уверенность, которая останется с вами — не только на два дня, а как новый способ быть собой.</p>
+      <p class="lead">Уверенность, которая останется с&nbsp;вами&nbsp;— не&nbsp;только на&nbsp;два дня, а&nbsp;как&nbsp;новый способ быть собой.</p>
     </div>
     <div class="outcomes-grid">
 
       <div class="card">
         <div class="icon" style="color:#E0574B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-        <div class="card-title">Больше смелости и решительности</div>
-        <p class="card-text">Сможете легко делать то, что раньше откладывали и стеснялись, принимать сложные решения.</p>
+        <div class="card-title">Больше смелости и&nbsp;решительности</div>
+        <p class="card-text">Сможете легко делать то, что&nbsp;раньше откладывали и&nbsp;стеснялись, принимать сложные решения.</p>
       </div>
 
       <div class="card">
         <div class="icon" style="color:#5B8FD4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
         <div class="card-title">Свобода проявляться</div>
-        <p class="card-text">Снимать видео, органично общаться, выступать, проводить планёрки — всё будет естественно и уверенно.</p>
+        <p class="card-text">Снимать видео, органично общаться, выступать, проводить планёрки&nbsp;— всё будет естественно и&nbsp;уверенно.</p>
       </div>
 
       <div class="card">
         <div class="icon" style="color:#5BB878"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="card-title">Уверенность в переговорах</div>
-        <p class="card-text">Чувствуете себя увереннее в переговорах и не даёте «продавливать» себя на невыгодные условия.</p>
+        <div class="card-title">Уверенность в&nbsp;переговорах</div>
+        <p class="card-text">Чувствуете себя увереннее в&nbsp;переговорах и&nbsp;не&nbsp;даёте «продавливать» себя на&nbsp;невыгодные условия.</p>
       </div>
 
       <div class="card">
         <div class="icon" style="color:#C88FE0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <div class="card-title">Команда без конфликтов</div>
-        <p class="card-text">Выстроите эффективную коммуникацию в команде без конфликтов, даже с разными поколениями.</p>
+        <div class="card-title">Команда без&nbsp;конфликтов</div>
+        <p class="card-text">Выстроите эффективную коммуникацию в&nbsp;команде без&nbsp;конфликтов, даже с&nbsp;разными поколениями.</p>
       </div>
 
     </div>
@@ -2426,8 +2327,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
     <!-- Контент под кривой -->
     <div class="price-below-curve">
-      <h3 class="price-what-h3">Что входит в тренинг</h3>
-      <p class="price-what-text">2 дня практики · психологические и телесные упражнения · актёрские техники · работа в группе · ответы тренера на ваши реальные ситуации<!-- TODO: текст от Максима --></p>
+      <h3 class="price-what-h3">Что&nbsp;входит в&nbsp;тренинг</h3>
+      <p class="price-what-text">2 дня практики · психологические и&nbsp;телесные упражнения · актёрские техники · работа в&nbsp;группе · ответы тренера на&nbsp;ваши реальные ситуации<!-- TODO: текст от Максима --></p>
       <div class="price-btns">
         <a href="https://payform.ru/tqcOOBV/" class="price-btn price-btn-fill" target="_blank" rel="noopener">Записаться</a>
         <a href="https://payform.ru/r8cPIwj/" class="price-btn price-btn-outline" target="_blank" rel="noopener">Внести предоплату 3&nbsp;000&nbsp;₽</a>
@@ -2454,7 +2355,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="section-head">
       <div class="badge">
         <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        О тренере
+        О&nbsp;тренере
       </div>
       <div class="heading h2">
         <span class="h-onest">Кто ведёт</span>
@@ -2488,7 +2389,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
           </div>
           <div class="t-stat">
             <span class="t-stat-num">50+</span>
-            <div class="t-stat-label">ролей в кино</div>
+            <div class="t-stat-label">ролей в&nbsp;кино</div>
           </div>
           <div class="t-stat">
             <span class="t-stat-num">3000+</span>
@@ -2499,7 +2400,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
             <div class="t-stat-label">участников «Вызова»</div>
           </div>
         </div>
-        <p class="trainer-bio">Магистратура по семейной психологии (МИП) и психоаналитическому бизнес-консультированию (ВШЭ). Актёрское образование — Высшее театральное училище им. Щепкина.</p>
+        <p class="trainer-bio">Магистратура по&nbsp;семейной психологии (МИП) и&nbsp;психоаналитическому бизнес-консультированию (ВШЭ). Актёрское образование&nbsp;— Высшее театральное училище им. Щепкина.</p>
       </div>
     </div>
 
@@ -2523,7 +2424,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <!-- 11.2 Заголовок с аватарками -->
       <div class="heading h2">
-        <span class="h-onest">Что говорят
+        <span class="h-onest">Что&nbsp;говорят
           <span class="av-row">
             <img class="av" src="assets/av1.jpg" alt="Участница">
             <img class="av" src="assets/av2.jpg" alt="Артём Самигуллин">
@@ -2533,21 +2434,21 @@ footer p { font-size: 14px; color: var(--text-muted); }
         </span>
         <span class="h-cormorant">участники тренинга</span>
       </div>
-      <p class="lead">Более 500 человек прошли «Вызов». Вот что они говорят.</p>
+      <p class="lead">Более 500 человек прошли «Вызов». Вот что&nbsp;они говорят.</p>
     </div>
 
     <div class="reviews-row">
       <div class="rv-card" data-video-id="znoFm5Oy4S8" data-ratio="9/16"
            onclick="openVideoModal(this)" role="button" tabindex="0" aria-label="Видеоотзыв о тренинге Вызов">
         <div class="rv-bg" style="background-image:url('assets/reviews/znoFm5Oy4S8.jpg')"></div>
-        <div class="rv-caption"><div class="rv-name">Отзыв о тренинге «Вызов»</div></div>
+        <div class="rv-caption"><div class="rv-name">Отзыв о&nbsp;тренинге «Вызов»</div></div>
         <div class="rv-play"><div class="review-video-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
       </div>
 
       <div class="col-texts">
         <div class="re-card">
           <div class="re-text-wrap">
-            <p class="re-text">Про тренинг «Вызов». Прошло несколько дней после тренинга. Я до сих пор испытываю противоречивые чувства. Шла я за конкретными упражнениями, методиками, какими-то «инструментами» для борьбы со скованностью и зажимами. Но получила нечто совсем другое... Точно могу сказать, что не зря, что интересно, что ново, необычно. Было и весело, и грустно, местами сумасшедше, но главное — душевно, искренне, открыто.</p>
+            <p class="re-text">Про&nbsp;тренинг «Вызов». Прошло несколько дней после тренинга. Я до&nbsp;сих пор испытываю противоречивые чувства. Шла я за&nbsp;конкретными упражнениями, методиками, какими-то «инструментами» для&nbsp;борьбы со&nbsp;скованностью и&nbsp;зажимами. Но&nbsp;получила нечто совсем другое... Точно могу сказать, что&nbsp;не&nbsp;зря, что&nbsp;интересно, что&nbsp;ново, необычно. Было и&nbsp;весело, и&nbsp;грустно, местами сумасшедше, но&nbsp;главное&nbsp;— душевно, искренне, открыто.</p>
           </div>
           <div class="re-footer">
             <span class="re-author-name">Участница тренинга</span>
@@ -2556,7 +2457,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
         </div>
         <div class="re-card">
           <div class="re-text-wrap">
-            <p class="re-text">Максим, привет! Пишу отзыв текстом. Я рада была побывать на тренинге, очень благодарна. Идя на тренинг я не ставила себе конкретные цели. Хотела просто действовать по отклику. Удалось почувствовать себя в состоянии потока как в детстве, когда ты не думаешь о том, кто на тебя смотрит, что о тебе скажут. Когда ты просто есть и проявляешься в мир, просто играешь свою игру.</p>
+            <p class="re-text">Максим, привет! Пишу отзыв текстом. Я рада была побывать на&nbsp;тренинге, очень благодарна. Идя на&nbsp;тренинг я не&nbsp;ставила себе конкретные цели. Хотела просто действовать по&nbsp;отклику. Удалось почувствовать себя в&nbsp;состоянии потока как&nbsp;в&nbsp;детстве, когда ты не&nbsp;думаешь о&nbsp;том, кто на&nbsp;тебя смотрит, что&nbsp;о&nbsp;тебе скажут. Когда ты просто есть и&nbsp;проявляешься в&nbsp;мир, просто играешь свою игру.</p>
           </div>
           <div class="re-footer">
             <span class="re-author-name">Участница тренинга</span>
@@ -2578,7 +2479,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <div class="col-texts">
         <div class="re-card">
           <div class="re-text-wrap">
-            <p class="re-text">Здравствуйте Максим! Я когда вас услышала, точнее и увидела, сразу для себя отметила — какой достойный человек на экране. То, о чём вы вещаете и то, как вы это транслируете, однозначно откликнется людям, столкнувшимся лично с теми или иными вопросами по жизни. Эти ситуации проживает каждый из нас, но не каждому дано это осознать.</p>
+            <p class="re-text">Здравствуйте Максим! Я когда вас услышала, точнее и&nbsp;увидела, сразу для&nbsp;себя отметила&nbsp;— какой достойный человек на&nbsp;экране. То, о&nbsp;чём вы вещаете и&nbsp;то, как&nbsp;вы это транслируете, однозначно откликнется людям, столкнувшимся лично с&nbsp;теми или&nbsp;иными вопросами по&nbsp;жизни. Эти ситуации проживает каждый из&nbsp;нас, но&nbsp;не&nbsp;каждому дано это осознать.</p>
           </div>
           <div class="re-footer">
             <span class="re-author-name">Участница тренинга</span>
@@ -2587,7 +2488,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
         </div>
         <div class="re-card">
           <div class="re-text-wrap">
-            <p class="re-text">Максим, была очень рада сегодня присутствовать на тренинге, мне понравилось, действительно, где мы можем ещё позволить себе танцевать, кривляться, играть, кроме как в подобном пространстве. Ты умеешь держать пространство, задавать энергию, вести за собой, мягко и бережно. Было комфортно, тепло, душевно и по-живому, с любовью.</p>
+            <p class="re-text">Максим, была очень рада сегодня присутствовать на&nbsp;тренинге, мне понравилось, действительно, где мы можем ещё позволить себе танцевать, кривляться, играть, кроме как&nbsp;в&nbsp;подобном пространстве. Ты умеешь держать пространство, задавать энергию, вести за&nbsp;собой, мягко и&nbsp;бережно. Было комфортно, тепло, душевно и&nbsp;по-живому, с&nbsp;любовью.</p>
           </div>
           <div class="re-footer">
             <span class="re-author-name">Участница тренинга</span>
@@ -2603,7 +2504,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
 <footer>
   <div class="wrap" style="padding:0 24px;">
     <div class="footer-cta">
-      <a href="#price" class="footer-cta-btn">Хочу на тренинг</a>
+      <a href="#price" class="footer-cta-btn">Хочу на&nbsp;тренинг</a>
     </div>
     <p style="text-align:center;font-size:13px;color:rgba(246,237,234,.35);">«Вызов 7.0» · Максим Житник · 2 дня офлайн · Москва, пер. Чапаевский 6</p>
     <div class="footer-legal">
@@ -2843,26 +2744,12 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   }
 })();
 
-/* Пылинки в луче — конусное распределение (шире книзу), 40 штук */
+/* Видео в ленте hero: показываем, только когда ролик реально играет (иначе остаётся фото) */
 (function() {
-  var c = document.querySelector('.hero-dust');
-  if (!c) return;
-  for (var i = 0; i < 40; i++) {
-    var p = document.createElement('span');
-    var yFrac = Math.random();           /* 0=верх конуса, 1=низ */
-    var halfW = 7 + yFrac * 43;         /* ширина зоны от центра: 7% → 50% */
-    var x = 50 + (Math.random() * 2 - 1) * halfW;
-    var y = 4 + yFrac * 90;
-    var sz = 1.5 + Math.random() * 1.8;
-    var dur = 8 + Math.random() * 6;
-    var del = -(Math.random() * dur);
-    p.style.cssText = 'position:absolute;border-radius:50%;background:#FFE3DA;'
-      + 'box-shadow:0 0 6px rgba(224,87,75,.8);'
-      + 'left:' + x.toFixed(1) + '%;top:' + y.toFixed(1) + '%;'
-      + 'width:' + sz.toFixed(1) + 'px;height:' + sz.toFixed(1) + 'px;'
-      + 'animation:dust-float ' + dur.toFixed(1) + 's ' + del.toFixed(1) + 's ease-in-out infinite;';
-    c.appendChild(p);
-  }
+  document.querySelectorAll('.reel-video').forEach(function(v) {
+    v.addEventListener('playing', function() { v.classList.add('is-playing'); });
+    v.addEventListener('error', function() { v.remove(); }, true);
+  });
 })();
 </script>
 

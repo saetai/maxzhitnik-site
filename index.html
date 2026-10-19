@@ -1706,19 +1706,19 @@ footer p { font-size: 14px; color: var(--text-muted); }
   <!-- ВИДЕО-ЛЕНТА: бесконечная карусель, центр (за Максимом) всегда пустой -->
   <div class="reel-scene" id="reel-scene">
     <div class="reel" id="reel">
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-1.jpg" src="assets/hero/clip-1.mp4" draggable="false"></video></div>
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-2.jpg" src="assets/hero/clip-2.mp4" draggable="false"></video></div>
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-3.jpg" src="assets/hero/clip-3.mp4" draggable="false"></video></div>
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-4.jpg" src="assets/hero/clip-4.mp4" draggable="false"></video></div>
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-5.jpg" src="assets/hero/clip-5.mp4" draggable="false"></video></div>
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-6.jpg" src="assets/hero/clip-6.mp4" draggable="false"></video></div>
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-7.jpg" src="assets/hero/clip-7.mp4" draggable="false"></video></div>
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-8.jpg" src="assets/hero/clip-8.mp4" draggable="false"></video></div>
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-9.jpg" src="assets/hero/clip-9.mp4" draggable="false"></video></div>
-      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-10.jpg" src="assets/hero/clip-10.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-1.jpg?v=3" src="assets/hero/clip-1.mp4?v=3" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-2.jpg?v=3" src="assets/hero/clip-2.mp4?v=3" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-3.jpg?v=3" src="assets/hero/clip-3.mp4?v=3" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-4.jpg?v=3" src="assets/hero/clip-4.mp4?v=3" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-5.jpg?v=3" src="assets/hero/clip-5.mp4?v=3" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-6.jpg?v=3" src="assets/hero/clip-6.mp4?v=3" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-7.jpg?v=3" src="assets/hero/clip-7.mp4?v=3" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-8.jpg?v=3" src="assets/hero/clip-8.mp4?v=3" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-9.jpg?v=3" src="assets/hero/clip-9.mp4?v=3" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-10.jpg?v=3" src="assets/hero/clip-10.mp4?v=3" draggable="false"></video></div>
     </div>
     <!-- Карточка за Максимом — стоит на месте, лента проходит за ней -->
-    <div class="reel-center"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-8.jpg" src="assets/hero/clip-8.mp4" draggable="false"></video></div>
+    <div class="reel-center"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-8.jpg?v=3" src="assets/hero/clip-8.mp4?v=3" draggable="false"></video></div>
     <div class="hero-maxim-figure" role="img" aria-label="Максим Житник"></div>
     <button class="reel-arrow reel-prev" type="button" aria-label="Предыдущее видео"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
     <button class="reel-arrow reel-next" type="button" aria-label="Следующее видео"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
@@ -2748,7 +2748,7 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   }
   function tick() {
     var d = target - pos;
-    pos = Math.abs(d) < .0005 ? target : pos + d * (reduce ? 1 : .12);
+    pos = Math.abs(d) < .0005 ? target : pos + d * (reduce ? 1 : (dragging ? .35 : .055));
     render();
     requestAnimationFrame(tick);
   }

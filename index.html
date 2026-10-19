@@ -943,6 +943,13 @@ section:not(.hero)::before {
   width: 100%; margin-top: 8px;
 }
 .price-card .price-btn { width: 100%; padding: 14px 12px; }
+/* юридическая подпись под кнопками — мелко, почти незаметно */
+.price-legal {
+  margin-top: 4px; font-size: 11px; line-height: 1.5;
+  color: rgba(246,237,234,.28); text-align: center;
+}
+.price-legal a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(246,237,234,.18); }
+.price-legal a:hover { color: rgba(246,237,234,.5); }
 @media (max-width: 768px) {
   .price-card .price-btns { grid-template-columns: 1fr; }
 }
@@ -2354,6 +2361,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
           <a href="https://payform.ru/r8cPIwj/" class="price-btn price-btn-fill" target="_blank" rel="noopener">Внести предоплату 3&nbsp;000&nbsp;₽</a>
           <a href="https://t.me/m/-MPQAYWKNzNi" class="price-btn price-btn-outline" target="_blank" rel="noopener">Задать вопрос в&nbsp;Telegram</a>
         </div>
+        <p class="price-legal">Нажимая «Записаться» или&nbsp;«Внести предоплату», вы&nbsp;принимаете условия оферты<!-- TODO: ссылка на оферту от Максима --> и&nbsp;<a href="https://maxzhitnik.ru/privacy" target="_blank" rel="noopener">политики конфиденциальности</a></p>
       </div>
     </div>
   </div>

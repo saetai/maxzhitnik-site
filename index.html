@@ -947,6 +947,29 @@ section:not(.hero)::before {
 }
 .tariff-btn-ghost:hover { border-color: rgba(255,220,215,.25); color: var(--text); }
 
+/* Главная CTA кнопка стоимости */
+.price-cta-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 16px 44px; border-radius: 12px;
+  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
+  text-decoration: none; cursor: pointer; letter-spacing: .01em;
+  background: var(--accent); color: #fff; border: none;
+  box-shadow: 0 0 22px rgba(224,87,75,.45), inset 0 1px 0 rgba(255,255,255,.2);
+  transition: transform .2s, box-shadow .2s;
+  margin-top: 8px;
+}
+.price-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(224,87,75,.65), inset 0 1px 0 rgba(255,255,255,.2); }
+.price-links {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
+}
+.price-link {
+  font-family: 'Manrope', sans-serif; font-size: 14px;
+  color: rgba(246,237,234,.5); text-decoration: none;
+  transition: color .2s;
+}
+.price-link:hover { color: rgba(246,237,234,.85); }
+.price-link-sep { color: rgba(246,237,234,.3); font-size: 14px; }
+
 /* ── РАЗДЕЛ 7: КТО ВЕДЁТ ── */
 .trainer-card {
   width: 100%; aspect-ratio: 16/7; border-radius: 28px;
@@ -2392,25 +2415,11 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="price-below-curve">
       <h3 class="price-what-h3">Что входит в тренинг</h3>
       <p class="price-what-text">2 дня практики · психологические и телесные упражнения · актёрские техники · работа в группе · ответы тренера на ваши реальные ситуации<!-- TODO: текст от Максима --></p>
-      <div class="price-tariffs">
-        <div class="tariff-card">
-          <div class="tariff-card-title">Оплатить полностью</div>
-          <div class="tariff-card-sub">Вся стоимость сейчас</div>
-          <div class="tariff-card-price">20 000 ₽</div>
-          <a href="#pay-full" class="tariff-btn tariff-btn-primary">Записаться →<!-- TODO: ссылка --></a>
-        </div>
-        <div class="tariff-card">
-          <div class="tariff-card-title">Внести предоплату</div>
-          <div class="tariff-card-sub">Остаток — на месте</div>
-          <div class="tariff-card-price">3 000 ₽</div>
-          <a href="#pay-prepay" class="tariff-btn tariff-btn-outline">Внести предоплату<!-- TODO --></a>
-        </div>
-        <div class="tariff-card">
-          <div class="tariff-card-title">Задать вопрос</div>
-          <div class="tariff-card-sub">Расскажем подробнее</div>
-          <div class="tariff-card-price">Telegram</div>
-          <a href="#telegram" class="tariff-btn tariff-btn-ghost">Написать в Telegram<!-- TODO --></a>
-        </div>
+      <a href="#pay-full" class="price-cta-btn">Записаться →<!-- TODO: ссылка оплаты --></a>
+      <div class="price-links">
+        <a href="#pay-prepay" class="price-link"><!-- TODO: ссылка предоплаты -->Внести предоплату 3&nbsp;000&nbsp;₽</a>
+        <span class="price-link-sep">·</span>
+        <a href="https://t.me/maxzhitnik?text=Максим%2C+добрый+день!+Хочу+задать+вопрос+по+тренингу%3A+" class="price-link" target="_blank" rel="noopener"><!-- TODO: уточнить ник Telegram -->Задать вопрос в&nbsp;Telegram</a>
       </div>
     </div>
 

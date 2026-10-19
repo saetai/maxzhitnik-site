@@ -947,28 +947,35 @@ section:not(.hero)::before {
 }
 .tariff-btn-ghost:hover { border-color: rgba(255,220,215,.25); color: var(--text); }
 
-/* Главная CTA кнопка стоимости */
-.price-cta-btn {
+/* Три кнопки стоимости */
+.price-btns {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px;
+}
+.price-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 16px 44px; border-radius: 12px;
-  font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
+  padding: 14px 28px; border-radius: 12px;
+  font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500;
   text-decoration: none; cursor: pointer; letter-spacing: .01em;
-  background: var(--accent); color: #fff; border: none;
-  box-shadow: 0 0 22px rgba(224,87,75,.45), inset 0 1px 0 rgba(255,255,255,.2);
-  transition: transform .2s, box-shadow .2s;
-  margin-top: 8px;
+  transition: transform .2s, box-shadow .2s, background .2s, border-color .2s;
+  white-space: nowrap;
 }
-.price-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(224,87,75,.65), inset 0 1px 0 rgba(255,255,255,.2); }
-.price-links {
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
+.price-btn-fill {
+  background: var(--accent); color: #fff; border: 1.5px solid transparent;
+  box-shadow: 0 0 22px rgba(224,87,75,.4), inset 0 1px 0 rgba(255,255,255,.18);
 }
-.price-link {
-  font-family: 'Manrope', sans-serif; font-size: 14px;
-  color: rgba(246,237,234,.5); text-decoration: none;
-  transition: color .2s;
+.price-btn-fill:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(224,87,75,.65); }
+.price-btn-outline {
+  background: transparent; color: var(--accent); border: 1.5px solid var(--accent);
 }
-.price-link:hover { color: rgba(246,237,234,.85); }
-.price-link-sep { color: rgba(246,237,234,.3); font-size: 14px; }
+.price-btn-outline:hover { background: rgba(224,87,75,.08); transform: translateY(-1px); }
+.price-btn-ghost {
+  background: transparent; color: rgba(246,237,234,.6); border: 1.5px solid rgba(246,237,234,.2);
+}
+.price-btn-ghost:hover { border-color: rgba(246,237,234,.45); color: var(--text); transform: translateY(-1px); }
+@media (max-width: 768px) {
+  .price-btns { flex-direction: column; align-items: stretch; }
+  .price-btn { text-align: center; }
+}
 
 /* ── РАЗДЕЛ 7: КТО ВЕДЁТ ── */
 .trainer-card {
@@ -2415,11 +2422,10 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="price-below-curve">
       <h3 class="price-what-h3">Что входит в тренинг</h3>
       <p class="price-what-text">2 дня практики · психологические и телесные упражнения · актёрские техники · работа в группе · ответы тренера на ваши реальные ситуации<!-- TODO: текст от Максима --></p>
-      <a href="https://payform.ru/tqcOOBV/" class="price-cta-btn" target="_blank" rel="noopener">Записаться →</a>
-      <div class="price-links">
-        <a href="https://payform.ru/r8cPIwj/" class="price-link" target="_blank" rel="noopener">Внести предоплату 3&nbsp;000&nbsp;₽</a>
-        <span class="price-link-sep">·</span>
-        <a href="https://t.me/maxzhitnik?text=Максим%2C+добрый+день!+Хочу+задать+вопрос+по+тренингу%3A+" class="price-link" target="_blank" rel="noopener"><!-- TODO: уточнить ник Telegram -->Задать вопрос в&nbsp;Telegram</a>
+      <div class="price-btns">
+        <a href="https://payform.ru/tqcOOBV/" class="price-btn price-btn-fill" target="_blank" rel="noopener">Записаться</a>
+        <a href="https://payform.ru/r8cPIwj/" class="price-btn price-btn-outline" target="_blank" rel="noopener">Внести предоплату 3&nbsp;000&nbsp;₽</a>
+        <a href="https://t.me/m/-MPQAYWKNzNi" class="price-btn price-btn-ghost" target="_blank" rel="noopener">Задать вопрос в&nbsp;Telegram</a>
       </div>
     </div>
 

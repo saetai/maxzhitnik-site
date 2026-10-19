@@ -1414,47 +1414,42 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .modal-box[data-ratio="9/16"] { height: min(92vh,640px); }
 }
 
-/* ── ФИГУРА МАКСИМА — hero ── */
+/* ── ФИГУРА МАКСИМА — hero (затмение) ── */
 .hero-maxim-figure {
   position: absolute;
-  bottom: 60px;
+  bottom: 30px;
   left: 50%; transform: translateX(-50%);
   z-index: 3;
-  width: 560px;
+  width: 480px;
   pointer-events: none;
 }
 .hero-maxim-img {
   width: 100%; height: auto; display: block;
-  filter: grayscale(1) contrast(1.25) brightness(1.05)
-    drop-shadow(0 0 2px rgba(255,200,175,.9))
-    drop-shadow(0 0 8px rgba(255,170,130,.55));
-  -webkit-mask-image:
-    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
-    linear-gradient(to bottom, #000 62%, rgba(0,0,0,.4) 80%, transparent 100%);
-  mask-image:
-    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
-    linear-gradient(to bottom, #000 62%, rgba(0,0,0,.4) 80%, transparent 100%);
-  -webkit-mask-composite: destination-in;
-  mask-composite: intersect;
+  filter: brightness(0.06);
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, rgba(0,0,0,.3) 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 72%, rgba(0,0,0,.3) 88%, transparent 100%);
 }
-.hero-maxim-glow {
+/* Светящееся кольцо за силуэтом */
+.hero-glow-ring {
   position: absolute;
-  bottom: 80px; left: 50%;
-  transform: translateX(-50%);
-  width: 900px; height: 900px;
+  width: 580px; height: 580px;
   border-radius: 50%;
-  background: radial-gradient(closest-side,
-    rgba(252,145,95,.72) 0%,
-    rgba(224,87,75,.42) 48%,
-    transparent 100%);
-  filter: blur(52px);
-  z-index: 0; pointer-events: none;
+  border: 2px solid rgba(228,82,50,.92);
+  box-shadow:
+    inset 0 0 50px rgba(228,82,50,.30),
+    0 0 20px  rgba(228,82,50,.90),
+    0 0 55px  rgba(228,82,50,.65),
+    0 0 100px rgba(228,82,50,.40),
+    0 0 160px rgba(228,82,50,.20);
+  bottom: 140px;
+  left: 50%; transform: translateX(-50%);
+  z-index: 1; pointer-events: none;
 }
 /* центральная карточка — место для фигуры */
 .reel-card.rc-c { opacity: 0 !important; }
 @media (max-width:768px) {
-  .hero-maxim-figure { width: 260px; bottom: 30px; }
-  .hero-maxim-glow { width: 500px; height: 500px; }
+  .hero-maxim-figure { width: 220px; bottom: 20px; }
+  .hero-glow-ring { width: 300px; height: 300px; bottom: 80px; }
 }
 </style>
 </head>
@@ -1516,10 +1511,10 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
   </div>
 
-  <!-- Свечение + фигура Максима -->
-  <div class="hero-maxim-glow" aria-hidden="true"></div>
+  <!-- Кольцо + тёмный силуэт (затмение) -->
+  <div class="hero-glow-ring" aria-hidden="true"></div>
   <div class="hero-maxim-figure">
-    <img class="hero-maxim-img" src="assets/maxim-crop-c.png" alt="Максим Житник">
+    <img class="hero-maxim-img" src="assets/maxim-silhouette.png" alt="Максим Житник">
   </div>
 
   <!-- ВИДЕО-ЛЕНТА (абсолютная на десктопе; под кнопкой на мобайле) -->

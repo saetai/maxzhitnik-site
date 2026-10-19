@@ -330,106 +330,61 @@ section:not(.hero)::before {
   .hero-desc-card { font-size: 14px; padding: 14px 16px; }
 }
 
-/* ── ВИДЕО-ЛЕНТА ── */
+/* ── ВИДЕО-ЛЕНТА — карусель (позиции карточек считает JS) ── */
 .reel-scene {
-  position: relative;
-  top: auto; left: auto; transform: none;
-  width: 100%;
-  margin-top: 0;
+  position: relative; width: 100%;
   padding: 44px 0 150px;
-  overflow: hidden;
-  z-index: 1;
+  overflow: hidden; z-index: 1;
+  user-select: none; -webkit-user-select: none;
 }
-/* Терракотовое пятно за центральной карточкой */
+/* свечение за Максимом — центр ленты пустой */
 .reel-scene::after {
   content: '';
-  position: absolute; top: 50%; left: 50%;
+  position: absolute; top: 46%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px; height: 600px;
+  width: 520px; height: 620px;
   background: radial-gradient(closest-side, rgba(224,87,75,.45), transparent);
   z-index: 0; pointer-events: none;
 }
-/* Аудитория (сидящие зрители) */
-.hero-audience {
-  position: absolute; bottom: 0; left: 0; width: 100%;
-  z-index: 3; pointer-events: none;
-}
-.hero-audience svg { display: block; width: 100%; }
-
-.reel-vline { display: none; }
-
 .reel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-  position: relative; z-index: 1;
+  position: relative; z-index: 1; height: 430px;
+  touch-action: pan-y; cursor: grab;
 }
-
+.reel.is-dragging { cursor: grabbing; }
 .reel-card {
-  flex-shrink: 0;
-  width: 220px; height: 319px; /* 9:13 */
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
+  position: absolute; left: 50%; top: 50%;
+  width: 220px; height: 319px; margin: -160px 0 0 -110px;
+  border-radius: 10px; overflow: hidden;
   border: 1px solid rgba(255,220,215,.06);
-  transition: opacity .3s, transform .3s;
+  background: #1a1414;
+  box-shadow: 0 16px 40px rgba(0,0,0,.5);
+  will-change: transform, opacity;
 }
-.reel-inner {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  transition: transform .4s;
-  filter: grayscale(1) brightness(.8);
-  z-index: 0;
+/* прозрачный слой поверх медиа — браузер не видит картинку под курсором (нет кнопки «поиск по картинке») */
+.reel-card::after { content: ''; position: absolute; inset: 0; z-index: 2; }
+.reel-video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block; z-index: 1;
+  filter: brightness(.85);
 }
-
-.reel-card.rc-c {
-  border-color: rgba(224,87,75,.45);
-  box-shadow: 0 0 40px rgba(224,87,75,.35), 0 16px 40px rgba(0,0,0,.5);
-  z-index: 2;
+.hero .reel-video, .hero-maxim-figure {
+  pointer-events: none; user-select: none; -webkit-user-select: none; -webkit-user-drag: none;
 }
-.reel-card.rc-c .reel-inner {
-  filter: grayscale(1) brightness(1.1);
-  box-shadow: inset 0 0 60px rgba(224,87,75,.18);
+/* круглые стеклянные стрелки */
+.reel-arrow {
+  position: absolute; top: calc(44px + 215px); z-index: 6;
+  width: 52px; height: 52px; margin-top: -26px; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer;
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+  border: 1px solid rgba(255,255,255,.16);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 10px 30px rgba(0,0,0,.45);
+  transition: background .2s, transform .2s;
 }
-/* Видео в карточках */
-.reel-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:1; filter: grayscale(1) brightness(.8); opacity:0; transition: opacity .6s; }
-.reel-video.is-playing { opacity: 1; }
-/* «Живая» лента: в каждой карточке 3 кадра с тренинга сменяют друг друга с движением камеры,
-   карточки сдвинуты по времени — лента всё время в движении (пока нет роликов hero-1..5.mp4) */
-.reel-card { --off: 0s; }
-.reel-card.rc-1l { --off: -2.4s; }
-.reel-card.rc-c  { --off: -4.8s; }
-.reel-card.rc-1r { --off: -7.2s; }
-.reel-card.rc-2r { --off: -9.6s; }
-.reel-inner.l2, .reel-inner.l3 { opacity: 0; }
-@media (prefers-reduced-motion: no-preference) {
-  .reel-inner {
-    animation: reel-fade 12s linear infinite, reel-pan-a 12s ease-in-out infinite;
-    animation-delay: var(--off), var(--off);
-  }
-  .reel-inner.l2 { animation-name: reel-fade, reel-pan-b; animation-delay: calc(var(--off) - 8s), calc(var(--off) - 8s); }
-  .reel-inner.l3 { animation-name: reel-fade, reel-pan-c; animation-delay: calc(var(--off) - 4s), calc(var(--off) - 4s); }
-}
-@keyframes reel-fade {
-  0%   { opacity: 0; }
-  8%   { opacity: 1; }
-  36%  { opacity: 1; }
-  44%  { opacity: 0; }
-  100% { opacity: 0; }
-}
-@keyframes reel-pan-a { 0% { transform: scale(1.06) translate(2%, 1%); }  44%, 100% { transform: scale(1.20) translate(-3%, -2%); } }
-@keyframes reel-pan-b { 0% { transform: scale(1.18) translate(-2%, 2%); } 44%, 100% { transform: scale(1.05) translate(2%, -1%); } }
-@keyframes reel-pan-c { 0% { transform: scale(1.05) translate(0, -2%); }  44%, 100% { transform: scale(1.18) translate(-2%, 3%); } }
-
-.reel-card.rc-c .reel-video { filter: grayscale(1) brightness(1.1); }
-
-/* 5 карточек: центральная крупнее — стоит за Максимом */
-.reel-card.rc-2l { transform: perspective(1200px) rotateY(24deg) scale(1.12); opacity: .9; }
-.reel-card.rc-1l { transform: perspective(1200px) rotateY(10deg) scale(1.02); opacity: .85; }
-.reel-card.rc-c  { width: 300px; height: 400px; margin: 0 36px; opacity: .95; }
-.reel-card.rc-1r { transform: perspective(1200px) rotateY(-10deg) scale(1.02); opacity: .85; }
-.reel-card.rc-2r { transform: perspective(1200px) rotateY(-24deg) scale(1.12); opacity: .9; }
+.reel-arrow:hover { background: linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.08)); transform: scale(1.06); }
+.reel-arrow svg { width: 22px; height: 22px; stroke: #fff; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.reel-prev { left: 28px; }
+.reel-next { right: 28px; }
 
 /* Текст/кнопка hero выше ленты */
 .hero-center { z-index: 5; }
@@ -1524,15 +1479,10 @@ footer p { font-size: 14px; color: var(--text-muted); }
   /* hero: колонка на мобайле — текст сверху, лента снизу */
   .hero { flex-direction: column; align-items: center; }
   /* reel-scene на мобайле: обратно в поток под кнопкой */
-  .reel-scene { position: relative; top: auto; left: 0; transform: none; width: 100%; padding: 32px 0 40px; }
   .hero-audience { display: none; }
   .hero::after { height: 80px; }
   /* hero-center полная ширина */
   .hero-center { width: 100%; }
-  .reel { overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; justify-content: flex-start; padding: 0 24px; gap: 12px; }
-  .reel::-webkit-scrollbar { display: none; }
-  .reel-card { width: 160px; height: 232px; transform: none !important; opacity: 1 !important; scroll-snap-align: center; flex-shrink: 0; border-radius: 10px; }
-  .reel-card.rc-c { box-shadow: 0 0 20px rgba(224,87,75,.25), 0 10px 30px rgba(0,0,0,.5); }
 
   /* полоса «по итогу»: колонкой, по центру, горизонтальные разделители */
   .hero-features { flex-direction: column; align-items: center; text-align: center; gap: 0; padding: 28px 24px 40px; flex-wrap: nowrap; }
@@ -1592,19 +1542,22 @@ footer p { font-size: 14px; color: var(--text-muted); }
   position: absolute;
   left: 50%; bottom: 0; transform: translateX(-50%);
   z-index: 3;
-  width: 400px;
-  pointer-events: none;
-}
-.hero-maxim-img {
-  width: 100%; height: auto; display: block;
+  width: 400px; aspect-ratio: 1106 / 1613;
+  background: url('assets/maxim-hero.png') center bottom / contain no-repeat;
   filter: contrast(1.05) drop-shadow(0 20px 40px rgba(0,0,0,.55));
   -webkit-mask-image: linear-gradient(#000 58%, transparent 90%);
   mask-image: linear-gradient(#000 58%, transparent 90%);
 }
+.hero-maxim-figure::after { content: ''; position: absolute; inset: 0; z-index: 2; }
 @media (max-width: 768px) {
   .reel-scene { display: flex; flex-direction: column; padding: 16px 0 24px; }
   .hero-maxim-figure { position: relative; left: auto; bottom: auto; transform: none; width: 78vw; max-width: 340px; margin: 0 auto -40px; order: -1; }
-  .reel-card.rc-c { width: 160px; height: 232px; margin: 0; }
+  .reel { height: 300px; }
+  .reel-card { width: 150px; height: 218px; margin: -109px 0 0 -75px; }
+  .reel-arrow { top: auto; bottom: calc(24px + 150px); width: 40px; height: 40px; margin-top: 0; margin-bottom: -20px; }
+  .reel-arrow svg { width: 18px; height: 18px; }
+  .reel-prev { left: 10px; }
+  .reel-next { right: 10px; }
 }
 
 /* Hero subtitle */
@@ -1705,49 +1658,23 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
   </div>
 
-  <!-- ВИДЕО-ЛЕНТА: 5 карточек с короткими роликами (3–5 сек), Максим перед центральной -->
-  <div class="reel-scene">
-    <div class="reel">
-
-      <div class="reel-card rc-2l">
-        <div class="reel-inner l1" style="background-image:url('assets/training1.jpg');background-position:center 10%;"></div>
-        <div class="reel-inner l2" style="background-image:url('assets/IKZ09936.jpg');background-position:center 20%;"></div>
-        <div class="reel-inner l3" style="background-image:url('assets/IMG_4147.jpg');background-position:center 30%;"></div>
-        <video class="reel-video" src="assets/video/hero-1.mp4" autoplay muted loop playsinline preload="auto"></video>
-      </div>
-
-      <div class="reel-card rc-1l">
-        <div class="reel-inner l1" style="background-image:url('assets/__224.jpg');background-position:62% 20%;"></div>
-        <div class="reel-inner l2" style="background-image:url('assets/IMG_7163.jpg');background-position:center center;"></div>
-        <div class="reel-inner l3" style="background-image:url('assets/IMG_4236.jpg');background-position:center 30%;"></div>
-        <video class="reel-video" src="assets/video/hero-2.mp4" autoplay muted loop playsinline preload="auto"></video>
-      </div>
-
-      <div class="reel-card rc-c">
-        <div class="reel-inner l1" style="background-image:url('assets/group-CHPK2995.jpg');background-position:center center;"></div>
-        <div class="reel-inner l2" style="background-image:url('assets/IKZ10140.jpg');background-position:center 30%;"></div>
-        <div class="reel-inner l3" style="background-image:url('assets/__352.jpg');background-position:center center;"></div>
-        <video class="reel-video" src="assets/video/hero-3.mp4" autoplay muted loop playsinline preload="auto"></video>
-      </div>
-
-      <div class="reel-card rc-1r">
-        <div class="reel-inner l1" style="background-image:url('assets/__38_2.jpg');background-position:40% 30%;"></div>
-        <div class="reel-inner l2" style="background-image:url('assets/training2.jpg');background-position:center 20%;"></div>
-        <div class="reel-inner l3" style="background-image:url('assets/IMG_7050.jpg');background-position:center 30%;"></div>
-        <video class="reel-video" src="assets/video/hero-4.mp4" autoplay muted loop playsinline preload="auto"></video>
-      </div>
-
-      <div class="reel-card rc-2r">
-        <div class="reel-inner l1" style="background-image:url('assets/group-CHPK3183.jpg');background-position:center 5%;"></div>
-        <div class="reel-inner l2" style="background-image:url('assets/group-CHPK3272.jpg');background-position:center center;"></div>
-        <div class="reel-inner l3" style="background-image:url('assets/__244_2.jpg');background-position:center 40%;"></div>
-        <video class="reel-video" src="assets/video/hero-5.mp4" autoplay muted loop playsinline preload="auto"></video>
-      </div>
-
+  <!-- ВИДЕО-ЛЕНТА: бесконечная карусель, центр (за Максимом) всегда пустой -->
+  <div class="reel-scene" id="reel-scene">
+    <div class="reel" id="reel">
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-1.jpg" src="assets/hero/clip-1.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-2.jpg" src="assets/hero/clip-2.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-3.jpg" src="assets/hero/clip-3.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-4.jpg" src="assets/hero/clip-4.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-5.jpg" src="assets/hero/clip-5.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-6.jpg" src="assets/hero/clip-6.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-7.jpg" src="assets/hero/clip-7.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-8.jpg" src="assets/hero/clip-8.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-9.jpg" src="assets/hero/clip-9.mp4" draggable="false"></video></div>
+      <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-10.jpg" src="assets/hero/clip-10.mp4" draggable="false"></video></div>
     </div>
-    <div class="hero-maxim-figure">
-      <img class="hero-maxim-img" src="assets/maxim-hero.png" alt="Максим Житник">
-    </div>
+    <div class="hero-maxim-figure" role="img" aria-label="Максим Житник"></div>
+    <button class="reel-arrow reel-prev" type="button" aria-label="Предыдущее видео"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
+    <button class="reel-arrow reel-next" type="button" aria-label="Следующее видео"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
   </div>
 
   <!-- Под фотками: два пункта из прототипа -->
@@ -2653,22 +2580,6 @@ function closeTextModal() {
 textModal.querySelector('.text-modal-close').addEventListener('click', closeTextModal);
 textModal.addEventListener('click', function(e) { if (e.target === textModal) closeTextModal(); });
 
-// ── Lazy load видео в ленте ──────────────────────────────────────
-(function() {
-  if (!('IntersectionObserver' in window)) return;
-  var videos = document.querySelectorAll('.reel-video');
-  var obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        var v = e.target;
-        v.load();
-        obs.unobserve(v);
-      }
-    });
-  }, { rootMargin: '200px' });
-  videos.forEach(function(v) { obs.observe(v); });
-})();
-
 // ── 15.8 Анимация прорисовки инфографики ─────────────────────────
 (function() {
   if (!('IntersectionObserver' in window)) return;
@@ -2700,12 +2611,104 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   cards.forEach(function(c) { obs.observe(c); });
 })();
 
-/* Видео в ленте hero: показываем, только когда ролик реально играет (иначе остаётся фото) */
+/* ── Лента hero: бесконечная карусель с «изгибом» ──────────────────
+   Позиция pos — дробная; карточка i стоит в слоте s = i - pos (по кругу).
+   |s| < .5 — зона за Максимом: карточка уходит к центру и гаснет; в покое
+   pos = k + .5, поэтому под Максимом никогда никто не стоит. */
 (function() {
-  document.querySelectorAll('.reel-video').forEach(function(v) {
-    v.addEventListener('playing', function() { v.classList.add('is-playing'); });
-    v.addEventListener('error', function() { v.remove(); }, true);
+  var scene = document.getElementById('reel-scene');
+  var reel  = document.getElementById('reel');
+  if (!scene || !reel) return;
+  var cards = [].slice.call(reel.querySelectorAll('.reel-card'));
+  var N = cards.length;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mqMobile = window.matchMedia('(max-width: 768px)');
+  var pos = .5, target = .5;
+  var dragging = false, hover = false, touchPauseUntil = 0, inView = true;
+
+  function geom() {
+    return mqMobile.matches
+      ? { G: 82, SP: 164, rot: 6, rotK: 6, sc: 0, maxA: 2.6, fade: false }
+      : { G: 310, SP: 250, rot: 10, rotK: 14, sc: .12, maxA: 3.2, fade: true };
+  }
+  function wrap(s) { s = ((s % N) + N) % N; return s >= N / 2 ? s - N : s; }
+
+  function render() {
+    var g = geom();
+    cards.forEach(function(card, i) {
+      var s = wrap(i - pos), a = Math.abs(s), sg = s < 0 ? -1 : 1;
+      var x, sc, ry, op;
+      if (a < .5) {                       /* проходит за Максимом */
+        x = sg * g.G * (a / .5); sc = .92; ry = -sg * g.rot * (a / .5);
+        op = g.fade ? Math.pow(a / .5, 2) * .9 : .95;
+      } else {
+        var t = a - .5;
+        x = sg * (g.G + t * g.SP); sc = 1 + Math.min(t, 2.5) * g.sc;
+        ry = -sg * Math.min(g.rot + t * g.rotK, 42); op = .92;
+      }
+      op *= Math.max(0, Math.min(1, g.maxA + .5 - a));   /* дальние гаснут у краёв */
+      card.style.transform = 'perspective(1200px) translateX(' + x.toFixed(1) + 'px) rotateY(' + ry.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+      card.style.opacity = op.toFixed(3);
+      card.style.zIndex = String(10 - Math.round(a));
+      var v = card.firstElementChild, show = inView && op > .05;
+      if (show && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+      else if (!show && !v.paused) v.pause();
+    });
+  }
+  function tick() {
+    var d = target - pos;
+    pos = Math.abs(d) < .0005 ? target : pos + d * (reduce ? 1 : .12);
+    render();
+    requestAnimationFrame(tick);
+  }
+  function snap() { target = Math.round(target - .5) + .5; }
+  function go(step) { target = Math.round(target - .5) + .5 + step; }
+
+  /* перетаскивание мышью и свайп */
+  var startX = 0, startT = 0, pid = null;
+  reel.addEventListener('pointerdown', function(e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    dragging = true; pid = e.pointerId; startX = e.clientX; startT = target;
+    if (e.pointerType !== 'mouse') touchPauseUntil = Date.now() + 8000;
+    reel.setPointerCapture(pid); reel.classList.add('is-dragging');
   });
+  reel.addEventListener('pointermove', function(e) {
+    if (!dragging || e.pointerId !== pid) return;
+    target = startT - (e.clientX - startX) / geom().SP;
+    pos = target;
+  });
+  function endDrag(e) {
+    if (!dragging || (e && e.pointerId !== pid)) return;
+    dragging = false; reel.classList.remove('is-dragging'); snap();
+  }
+  reel.addEventListener('pointerup', endDrag);
+  reel.addEventListener('pointercancel', endDrag);
+
+  /* колесо / тачпад по горизонтали */
+  var wheelTimer;
+  scene.addEventListener('wheel', function(e) {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    target += e.deltaX / geom().SP; pos = target;
+    clearTimeout(wheelTimer); wheelTimer = setTimeout(snap, 140);
+  }, { passive: false });
+
+  /* стрелки */
+  scene.querySelector('.reel-prev').addEventListener('click', function() { go(-1); });
+  scene.querySelector('.reel-next').addEventListener('click', function() { go(1); });
+
+  /* автоповорот: 1 карточка в 4 сек, пауза при наведении/касании */
+  scene.addEventListener('mouseenter', function() { hover = true; });
+  scene.addEventListener('mouseleave', function() { hover = false; });
+  if (!reduce) setInterval(function() {
+    if (!hover && !dragging && inView && Date.now() > touchPauseUntil && !document.hidden) go(1);
+  }, 4000);
+
+  /* видео вне экрана — на паузе */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(es) { inView = es[0].isIntersecting; }, { threshold: .05 }).observe(scene);
+  }
+  render(); requestAnimationFrame(tick);
 })();
 </script>
 

@@ -1637,6 +1637,14 @@ footer p { font-size: 14px; color: var(--text-muted); }
   text-decoration: none;
 }
 .footer-legal a:hover { color: rgba(246,237,234,.6); }
+.footer-contacts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+.footer-contacts a { font-family: 'Manrope', sans-serif; font-size: 14px; color: rgba(246,237,234,.6); text-decoration: none; }
+.footer-contacts a:hover { color: var(--text); }
+.footer-dot { color: rgba(246,237,234,.2); }
+@media (max-width: 600px) {
+  .footer-legal { flex-direction: column; align-items: center; gap: 8px; }
+  .footer-legal span[style] { display: none; }
+}
 </style>
 </head>
 <body>
@@ -2520,8 +2528,13 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <a href="#price" class="footer-cta-btn">Хочу на&nbsp;тренинг</a>
     </div>
     <p style="text-align:center;font-size:13px;color:rgba(246,237,234,.35);">«Вызов 7.0» · Максим Житник · 2 дня офлайн · Москва, пер. Чапаевский 6</p>
+    <div class="footer-contacts">
+      <a href="mailto:mail@maxzhitnik.ru">mail@maxzhitnik.ru</a>
+      <span class="footer-dot">·</span>
+      <a href="tel:+79263048039">+7&nbsp;926&nbsp;304&nbsp;80&nbsp;39</a>
+    </div>
     <div class="footer-legal">
-      <span>ИП Максим Житник</span>
+      <span>ИП Житник Максим Эдуардович</span>
       <span style="color:rgba(246,237,234,.2)">·</span>
       <a href="https://maxzhitnik.ru/privacy" target="_blank" rel="noopener">Политика конфиденциальности</a>
     </div>

@@ -370,20 +370,6 @@ section:not(.hero)::before {
 .hero .reel-video, .hero-maxim-figure {
   pointer-events: none; user-select: none; -webkit-user-select: none; -webkit-user-drag: none;
 }
-/* карточка за Максимом: неподвижная, выше ленты, ниже фигуры */
-.reel-center {
-  position: absolute; left: 50%; top: calc(44px + 215px);
-  width: 300px; height: 400px; margin: -200px 0 0 -150px;
-  border-radius: 12px; overflow: hidden; z-index: 2;
-  border: 1px solid rgba(224,87,75,.45);
-  box-shadow: 0 0 40px rgba(224,87,75,.35), 0 16px 40px rgba(0,0,0,.5);
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(#000 70%, transparent 100%);
-  mask-image: linear-gradient(#000 70%, transparent 100%);
-}
-.reel-center::after { content: ''; position: absolute; inset: 0; z-index: 2; }
-.reel-center .reel-video { filter: brightness(.95); }
-
 /* круглые стеклянные стрелки */
 .reel-arrow {
   position: absolute; top: calc(44px + 215px); z-index: 6;
@@ -1595,10 +1581,10 @@ footer p { font-size: 14px; color: var(--text-muted); }
 .hero-maxim-figure::after { content: ''; position: absolute; inset: 0; z-index: 2; }
 @media (max-width: 768px) {
   .reel-scene { display: flex; flex-direction: column; padding: 16px 0 24px; }
-  .hero-maxim-figure { position: relative; left: auto; bottom: auto; transform: none; width: 78vw; max-width: 340px; margin: 0 auto -40px; order: -1; }
+  .hero-maxim-figure { position: relative; left: auto; bottom: auto; transform: none; width: 78vw; max-width: 340px; margin: 0 auto -250px; order: -1; z-index: 3; }
+  .reel { margin-bottom: 0; }
   .reel { height: 300px; }
   .reel-card { width: 150px; height: 218px; margin: -109px 0 0 -75px; }
-  .reel-center { top: 16px; width: 62vw; max-width: 270px; height: 82vw; max-height: 360px; margin: 0 0 0 calc(-1 * min(31vw, 135px)); }
   .reel-arrow { top: auto; bottom: calc(24px + 150px); width: 40px; height: 40px; margin-top: 0; margin-bottom: -20px; }
   .reel-arrow svg { width: 18px; height: 18px; }
   .reel-prev { left: 10px; }
@@ -1717,8 +1703,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-9.jpg?v=3" src="assets/hero/clip-9.mp4?v=3" draggable="false"></video></div>
       <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-10.jpg?v=3" src="assets/hero/clip-10.mp4?v=3" draggable="false"></video></div>
     </div>
-    <!-- Карточка за Максимом — стоит на месте, лента проходит за ней -->
-    <div class="reel-center"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-8.jpg?v=3" src="assets/hero/clip-8.mp4?v=3" draggable="false"></video></div>
     <div class="hero-maxim-figure" role="img" aria-label="Максим Житник"></div>
     <button class="reel-arrow reel-prev" type="button" aria-label="Предыдущее видео"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
     <button class="reel-arrow reel-next" type="button" aria-label="Следующее видео"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
@@ -2704,8 +2688,7 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
 
 /* ── Лента hero: бесконечная карусель с «изгибом» ──────────────────
    Позиция pos — дробная; карточка i стоит в слоте s = i - pos (по кругу).
-   |s| < .5 — зона за Максимом: карточка уходит к центру и гаснет; в покое
-   pos = k + .5, поэтому под Максимом никогда никто не стоит. */
+   Слот 0 — за Максимом: карточка крупнее; карточки по очереди проезжают через центр. */
 (function() {
   var scene = document.getElementById('reel-scene');
   var reel  = document.getElementById('reel');
@@ -2714,13 +2697,13 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   var N = cards.length;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var mqMobile = window.matchMedia('(max-width: 768px)');
-  var pos = .5, target = .5;
+  var pos = 0, target = 0;
   var dragging = false, hover = false, touchPauseUntil = 0, inView = true;
 
   function geom() {
     return mqMobile.matches
-      ? { G: 82, SP: 164, rot: 6, rotK: 6, sc: 0, maxA: 2.6, fade: false }
-      : { G: 310, SP: 250, rot: 10, rotK: 14, sc: .12, maxA: 3.2, fade: true };
+      ? { G: 170, SP: 162, C: 1.12, rot: 6, rotK: 6, sc: 0, maxA: 2.6 }
+      : { G: 330, SP: 250, C: 1.32, rot: 10, rotK: 14, sc: .12, maxA: 3.2 };
   }
   function wrap(s) { s = ((s % N) + N) % N; return s >= N / 2 ? s - N : s; }
 
@@ -2729,18 +2712,18 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
     cards.forEach(function(card, i) {
       var s = wrap(i - pos), a = Math.abs(s), sg = s < 0 ? -1 : 1;
       var x, sc, ry, op;
-      if (a < .5) {                       /* проходит за Максимом */
-        x = sg * g.G * (a / .5); sc = .92; ry = -sg * g.rot * (a / .5);
-        op = g.fade ? Math.pow(a / .5, 2) * .9 : .95;
+      if (a < 1) {                        /* центр — за Максимом, крупнее; плавно переходит к соседнему месту */
+        var e = a * a * (3 - 2 * a);      /* smoothstep */
+        x = sg * g.G * e; sc = g.C + (1 - g.C) * e; ry = -sg * g.rot * e; op = .95;
       } else {
-        var t = a - .5;
+        var t = a - 1;
         x = sg * (g.G + t * g.SP); sc = 1 + Math.min(t, 2.5) * g.sc;
         ry = -sg * Math.min(g.rot + t * g.rotK, 42); op = .92;
       }
       op *= Math.max(0, Math.min(1, g.maxA + .5 - a));   /* дальние гаснут у краёв */
       card.style.transform = 'perspective(1200px) translateX(' + x.toFixed(1) + 'px) rotateY(' + ry.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
       card.style.opacity = op.toFixed(3);
-      card.style.zIndex = String(10 - Math.round(a));
+      card.style.zIndex = String(10 - Math.round(a * 2));
       var v = card.firstElementChild, show = inView && op > .05;
       if (show && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function(){}); }
       else if (!show && !v.paused) v.pause();
@@ -2752,8 +2735,8 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
     render();
     requestAnimationFrame(tick);
   }
-  function snap() { target = Math.round(target - .5) + .5; }
-  function go(step) { target = Math.round(target - .5) + .5 + step; }
+  function snap() { target = Math.round(target); }
+  function go(step) { target = Math.round(target) + step; }
 
   /* перетаскивание мышью и свайп */
   var startX = 0, startT = 0, pid = null;
@@ -2799,12 +2782,6 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function(es) { inView = es[0].isIntersecting; }, { threshold: .05 }).observe(scene);
   }
-  var centerVideo = scene.querySelector('.reel-center video');
-  setInterval(function() {
-    if (!centerVideo) return;
-    if (inView && centerVideo.paused) { var p = centerVideo.play(); if (p && p.catch) p.catch(function(){}); }
-    else if (!inView && !centerVideo.paused) centerVideo.pause();
-  }, 500);
   render(); requestAnimationFrame(tick);
 })();
 </script>

@@ -32,7 +32,7 @@ const { chromium } = require('playwright');
     ['голова ниже кнопки на 150+',   fig && btn ? (fig.top + 60) - btn.bottom >= 150 : false],
     ['ширина фигуры 280–320px',      fig ? fig.width >= 280 && fig.width <= 320 : false],
     ['луч начинается не выше кнопки', beam && btn ? beam.top >= btn.bottom : false],
-    ['линия не выше кнопки',          line && btn ? line.top >= btn.bottom  : false],
+    ['линия не выше кнопки (или удалена)', !line || (btn ? line.top >= btn.bottom : true)],
     ['голова не выше кнопки',         fig  && btn ? (fig.top + 60) >= btn.bottom : false],
   ];
 

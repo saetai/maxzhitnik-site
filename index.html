@@ -372,7 +372,7 @@ section:not(.hero)::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   position: relative; z-index: 1;
 }
 
@@ -407,13 +407,13 @@ section:not(.hero)::before {
 .reel-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:1; filter: grayscale(1) brightness(.8); }
 .reel-card.rc-c .reel-video { filter: grayscale(1) brightness(1.1); }
 
-/* Вогнутая лента: крайние ~480px, к центру меньше, центральная ≥ соседних */
+/* Вогнутая лента: крайние ~330×480, средние ~300×435, внутренние ~260×370 */
 .reel-card.rc-3l { transform: perspective(1200px) rotateY(42deg) scale(1.50); opacity: .90; }
-.reel-card.rc-2l { transform: perspective(1200px) rotateY(25deg) scale(1.19); opacity: .92; }
-.reel-card.rc-1l { transform: perspective(1200px) rotateY(12deg) scale(0.89); opacity: .85; }
+.reel-card.rc-2l { transform: perspective(1200px) rotateY(25deg) scale(1.36); opacity: .92; }
+.reel-card.rc-1l { transform: perspective(1200px) rotateY(12deg) scale(1.18); opacity: .85; }
 .reel-card.rc-c  { transform: scale(0.97);                                    opacity: .95; }
-.reel-card.rc-1r { transform: perspective(1200px) rotateY(-12deg) scale(0.89); opacity: .85; }
-.reel-card.rc-2r { transform: perspective(1200px) rotateY(-25deg) scale(1.19); opacity: .92; }
+.reel-card.rc-1r { transform: perspective(1200px) rotateY(-12deg) scale(1.18); opacity: .85; }
+.reel-card.rc-2r { transform: perspective(1200px) rotateY(-25deg) scale(1.36); opacity: .92; }
 .reel-card.rc-3r { transform: perspective(1200px) rotateY(-42deg) scale(1.50); opacity: .90; }
 
 /* Текст/кнопка hero выше ленты */
@@ -1434,8 +1434,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
   filter: brightness(.12) contrast(1.2)
     drop-shadow(0 0 1.5px rgba(255,200,175,.9))
     drop-shadow(0 0 10px rgba(240,130,100,.4));
-  -webkit-mask-image: linear-gradient(#000 55%, transparent 90%);
-  mask-image: linear-gradient(#000 55%, transparent 90%);
+  -webkit-mask-image: linear-gradient(#000 50%, transparent 85%);
+  mask-image: linear-gradient(#000 50%, transparent 85%);
 }
 
 /* Луч — мягкое пятно, БЕЗ clip-path, z-index 0 (под лентой) */
@@ -1456,45 +1456,33 @@ footer p { font-size: 14px; color: var(--text-muted); }
 }
 
 /* Вертикальная линия — строго от btn.bottom+20 до head_y */
-.hero-beam-line {
-  position: absolute;
-  left: calc(50% - 1px); width: 2px;
-  top: 542px; height: 140px;
-  background: rgba(224,87,75,.6);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Тёплый ореол позади фигуры (z-index 2 — над лентой, под фигурой) */
+/* Ореол позади фигуры: без border-radius, без overflow — только blur+gradient */
 .hero-beam-glow {
   position: absolute;
-  top: 640px; left: 50%;
+  top: 600px; left: 50%;
   transform: translateX(-50%);
-  width: 360px; height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 25%,
+  width: 520px; height: 420px;
+  background: radial-gradient(ellipse 50% 55% at 50% 22%,
     rgba(250,165,120,.30) 0%,
-    rgba(224,87,75,.16)  45%,
-    transparent          72%);
-  filter: blur(22px);
+    rgba(224,87,75,.15)  48%,
+    transparent          75%);
+  filter: blur(24px);
   mix-blend-mode: screen;
   z-index: 2;
   pointer-events: none;
 }
 
-/* Пылинки — только между кнопкой и плечами */
+/* Пылинки */
 .hero-dust {
   position: absolute;
   left: calc(50% - 210px); width: 420px;
   top: 532px; height: 220px;
   z-index: 0;
   pointer-events: none;
-  overflow: hidden;
 }
 
-/* Зазор между rc-1l/rc-1r: проём шире фигуры (300px) на 80px с каждой стороны */
-.reel-card.rc-1l { margin-right: 220px; }
-.reel-card.rc-1r { margin-left:  220px; }
+/* Проём под силуэт: spacer вместо margin */
+.reel-spacer { width: 290px; flex-shrink: 0; }
 
 @keyframes dust-float {
   0%   { transform: translateY(0px)   scale(1);  opacity: 0; }
@@ -1508,11 +1496,9 @@ footer p { font-size: 14px; color: var(--text-muted); }
 @media (max-width: 768px) {
   .hero-maxim-figure { width: 62vw; top: auto; bottom: 20px; }
   .hero-beam-wrap { top: 440px; height: 400px; left: calc(50% - 170px); width: 340px; }
-  .hero-beam-line { top: 455px; height: 100px; }
-  .hero-beam-glow { top: 520px; width: 260px; height: 180px; }
+  .hero-beam-glow { top: 480px; width: 320px; height: 260px; }
   .hero-dust { top: 440px; height: 180px; left: calc(50% - 170px); width: 340px; }
-  .reel-card.rc-1l { margin-right: 0; }
-  .reel-card.rc-1r { margin-left: 0; }
+  .reel-spacer { width: 0; }
 }
 </style>
 </head>
@@ -1576,9 +1562,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
   <!-- Луч (z-index 0 — под лентой и фигурой) -->
   <div class="hero-beam-wrap" aria-hidden="true"><div class="hero-beam"></div></div>
-  <!-- Линия кнопка→голова (z-index 1) -->
-  <div class="hero-beam-line" aria-hidden="true"></div>
-  <!-- Свечение за плечами (z-index 0) -->
+  <!-- Свечение за плечами (z-index 2) -->
   <div class="hero-beam-glow" aria-hidden="true"></div>
   <!-- Пылинки (z-index 0, clip-path конус) -->
   <div class="hero-dust" aria-hidden="true"></div>
@@ -1612,6 +1596,9 @@ footer p { font-size: 14px; color: var(--text-muted); }
         </video>
         <div class="reel-inner" style="background-image:url('assets/__224.jpg');background-position:62% 20%;"></div>
       </div>
+
+      <!-- Проём под силуэт Максима (плечи 240px + 40px с каждой стороны = 320px) -->
+      <div class="reel-spacer" aria-hidden="true"></div>
 
       <div class="reel-card rc-1r">
         <video class="reel-video" autoplay muted loop playsinline preload="none">

@@ -1414,12 +1414,16 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .modal-box[data-ratio="9/16"] { height: min(92vh,640px); }
 }
 
-/* ── ФИГУРА + ЛУЧ ПРОЖЕКТОРА — hero ── */
+/* ── ФИГУРА + ЛУЧ ПРОЖЕКТОРА — hero ──
+   Опорные числа (1440px): btn.bottom=522
+   fig.top=622 → head_y=682, gap=160px ≥ 150 ✓
+   beam.top=532 (btn.bottom+10) ✓
+   line.top=542 (btn.bottom+20), height=140 (до head_y) ✓
+*/
 
-/* Силуэт: 300px, голова на уровне середины ленты */
 .hero-maxim-figure {
   position: absolute;
-  top: 475px;
+  top: 622px;
   left: 50%; transform: translateX(-50%);
   z-index: 3;
   width: 300px;
@@ -1434,45 +1438,43 @@ footer p { font-size: 14px; color: var(--text-muted); }
   mask-image: linear-gradient(#000 55%, transparent 90%);
 }
 
-/* Луч: z-index 0 — ПОД лентой(1) и фигурой(3), не засвечивает карточки */
+/* Луч — мягкое пятно, БЕЗ clip-path, z-index 0 (под лентой) */
 .hero-beam-wrap {
   position: absolute;
   left: calc(50% - 210px); width: 420px;
-  top: 390px; height: 250px;
+  top: 532px; height: 600px;
   z-index: 0;
   pointer-events: none;
 }
 .hero-beam {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg,
-    rgba(250,165,135,.35) 0%,
-    rgba(250,165,135,.22) 68%,
-    rgba(250,165,135,0)  100%);
-  clip-path: polygon(42.9% 0%, 57.1% 0%, 100% 100%, 0% 100%);
-  filter: blur(30px);
+  background: radial-gradient(ellipse 40% 100% at 50% 0%,
+    rgba(250,165,135,.35),
+    transparent 70%);
+  filter: blur(24px);
   mix-blend-mode: screen;
 }
 
-/* Вертикальная линия — только от низа кнопки (+20px) до макушки */
+/* Вертикальная линия — строго от btn.bottom+20 до head_y */
 .hero-beam-line {
   position: absolute;
   left: calc(50% - 1px); width: 2px;
-  top: 410px; height: 125px;
+  top: 542px; height: 140px;
   background: rgba(224,87,75,.6);
   z-index: 1;
   pointer-events: none;
 }
 
-/* Тёплый ореол позади силуэта (z-index 2 — поверх ленты, под фигурой) */
+/* Тёплый ореол позади фигуры (z-index 2 — над лентой, под фигурой) */
 .hero-beam-glow {
   position: absolute;
-  top: 450px; left: 50%;
+  top: 640px; left: 50%;
   transform: translateX(-50%);
-  width: 380px; height: 340px;
+  width: 360px; height: 280px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 28%,
-    rgba(250,165,120,.32) 0%,
-    rgba(224,87,75,.18)  40%,
+  background: radial-gradient(ellipse at 50% 25%,
+    rgba(250,165,120,.30) 0%,
+    rgba(224,87,75,.16)  45%,
     transparent          72%);
   filter: blur(22px);
   mix-blend-mode: screen;
@@ -1480,31 +1482,37 @@ footer p { font-size: 14px; color: var(--text-muted); }
   pointer-events: none;
 }
 
-/* Пылинки — зеркально повторяют форму и позицию beam-wrap */
+/* Пылинки — только между кнопкой и плечами */
 .hero-dust {
   position: absolute;
   left: calc(50% - 210px); width: 420px;
-  top: 390px; height: 250px;
+  top: 532px; height: 220px;
   z-index: 0;
   pointer-events: none;
-  clip-path: polygon(42.9% 0%, 57.1% 0%, 100% 100%, 0% 100%);
+  overflow: hidden;
 }
 
+/* Зазор между rc-1l/rc-1r: проём шире фигуры (300px) на 80px с каждой стороны */
+.reel-card.rc-1l { margin-right: 220px; }
+.reel-card.rc-1r { margin-left:  220px; }
+
 @keyframes dust-float {
-  0%   { transform: translateY(0px)   scale(1);   opacity: 0; }
+  0%   { transform: translateY(0px)   scale(1);  opacity: 0; }
   18%  { opacity: .85; }
   82%  { opacity: .5; }
-  100% { transform: translateY(-48px) scale(.5);  opacity: 0; }
+  100% { transform: translateY(-46px) scale(.5); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-dust span { animation: none !important; opacity: .3 !important; }
 }
 @media (max-width: 768px) {
   .hero-maxim-figure { width: 62vw; top: auto; bottom: 20px; }
-  .hero-beam-wrap { top: 350px; height: 210px; left: calc(50% - 170px); width: 340px; }
-  .hero-beam-line { top: 365px; height: 100px; }
-  .hero-beam-glow { top: 480px; width: 260px; height: 160px; }
-  .hero-dust { top: 350px; height: 210px; left: calc(50% - 170px); width: 340px; }
+  .hero-beam-wrap { top: 440px; height: 400px; left: calc(50% - 170px); width: 340px; }
+  .hero-beam-line { top: 455px; height: 100px; }
+  .hero-beam-glow { top: 520px; width: 260px; height: 180px; }
+  .hero-dust { top: 440px; height: 180px; left: calc(50% - 170px); width: 340px; }
+  .reel-card.rc-1l { margin-right: 0; }
+  .reel-card.rc-1r { margin-left: 0; }
 }
 </style>
 </head>
@@ -2828,14 +2836,16 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   }
 })();
 
-/* Пылинки в луче прожектора — 40 частиц между кнопкой и плечами */
+/* Пылинки в луче — конусное распределение (шире книзу), 40 штук */
 (function() {
   var c = document.querySelector('.hero-dust');
   if (!c) return;
   for (var i = 0; i < 40; i++) {
     var p = document.createElement('span');
-    var x = 10 + Math.random() * 80;
-    var y = 5  + Math.random() * 88;
+    var yFrac = Math.random();           /* 0=верх конуса, 1=низ */
+    var halfW = 7 + yFrac * 43;         /* ширина зоны от центра: 7% → 50% */
+    var x = 50 + (Math.random() * 2 - 1) * halfW;
+    var y = 4 + yFrac * 90;
     var sz = 1.5 + Math.random() * 1.8;
     var dur = 8 + Math.random() * 6;
     var del = -(Math.random() * dur);

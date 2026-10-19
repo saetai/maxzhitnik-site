@@ -370,6 +370,20 @@ section:not(.hero)::before {
 .hero .reel-video, .hero-maxim-figure {
   pointer-events: none; user-select: none; -webkit-user-select: none; -webkit-user-drag: none;
 }
+/* карточка за Максимом: неподвижная, выше ленты, ниже фигуры */
+.reel-center {
+  position: absolute; left: 50%; top: calc(44px + 215px);
+  width: 300px; height: 400px; margin: -200px 0 0 -150px;
+  border-radius: 12px; overflow: hidden; z-index: 2;
+  border: 1px solid rgba(224,87,75,.45);
+  box-shadow: 0 0 40px rgba(224,87,75,.35), 0 16px 40px rgba(0,0,0,.5);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(#000 70%, transparent 100%);
+  mask-image: linear-gradient(#000 70%, transparent 100%);
+}
+.reel-center::after { content: ''; position: absolute; inset: 0; z-index: 2; }
+.reel-center .reel-video { filter: brightness(.95); }
+
 /* круглые стеклянные стрелки */
 .reel-arrow {
   position: absolute; top: calc(44px + 215px); z-index: 6;
@@ -1584,6 +1598,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-maxim-figure { position: relative; left: auto; bottom: auto; transform: none; width: 78vw; max-width: 340px; margin: 0 auto -40px; order: -1; }
   .reel { height: 300px; }
   .reel-card { width: 150px; height: 218px; margin: -109px 0 0 -75px; }
+  .reel-center { top: 16px; width: 62vw; max-width: 270px; height: 82vw; max-height: 360px; margin: 0 0 0 calc(-1 * min(31vw, 135px)); }
   .reel-arrow { top: auto; bottom: calc(24px + 150px); width: 40px; height: 40px; margin-top: 0; margin-bottom: -20px; }
   .reel-arrow svg { width: 18px; height: 18px; }
   .reel-prev { left: 10px; }
@@ -1702,6 +1717,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-9.jpg" src="assets/hero/clip-9.mp4" draggable="false"></video></div>
       <div class="reel-card"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-10.jpg" src="assets/hero/clip-10.mp4" draggable="false"></video></div>
     </div>
+    <!-- Карточка за Максимом — стоит на месте, лента проходит за ней -->
+    <div class="reel-center"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero/clip-8.jpg" src="assets/hero/clip-8.mp4" draggable="false"></video></div>
     <div class="hero-maxim-figure" role="img" aria-label="Максим Житник"></div>
     <button class="reel-arrow reel-prev" type="button" aria-label="Предыдущее видео"><svg viewBox="0 0 24 24"><polyline points="15 5 8 12 15 19"/></svg></button>
     <button class="reel-arrow reel-next" type="button" aria-label="Следующее видео"><svg viewBox="0 0 24 24"><polyline points="9 5 16 12 9 19"/></svg></button>
@@ -2782,6 +2799,12 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function(es) { inView = es[0].isIntersecting; }, { threshold: .05 }).observe(scene);
   }
+  var centerVideo = scene.querySelector('.reel-center video');
+  setInterval(function() {
+    if (!centerVideo) return;
+    if (inView && centerVideo.paused) { var p = centerVideo.play(); if (p && p.catch) p.catch(function(){}); }
+    else if (!inView && !centerVideo.paused) centerVideo.pause();
+  }, 500);
   render(); requestAnimationFrame(tick);
 })();
 </script>

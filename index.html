@@ -361,7 +361,6 @@ section:not(.hero)::before {
   filter: grayscale(1) brightness(.8);
   z-index: 0;
 }
-.reel-card:hover .reel-inner { transform: scale(1.04); }
 
 .reel-card.rc-c {
   border-color: rgba(224,87,75,.45);
@@ -375,16 +374,33 @@ section:not(.hero)::before {
 /* Видео в карточках */
 .reel-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:1; filter: grayscale(1) brightness(.8); opacity:0; transition: opacity .6s; }
 .reel-video.is-playing { opacity: 1; }
-/* Пока нет роликов — фото медленно «дышит» (наезд камеры) */
+/* «Живая» лента: в каждой карточке 3 кадра с тренинга сменяют друг друга с движением камеры,
+   карточки сдвинуты по времени — лента всё время в движении (пока нет роликов hero-1..5.mp4) */
+.reel-card { --off: 0s; }
+.reel-card.rc-1l { --off: -2.4s; }
+.reel-card.rc-c  { --off: -4.8s; }
+.reel-card.rc-1r { --off: -7.2s; }
+.reel-card.rc-2r { --off: -9.6s; }
+.reel-inner.l2, .reel-inner.l3 { opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
-  .reel-inner { animation: reel-kenburns 9s ease-in-out infinite alternate; }
-  .rc-1l .reel-inner, .rc-2r .reel-inner { animation-delay: -3s; }
-  .rc-c .reel-inner, .rc-1r .reel-inner { animation-delay: -6s; }
+  .reel-inner {
+    animation: reel-fade 12s linear infinite, reel-pan-a 12s ease-in-out infinite;
+    animation-delay: var(--off), var(--off);
+  }
+  .reel-inner.l2 { animation-name: reel-fade, reel-pan-b; animation-delay: calc(var(--off) - 8s), calc(var(--off) - 8s); }
+  .reel-inner.l3 { animation-name: reel-fade, reel-pan-c; animation-delay: calc(var(--off) - 4s), calc(var(--off) - 4s); }
 }
-@keyframes reel-kenburns {
-  from { transform: scale(1.02) translate(0, 0); }
-  to   { transform: scale(1.14) translate(-2%, -2%); }
+@keyframes reel-fade {
+  0%   { opacity: 0; }
+  8%   { opacity: 1; }
+  36%  { opacity: 1; }
+  44%  { opacity: 0; }
+  100% { opacity: 0; }
 }
+@keyframes reel-pan-a { 0% { transform: scale(1.06) translate(2%, 1%); }  44%, 100% { transform: scale(1.20) translate(-3%, -2%); } }
+@keyframes reel-pan-b { 0% { transform: scale(1.18) translate(-2%, 2%); } 44%, 100% { transform: scale(1.05) translate(2%, -1%); } }
+@keyframes reel-pan-c { 0% { transform: scale(1.05) translate(0, -2%); }  44%, 100% { transform: scale(1.18) translate(-2%, 3%); } }
+
 .reel-card.rc-c .reel-video { filter: grayscale(1) brightness(1.1); }
 
 /* 5 карточек: центральная крупнее — стоит за Максимом */
@@ -1673,27 +1689,37 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="reel">
 
       <div class="reel-card rc-2l">
-        <div class="reel-inner" style="background-image:url('assets/training1.jpg');background-position:center 10%;"></div>
+        <div class="reel-inner l1" style="background-image:url('assets/training1.jpg');background-position:center 10%;"></div>
+        <div class="reel-inner l2" style="background-image:url('assets/IKZ09936.jpg');background-position:center 20%;"></div>
+        <div class="reel-inner l3" style="background-image:url('assets/IMG_4147.jpg');background-position:center 30%;"></div>
         <video class="reel-video" src="assets/video/hero-1.mp4" autoplay muted loop playsinline preload="auto"></video>
       </div>
 
       <div class="reel-card rc-1l">
-        <div class="reel-inner" style="background-image:url('assets/__224.jpg');background-position:62% 20%;"></div>
+        <div class="reel-inner l1" style="background-image:url('assets/__224.jpg');background-position:62% 20%;"></div>
+        <div class="reel-inner l2" style="background-image:url('assets/IMG_7163.jpg');background-position:center center;"></div>
+        <div class="reel-inner l3" style="background-image:url('assets/IMG_4236.jpg');background-position:center 30%;"></div>
         <video class="reel-video" src="assets/video/hero-2.mp4" autoplay muted loop playsinline preload="auto"></video>
       </div>
 
       <div class="reel-card rc-c">
-        <div class="reel-inner" style="background-image:url('assets/group-CHPK2995.jpg');background-position:center center;"></div>
+        <div class="reel-inner l1" style="background-image:url('assets/group-CHPK2995.jpg');background-position:center center;"></div>
+        <div class="reel-inner l2" style="background-image:url('assets/IKZ10140.jpg');background-position:center 30%;"></div>
+        <div class="reel-inner l3" style="background-image:url('assets/__352.jpg');background-position:center center;"></div>
         <video class="reel-video" src="assets/video/hero-3.mp4" autoplay muted loop playsinline preload="auto"></video>
       </div>
 
       <div class="reel-card rc-1r">
-        <div class="reel-inner" style="background-image:url('assets/__38_2.jpg');background-position:40% 30%;"></div>
+        <div class="reel-inner l1" style="background-image:url('assets/__38_2.jpg');background-position:40% 30%;"></div>
+        <div class="reel-inner l2" style="background-image:url('assets/training2.jpg');background-position:center 20%;"></div>
+        <div class="reel-inner l3" style="background-image:url('assets/IMG_7050.jpg');background-position:center 30%;"></div>
         <video class="reel-video" src="assets/video/hero-4.mp4" autoplay muted loop playsinline preload="auto"></video>
       </div>
 
       <div class="reel-card rc-2r">
-        <div class="reel-inner" style="background-image:url('assets/group-CHPK3183.jpg');background-position:center 5%;"></div>
+        <div class="reel-inner l1" style="background-image:url('assets/group-CHPK3183.jpg');background-position:center 5%;"></div>
+        <div class="reel-inner l2" style="background-image:url('assets/group-CHPK3272.jpg');background-position:center center;"></div>
+        <div class="reel-inner l3" style="background-image:url('assets/__244_2.jpg');background-position:center 40%;"></div>
         <video class="reel-video" src="assets/video/hero-5.mp4" autoplay muted loop playsinline preload="auto"></video>
       </div>
 

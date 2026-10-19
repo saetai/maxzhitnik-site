@@ -1414,42 +1414,94 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .modal-box[data-ratio="9/16"] { height: min(92vh,640px); }
 }
 
-/* ── ФИГУРА МАКСИМА — hero (затмение) ── */
+/* ── ФИГУРА + ЛУЧ ПРОЖЕКТОРА — hero ── */
 .hero-maxim-figure {
   position: absolute;
-  bottom: 30px;
+  top: 490px;
   left: 50%; transform: translateX(-50%);
   z-index: 3;
-  width: 480px;
+  width: 380px;
   pointer-events: none;
 }
 .hero-maxim-img {
   width: 100%; height: auto; display: block;
-  filter: brightness(0.06);
-  -webkit-mask-image: linear-gradient(to bottom, #000 72%, rgba(0,0,0,.3) 88%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 72%, rgba(0,0,0,.3) 88%, transparent 100%);
+  filter: brightness(.12) contrast(1.2)
+    drop-shadow(0 0 1.5px rgba(255,200,175,.9))
+    drop-shadow(0 0 12px rgba(240,130,100,.45));
+  -webkit-mask-image: linear-gradient(#000 60%, transparent 95%);
+  mask-image: linear-gradient(#000 60%, transparent 95%);
 }
-/* Светящееся кольцо за силуэтом */
-.hero-glow-ring {
+/* Луч прожектора (z-index 2 — между лентой(1) и фигурой(3)) */
+.hero-beam-wrap {
   position: absolute;
-  width: 580px; height: 580px;
-  border-radius: 50%;
-  border: 2px solid rgba(228,82,50,.92);
-  box-shadow:
-    inset 0 0 50px rgba(228,82,50,.30),
-    0 0 20px  rgba(228,82,50,.90),
-    0 0 55px  rgba(228,82,50,.65),
-    0 0 100px rgba(228,82,50,.40),
-    0 0 160px rgba(228,82,50,.20);
-  bottom: 140px;
-  left: 50%; transform: translateX(-50%);
-  z-index: 1; pointer-events: none;
+  left: calc(50% - 350px);
+  width: 700px;
+  top: 360px; bottom: 80px;
+  z-index: 2;
+  pointer-events: none;
 }
-/* центральная карточка — место для фигуры */
-.reel-card.rc-c { opacity: 0 !important; }
-@media (max-width:768px) {
-  .hero-maxim-figure { width: 220px; bottom: 20px; }
-  .hero-glow-ring { width: 300px; height: 300px; bottom: 80px; }
+.hero-beam {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(250,175,145,.28) 0%,
+    rgba(250,155,120,.75) 55%,
+    rgba(224,87,75,.25)  100%);
+  clip-path: polygon(44.3% 0%, 55.7% 0%, 100% 100%, 0% 100%);
+  filter: blur(14px);
+  mix-blend-mode: screen;
+}
+/* Дополнительный горячий слой в ядре луча */
+.hero-beam::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(255,200,160,.22) 0%,
+    rgba(255,165,110,.55) 45%,
+    transparent 85%);
+  clip-path: polygon(47% 0%, 53% 0%, 78% 100%, 22% 100%);
+  filter: blur(8px);
+  mix-blend-mode: screen;
+}
+/* Тонкая вертикальная терракотовая линия через центр конуса */
+.hero-beam-line {
+  position: absolute;
+  left: calc(50% - 1px); width: 2px;
+  top: -90px; bottom: 0;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(224,87,75,.95) 15%,
+    rgba(224,87,75,.70) 70%,
+    transparent 100%);
+  box-shadow: 0 0 10px rgba(224,87,75,.7), 0 0 24px rgba(224,87,75,.4);
+}
+/* Мягкое свечение за плечами */
+.hero-beam-glow {
+  position: absolute;
+  bottom: -120px; left: 50%;
+  transform: translateX(-50%);
+  width: 640px; height: 640px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(224,87,75,.40), transparent);
+  pointer-events: none;
+}
+/* Пылинки-частицы внутри конуса */
+.hero-dust {
+  position: absolute; inset: 0;
+  clip-path: polygon(44.3% 0%, 55.7% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+}
+@keyframes dust-float {
+  0%   { transform: translateY(0px)   scale(1);   opacity: 0; }
+  15%  { opacity: .9; }
+  85%  { opacity: .5; }
+  100% { transform: translateY(-55px) scale(.5);  opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-dust span { animation: none !important; opacity: .3 !important; }
+}
+@media (max-width: 768px) {
+  .hero-maxim-figure { width: 70vw; top: auto; bottom: 20px; }
+  .hero-beam-wrap { top: 300px; bottom: 60px; left: calc(50% - 200px); width: 400px; }
 }
 </style>
 </head>
@@ -1511,8 +1563,13 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
   </div>
 
-  <!-- Кольцо + тёмный силуэт (затмение) -->
-  <div class="hero-glow-ring" aria-hidden="true"></div>
+  <!-- Луч прожектора + силуэт -->
+  <div class="hero-beam-wrap" aria-hidden="true">
+    <div class="hero-beam"></div>
+    <div class="hero-beam-line"></div>
+    <div class="hero-beam-glow"></div>
+    <div class="hero-dust"></div>
+  </div>
   <div class="hero-maxim-figure">
     <img class="hero-maxim-img" src="assets/maxim-hero.png" alt="Максим Житник">
   </div>
@@ -1541,13 +1598,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
           <!-- clip_3.mp4: заменить на реальное видео от клиента -->
         </video>
         <div class="reel-inner" style="background-image:url('assets/__224.jpg');background-position:62% 20%;"></div>
-      </div>
-
-      <div class="reel-card rc-c">
-        <video class="reel-video" autoplay muted loop playsinline preload="none">
-          <!-- clip_4.mp4: заменить на реальное видео от клиента -->
-        </video>
-        <div class="reel-inner" style="background-image:url('assets/2B3A9543.jpg');background-size:280%;background-position:55% 0%;"></div>
       </div>
 
       <div class="reel-card rc-1r">
@@ -2770,6 +2820,26 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
       setTimeout(function() { ballM.setAttribute('opacity', '1'); }, 800);
     }, { threshold: 0.2 });
     obsM.observe(svgM);
+  }
+})();
+
+/* Пылинки в луче прожектора */
+(function() {
+  var c = document.querySelector('.hero-dust');
+  if (!c) return;
+  for (var i = 0; i < 50; i++) {
+    var p = document.createElement('span');
+    var x = 15 + Math.random() * 70;
+    var y = 3  + Math.random() * 90;
+    var sz = 1.8 + Math.random() * 2.0;
+    var dur = 8 + Math.random() * 6;
+    var del = -(Math.random() * dur);
+    p.style.cssText = 'position:absolute;border-radius:50%;background:#FFE3DA;'
+      + 'box-shadow:0 0 8px #FF9070,0 0 16px rgba(224,87,75,.7);'
+      + 'left:' + x.toFixed(1) + '%;top:' + y.toFixed(1) + '%;'
+      + 'width:' + sz.toFixed(1) + 'px;height:' + sz.toFixed(1) + 'px;'
+      + 'animation:dust-float ' + dur.toFixed(1) + 's ' + del.toFixed(1) + 's ease-in-out infinite;';
+    c.appendChild(p);
   }
 })();
 </script>

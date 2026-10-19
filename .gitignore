@@ -1,1 +1,13 @@
-review-live.zip
+# зависимости и служебное
+node_modules/
+package-lock.json
+.DS_Store
+
+# архивы-выгрузки (большие, на сайте не нужны)
+*.zip
+
+# исходные видео — в репо только сжатые клипы ≤ 1 МБ (assets/hero/clip-N.mp4)
+raw_*.mp4
+raw_*/
+*.mov
+*.MOV

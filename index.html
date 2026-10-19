@@ -240,6 +240,7 @@ section:not(.hero)::before {
   opacity: .14;
   pointer-events: none; z-index: 0;
 }
+#outcomes .section-bg-photo { filter: blur(3px); opacity: .10; }
 .section-bg-photo::after {
   content: '';
   position: absolute; inset: 0;
@@ -566,9 +567,9 @@ section:not(.hero)::before {
 
 /* 14.4 — 4 равноценных карточки метода со своими цветами */
 .method-card-v1 { --mc: #E0574B; }
-.method-card-v2 { --mc: #E89A5B; }
-.method-card-v3 { --mc: #D9787A; }
-.method-card-v4 { --mc: #A8343A; }
+.method-card-v2 { --mc: #5B8FD4; }
+.method-card-v3 { --mc: #5BB878; }
+.method-card-v4 { --mc: #C88FE0; }
 
 .method-card-v1, .method-card-v2, .method-card-v3, .method-card-v4 {
   box-shadow: inset 0 1px 0 rgba(255,255,255,.1),
@@ -588,9 +589,9 @@ section:not(.hero)::before {
   pointer-events: none; z-index: 0;
 }
 .method-card-v1::after { background: linear-gradient(to top, rgba(224,87,75,.55) 0%, rgba(224,87,75,.18) 50%, transparent 100%); }
-.method-card-v2::after { background: linear-gradient(to top, rgba(232,154,91,.55) 0%, rgba(232,154,91,.18) 50%, transparent 100%); }
-.method-card-v3::after { background: linear-gradient(to top, rgba(217,120,122,.55) 0%, rgba(217,120,122,.18) 50%, transparent 100%); }
-.method-card-v4::after { background: linear-gradient(to top, rgba(168,52,58,.55) 0%, rgba(168,52,58,.18) 50%, transparent 100%); }
+.method-card-v2::after { background: linear-gradient(to top, rgba(91,143,212,.55) 0%, rgba(91,143,212,.18) 50%, transparent 100%); }
+.method-card-v3::after { background: linear-gradient(to top, rgba(91,184,120,.55) 0%, rgba(91,184,120,.18) 50%, transparent 100%); }
+.method-card-v4::after { background: linear-gradient(to top, rgba(200,143,224,.55) 0%, rgba(200,143,224,.18) 50%, transparent 100%); }
 
 /* Инфографика в карточках метода — высота ~40% */
 .mc-infographic { position: relative; height: 120px; overflow: visible; }
@@ -764,7 +765,7 @@ section:not(.hero)::before {
 }
 .acc-item.is-open .acc-toggle { background: rgba(224,87,75,.6); }
 .acc-toggle-icon { display: block; transition: transform .3s; }
-.acc-item.is-open .acc-toggle-icon { transform: rotate(45deg); }
+.acc-item.is-open .acc-toggle-icon { transform: rotate(180deg); }
 
 .acc-body {
   max-height: 0; overflow: hidden;
@@ -781,8 +782,8 @@ section:not(.hero)::before {
   padding-left: 20px; position: relative; line-height: 1.65;
 }
 .acc-list li::before { content: '•'; position: absolute; left: 0; color: rgba(246,237,234,.2); }
-.result-box { background: rgba(224,87,75,.07); border: 1px solid rgba(224,87,75,.16); border-radius: 12px; padding: 20px 24px; }
-.result-label { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 8px; display: block; }
+.result-box { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 20px 24px; }
+.result-label { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 500; color: rgba(246,237,234,.55); margin-bottom: 8px; display: block; }
 .result-box p { font-size: 14px; color: rgba(246,237,234,.6); line-height: 1.7; }
 
 /* ── РАЗДЕЛ 5: ИЗМЕНЕНИЯ ── */
@@ -790,6 +791,7 @@ section:not(.hero)::before {
 @media (max-width: 960px) { .outcomes-grid { grid-template-columns: 1fr 1fr; } }
 
 #outcomes .card {
+  background: linear-gradient(180deg, rgba(15,10,10,.85), rgba(10,8,8,.92));
   box-shadow: 0 0 0 1px rgba(224,87,75,.2),
               0 0 30px rgba(224,87,75,.12),
               0 30px 60px rgba(0,0,0,.4);
@@ -1108,7 +1110,7 @@ section:not(.hero)::before {
   mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
 }
 .re-text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-.re-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; flex-shrink: 0; }
+.re-footer { display: flex; flex-direction: column; align-items: flex-start; padding-top: 12px; flex-shrink: 0; }
 .re-author-name { font-size: 12px; color: var(--text-muted); }
 .re-more { font-size: 12px; font-weight: 500; color: var(--accent); background: none; border: none; cursor: pointer; padding: 0; font-family: 'Manrope'; }
 .re-more:hover { text-decoration: underline; }
@@ -1318,7 +1320,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
 }
 @media (prefers-reduced-motion: reduce) { .fw-ticker { animation: none; } }
 
-.fw-row-block { margin-bottom: 52px; }
+.fw-row-block { margin-bottom: 80px; }
 .fw-nums-clip {
   height: 62px; overflow: hidden;
   display: grid; grid-template-columns: 1fr 1fr 1fr;
@@ -1522,6 +1524,45 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-dust { top: 440px; height: 180px; left: calc(50% - 170px); width: 340px; }
   .reel-spacer { width: 0; }
 }
+
+/* Hero subtitle */
+.hero-sub {
+  font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400;
+  color: rgba(246,237,234,.55); line-height: 1.5;
+  margin-top: 12px; margin-bottom: 0;
+}
+/* Trainer clients at top */
+.trainer-clients-top {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+}
+.trainer-clients-top .trainer-client-logo {
+  font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600;
+  color: var(--accent); letter-spacing: .04em;
+  border: 1px solid rgba(224,87,75,.45); border-radius: 8px;
+  padding: 5px 12px; background: rgba(224,87,75,.08);
+}
+/* Footer CTA */
+.footer-cta {
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  padding: 60px 0 40px; border-bottom: 1px solid rgba(255,255,255,.06);
+  margin-bottom: 32px;
+}
+.footer-cta-btn {
+  display: inline-flex; align-items: center; padding: 14px 40px;
+  border-radius: 12px; border: 1.5px solid rgba(224,87,75,.6);
+  color: var(--accent); font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 500;
+  text-decoration: none; transition: background .2s, border-color .2s;
+}
+.footer-cta-btn:hover { background: rgba(224,87,75,.1); border-color: var(--accent); }
+.footer-legal {
+  display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  padding-top: 16px;
+}
+.footer-legal a {
+  font-family: 'Manrope', sans-serif; font-size: 12px; color: rgba(246,237,234,.3);
+  text-decoration: none;
+}
+.footer-legal a:hover { color: rgba(246,237,234,.6); }
 </style>
 </head>
 <body>
@@ -1530,7 +1571,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
 <!-- ═══ НАВБАР ═══ -->
 <nav>
   <a href="#" class="nav-logo">Максим Житник</a>
-  <a href="#price" class="nav-btn">Записаться</a>
 </nav>
 
 <!-- ═══ 1. ГЕРОЙ ═══ -->
@@ -1564,20 +1604,17 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
     <div class="badge">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Двухдневный тренинг · офлайн · Москва
+      Офлайн-тренинг · Москва
     </div>
 
     <div class="heading h1">
       <span class="h-onest">Вызов 7.0</span>
-      <span class="h-cormorant">сильные роли и диалог</span>
     </div>
 
-    <p class="lead" style="margin-top:20px;">
-      Двухдневный тренинг для предпринимателей, руководителей и&nbsp;экспертов: раскройте сильные роли и управляйте диалогом в любой ситуации.
-    </p>
+    <p class="hero-sub">Двухдневный тренинг для предпринимателей,<br>руководителей и экспертов</p>
 
     <div class="hero-btn-wrap">
-      <a href="#program" class="btn btn-hero">Познакомиться с программой →</a>
+      <a href="#program" class="btn btn-hero">Познакомиться с программой</a>
     </div>
 
   </div>
@@ -1684,10 +1721,10 @@ footer p { font-size: 14px; color: var(--text-muted); }
         Для кого
       </div>
       <div class="heading h2">
-        <span class="h-onest">Кому полезен</span>
-        <span class="h-cormorant">этот тренинг</span>
+        <span class="h-onest">Кому полезен тренинг</span>
+        <span class="h-cormorant">«Вызов 7.0»</span>
       </div>
-      <p class="lead">Тренинг подходит тем, кто чувствует внутренний потенциал, но в нужный момент теряет уверенность и свободу проявляться.</p>
+      <p class="lead">Тренинг подходит тем, кто чувствует внутренний потенциал, но&nbsp;в нужный момент теряет уверенность и&nbsp;свободу проявляться.</p>
     </div>
 
     <!-- Бегущая строка -->
@@ -1731,7 +1768,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
             <li>На встречах голос становится тише</li>
             <li>Чувствуют скованность под давлением</li>
             <li>Трудно отстаивать свою позицию</li>
-            <li>Позволяют продавливать себя на невыгодные условия</li>
+            <li>Позволяют продавливать себя<br>на невыгодные условия</li>
           </ul>
         </div>
       </div>
@@ -2137,7 +2174,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
             <span class="acc-header-sub">Выстраиваете внутреннюю опору, находите свои сильные роли</span>
           </div>
           <button class="acc-toggle" aria-label="Развернуть">
-            <span class="acc-toggle-icon">+</span>
+            <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
           </button>
         </div>
         <div class="acc-body">
@@ -2165,7 +2202,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
             <span class="acc-header-sub">Выводите опору в живое взаимодействие: переговоры, команда, сцена<!-- TODO: текст от Максима --></span>
           </div>
           <button class="acc-toggle" aria-label="Развернуть">
-            <span class="acc-toggle-icon">+</span>
+            <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
           </button>
         </div>
         <div class="acc-body">
@@ -2191,7 +2228,7 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
 <!-- ═══ 5. ИЗМЕНЕНИЯ — 4 карточки + фон-фото ═══ -->
 <section id="outcomes">
-  <div class="section-bg-photo" style="background-image:url('assets/group-CHPK2995.jpg')"></div>
+  <div class="section-bg-photo" style="background-image:url('assets/group-CHPK2995.jpg');filter:blur(3px);opacity:.10;"></div>
   <div class="section-decor" aria-hidden="true">
     <span class="sp" style="left:7%;top:18%;width:4px;height:4px;animation-delay:0.9s"></span>
     <span class="sp" style="left:26%;top:82%;width:3px;height:3px;animation-delay:2.2s"></span>
@@ -2213,72 +2250,27 @@ footer p { font-size: 14px; color: var(--text-muted); }
     <div class="outcomes-grid">
 
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="icon" style="color:#E0574B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <div class="card-title">Больше смелости и решительности</div>
         <p class="card-text">Сможете легко делать то, что раньше откладывали и стеснялись, принимать сложные решения.</p>
-        <div class="infographic-svg" style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
-          <svg viewBox="0 0 160 120" width="100%" height="120">
-            <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(224,87,75,.35)"/><stop offset="1" stop-color="transparent"/></linearGradient>
-            <linearGradient id="line-ga" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(224,87,75,.3)"/><stop offset="100%" stop-color="rgba(224,87,75,.9)"/></linearGradient>
-            </defs>
-            <polygon points="0,102 32,77 64,57 96,37 128,22 160,7 160,120 0,120" fill="url(#ga)"/>
-            <polyline class="inf-draw" style="--dl:320" points="0,102 32,77 64,57 96,37 128,22 160,7" fill="none" stroke="url(#line-ga)" stroke-width="2" stroke-dasharray="320"/>
-            <circle class="inf-node" cx="160" cy="7" r="5" fill="rgba(224,87,75,.9)"/>
-          </svg>
-        </div>
       </div>
 
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+        <div class="icon" style="color:#5B8FD4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
         <div class="card-title">Свобода проявляться</div>
         <p class="card-text">Снимать видео, органично общаться, выступать, проводить планёрки — всё будет естественно и уверенно.</p>
-        <div class="infographic-svg" style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
-          <svg viewBox="0 0 160 120" width="100%" height="120">
-            <circle cx="80" cy="60" r="46" fill="none" stroke="rgba(246,237,234,.10)" stroke-width="1.5" class="inf-draw" style="--dl:290" stroke-dasharray="290"/>
-            <circle cx="80" cy="60" r="32" fill="none" stroke="rgba(246,237,234,.16)" stroke-width="1.5" class="inf-draw" style="--dl:202" stroke-dasharray="202"/>
-            <circle cx="80" cy="60" r="16" fill="none" stroke="rgba(224,87,75,.6)" stroke-width="2" class="inf-draw" style="--dl:101" stroke-dasharray="101"/>
-            <circle class="inf-node" cx="80" cy="14" r="4" fill="rgba(224,87,75,.8)"/>
-            <circle class="inf-node" cx="126" cy="60" r="3" fill="rgba(224,87,75,.55)"/>
-            <circle class="inf-node" cx="80" cy="106" r="3" fill="rgba(224,87,75,.55)"/>
-            <circle class="inf-node" cx="34" cy="60" r="3" fill="rgba(224,87,75,.55)"/>
-          </svg>
-        </div>
       </div>
 
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="icon" style="color:#5BB878"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="card-title">Уверенность в переговорах</div>
         <p class="card-text">Чувствуете себя увереннее в переговорах и не даёте «продавливать» себя на невыгодные условия.</p>
-        <div class="infographic-svg" style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
-          <svg viewBox="0 0 160 120" width="100%" height="120">
-            <circle cx="40" cy="60" r="22" fill="none" stroke="rgba(246,237,234,.16)" stroke-width="1.5" class="inf-draw" style="--dl:138" stroke-dasharray="138"/>
-            <circle cx="120" cy="60" r="22" fill="none" stroke="rgba(246,237,234,.16)" stroke-width="1.5" class="inf-draw" style="--dl:138" stroke-dasharray="138"/>
-            <circle cx="80" cy="60" r="24" fill="none" stroke="rgba(224,87,75,.5)" stroke-width="2" class="inf-draw" style="--dl:151" stroke-dasharray="151"/>
-            <line class="inf-draw" style="--dl:80" x1="18" y1="60" x2="142" y2="60" stroke="rgba(224,87,75,.25)" stroke-width="1.5" stroke-dasharray="80"/>
-            <circle class="inf-node" cx="40" cy="60" r="6" fill="rgba(246,237,234,.22)"/>
-            <circle class="inf-node" cx="120" cy="60" r="6" fill="rgba(246,237,234,.22)"/>
-            <circle class="inf-node" cx="80" cy="60" r="9" fill="rgba(224,87,75,.8)"/>
-          </svg>
-        </div>
       </div>
 
       <div class="card">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="icon" style="color:#C88FE0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="card-title">Команда без конфликтов</div>
         <p class="card-text">Выстроите эффективную коммуникацию в команде без конфликтов, даже с разными поколениями.</p>
-        <div class="infographic-svg" style="margin-top:16px;height:120px;width:80%;margin-left:auto;margin-right:auto;">
-          <svg viewBox="0 0 160 120" width="100%" height="120">
-            <line class="inf-draw" style="--dl:60" x1="30" y1="80" x2="70" y2="40" stroke="rgba(224,87,75,.45)" stroke-width="1.5" stroke-dasharray="60"/>
-            <line class="inf-draw" style="--dl:60" x1="130" y1="80" x2="90" y2="40" stroke="rgba(224,87,75,.45)" stroke-width="1.5" stroke-dasharray="60"/>
-            <line class="inf-draw" style="--dl:48" x1="55" y1="83" x2="74" y2="40" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="48"/>
-            <line class="inf-draw" style="--dl:48" x1="105" y1="83" x2="86" y2="40" stroke="rgba(246,237,234,.2)" stroke-width="1" stroke-dasharray="48"/>
-            <circle class="inf-node" cx="30"  cy="92" r="11" fill="rgba(246,237,234,.18)" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle class="inf-node" cx="80"  cy="22" r="16" fill="rgba(224,87,75,.22)" stroke="rgba(224,87,75,.55)" stroke-width="1.5"/>
-            <circle class="inf-node" cx="130" cy="92" r="11" fill="rgba(246,237,234,.18)" stroke="rgba(246,237,234,.18)" stroke-width="1"/>
-            <circle class="inf-node" cx="55"  cy="92" r="8" fill="rgba(246,237,234,.12)"/>
-            <circle class="inf-node" cx="105" cy="92" r="8" fill="rgba(246,237,234,.12)"/>
-          </svg>
-        </div>
       </div>
 
     </div>
@@ -2454,7 +2446,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
         <span class="h-onest">Кто ведёт</span>
         <span class="h-cormorant">тренинг</span>
       </div>
-      <p class="lead">17 лет на сцене и в кабинете психолога — Максим знает, что мешает людям быть собой в полную силу.</p>
     </div>
 
     <!-- Карточка 16:7 -->
@@ -2467,6 +2458,11 @@ footer p { font-size: 14px; color: var(--text-muted); }
       </div>
       <!-- Текст справа -->
       <div class="trainer-info">
+        <div class="trainer-clients-top">
+          <span class="trainer-client-logo">Альфа-Банк</span>
+          <span class="trainer-client-logo">Сбербанк</span>
+          <span class="trainer-client-logo">Т-Банк</span>
+        </div>
         <div>
           <div class="trainer-name">Максим Житник</div>
           <div class="trainer-role">Психолог · бизнес-коуч · профессиональный актёр</div>
@@ -2490,11 +2486,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
           </div>
         </div>
         <p class="trainer-bio">Магистратура по семейной психологии (МИП) и психоаналитическому бизнес-консультированию (ВШЭ). Актёрское образование — Высшее театральное училище им. Щепкина.</p>
-        <div class="trainer-clients">
-          <span class="trainer-client-logo">Альфа-Банк</span>
-          <span class="trainer-client-logo">Сбербанк</span>
-          <span class="trainer-client-logo">Т-Банк</span>
-        </div>
       </div>
     </div>
 
@@ -2597,7 +2588,15 @@ footer p { font-size: 14px; color: var(--text-muted); }
 <!-- FOOTER -->
 <footer>
   <div class="wrap" style="padding:0 24px;">
-    <p>«Вызов 7.0» · Максим Житник · 2 дня офлайн · Москва, пер. Чапаевский 6</p>
+    <div class="footer-cta">
+      <a href="#price" class="footer-cta-btn">Хочу на тренинг</a>
+    </div>
+    <p style="text-align:center;font-size:13px;color:rgba(246,237,234,.35);">«Вызов 7.0» · Максим Житник · 2 дня офлайн · Москва, пер. Чапаевский 6</p>
+    <div class="footer-legal">
+      <a href="#">Политика конфиденциальности<!-- TODO: ссылка от Максима --></a>
+      <span style="color:rgba(246,237,234,.2)">·</span>
+      <a href="#">Пользовательское соглашение<!-- TODO: ссылка от Максима --></a>
+    </div>
   </div>
 </footer>
 

@@ -1413,6 +1413,49 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .modal-close { top: 12px; right: 12px; }
   .modal-box[data-ratio="9/16"] { height: min(92vh,640px); }
 }
+
+/* ── ФИГУРА МАКСИМА — hero ── */
+.hero-maxim-figure {
+  position: absolute;
+  bottom: 60px;
+  left: 50%; transform: translateX(-50%);
+  z-index: 3;
+  width: 560px;
+  pointer-events: none;
+}
+.hero-maxim-img {
+  width: 100%; height: auto; display: block;
+  filter: grayscale(1) contrast(1.25) brightness(1.05)
+    drop-shadow(0 0 2px rgba(255,200,175,.9))
+    drop-shadow(0 0 8px rgba(255,170,130,.55));
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
+    linear-gradient(to bottom, #000 62%, rgba(0,0,0,.4) 80%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
+    linear-gradient(to bottom, #000 62%, rgba(0,0,0,.4) 80%, transparent 100%);
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+}
+.hero-maxim-glow {
+  position: absolute;
+  bottom: 80px; left: 50%;
+  transform: translateX(-50%);
+  width: 900px; height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side,
+    rgba(252,145,95,.72) 0%,
+    rgba(224,87,75,.42) 48%,
+    transparent 100%);
+  filter: blur(52px);
+  z-index: 0; pointer-events: none;
+}
+/* центральная карточка — место для фигуры */
+.reel-card.rc-c { opacity: 0 !important; }
+@media (max-width:768px) {
+  .hero-maxim-figure { width: 260px; bottom: 30px; }
+  .hero-maxim-glow { width: 500px; height: 500px; }
+}
 </style>
 </head>
 <body>
@@ -1471,6 +1514,12 @@ footer p { font-size: 14px; color: var(--text-muted); }
       <a href="#program" class="btn btn-hero">Познакомиться с программой →</a>
     </div>
 
+  </div>
+
+  <!-- Свечение + фигура Максима -->
+  <div class="hero-maxim-glow" aria-hidden="true"></div>
+  <div class="hero-maxim-figure">
+    <img class="hero-maxim-img" src="assets/maxim-crop-c.png" alt="Максим Житник">
   </div>
 
   <!-- ВИДЕО-ЛЕНТА (абсолютная на десктопе; под кнопкой на мобайле) -->

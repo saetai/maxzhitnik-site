@@ -326,6 +326,22 @@ section:not(.hero)::before {
 
 .hero-btn-wrap { margin-top: 36px; }
 
+/* ── Hero описательные карточки ── */
+.hero-desc-cards {
+  display: flex; gap: 16px; margin-top: 28px; width: 100%; max-width: 820px;
+}
+.hero-desc-card {
+  flex: 1;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 20px 22px;
+  text-align: left;
+  font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 400;
+  line-height: 1.65; color: rgba(246,237,234,.75);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 20px 40px rgba(0,0,0,.4);
+}
+
 /* ── ВИДЕО-ЛЕНТА ── */
 .reel-scene {
   position: relative;
@@ -1364,6 +1380,8 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .hero-center { padding: 0 20px; box-sizing: border-box; max-width: 100%; overflow-wrap: break-word; }
   .hero-center .heading { max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
   .hero-center .lead { max-width: 100%; overflow-wrap: break-word; }
+  .hero-desc-cards { flex-direction: column; }
+  .hero-desc-card { font-size: 14px; padding: 16px 18px; }
   .hero-spot { display: none; }
   /* кнопка hero: позиция z:10 + gap до силуэта */
   .hero-btn-wrap { position: relative; z-index: 10; margin-bottom: 64px; }
@@ -1523,9 +1541,9 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
 /* Hero subtitle */
 .hero-sub {
-  font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 400;
-  color: rgba(246,237,234,.55); line-height: 1.5;
-  margin-top: 12px; margin-bottom: 0;
+  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 400;
+  color: rgba(246,237,234,.45); line-height: 1.5;
+  margin-top: 0; margin-bottom: 16px; text-align: center;
 }
 /* Trainer clients at top */
 .trainer-clients-top {
@@ -1598,16 +1616,16 @@ footer p { font-size: 14px; color: var(--text-muted); }
   <!-- ТЕКСТ + КНОПКА (сначала в DOM — для мобайла: flex-column) -->
   <div class="wrap hero-center">
 
-    <div class="badge">
-      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Офлайн-тренинг · Москва
-    </div>
+    <p class="hero-sub">Двухдневный тренинг для предпринимателей,&nbsp;руководителей и&nbsp;экспертов</p>
 
     <div class="heading h1">
       <span class="h-onest">Вызов 7.0</span>
     </div>
 
-    <p class="hero-sub">Двухдневный тренинг для предпринимателей,<br>руководителей и экспертов</p>
+    <div class="hero-desc-cards">
+      <div class="hero-desc-card">Раскроете в&nbsp;себе сильные роли, на&nbsp;которые сможете опираться и&nbsp;чувствовать себя естественно и&nbsp;уверенно.</div>
+      <div class="hero-desc-card">Научитесь влиять и&nbsp;управлять диалогом: в&nbsp;переговорах, на&nbsp;сцене, в&nbsp;работе с&nbsp;командой.</div>
+    </div>
 
     <div class="hero-btn-wrap">
       <a href="#program" class="btn btn-hero">Познакомиться с программой</a>

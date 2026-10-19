@@ -1415,93 +1415,96 @@ footer p { font-size: 14px; color: var(--text-muted); }
 }
 
 /* ── ФИГУРА + ЛУЧ ПРОЖЕКТОРА — hero ── */
+
+/* Силуэт: 300px, голова на уровне середины ленты */
 .hero-maxim-figure {
   position: absolute;
-  top: 490px;
+  top: 475px;
   left: 50%; transform: translateX(-50%);
   z-index: 3;
-  width: 380px;
+  width: 300px;
   pointer-events: none;
 }
 .hero-maxim-img {
   width: 100%; height: auto; display: block;
   filter: brightness(.12) contrast(1.2)
     drop-shadow(0 0 1.5px rgba(255,200,175,.9))
-    drop-shadow(0 0 12px rgba(240,130,100,.45));
-  -webkit-mask-image: linear-gradient(#000 60%, transparent 95%);
-  mask-image: linear-gradient(#000 60%, transparent 95%);
+    drop-shadow(0 0 10px rgba(240,130,100,.4));
+  -webkit-mask-image: linear-gradient(#000 55%, transparent 90%);
+  mask-image: linear-gradient(#000 55%, transparent 90%);
 }
-/* Луч прожектора (z-index 2 — между лентой(1) и фигурой(3)) */
+
+/* Луч: z-index 0 — ПОД лентой(1) и фигурой(3), не засвечивает карточки */
 .hero-beam-wrap {
   position: absolute;
-  left: calc(50% - 350px);
-  width: 700px;
-  top: 360px; bottom: 80px;
-  z-index: 2;
+  left: calc(50% - 210px); width: 420px;
+  top: 390px; height: 250px;
+  z-index: 0;
   pointer-events: none;
 }
 .hero-beam {
   position: absolute; inset: 0;
   background: linear-gradient(180deg,
-    rgba(250,175,145,.28) 0%,
-    rgba(250,155,120,.75) 55%,
-    rgba(224,87,75,.25)  100%);
-  clip-path: polygon(44.3% 0%, 55.7% 0%, 100% 100%, 0% 100%);
-  filter: blur(14px);
+    rgba(250,165,135,.35) 0%,
+    rgba(250,165,135,.22) 68%,
+    rgba(250,165,135,0)  100%);
+  clip-path: polygon(42.9% 0%, 57.1% 0%, 100% 100%, 0% 100%);
+  filter: blur(30px);
   mix-blend-mode: screen;
 }
-/* Дополнительный горячий слой в ядре луча */
-.hero-beam::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg,
-    rgba(255,200,160,.22) 0%,
-    rgba(255,165,110,.55) 45%,
-    transparent 85%);
-  clip-path: polygon(47% 0%, 53% 0%, 78% 100%, 22% 100%);
-  filter: blur(8px);
-  mix-blend-mode: screen;
-}
-/* Тонкая вертикальная терракотовая линия через центр конуса */
+
+/* Вертикальная линия — только от низа кнопки (+20px) до макушки */
 .hero-beam-line {
   position: absolute;
   left: calc(50% - 1px); width: 2px;
-  top: -90px; bottom: 0;
-  background: linear-gradient(to bottom,
-    transparent 0%,
-    rgba(224,87,75,.95) 15%,
-    rgba(224,87,75,.70) 70%,
-    transparent 100%);
-  box-shadow: 0 0 10px rgba(224,87,75,.7), 0 0 24px rgba(224,87,75,.4);
+  top: 410px; height: 125px;
+  background: rgba(224,87,75,.6);
+  z-index: 1;
+  pointer-events: none;
 }
-/* Мягкое свечение за плечами */
+
+/* Тёплый ореол позади силуэта (z-index 2 — поверх ленты, под фигурой) */
 .hero-beam-glow {
   position: absolute;
-  bottom: -120px; left: 50%;
+  top: 450px; left: 50%;
   transform: translateX(-50%);
-  width: 640px; height: 640px;
+  width: 380px; height: 340px;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(224,87,75,.40), transparent);
+  background: radial-gradient(ellipse at 50% 28%,
+    rgba(250,165,120,.32) 0%,
+    rgba(224,87,75,.18)  40%,
+    transparent          72%);
+  filter: blur(22px);
+  mix-blend-mode: screen;
+  z-index: 2;
   pointer-events: none;
 }
-/* Пылинки-частицы внутри конуса */
+
+/* Пылинки — зеркально повторяют форму и позицию beam-wrap */
 .hero-dust {
-  position: absolute; inset: 0;
-  clip-path: polygon(44.3% 0%, 55.7% 0%, 100% 100%, 0% 100%);
+  position: absolute;
+  left: calc(50% - 210px); width: 420px;
+  top: 390px; height: 250px;
+  z-index: 0;
   pointer-events: none;
+  clip-path: polygon(42.9% 0%, 57.1% 0%, 100% 100%, 0% 100%);
 }
+
 @keyframes dust-float {
   0%   { transform: translateY(0px)   scale(1);   opacity: 0; }
-  15%  { opacity: .9; }
-  85%  { opacity: .5; }
-  100% { transform: translateY(-55px) scale(.5);  opacity: 0; }
+  18%  { opacity: .85; }
+  82%  { opacity: .5; }
+  100% { transform: translateY(-48px) scale(.5);  opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-dust span { animation: none !important; opacity: .3 !important; }
 }
 @media (max-width: 768px) {
-  .hero-maxim-figure { width: 70vw; top: auto; bottom: 20px; }
-  .hero-beam-wrap { top: 300px; bottom: 60px; left: calc(50% - 200px); width: 400px; }
+  .hero-maxim-figure { width: 62vw; top: auto; bottom: 20px; }
+  .hero-beam-wrap { top: 350px; height: 210px; left: calc(50% - 170px); width: 340px; }
+  .hero-beam-line { top: 365px; height: 100px; }
+  .hero-beam-glow { top: 480px; width: 260px; height: 160px; }
+  .hero-dust { top: 350px; height: 210px; left: calc(50% - 170px); width: 340px; }
 }
 </style>
 </head>
@@ -1563,13 +1566,15 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
   </div>
 
-  <!-- Луч прожектора + силуэт -->
-  <div class="hero-beam-wrap" aria-hidden="true">
-    <div class="hero-beam"></div>
-    <div class="hero-beam-line"></div>
-    <div class="hero-beam-glow"></div>
-    <div class="hero-dust"></div>
-  </div>
+  <!-- Луч (z-index 0 — под лентой и фигурой) -->
+  <div class="hero-beam-wrap" aria-hidden="true"><div class="hero-beam"></div></div>
+  <!-- Линия кнопка→голова (z-index 1) -->
+  <div class="hero-beam-line" aria-hidden="true"></div>
+  <!-- Свечение за плечами (z-index 0) -->
+  <div class="hero-beam-glow" aria-hidden="true"></div>
+  <!-- Пылинки (z-index 0, clip-path конус) -->
+  <div class="hero-dust" aria-hidden="true"></div>
+  <!-- Силуэт (z-index 3) -->
   <div class="hero-maxim-figure">
     <img class="hero-maxim-img" src="assets/maxim-hero.png" alt="Максим Житник">
   </div>
@@ -2823,19 +2828,19 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   }
 })();
 
-/* Пылинки в луче прожектора */
+/* Пылинки в луче прожектора — 40 частиц между кнопкой и плечами */
 (function() {
   var c = document.querySelector('.hero-dust');
   if (!c) return;
-  for (var i = 0; i < 50; i++) {
+  for (var i = 0; i < 40; i++) {
     var p = document.createElement('span');
-    var x = 15 + Math.random() * 70;
-    var y = 3  + Math.random() * 90;
-    var sz = 1.8 + Math.random() * 2.0;
+    var x = 10 + Math.random() * 80;
+    var y = 5  + Math.random() * 88;
+    var sz = 1.5 + Math.random() * 1.8;
     var dur = 8 + Math.random() * 6;
     var del = -(Math.random() * dur);
     p.style.cssText = 'position:absolute;border-radius:50%;background:#FFE3DA;'
-      + 'box-shadow:0 0 8px #FF9070,0 0 16px rgba(224,87,75,.7);'
+      + 'box-shadow:0 0 6px rgba(224,87,75,.8);'
       + 'left:' + x.toFixed(1) + '%;top:' + y.toFixed(1) + '%;'
       + 'width:' + sz.toFixed(1) + 'px;height:' + sz.toFixed(1) + 'px;'
       + 'animation:dust-float ' + dur.toFixed(1) + 's ' + del.toFixed(1) + 's ease-in-out infinite;';

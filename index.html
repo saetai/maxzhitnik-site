@@ -937,7 +937,15 @@ section:not(.hero)::before {
   stroke: var(--accent); stroke-width: 3; fill: none;
   background: rgba(224,87,75,.14);
 }
-.price-card .price-btns { margin-top: 8px; }
+/* три кнопки одинаковой ширины — предоплата ровно по центру карточки */
+.price-card .price-btns {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  width: 100%; margin-top: 8px;
+}
+.price-card .price-btn { width: 100%; padding: 14px 12px; }
+@media (max-width: 768px) {
+  .price-card .price-btns { grid-template-columns: 1fr; }
+}
 /* сетка на весь экран, гаснет к краям; фоновые пятна мягче */
 .price-section .price-grid-bg {
   top: 0; height: auto;

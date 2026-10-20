@@ -1653,6 +1653,14 @@ footer p { font-size: 14px; color: var(--text-muted); }
   .footer-legal span[style] { display: none; }
 }
 </style>
+<script>
+/* При открытии/обновлении — всегда первый экран: без восстановления прокрутки и без прыжка к #якорю */
+(function() {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  window.addEventListener('load', function() { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); });
+})();
+</script>
 </head>
 <body>
 
@@ -2706,6 +2714,17 @@ textModal.addEventListener('click', function(e) { if (e.target === textModal) cl
   }, { threshold: 0.35 });
   cards.forEach(function(c) { obs.observe(c); });
 })();
+
+/* Кнопки-якоря (#program, #price) плавно прокручивают к блоку и не меняют адрес —
+   поэтому при обновлении страница не прыгает к цене */
+document.addEventListener('click', function(e) {
+  var a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a || a.getAttribute('href').length < 2) return;
+  var el = document.querySelector(a.getAttribute('href'));
+  if (!el) return;
+  e.preventDefault();
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
 /* ── Лента hero: бесконечная карусель с «изгибом» ──────────────────
    Позиция pos — дробная; карточка i стоит в слоте s = i - pos (по кругу).

@@ -1294,8 +1294,32 @@ section:not(.hero)::before {
 .text-modal-body { font-size: 16px; line-height: 1.75; color: var(--text-muted); white-space: pre-line; }
 
 /* ── ФУТЕР ── */
-footer { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; }
-footer p { font-size: 14px; color: var(--text-muted); }
+footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
+/* ── ФУТЕР: кто продаёт · документы · контакты ── */
+.footer-grid {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px;
+  text-align: left; padding: 8px 0 32px;
+}
+.footer-col { display: flex; flex-direction: column; gap: 10px; }
+.footer-brand { font-family: 'Onest', sans-serif; font-weight: 300; font-size: 28px; letter-spacing: -.01em; color: var(--text); }
+.footer-sub { font-size: 13px; color: rgba(246,237,234,.45); line-height: 1.5; }
+.footer-req { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 14px; color: rgba(246,237,234,.7); }
+.footer-h { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: rgba(246,237,234,.4); margin-bottom: 4px; }
+.footer-link { font-size: 14px; color: rgba(246,237,234,.75); text-decoration: underline; text-decoration-color: rgba(246,237,234,.25); text-underline-offset: 3px; width: fit-content; }
+.footer-link:hover { color: var(--text); text-decoration-color: var(--accent); }
+.footer-contact { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); font-size: 15px; width: fit-content; }
+.footer-contact small { display: block; font-size: 12px; color: rgba(246,237,234,.45); margin-bottom: 2px; }
+.footer-contact:hover > span:last-child { color: var(--accent); }
+.footer-ic {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--accent);
+  box-shadow: 0 0 18px rgba(224,87,75,.4);
+}
+.footer-ic svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.footer-copy { font-size: 12px; line-height: 1.6; color: rgba(246,237,234,.3); text-align: left; border-top: 1px solid rgba(255,255,255,.06); padding-top: 20px; }
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+}
 
 /* ── 12.1 ЗЕРНО НА ВЕСЬ САЙТ ── */
 .grain-overlay {
@@ -1635,23 +1659,6 @@ footer p { font-size: 14px; color: var(--text-muted); }
   text-decoration: none; transition: background .2s, border-color .2s;
 }
 .footer-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 36px rgba(224,87,75,.65), 0 0 80px rgba(224,87,75,.35); }
-.footer-legal {
-  display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
-  padding-top: 16px;
-}
-.footer-legal a, .footer-legal span {
-  font-family: 'Manrope', sans-serif; font-size: 12px; color: rgba(246,237,234,.3);
-  text-decoration: none;
-}
-.footer-legal a:hover { color: rgba(246,237,234,.6); }
-.footer-contacts { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
-.footer-contacts a { font-family: 'Manrope', sans-serif; font-size: 14px; color: rgba(246,237,234,.6); text-decoration: none; }
-.footer-contacts a:hover { color: var(--text); }
-.footer-dot { color: rgba(246,237,234,.2); }
-@media (max-width: 600px) {
-  .footer-legal { flex-direction: column; align-items: center; gap: 8px; }
-  .footer-legal span[style] { display: none; }
-}
 </style>
 <script>
 /* При открытии/обновлении — всегда первый экран: без восстановления прокрутки и без прыжка к #якорю */
@@ -2539,19 +2546,49 @@ footer p { font-size: 14px; color: var(--text-muted); }
 
 <!-- FOOTER -->
 <footer>
-  <div class="wrap" style="padding:0 24px;">
+  <div class="wrap">
     <div class="footer-cta">
       <a href="#price" class="footer-cta-btn">Хочу на&nbsp;тренинг</a>
     </div>
-    <p style="text-align:center;font-size:13px;color:rgba(246,237,234,.35);">«Вызов 7.0» · Максим Житник · 2 дня офлайн · Москва, пер. Чапаевский 6</p>
-    <div class="footer-contacts">
-      <a href="tel:+79266375588">+7&nbsp;926&nbsp;637&nbsp;55&nbsp;88</a>
+
+    <div class="footer-grid">
+      <!-- Кто продаёт -->
+      <div class="footer-col">
+        <div class="footer-brand">Максим Житник</div>
+        <p class="footer-sub">«Вызов 7.0» · 2&nbsp;дня офлайн · Москва, пер.&nbsp;Чапаевский&nbsp;6</p>
+        <div class="footer-req">
+          <span>ИП Житник Максим Эдуардович</span>
+          <!-- TODO: реквизиты от Максима — раскомментировать, когда пришлёт
+          <span>ИНН 000000000000</span>
+          <span>ОГРНИП 000000000000000</span>
+          -->
+        </div>
+      </div>
+
+      <!-- Документы -->
+      <div class="footer-col">
+        <div class="footer-h">Документы</div>
+        <a class="footer-link" href="https://maxzhitnik.ru/privacy" target="_blank" rel="noopener">Политика конфиденциальности</a>
+        <!-- TODO: оферта от Максима
+        <a class="footer-link" href="#" target="_blank" rel="noopener">Публичная оферта</a>
+        -->
+      </div>
+
+      <!-- Контакты -->
+      <div class="footer-col">
+        <div class="footer-h">Контакты</div>
+        <a class="footer-contact" href="tel:+79266375588">
+          <span class="footer-ic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+          <span><small>Телефон</small>+7&nbsp;926&nbsp;637&nbsp;55&nbsp;88</span>
+        </a>
+        <a class="footer-contact" href="https://t.me/m/-MPQAYWKNzNi" target="_blank" rel="noopener">
+          <span class="footer-ic"><svg viewBox="0 0 24 24"><path d="M21.5 4.5 2.9 11.7c-.9.4-.9 1.6.1 1.9l4.6 1.4 1.8 5.6c.2.7 1.1.9 1.6.4l2.6-2.4 4.6 3.4c.6.4 1.4.1 1.6-.6l3.3-15.6c.2-.9-.7-1.6-1.6-1.3z"/><path d="m8 15 10-8"/></svg></span>
+          <span><small>Вопросы в&nbsp;Telegram</small>Написать Максиму</span>
+        </a>
+      </div>
     </div>
-    <div class="footer-legal">
-      <span>ИП Житник Максим Эдуардович</span>
-      <span style="color:rgba(246,237,234,.2)">·</span>
-      <a href="https://maxzhitnik.ru/privacy" target="_blank" rel="noopener">Политика конфиденциальности</a>
-    </div>
+
+    <p class="footer-copy">© Максим Житник, 2026. Все права защищены. Копирование материалов сайта, элементов дизайна и&nbsp;оформления&nbsp;— только с&nbsp;письменного разрешения правообладателя.</p>
   </div>
 </footer>
 

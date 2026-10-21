@@ -6,7 +6,7 @@
 <title>Вызов 7.0 — Максим Житник</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Onest:wght@200;300;400&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Inter+Tight:wght@400&family=Onest:wght@200;300;400&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -90,32 +90,23 @@ body {
 /* ── 0.4 СИСТЕМА ЗАГОЛОВКОВ ── */
 .heading { line-height: 1.05; }
 
-/* 11.1 Затухание строк */
+/* Заголовки как в референсе: Inter Tight 400 белым + Playfair курсив приглушённым, курсив можно вставлять внутрь строки (.h-it) */
 .h-onest {
   display: block;
-  font-family: 'Onest', sans-serif; font-weight: 200;
-  letter-spacing: -0.01em;
-  background: linear-gradient(180deg, #F6EDEA 0%, #F6EDEA 35%, rgba(246,237,234,.45) 100%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
+  font-family: 'Inter Tight', sans-serif; font-weight: 400;
+  letter-spacing: -.012em; color: var(--text);
 }
 .h-cormorant {
   display: block;
   font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
-  background: linear-gradient(180deg, rgba(246,237,234,.55) 0%, rgba(246,237,234,.22) 100%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  margin-top: 4px;
+  letter-spacing: 0; color: rgba(246,237,234,.6);
+  margin-top: 2px;
 }
-
-/* Hero заголовок: шрифт и затухание как в остальных секциях (.h-onest), только центрирование */
-.hero .h-onest {
-  text-align: center;
+.h-it {
+  font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+  letter-spacing: 0; color: rgba(246,237,234,.6);
 }
-.hero .h-cormorant {
-  background: linear-gradient(180deg, rgba(246,237,234,.62) 0%, rgba(246,237,234,.22) 100%) !important;
-  -webkit-background-clip: text !important; background-clip: text !important;
-  color: transparent !important;
-  text-align: center;
-}
+.hero .h-onest, .hero .h-cormorant { text-align: center; }
 
 /* 11.1 Размеры: H1 64px, H2 48–52px */
 .h1 .h-onest     { font-size: 64px; line-height: 1.08; }
@@ -1110,7 +1101,7 @@ section:not(.hero)::before {
   display: flex; flex-direction: column; justify-content: center; gap: 16px;
 }
 .trainer-name {
-  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+  font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
   font-size: 38px; color: var(--text); line-height: 1.1; margin-bottom: 4px;
 }
 .trainer-role { font-size: 14px; color: var(--text-muted); }
@@ -1301,7 +1292,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   text-align: left; padding: 8px 0 32px;
 }
 .footer-col { display: flex; flex-direction: column; gap: 10px; }
-.footer-brand { font-family: 'Onest', sans-serif; font-weight: 300; font-size: 28px; letter-spacing: -.01em; color: var(--text); }
+.footer-brand { font-family: 'Inter Tight', sans-serif; font-weight: 400; font-size: 28px; letter-spacing: -.012em; color: var(--text); }
 .footer-sub { font-size: 13px; color: rgba(246,237,234,.45); line-height: 1.5; }
 .footer-req { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 14px; color: rgba(246,237,234,.7); }
 .footer-h { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: rgba(246,237,234,.4); margin-bottom: 4px; }
@@ -1708,7 +1699,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
     </div>
 
     <div class="heading h1">
-      <span class="h-onest">Вызов 7.0</span>
+      <span class="h-onest">Вызов <span class="h-it">7.0</span></span>
     </div>
 
     <p class="hero-sub">Двухдневный тренинг для&nbsp;предпринимателей, руководителей и&nbsp;экспертов</p>
@@ -1764,7 +1755,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
         Для&nbsp;кого
       </div>
       <div class="heading h2">
-        <span class="h-onest">Кому полезен тренинг</span>
+        <span class="h-onest">Кому <span class="h-it">полезен</span> тренинг</span>
         <span class="h-cormorant">«Вызов 7.0»</span>
       </div>
       <p class="lead">Тренинг подходит тем, кто чувствует внутренний потенциал, но&nbsp;в&nbsp;нужный момент теряет уверенность и&nbsp;свободу проявляться.</p>
@@ -2154,7 +2145,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
               Метод Stage-Psy Fusion
             </div>
             <div class="heading h2">
-              <span class="h-onest">В&nbsp;чём суть</span>
+              <span class="h-onest">В&nbsp;чём <span class="h-it">суть</span></span>
               <span class="h-cormorant">метода</span>
             </div>
             <p class="lead">Метод Stage-Psy Fusion объединяет актёрские техники и&nbsp;глубинную психологию. Работаете не&nbsp;над&nbsp;«маской», а&nbsp;над&nbsp;настоящими изменениями.</p>
@@ -2189,8 +2180,8 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
         Программа
       </div>
       <div class="heading h2">
-        <span class="h-onest">Два дня</span>
-        <span class="h-cormorant">практики и&nbsp;трансформации</span>
+        <span class="h-onest">Два дня <span class="h-it">практики</span></span>
+        <span class="h-onest">и&nbsp;<span class="h-it">трансформации</span></span>
       </div>
       <p class="lead">Каждый день&nbsp;— это завершённый блок практик. Первый строит внутреннюю опору, второй выводит её в&nbsp;живое взаимодействие.</p>
     </div>
@@ -2273,7 +2264,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
         После тренинга
       </div>
       <div class="heading h2">
-        <span class="h-onest">Какие изменения будут</span>
+        <span class="h-onest">Какие <span class="h-it">изменения</span> будут</span>
         <span class="h-cormorant">в&nbsp;жизни после тренинга</span>
       </div>
       <p class="lead">Уверенность, которая останется с&nbsp;вами&nbsp;— не&nbsp;только на&nbsp;два дня, а&nbsp;как&nbsp;новый способ быть собой.</p>

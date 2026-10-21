@@ -6,7 +6,7 @@
 <title>Вызов 7.0 — Максим Житник</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Inter+Tight:wght@400&family=Onest:wght@200;300;400&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Geist:wght@300&family=Cormorant:ital,wght@1,500&family=Onest:wght@200;300;400&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -90,29 +90,31 @@ body {
 /* ── 0.4 СИСТЕМА ЗАГОЛОВКОВ ── */
 .heading { line-height: 1.05; }
 
-/* Заголовки как в референсе: Inter Tight 400 белым + Playfair курсив приглушённым, курсив можно вставлять внутрь строки (.h-it) */
+/* Заголовки «Галерея»: Geist Light белым + Cormorant курсив приглушённым, курсив можно вставлять внутрь строки (.h-it) */
 .h-onest {
   display: block;
-  font-family: 'Inter Tight', sans-serif; font-weight: 400;
-  letter-spacing: -.012em; color: var(--text);
+  font-family: 'Geist', sans-serif; font-weight: 300;
+  letter-spacing: -.03em; color: var(--text);
 }
 .h-cormorant {
   display: block;
-  font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+  font-family: 'Cormorant', serif; font-style: italic; font-weight: 500;
+  font-size: 1.14em; line-height: 1;
   letter-spacing: 0; color: rgba(246,237,234,.6);
   margin-top: 2px;
 }
 .h-it {
-  font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+  font-family: 'Cormorant', serif; font-style: italic; font-weight: 500;
+  font-size: 1.14em; line-height: 0;
   letter-spacing: 0; color: rgba(246,237,234,.6);
 }
 .hero .h-onest, .hero .h-cormorant { text-align: center; }
 
 /* 11.1 Размеры: H1 64px, H2 48–52px */
 .h1 .h-onest     { font-size: 64px; line-height: 1.08; }
-.h1 .h-cormorant { font-size: 64px; line-height: 1.08; }
+.h1 .h-cormorant { font-size: 73px; line-height: 1.08; }
 .h2 .h-onest     { font-size: 52px; line-height: 1.12; }
-.h2 .h-cormorant { font-size: 52px; line-height: 1.12; }
+.h2 .h-cormorant { font-size: 59px; line-height: 1.12; }
 
 .lead {
   font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 400;
@@ -1101,8 +1103,8 @@ section:not(.hero)::before {
   display: flex; flex-direction: column; justify-content: center; gap: 16px;
 }
 .trainer-name {
-  font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
-  font-size: 38px; color: var(--text); line-height: 1.1; margin-bottom: 4px;
+  font-family: 'Cormorant', serif; font-style: italic; font-weight: 500;
+  font-size: 44px; color: var(--text); line-height: 1.1; margin-bottom: 4px;
 }
 .trainer-role { font-size: 14px; color: var(--text-muted); }
 .trainer-stats {
@@ -1292,7 +1294,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   text-align: left; padding: 8px 0 32px;
 }
 .footer-col { display: flex; flex-direction: column; gap: 10px; }
-.footer-brand { font-family: 'Inter Tight', sans-serif; font-weight: 400; font-size: 28px; letter-spacing: -.012em; color: var(--text); }
+.footer-brand { font-family: 'Geist', sans-serif; font-weight: 300; font-size: 30px; letter-spacing: -.03em; color: var(--text); }
 .footer-sub { font-size: 13px; color: rgba(246,237,234,.45); line-height: 1.5; }
 .footer-req { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; font-size: 14px; color: rgba(246,237,234,.7); }
 .footer-h { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: rgba(246,237,234,.4); margin-bottom: 4px; }
@@ -1512,9 +1514,9 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
 
   /* 11.1 мобайл: H1 36px, H2 30px */
   .h1 .h-onest     { font-size: 36px; }
-  .h1 .h-cormorant { font-size: 36px; white-space: normal; word-break: break-word; }
+  .h1 .h-cormorant { font-size: 41px; white-space: normal; word-break: break-word; }
   .h2 .h-onest     { font-size: 30px; }
-  .h2 .h-cormorant { font-size: 30px; }
+  .h2 .h-cormorant { font-size: 34px; }
   .lead { font-size: 16px; }
 
   /* мобайл hero: текстовый блок не выходит за края */

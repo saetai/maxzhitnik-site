@@ -1274,17 +1274,17 @@ section:not(.hero)::before {
 .modal-box[data-ratio="9/16"] { height: min(86vh,860px); aspect-ratio: 9/16; width: auto; }
 .modal-overlay.is-active .modal-box { transform: scale(1); }
 .modal-close {
-  position: absolute; top: -56px; right: 0; z-index: 10;
+  position: absolute; top: 12px; right: 12px; z-index: 30;
   width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(255,255,255,.1); border: none; color: #fff; cursor: pointer;
+  background: rgba(15,6,7,.6); backdrop-filter: blur(6px); border: none; color: #fff; cursor: pointer;
   display: flex; align-items: center; justify-content: center; transition: background .2s;
 }
 .modal-close:hover { background: rgba(224,87,75,.45); }
 .modal-close svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2.5; fill: none; }
 #videoFrame { width: 100%; height: 100%; position: relative; }
-#videoFrame iframe, #videoFrame > div { width: 100% !important; height: 100% !important; border: none; }
+#videoFrame video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
 .modal-unmute {
-  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  position: absolute; top: 14px; left: 14px;
   padding: 10px 22px; background: rgba(15,6,7,.85);
   border: 1px solid rgba(255,220,215,.2); border-radius: 12px;
   color: var(--text); font-family: 'Manrope',sans-serif; font-size: 14px; font-weight: 500;
@@ -2538,7 +2538,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
         </div>
       </div>
 
-      <div class="rv-card" data-video-id="Nt90WcHys88" data-ratio="16/9"
+      <div class="rv-card" data-video-id="Nt90WcHys88" data-ratio="9/16"
            onclick="openVideoModal(this)" role="button" tabindex="0" aria-label="Видеоотзыв Артёма Самигуллина">
         <div class="rv-bg" style="background-image:url('assets/reviews/Nt90WcHys88-crop.jpg')"></div>
         <div class="rv-caption">
@@ -2663,59 +2663,37 @@ function toggleAcc(header) {
   }, 4000);
 })();
 
-// ── Video Modal — YouTube IFrame API ──────────────────────────
+// ── Video Modal — свои mp4 (assets/reviews/ID.mp4), без YouTube: открывается в России без VPN ──
 var videoModal  = document.getElementById('videoModal');
 var videoBox    = document.getElementById('videoBox');
 var videoFrame  = document.getElementById('videoFrame');
 var modalUnmute = document.getElementById('modalUnmute');
-var ytPlayer    = null;
-var ytApiReady  = false;
-var pendingId   = null;
-
-(function(){
-  var s = document.createElement('script');
-  s.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(s);
-})();
-
-function onYouTubeIframeAPIReady() {
-  ytApiReady = true;
-  if (pendingId) { _createPlayer(pendingId); pendingId = null; }
-}
-
-function _createPlayer(videoId) {
-  var el = document.createElement('div');
-  el.id = 'yt-player';
-  videoFrame.appendChild(el);
-  ytPlayer = new YT.Player('yt-player', {
-    videoId: videoId,
-    host: 'https://www.youtube-nocookie.com',
-    playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1, mute: 1 },
-    events: {
-      onReady: function(e) {
-        e.target.playVideo();
-        modalUnmute.classList.add('visible');
-      }
-    }
-  });
-}
 
 function openVideoModal(card) {
-  var videoId = card.getAttribute('data-video-id');
-  var ratio   = card.getAttribute('data-ratio') || '16/9';
+  var id    = card.getAttribute('data-video-id');
+  var ratio = card.getAttribute('data-ratio') || '16/9';
   videoBox.setAttribute('data-ratio', ratio);
+  videoFrame.innerHTML = '';
+  var v = document.createElement('video');
+  v.src = 'assets/reviews/' + id + '.mp4?v=1';
+  v.poster = 'assets/reviews/' + id + '.jpg';
+  v.controls = true; v.playsInline = true; v.autoplay = true; v.preload = 'auto';
+  v.setAttribute('playsinline', '');
+  videoFrame.appendChild(v);
   videoModal.classList.add('is-active');
   document.body.style.overflow = 'hidden';
   modalUnmute.classList.remove('visible');
-  if (ytApiReady) { _createPlayer(videoId); }
-  else            { pendingId = videoId; }
+  /* пробуем со звуком; если браузер не даёт — запускаем без звука и показываем «Включить звук» */
+  var p = v.play();
+  if (p && p.catch) p.catch(function() { v.muted = true; v.play(); modalUnmute.classList.add('visible'); });
 }
 
 function closeVideoModal() {
   videoModal.classList.remove('is-active');
   document.body.style.overflow = '';
-  if (ytPlayer && ytPlayer.destroy) { ytPlayer.destroy(); ytPlayer = null; }
-  else { videoFrame.innerHTML = ''; }
+  var v = videoFrame.querySelector('video');
+  if (v) { v.pause(); v.removeAttribute('src'); v.load(); }
+  videoFrame.innerHTML = '';
   modalUnmute.classList.remove('visible');
 }
 
@@ -2724,7 +2702,8 @@ videoModal.addEventListener('click', function(e) { if (e.target === videoModal) 
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeVideoModal(); closeTextModal(); } });
 
 modalUnmute.addEventListener('click', function() {
-  if (ytPlayer && ytPlayer.unMute) { ytPlayer.unMute(); ytPlayer.setVolume(80); }
+  var v = videoFrame.querySelector('video');
+  if (v) { v.muted = false; v.volume = .8; }
   modalUnmute.classList.remove('visible');
 });
 

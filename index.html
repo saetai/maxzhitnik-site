@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<!-- ОФОРМЛЕНИЕ ЗАГОЛОВКОВ: data-typo="poster" — плакат на первом экране и в цене + перелив курсива в секциях.
+     Откат на «Галерею»: удалить атрибут data-typo="poster" (одна правка). Git-метка прошлой версии: fonts-gallery -->
+<html lang="ru" data-typo="poster">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Вызов 7.0 — Максим Житник</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Geist:wght@300&family=Cormorant:ital,wght@1,500&family=Onest:wght@200;300;400&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Geist:wght@300&family=Sofia+Sans+Extra+Condensed:wght@800&family=Cormorant:ital,wght@1,500&family=Onest:wght@200;300;400&family=Playfair+Display:ital,wght@1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -115,6 +117,39 @@ body {
 .h1 .h-cormorant { font-size: 73px; line-height: 1.08; }
 .h2 .h-onest     { font-size: 52px; line-height: 1.12; }
 .h2 .h-cormorant { font-size: 59px; line-height: 1.12; }
+
+/* ════ ВАРИАНТ «ПЛАКАТ» — работает только при <html data-typo="poster">; без атрибута сайт остаётся «Галереей» ════ */
+[data-typo="poster"] .hero .badge {
+  background: none; border: 0; padding: 0;
+  font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: 13px;
+  letter-spacing: .22em; text-transform: uppercase; color: rgba(246,237,234,.75);
+}
+[data-typo="poster"] .hero .badge svg { display: none; }
+[data-typo="poster"] .hero .h-onest {
+  font-family: 'Sofia Sans Extra Condensed', sans-serif; font-weight: 800;
+  text-transform: uppercase; font-size: 140px; line-height: .9; letter-spacing: -.005em;
+}
+[data-typo="poster"] .hero .h-it {
+  font-family: inherit; font-style: normal; font-weight: inherit; font-size: 1em; line-height: inherit;
+  color: var(--accent); background: none; -webkit-background-clip: border-box; background-clip: border-box;
+}
+[data-typo="poster"] .price-num-big {
+  font-family: 'Sofia Sans Extra Condensed', sans-serif; font-weight: 800; letter-spacing: 0;
+  background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--text);
+}
+[data-typo="poster"] .price-card .price-num-big { font-size: 128px; line-height: 1; }
+[data-typo="poster"] .price-rub { font-size: 1em !important; opacity: 1; }
+/* курсив в секциях — с переливом от светлого к серому */
+[data-typo="poster"] .h-it, [data-typo="poster"] .h-cormorant {
+  background: linear-gradient(180deg, #D8CDC9 0%, rgba(246,237,234,.42) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; padding: 0 .04em;
+}
+[data-typo="poster"] .h-it { line-height: 1; }
+@media (max-width: 768px) {
+  [data-typo="poster"] .hero .h-onest { font-size: 76px; }
+  [data-typo="poster"] .hero .badge { font-size: 11px; letter-spacing: .18em; }
+  [data-typo="poster"] .price-card .price-num-big { font-size: 80px; }
+}
 
 .lead {
   font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 400;

@@ -1458,8 +1458,21 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
 
 /* Изогнутая светящаяся линия вверху «Программы» — в стиле кривой из «Стоимости» */
 .section-curve {
-  position: absolute; top: 10px; left: 0; width: 100%; height: 140px;
-  z-index: 1; pointer-events: none; overflow: visible;
+  position: absolute; top: 0; left: 0; width: 100%; height: 160px;
+  z-index: 1; pointer-events: none;
+}
+.section-curve svg { display: block; width: 100%; height: 100%; overflow: visible; }
+/* шар — HTML, поэтому всегда круглый; стоит в точке кривой (820,66) из viewBox 1440×160 */
+.dv-ball {
+  position: absolute; left: 56.94%; top: 41.25%;
+  width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff 0%, #FBD5CB 40%, #E0574B 100%);
+  box-shadow: 0 0 14px 4px rgba(224,87,75,.6), 0 0 40px 12px rgba(224,87,75,.25);
+  animation: ball-breathe 4s ease-in-out infinite;
+}
+@media (max-width: 768px) {
+  .section-curve { height: 100px; }
+  .dv-ball { width: 20px; height: 20px; margin: -10px 0 0 -10px; }
 }
 
 /* ── 12.4 КОНЦЕНТРИЧЕСКИЕ ДУГИ В HERO ── */
@@ -2243,15 +2256,17 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
 
 <!-- ═══ 4. ПРОГРАММА — аккордеон ═══ -->
 <section id="program">
-  <svg class="section-curve" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="dv-g" x1="0" x2="1"><stop offset="0" stop-color="#E0574B" stop-opacity="0"/><stop offset=".25" stop-color="#E0574B" stop-opacity=".6"/><stop offset=".6" stop-color="#F6B4A4"/><stop offset="1" stop-color="#E0574B" stop-opacity="0"/></linearGradient>
-      <filter id="dv-b" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="10"/></filter>
-    </defs>
-    <path d="M0,95 C260,110 420,125 640,100 C860,75 960,35 1160,30 C1300,27 1380,40 1440,48" fill="none" stroke="url(#dv-g)" stroke-width="22" opacity=".35" filter="url(#dv-b)"/>
-    <path d="M0,95 C260,110 420,125 640,100 C860,75 960,35 1160,30 C1300,27 1380,40 1440,48" fill="none" stroke="url(#dv-g)" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="866" cy="70" r="9" fill="#FBD5CB"/><circle cx="866" cy="70" r="20" fill="#E0574B" opacity=".25" filter="url(#dv-b)"/>
-  </svg>
+  <div class="section-curve" aria-hidden="true">
+    <svg viewBox="0 0 1440 160" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="dv-g" x1="0" x2="1"><stop offset="0" stop-color="#E0574B" stop-opacity=".25"/><stop offset=".45" stop-color="#F08A78"/><stop offset=".75" stop-color="#F6B4A4"/><stop offset="1" stop-color="#FFE3DA" stop-opacity=".95"/></linearGradient>
+        <filter id="dv-b" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="14"/></filter>
+      </defs>
+      <path d="M-40,128 C180,138 360,150 560,108 C690,80 760,66 820,66 C910,66 990,96 1110,70 C1250,40 1350,8 1480,-6" fill="none" stroke="url(#dv-g)" stroke-width="34" opacity=".35" filter="url(#dv-b)"/>
+      <path d="M-40,128 C180,138 360,150 560,108 C690,80 760,66 820,66 C910,66 990,96 1110,70 C1250,40 1350,8 1480,-6" fill="none" stroke="url(#dv-g)" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <div class="dv-ball"></div>
+  </div>
   <div class="wrap">
     <div class="section-head">
       <div class="badge">

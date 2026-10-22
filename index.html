@@ -380,7 +380,14 @@ section:not(.hero)::before {
   display: flex; justify-content: center; align-items: center; gap: 22px;
   height: 430px;
 }
-.reel-gap { width: 330px; flex-shrink: 0; }
+/* центральная карточка — за Максимом, крупнее, с терракотовой обводкой */
+.reel-card.sc {
+  width: 300px; height: 410px; margin: 0 8px;
+  border-color: rgba(224,87,75,.45);
+  box-shadow: 0 0 40px rgba(224,87,75,.35), 0 16px 40px rgba(0,0,0,.5);
+  -webkit-mask-image: linear-gradient(#000 72%, transparent 100%);
+  mask-image: linear-gradient(#000 72%, transparent 100%);
+}
 .reel-card {
   position: relative; flex-shrink: 0;
   width: 220px; height: 319px;
@@ -1679,7 +1686,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   .reel { margin-bottom: 0; }
   .reel { height: auto; justify-content: flex-start; gap: 10px; padding: 0 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .reel::-webkit-scrollbar { display: none; }
-  .reel-gap { display: none; }
+  .reel-card.sc { width: 150px; height: 218px; margin: 0; order: -1; }
   .reel-card { width: 150px; height: 218px; transform: none !important; opacity: 1 !important; scroll-snap-align: start; }
 }
 
@@ -1785,7 +1792,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
       <div class="reel-card s3l"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero2/v1.jpg" src="assets/hero2/v1.mp4" draggable="false"></video></div>
       <div class="reel-card s2l"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero2/v2.jpg" src="assets/hero2/v2.mp4" draggable="false"></video></div>
       <div class="reel-card s1l"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero2/v3.jpg" src="assets/hero2/v3.mp4" draggable="false"></video></div>
-      <div class="reel-gap" aria-hidden="true"></div>
+      <div class="reel-card sc"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero2/v4.jpg" src="assets/hero2/v4.mp4" draggable="false"></video></div>
       <div class="reel-card s1r"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero2/v5.jpg" src="assets/hero2/v5.mp4" draggable="false"></video></div>
       <div class="reel-card s2r"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero2/v8.jpg" src="assets/hero2/v8.mp4" draggable="false"></video></div>
       <div class="reel-card s3r"><video class="reel-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero2/v10.jpg" src="assets/hero2/v10.mp4" draggable="false"></video></div>

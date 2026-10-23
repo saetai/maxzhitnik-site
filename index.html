@@ -1588,6 +1588,18 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 500;
   color: var(--text); margin-bottom: 12px; line-height: 1.3;
 }
+/* номер над карточкой — только на телефоне */
+.fw-card-num { display: none; margin-bottom: 14px; }
+.fw-card-num span {
+  display: block; font-family: 'Onest', sans-serif; font-weight: 300; font-size: 64px; line-height: 1;
+  letter-spacing: -.03em;
+  background: linear-gradient(180deg, #E0574B 0%, rgba(168,52,58,.55) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.fw-card-num::after {
+  content: ''; display: block; width: 28px; height: 1px; margin-top: 14px;
+  background: rgba(224,87,75,.7);
+}
 .fw-card-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .fw-card-list li {
   font-size: 13px; color: var(--text-muted); line-height: 1.6;
@@ -1638,9 +1650,14 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
 
   .forwho-row { grid-template-columns: 1fr; gap: 32px; }
   .forwho-row + .forwho-row { margin-top: 32px; }
-  .fw-cards-row { grid-template-columns: 1fr; gap: 24px; }
-  .fw-nums-clip { grid-template-columns: 1fr 1fr 1fr; height: 46px; }
-  .fw-num-big { font-size: 84px; }
+  /* телефон: у каждого пункта своя цифра → тире → заголовок → список; много воздуха */
+  .fw-nums-clip, .fw-cut-line { display: none; }
+  .fw-row-block { margin-bottom: 56px; }
+  .fw-cards-row { grid-template-columns: 1fr; gap: 56px; }
+  .fw-card-num { display: block; }
+  .fw-card-title { font-size: 20px; margin-bottom: 14px; }
+  .fw-card-list { gap: 12px; }
+  .fw-card-list li { font-size: 15px; line-height: 1.5; }
 
   .method-layout { grid-template-columns: 1fr; }
   .method-outer { padding: 24px; }
@@ -1863,6 +1880,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
       <div class="fw-cut-line"></div>
       <div class="fw-cards-row">
         <div class="fw-card">
+          <div class="fw-card-num" aria-hidden="true"><span>01</span></div>
           <h3 class="fw-card-title">Перфекционисты и&nbsp;контролёры</h3>
           <ul class="fw-card-list">
             <li>Привыкли всё контролировать и&nbsp;перепроверять</li>
@@ -1872,6 +1890,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </ul>
         </div>
         <div class="fw-card">
+          <div class="fw-card-num" aria-hidden="true"><span>02</span></div>
           <h3 class="fw-card-title">«Отличники» с&nbsp;зажатостью</h3>
           <ul class="fw-card-list">
             <li>Делают всё правильно, но&nbsp;чувствуют скованность</li>
@@ -1881,6 +1900,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </ul>
         </div>
         <div class="fw-card">
+          <div class="fw-card-num" aria-hidden="true"><span>03</span></div>
           <h3 class="fw-card-title">Те, кто теряется на&nbsp;переговорах</h3>
           <ul class="fw-card-list">
             <li>На&nbsp;встречах голос становится тише</li>
@@ -1902,6 +1922,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
       <div class="fw-cut-line"></div>
       <div class="fw-cards-row">
         <div class="fw-card">
+          <div class="fw-card-num" aria-hidden="true"><span>04</span></div>
           <h3 class="fw-card-title">Те, кто откладывает публичность</h3>
           <ul class="fw-card-list">
             <li>Давно хотят вести блог или&nbsp;выступать</li>
@@ -1911,6 +1932,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </ul>
         </div>
         <div class="fw-card">
+          <div class="fw-card-num" aria-hidden="true"><span>05</span></div>
           <h3 class="fw-card-title">«Скучные» (по&nbsp;собственному мнению)</h3>
           <ul class="fw-card-list">
             <li>Считают себя неинтересными собеседниками</li>
@@ -1920,6 +1942,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </ul>
         </div>
         <div class="fw-card">
+          <div class="fw-card-num" aria-hidden="true"><span>06</span></div>
           <h3 class="fw-card-title">Лидеры с&nbsp;командой<!-- TODO: уточнить 6-й пункт --></h3>
           <ul class="fw-card-list">
             <li>Хотят влиять без&nbsp;давления и&nbsp;страха</li>

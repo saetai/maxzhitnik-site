@@ -2857,17 +2857,30 @@ document.addEventListener('click', function(e) {
   el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
-/* ── Лента hero: карточки неподвижны, видео играет только когда лента на экране ── */
+/* ── Лента hero: видео играет когда лента на экране + retry при первом жесте ── */
 (function() {
   var scene = document.getElementById('reel-scene');
-  if (!scene || !('IntersectionObserver' in window)) return;
+  if (!scene) return;
   var vids = [].slice.call(scene.querySelectorAll('video'));
-  new IntersectionObserver(function(es) {
-    vids.forEach(function(v) {
-      if (es[0].isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function(){}); }
-      else v.pause();
-    });
-  }, { threshold: .05 }).observe(scene);
+
+  function tryPlay() {
+    vids.forEach(function(v) { if (v.paused) v.play().catch(function(){}); });
+  }
+
+  /* Сразу при загрузке */
+  tryPlay();
+
+  /* IntersectionObserver — запуск/пауза при прокрутке */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(es) {
+      if (es[0].isIntersecting) tryPlay(); else vids.forEach(function(v) { v.pause(); });
+    }, { threshold: .05 }).observe(scene);
+  }
+
+  /* iOS/Android: autoplay может быть заблокирован до первого касания */
+  ['touchstart', 'pointerdown', 'click'].forEach(function(evt) {
+    document.addEventListener(evt, tryPlay, { once: true, passive: true });
+  });
 })();
 </script>
 

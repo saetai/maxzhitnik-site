@@ -380,10 +380,13 @@ section:not(.hero)::before {
   display: flex; justify-content: center; align-items: center; gap: 22px;
   height: 430px;
 }
-/* центральная карточка — скрыта, за Максимом только тёмный фон */
+/* центральная карточка — за Максимом */
 .reel-card.sc {
-  width: 230px; height: 330px; margin: 0;
-  visibility: hidden;
+  width: 230px; height: 330px; margin: 0 40px;
+  border-color: rgba(224,87,75,.45);
+  box-shadow: 0 0 40px rgba(224,87,75,.35), 0 16px 40px rgba(0,0,0,.5);
+  -webkit-mask-image: linear-gradient(#000 72%, transparent 100%);
+  mask-image: linear-gradient(#000 72%, transparent 100%);
 }
 .reel-card {
   position: relative; flex-shrink: 0;
@@ -1698,18 +1701,18 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
 
 .hero-maxim-figure {
   position: absolute;
-  left: 50%; top: 50px; bottom: auto; transform: translateX(-50%);
+  left: 50%; bottom: 0; top: auto; transform: translateX(-50%);
   z-index: 3;
-  width: 500px; aspect-ratio: 1263 / 1764;
-  background: url('assets/maxim-cutout.png') center top / contain no-repeat;
-  filter: drop-shadow(0 0 1.5px rgba(255,200,175,.8)) drop-shadow(0 0 12px rgba(240,130,100,.35));
-  -webkit-mask-image: linear-gradient(#000 60%, transparent 95%);
-  mask-image: linear-gradient(#000 60%, transparent 95%);
+  width: 630px; aspect-ratio: 630 / 575;
+  background: url('assets/maxim-cutout.png') center top / cover no-repeat;
+  filter: drop-shadow(0 0 18px rgba(200,80,60,.28));
+  -webkit-mask-image: linear-gradient(#000 70%, transparent 100%);
+  mask-image: linear-gradient(#000 70%, transparent 100%);
 }
 .hero-maxim-figure::after { content: ''; position: absolute; inset: 0; z-index: 2; }
 @media (max-width: 768px) {
   .reel-scene { display: flex; flex-direction: column; padding: 16px 0 24px; }
-  .hero-maxim-figure { position: relative; left: auto; top: auto; bottom: auto; transform: none; width: 78vw; max-width: 320px; margin: 0 auto 12px; order: -1; z-index: 3; -webkit-mask-image: linear-gradient(#000 60%, transparent 95%); mask-image: linear-gradient(#000 60%, transparent 95%); }
+  .hero-maxim-figure { position: relative; left: auto; top: auto; bottom: auto; transform: none; width: 78vw; max-width: 320px; margin: 0 auto 12px; order: -1; z-index: 3; -webkit-mask-image: linear-gradient(#000 70%, transparent 100%); mask-image: linear-gradient(#000 70%, transparent 100%); aspect-ratio: 630/575 !important; background-size: cover !important; background-position: center top !important; }
   .reel { margin-bottom: 0; }
   .reel { height: auto; justify-content: flex-start; gap: 10px; padding: 0 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .reel::-webkit-scrollbar { display: none; }

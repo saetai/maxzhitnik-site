@@ -380,11 +380,9 @@ section:not(.hero)::before {
   display: flex; justify-content: center; align-items: center; gap: 22px;
   height: 430px;
 }
-/* центральная карточка — за Максимом */
+/* центральная карточка — за Максимом, ч/б как остальные, без красного */
 .reel-card.sc {
-  width: 230px; height: 330px; margin: 0 40px;
-  border-color: rgba(224,87,75,.45);
-  box-shadow: 0 0 40px rgba(224,87,75,.35), 0 16px 40px rgba(0,0,0,.5);
+  width: 230px; height: 330px; margin: 0;
   -webkit-mask-image: linear-gradient(#000 72%, transparent 100%);
   mask-image: linear-gradient(#000 72%, transparent 100%);
 }
@@ -1705,7 +1703,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   z-index: 3;
   width: 630px; aspect-ratio: 630 / 575;
   background: url('assets/maxim-cutout.png') center top / cover no-repeat;
-  filter: drop-shadow(0 0 18px rgba(200,80,60,.28));
+  filter: contrast(1.05);
   -webkit-mask-image: linear-gradient(#000 70%, transparent 100%);
   mask-image: linear-gradient(#000 70%, transparent 100%);
 }

@@ -1703,16 +1703,16 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   position: absolute;
   left: 50%; bottom: 0; transform: translateX(-50%);
   z-index: 3;
-  width: 560px; aspect-ratio: 1066 / 1095;
-  background: url('assets/maxim-cutout-new.png') center bottom / contain no-repeat;
-  filter: contrast(1.05) drop-shadow(0 20px 40px rgba(0,0,0,.55));
-  -webkit-mask-image: linear-gradient(#000 82%, transparent 100%);
-  mask-image: linear-gradient(#000 82%, transparent 100%);
+  width: 360px; aspect-ratio: 1263 / 1764;
+  background: url('assets/maxim-cutout.png') center top / contain no-repeat;
+  filter: drop-shadow(0 0 1.5px rgba(255,200,175,.8)) drop-shadow(0 0 12px rgba(240,130,100,.35));
+  -webkit-mask-image: radial-gradient(ellipse 62% 80% at 50% 30%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 62% 80% at 50% 30%, #000 62%, transparent 100%);
 }
 .hero-maxim-figure::after { content: ''; position: absolute; inset: 0; z-index: 2; }
 @media (max-width: 768px) {
   .reel-scene { display: flex; flex-direction: column; padding: 16px 0 24px; }
-  .hero-maxim-figure { position: relative; left: auto; bottom: auto; transform: none; width: 78vw; max-width: 340px; margin: 0 auto 12px; order: -1; z-index: 3; -webkit-mask-image: linear-gradient(#000 75%, transparent 100%); mask-image: linear-gradient(#000 75%, transparent 100%); }
+  .hero-maxim-figure { position: relative; left: auto; bottom: auto; transform: none; width: 78vw; max-width: 300px; margin: 0 auto 12px; order: -1; z-index: 3; -webkit-mask-image: radial-gradient(ellipse 62% 80% at 50% 30%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 62% 80% at 50% 30%, #000 62%, transparent 100%); }
   .reel { margin-bottom: 0; }
   .reel { height: auto; justify-content: flex-start; gap: 10px; padding: 0 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .reel::-webkit-scrollbar { display: none; }

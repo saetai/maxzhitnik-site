@@ -809,6 +809,38 @@ section:not(.hero)::before {
 /* ── РАЗДЕЛ 5: ИЗМЕНЕНИЯ ── */
 .outcomes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; width: 100%; }
 @media (max-width: 960px) { .outcomes-grid { grid-template-columns: 1fr 1fr; } }
+.result-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 48px; }
+.result-card-big {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  min-height: 160px;
+}
+.rc-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--accent-2, #C8A86A);
+  margin-bottom: 10px;
+}
+.rc-title {
+  font-family: 'Onest', sans-serif;
+  font-size: 22px; font-weight: 400;
+  color: var(--text);
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+.rc-text {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .result-card-big { padding: 20px 20px; }
+  .rc-title { font-size: 18px; }
+}
 
 @property --agate { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 #outcomes .card .icon {
@@ -1724,6 +1756,19 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   color: rgba(246,237,234,.92); line-height: 1.4;
   margin: 0; max-width: 520px; text-align: center; text-wrap: balance;
 }
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  margin: 20px 0 4px;
+}
+.hero-tag {
+  font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 500;
+  color: rgba(246,237,234,.80);
+  background: rgba(255,220,215,.08);
+  border: 1px solid rgba(255,220,215,.15);
+  border-radius: 100px;
+  padding: 6px 16px;
+  white-space: nowrap;
+}
 /* Trainer clients at top */
 .trainer-clients-top {
   display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 8px;
@@ -1806,6 +1851,13 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
       <span class="h-onest">Вызов <span class="h-it">7.0</span></span>
     </div>
 
+    <div class="hero-tags">
+      <span class="hero-tag">Личный бренд и харизма</span>
+      <span class="hero-tag">Переговоры под давлением</span>
+      <span class="hero-tag">Команда, которая вас любит</span>
+      <span class="hero-tag">Импровизация в кризис</span>
+    </div>
+
     <p class="hero-sub">Двухдневный тренинг для&nbsp;предпринимателей, руководителей и&nbsp;экспертов</p>
 
     <div class="hero-btn-wrap">
@@ -1833,7 +1885,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
     <div class="wrap">
       <div class="hero-desc-cards">
         <div class="hero-desc-card">Раскроете в&nbsp;себе сильные роли, на&nbsp;которые сможете опираться и&nbsp;чувствовать себя естественно и&nbsp;уверенно.</div>
-        <div class="hero-desc-card">Научитесь влиять и&nbsp;управлять диалогом: в&nbsp;переговорах, на&nbsp;сцене, в&nbsp;работе с&nbsp;командой.</div>
+        <div class="hero-desc-card">Научитесь влиять и&nbsp;управлять диалогом: в&nbsp;переговорах, на&nbsp;сцене, в&nbsp;работе с&nbsp;командой и&nbsp;в&nbsp;нештатных ситуациях.</div>
       </div>
     </div>
   </div>
@@ -1858,6 +1910,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
         <span class="h-cormorant">«Вызов 7.0»</span>
       </div>
       <p class="lead">Тренинг подходит тем, кто чувствует внутренний потенциал, но&nbsp;в&nbsp;нужный момент теряет уверенность и&nbsp;свободу проявляться.</p>
+      <p style="font-family:'Manrope',sans-serif; font-size:17px; font-weight:400; color:rgba(246,237,234,.55); margin-top:8px; line-height:1.6; max-width:560px; text-align:center;">Для тех, кто хочет личный бренд, команду, которая вас любит, силу в переговорах и спокойствие в кризис.</p>
     </div>
 
     <!-- Бегущая строка -->
@@ -1931,6 +1984,30 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
         </div>
         <div class="fw-card">
           <div class="fw-card-num" aria-hidden="true"><span>05</span></div>
+          <h3 class="fw-card-title">Руководители перед выбором</h3>
+          <ul class="fw-card-list">
+            <li>С командой приходится выбирать: давить, и люди увольняются, или смягчать, и на шею садятся</li>
+          </ul>
+        </div>
+        <div class="fw-card">
+          <div class="fw-card-num" aria-hidden="true"><span>06</span></div>
+          <h3 class="fw-card-title">Те, кто теряется вне плана</h3>
+          <ul class="fw-card-list">
+            <li>Когда что-то идёт не по плану, нервничают, теряются или ищут виноватых</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="fw-row-block">
+      <div class="fw-nums-clip">
+        <span class="fw-num-big">07</span>
+        <span class="fw-num-big">08</span>
+      </div>
+      <div class="fw-cut-line"></div>
+      <div class="fw-cards-row">
+        <div class="fw-card">
+          <div class="fw-card-num" aria-hidden="true"><span>07</span></div>
           <h3 class="fw-card-title">«Скучные» (по&nbsp;собственному мнению)</h3>
           <ul class="fw-card-list">
             <li>Считают себя неинтересными собеседниками</li>
@@ -1940,13 +2017,13 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </ul>
         </div>
         <div class="fw-card">
-          <div class="fw-card-num" aria-hidden="true"><span>06</span></div>
-          <h3 class="fw-card-title">Лидеры с&nbsp;командой<!-- TODO: уточнить 6-й пункт --></h3>
+          <div class="fw-card-num" aria-hidden="true"><span>08</span></div>
+          <h3 class="fw-card-title">Лидеры с&nbsp;командой</h3>
           <ul class="fw-card-list">
             <li>Хотят влиять без&nbsp;давления и&nbsp;страха</li>
             <li>Строят коммуникацию в&nbsp;команде осознанно</li>
             <li>Хотят, чтобы&nbsp;люди слышали их с&nbsp;первого слова</li>
-            <li>Ищут живого контакта, а&nbsp;не&nbsp;формальных схем<!-- TODO --></li>
+            <li>Ищут живого контакта, а&nbsp;не&nbsp;формальных схем</li>
           </ul>
         </div>
       </div>
@@ -2346,8 +2423,9 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           <div class="acc-content">
             <p class="acc-sub">Выводите внутреннюю опору в&nbsp;реальное взаимодействие: переговоры, команда, сцена.</p>
             <ul class="acc-list">
-              <li>Моделируем ваши реальные ситуации: переговоры, публичные выступления, работа с&nbsp;командой</li>
+              <li>Моделируем ваши реальные ситуации: переговоры, публичные выступления, работа с&nbsp;командой, конфликты (под запросы группы)</li>
               <li>Репетируете и&nbsp;пробуете в&nbsp;парах и&nbsp;в&nbsp;группах</li>
+              <li>Тренируем импровизацию в нештатных ситуациях: когда что-то идёт по другому сценарию, учитесь включаться в новый план на ходу</li>
               <li>Учитесь управлять процессом и&nbsp;замечать своё состояние</li>
               <li>Учитесь считывать партнёра: эмоции, язык тела</li>
             </ul>
@@ -2363,7 +2441,51 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   </div>
 </section>
 
-<!-- ═══ 5. 5 НАПРАВЛЕНИЙ ═══ -->
+<!-- ═══ 5. РЕЗУЛЬТАТЫ — 5 карточек ═══ -->
+<section id="outcomes" style="padding: 100px 0 80px;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        После тренинга
+      </div>
+      <div class="heading h2">
+        <span class="h-onest">Какие <span class="h-it">изменения</span> будут</span>
+        <span class="h-cormorant">в&nbsp;жизни после тренинга</span>
+      </div>
+    </div>
+
+    <div class="result-cards">
+      <div class="result-card-big">
+        <div class="rc-num">01</div>
+        <h3 class="rc-title">Личный бренд и харизма</h3>
+        <p class="rc-text">Вы свободно снимаете видео, выступаете на сцене и уверенно держитесь на камере. Харизма и личный бренд работают на вас: растёт узнаваемость, социальный капитал и вместе с ними доход, который становится постоянным и растёт сам.</p>
+      </div>
+      <div class="result-card-big">
+        <div class="rc-num">02</div>
+        <h3 class="rc-title">Переговоры под давлением</h3>
+        <p class="rc-text">На переговорах с инвесторами, крупными клиентами, подрядчиками и партнёрами вы сохраняете спокойствие и держите позицию. Стресс и давление проходят без потери ясности, а сложные конфликты решаются так, что сделки, партнёрства и отношения остаются целыми.</p>
+      </div>
+      <div class="result-card-big">
+        <div class="rc-num">03</div>
+        <h3 class="rc-title">Команда, которая вас любит</h3>
+        <p class="rc-text">Вы руководитель, с которым приятно работать и дружить. Люди понимают вас с первого раза, задачи выполняются грамотно, вовремя и эффективно. Границы остаются на месте: на шею никто не сядет и манипулировать вами не получится. Команда работает с удовольствием и остаётся в компании.</p>
+      </div>
+      <div class="result-card-big">
+        <div class="rc-num">04</div>
+        <h3 class="rc-title">Импровизация в кризис и форс-мажор</h3>
+        <p class="rc-text">Когда что-то идёт по другому сценарию, вы сразу включаетесь в новый план. В кризисе вы действуете и импровизируете, относитесь к происходящему как к игре, в которой всегда есть следующий ход. Мышление меняется, и нештатные ситуации перестают пугать.</p>
+      </div>
+      <div class="result-card-big">
+        <div class="rc-num">05</div>
+        <h3 class="rc-title">Лёгкость в жизни и общении</h3>
+        <p class="rc-text">Вы легко знакомитесь, заводите друзей и в любом незнакомом месте включаетесь в происходящее: шутите, танцуете, оживляете компанию. Открытость и эмоциональная смелость делают вас приятным и притягательным человеком, а круг классных людей вокруг растёт.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5б. 5 НАПРАВЛЕНИЙ ═══ -->
 <section id="directions" style="padding: 120px 0 80px;">
   <div class="wrap">
     <div class="section-head">
@@ -2372,14 +2494,11 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
         5 направлений
       </div>
       <div class="heading h2">
-        <span class="h-onest">Социальный капитал:</span>
-        <span class="h-onest">харизма, голос и&nbsp;<span class="h-it">смелость</span></span>
-        <span class="h-onest">как&nbsp;актив</span>
+        <span class="h-onest">Социальный капитал: харизма, голос и&nbsp;<span class="h-it">смелость</span> как&nbsp;актив&nbsp;— в&nbsp;бизнесе, с&nbsp;командой, в&nbsp;переговорах, в&nbsp;кризис и&nbsp;в&nbsp;жизни</span>
       </div>
-      <p class="lead">Внутренняя смелость и харизма конвертируются в социальный капитал, а социальный капитал — в деньги, стабильно и не разово.</p>
+      <p class="lead">Общая идея, которая объединяет все пять направлений: внутренняя смелость и харизма конвертируются в социальный капитал, а социальный капитал — в деньги, стабильно и не разово. Ниже — пять дверей входа в эту идею и продуктовая воронка под каждую.</p>
     </div>
 
-    <!-- Воронка -->
     <div style="display:flex; align-items:stretch; gap:0; margin: 0 auto 56px; max-width:800px; overflow-x:auto;">
       <div style="flex:1; min-width:120px; background:var(--surface); border:1px solid var(--border); border-radius:12px 0 0 12px; padding:16px 18px;">
         <div style="font-size:13px; font-weight:600; color:var(--text); margin-bottom:4px;">Лид-магнит</div>
@@ -2415,11 +2534,9 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
             <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
           </button>
         </div>
-        <div class="acc-body">
-          <div class="acc-content">
-            <p class="acc-sub">Как имя и репутация становятся активом, который работает без вашего участия. Почему харизма — это навык, а не черта характера. Как выстраивать присутствие в медиа так, чтобы клиенты приходили сами.</p>
-          </div>
-        </div>
+        <div class="acc-body"><div class="acc-content">
+          <p class="acc-sub">Как имя и репутация становятся активом, который работает без вашего участия. Почему харизма — это навык, а не черта характера. Как выстраивать присутствие в медиа так, чтобы клиенты приходили сами.</p>
+        </div></div>
       </div>
 
       <div class="acc-item">
@@ -2433,11 +2550,9 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
             <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
           </button>
         </div>
-        <div class="acc-body">
-          <div class="acc-content">
-            <p class="acc-sub">Как говорить с командой так, чтобы вас слышали, а не боялись. Авторитет без давления. Как удерживать людей не деньгами, а смыслом и присутствием.</p>
-          </div>
-        </div>
+        <div class="acc-body"><div class="acc-content">
+          <p class="acc-sub">Как говорить с командой так, чтобы вас слышали, а не боялись. Авторитет без давления. Как удерживать людей не деньгами, а смыслом и присутствием.</p>
+        </div></div>
       </div>
 
       <div class="acc-item">
@@ -2451,11 +2566,9 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
             <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
           </button>
         </div>
-        <div class="acc-body">
-          <div class="acc-content">
-            <p class="acc-sub">Как оставаться собой под давлением. Что делать, когда теряешься или злишься. Техники, которые работают в реальных ситуациях, а не только в теории.</p>
-          </div>
-        </div>
+        <div class="acc-body"><div class="acc-content">
+          <p class="acc-sub">Как оставаться собой под давлением. Что делать, когда теряешься или злишься. Техники, которые работают в реальных ситуациях, а не только в теории.</p>
+        </div></div>
       </div>
 
       <div class="acc-item">
@@ -2469,11 +2582,9 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
             <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
           </button>
         </div>
-        <div class="acc-body">
-          <div class="acc-content">
-            <p class="acc-sub">Как быстро перестраиваться, когда меняются правила. Гибкость мышления как конкурентное преимущество. Почему жёсткие люди проигрывают гибким.</p>
-          </div>
-        </div>
+        <div class="acc-body"><div class="acc-content">
+          <p class="acc-sub">Как быстро перестраиваться, когда меняются правила. Гибкость мышления как конкурентное преимущество. Почему жёсткие люди проигрывают гибким.</p>
+        </div></div>
       </div>
 
       <div class="acc-item">
@@ -2487,16 +2598,12 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
             <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
           </button>
         </div>
-        <div class="acc-body">
-          <div class="acc-content">
-            <p class="acc-sub">Как перестать прятаться за ролью и начать проявляться по-настоящему. Страх оценки, синдром самозванца, ощущение «я не такой». Почему смелость — мышца, которую можно накачать.</p>
-          </div>
-        </div>
+        <div class="acc-body"><div class="acc-content">
+          <p class="acc-sub">Как перестать прятаться за ролью и начать проявляться по-настоящему. Страх оценки, синдром самозванца, ощущение «я не такой». Почему смелость — мышца, которую можно накачать.</p>
+        </div></div>
       </div>
 
     </div>
-
-    <p style="text-align:center; font-size:14px; color:var(--text-muted); margin-top:40px; line-height:1.7; border-top:1px solid var(--border); padding-top:32px;">Все 5 направлений ведут через продукт-стартер к флагманскому тренингу «Вызов»,<br>а оттуда — в групповое или личное сопровождение с высоким чеком.</p>
   </div>
 </section>
 

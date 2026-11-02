@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 направлений — Максим Житник</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Manrope:wght@400;500;600&family=Onest:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #0E0B0B;
+  --surface:    #171212;
+  --surface-2:  #1E1717;
+  --border:     rgba(255,220,215,.08);
+  --text:       #F6EDEA;
+  --text-muted: rgba(246,237,234,.62);
+  --accent:     #E0574B;
+  --accent-2:   #C8A86A;
+  --accent-3:   #7B9ED4;
+  --accent-4:   #9B6DB5;
+  --accent-5:   #5BAB7A;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 80px 0 100px;
+}
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+/* ── ШАПКА РАЗДЕЛА ── */
+.dir-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.dir-title {
+  font-family: 'Onest', sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.dir-desc {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+/* ── ВОРОНКА ── */
+.funnel {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 56px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.funnel-step {
+  flex: 1;
+  min-width: 140px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px 18px;
+  position: relative;
+}
+.funnel-step:first-child { border-radius: 12px 0 0 12px; }
+.funnel-step:last-child  { border-radius: 0 12px 12px 0; }
+
+.funnel-step + .funnel-step {
+  border-left: none;
+}
+
+.funnel-step.active {
+  background: var(--surface-2);
+  border-color: rgba(224,87,75,.35);
+}
+
+.funnel-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.funnel-step.active .funnel-name { color: var(--accent); }
+
+.funnel-price {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.funnel-arrow {
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+  color: var(--text-muted);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ── АККОРДЕОН ── */
+.acc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.acc-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+
+.acc-item.open {
+  border-color: rgba(255,220,215,.16);
+}
+
+.acc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  cursor: pointer;
+  gap: 16px;
+  user-select: none;
+}
+
+.acc-head-left { flex: 1; }
+
+.acc-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.acc-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.acc-arrow {
+  width: 28px; height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform .3s;
+  color: var(--text-muted);
+}
+.acc-item.open .acc-arrow { transform: rotate(180deg); border-color: rgba(255,220,215,.2); }
+
+.acc-body {
+  display: none;
+  padding: 0 24px 24px;
+}
+.acc-item.open .acc-body { display: block; }
+
+.acc-body p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+.acc-body p:last-child { margin-bottom: 0; }
+
+/* цвета меток по направлению */
+.c1 { color: #E0574B; }
+.c2 { color: #C8A86A; }
+.c3 { color: #7B9ED4; }
+.c4 { color: #9B6DB5; }
+.c5 { color: #5BAB7A; }
+
+/* ── ИТОГОВАЯ ФРАЗА ── */
+.dir-footer {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-align: center;
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  body { padding: 48px 0 60px; }
+  .acc-title { font-size: 16px; }
+  .funnel { gap: 0; }
+  .funnel-step { min-width: 110px; padding: 12px 12px; }
+  .funnel-name { font-size: 12px; }
+  .funnel-price { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="dir-label">Контент-стратегия · 5 направлений блога</p>
+
+  <h2 class="dir-title">Социальный капитал: харизма, голос и смелость как актив — в бизнесе, с командой, в переговорах, в кризис и в жизни</h2>
+
+  <p class="dir-desc">Общая идея, которая объединяет все пять направлений: внутренняя смелость и харизма конвертируются в социальный капитал, а социальный капитал — в деньги, стабильно и не разово. Ниже — пять дверей входа в эту идею и продуктовая воронка под каждую.</p>
+
+  <!-- ВОРОНКА -->
+  <div class="funnel">
+    <div class="funnel-step">
+      <div class="funnel-name">Лид-магнит</div>
+      <div class="funnel-price">бесплатно</div>
+    </div>
+    <div class="funnel-arrow">→</div>
+    <div class="funnel-step">
+      <div class="funnel-name">Продукт-стартер</div>
+      <div class="funnel-price">5 000–20 000 ₽</div>
+    </div>
+    <div class="funnel-arrow">→</div>
+    <div class="funnel-step active">
+      <div class="funnel-name">Флагман «Вызов»</div>
+      <div class="funnel-price">20 000 ₽, 2 дня</div>
+    </div>
+    <div class="funnel-arrow">→</div>
+    <div class="funnel-step">
+      <div class="funnel-name">Сопровождение</div>
+      <div class="funnel-price">группа/личное, от $3 000</div>
+    </div>
+  </div>
+
+  <!-- АККОРДЕОН -->
+  <div class="acc-list">
+
+    <div class="acc-item open">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-head-left">
+          <div class="acc-num c1">1 · Про деньги напрямую</div>
+          <div class="acc-title">Личный бренд и социальный капитал</div>
+        </div>
+        <div class="acc-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="acc-body">
+        <p>Как имя и репутация становятся активом, который работает без вашего участия. Почему харизма — это навык, а не черта характера. Как выстраивать присутствие в медиа так, чтобы клиенты приходили сами.</p>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-head-left">
+          <div class="acc-num c2">2 · Про деньги напрямую</div>
+          <div class="acc-title">Руководитель, которого любит команда</div>
+        </div>
+        <div class="acc-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="acc-body">
+        <p>Как говорить с командой так, чтобы вас слышали, а не боялись. Авторитет без давления. Как удерживать людей не деньгами, а смыслом и присутствием.</p>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-head-left">
+          <div class="acc-num c3">3 · Про деньги напрямую</div>
+          <div class="acc-title">Трудные переговоры и конфликтные ситуации</div>
+        </div>
+        <div class="acc-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="acc-body">
+        <p>Как оставаться собой под давлением. Что делать, когда теряешься или злишься. Техники, которые работают в реальных ситуациях, а не только в теории.</p>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-head-left">
+          <div class="acc-num c4">4 · Про деньги напрямую</div>
+          <div class="acc-title">Адаптивный интеллект</div>
+        </div>
+        <div class="acc-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="acc-body">
+        <p>Как быстро перестраиваться, когда меняются правила. Гибкость мышления как конкурентное преимущество. Почему жёсткие люди проигрывают гибким.</p>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-head-left">
+          <div class="acc-num c5">5 · Про жизнь, не только про деньги</div>
+          <div class="acc-title">Эмоциональная смелость</div>
+        </div>
+        <div class="acc-arrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="acc-body">
+        <p>Как перестать прятаться за ролью и начать проявляться по-настоящему. Страх оценки, синдром самозванца, ощущение «я не такой». Почему смелость — мышца, которую можно накачать.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="dir-footer">Все 5 направлений ведут через продукт-стартер к флагманскому тренингу «Вызов»,<br>а оттуда — в групповое или личное сопровождение с высоким чеком.</p>
+
+</div>
+
+<script>
+function toggle(head) {
+  const item = head.closest('.acc-item');
+  item.classList.toggle('open');
+}
+</script>
+</body>
+</html>

@@ -823,36 +823,42 @@ section:not(.hero)::before {
 /* ── РАЗДЕЛ 5: ИЗМЕНЕНИЯ ── */
 .outcomes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; width: 100%; }
 @media (max-width: 960px) { .outcomes-grid { grid-template-columns: 1fr 1fr; } }
-.result-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 48px; }
+.result-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 48px; }
 .result-card-big {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px 32px;
-  min-height: 160px;
+  padding: 32px 0 32px;
+  border-top: 1px solid rgba(255,255,255,.10);
 }
+.result-card-big:nth-child(odd) { padding-right: 40px; border-right: 1px solid rgba(255,255,255,.10); }
+.result-card-big:nth-child(even) { padding-left: 40px; }
+.result-card-big:last-child { grid-column: 1 / -1; border-right: none; padding-right: 0; max-width: 50%; }
 .rc-num {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px; font-weight: 600;
-  letter-spacing: .12em;
-  color: var(--accent-2, #C8A86A);
-  margin-bottom: 10px;
+  font-family: 'Onest', sans-serif;
+  font-size: 88px; font-weight: 300;
+  line-height: .94; letter-spacing: -.03em;
+  background: linear-gradient(180deg, #E0574B 0%, rgba(168,52,58,.55) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  display: block; margin-bottom: 16px; user-select: none;
 }
+.rc-cut { height: 1px; background: rgba(255,255,255,.12); margin-bottom: 20px; }
 .rc-title {
   font-family: 'Onest', sans-serif;
-  font-size: 22px; font-weight: 400;
+  font-size: 20px; font-weight: 400;
   color: var(--text);
   line-height: 1.25;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .rc-text {
   font-size: 15px;
   color: var(--text-muted);
-  line-height: 1.7;
+  line-height: 1.65;
   margin: 0;
 }
 @media (max-width: 600px) {
-  .result-card-big { padding: 20px 20px; }
+  .result-cards { grid-template-columns: 1fr; }
+  .result-card-big:nth-child(odd) { padding-right: 0; border-right: none; }
+  .result-card-big:nth-child(even) { padding-left: 0; }
+  .result-card-big:last-child { max-width: 100%; }
+  .rc-num { font-size: 64px; }
   .rc-title { font-size: 18px; }
 }
 
@@ -2448,28 +2454,33 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
     <div class="result-cards">
       <div class="result-card-big">
         <div class="rc-num">01</div>
+        <div class="rc-cut"></div>
         <h3 class="rc-title">Личный бренд и харизма</h3>
-        <p class="rc-text">Вы свободно снимаете видео, выступаете на сцене и уверенно держитесь на камере. Харизма и личный бренд работают на вас: растёт узнаваемость, социальный капитал и вместе с ними доход, который становится постоянным и растёт сам.</p>
+        <p class="rc-text">Снимаете видео, выступаете и уверенно держитесь на камере. Харизма работает на вас: растут узнаваемость, социальный капитал и доход.</p>
       </div>
       <div class="result-card-big">
         <div class="rc-num">02</div>
+        <div class="rc-cut"></div>
         <h3 class="rc-title">Переговоры под давлением</h3>
-        <p class="rc-text">На переговорах с инвесторами, крупными клиентами, подрядчиками и партнёрами вы сохраняете спокойствие и держите позицию. Стресс и давление проходят без потери ясности, а сложные конфликты решаются так, что сделки, партнёрства и отношения остаются целыми.</p>
+        <p class="rc-text">Сохраняете спокойствие и позицию даже под давлением. Сделки, партнёрства и отношения остаются целыми.</p>
       </div>
       <div class="result-card-big">
         <div class="rc-num">03</div>
+        <div class="rc-cut"></div>
         <h3 class="rc-title">Команда, которая вас любит</h3>
-        <p class="rc-text">Вы руководитель, с которым приятно работать и дружить. Люди понимают вас с первого раза, задачи выполняются грамотно, вовремя и эффективно. Границы остаются на месте: на шею никто не сядет и манипулировать вами не получится. Команда работает с удовольствием и остаётся в компании.</p>
+        <p class="rc-text">Люди понимают вас с первого слова, задачи выполняются вовремя. На шею никто не сядет — команда работает с удовольствием и остаётся.</p>
       </div>
       <div class="result-card-big">
         <div class="rc-num">04</div>
-        <h3 class="rc-title">Импровизация в кризис и форс-мажор</h3>
-        <p class="rc-text">Когда что-то идёт по другому сценарию, вы сразу включаетесь в новый план. В кризисе вы действуете и импровизируете, относитесь к происходящему как к игре, в которой всегда есть следующий ход. Мышление меняется, и нештатные ситуации перестают пугать.</p>
+        <div class="rc-cut"></div>
+        <h3 class="rc-title">Импровизация в кризис</h3>
+        <p class="rc-text">Когда план рушится — сразу включаетесь в новый. Нештатные ситуации перестают пугать.</p>
       </div>
       <div class="result-card-big">
         <div class="rc-num">05</div>
+        <div class="rc-cut"></div>
         <h3 class="rc-title">Лёгкость в жизни и общении</h3>
-        <p class="rc-text">Вы легко знакомитесь, заводите друзей и в любом незнакомом месте включаетесь в происходящее: шутите, танцуете, оживляете компанию. Открытость и эмоциональная смелость делают вас приятным и притягательным человеком, а круг классных людей вокруг растёт.</p>
+        <p class="rc-text">Легко знакомитесь, шутите, оживляете компанию. Открытость притягивает классных людей.</p>
       </div>
     </div>
   </div>

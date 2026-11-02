@@ -2963,11 +2963,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
 <script>
 // ── Аккордеон ──────────────────────────────────────────────────
 function toggleAcc(header) {
-  var item = header.closest('.acc-item');
-  var isOpen = item.classList.contains('is-open');
-  // закрываем все
-  document.querySelectorAll('.acc-item').forEach(function(el) { el.classList.remove('is-open'); });
-  if (!isOpen) item.classList.add('is-open');
+  header.closest('.acc-item').classList.toggle('is-open');
 }
 
 // ── Crossfade фото тренера ──────────────────────────────────────

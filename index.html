@@ -785,7 +785,21 @@ section:not(.hero)::before {
   background: rgba(8,5,5,.55);
   transition: max-height .4s ease, padding .4s ease;
 }
-.acc-item.is-open .acc-body { max-height: 900px; border-top: 1px solid rgba(255,255,255,.10); }
+.acc-item.is-open .acc-body { max-height: 2400px; border-top: 1px solid rgba(255,255,255,.10); }
+.dir-points { list-style: none; display: flex; flex-direction: column; gap: 0; margin-bottom: 24px; }
+.dir-points li { font-size: 15px; color: var(--text-muted); padding: 12px 0 12px 32px; position: relative; border-bottom: 1px solid rgba(255,255,255,.06); line-height: 1.6; }
+.dir-points li:last-child { border-bottom: none; }
+.dir-points li::before { content: '□'; position: absolute; left: 4px; color: rgba(246,237,234,.18); font-size: 13px; top: 13px; }
+.dir-points li.bold { font-weight: 600; color: var(--text); }
+.dir-starter { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; margin-top: 8px; }
+.dir-starter-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
+.dir-starter-text { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+.dir-starter-text strong { color: var(--text); font-weight: 600; }
+.dir-leadmag { background: rgba(8,5,5,.6); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; }
+.dir-leadmag-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.dir-leadmag ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.dir-leadmag ul li { font-size: 14px; color: var(--text-muted); padding-left: 16px; position: relative; line-height: 1.55; }
+.dir-leadmag ul li::before { content: '•'; position: absolute; left: 0; color: rgba(246,237,234,.3); }
 .acc-content { padding: 32px 32px 32px; }
 .acc-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
 .acc-list {
@@ -2496,7 +2510,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
       <div class="heading h2">
         <span class="h-onest">Социальный капитал: харизма, голос и&nbsp;<span class="h-it">смелость</span> как&nbsp;актив&nbsp;— в&nbsp;бизнесе, с&nbsp;командой, в&nbsp;переговорах, в&nbsp;кризис и&nbsp;в&nbsp;жизни</span>
       </div>
-      <p class="lead">Общая идея, которая объединяет все пять направлений: внутренняя смелость и харизма конвертируются в социальный капитал, а социальный капитал — в деньги, стабильно и не разово. Ниже — пять дверей входа в эту идею и продуктовая воронка под каждую.</p>
+      <p class="lead">Общая идея, которая объединяет все пять направлений: внутренняя смелость и харизма конвертируются в социальный капитал, а социальный капитал — в деньги, стабильно и не разово.</p>
     </div>
 
     <div class="accordion">
@@ -2513,7 +2527,29 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </button>
         </div>
         <div class="acc-body"><div class="acc-content">
-          <p class="acc-sub">Как имя и репутация становятся активом, который работает без вашего участия. Почему харизма — это навык, а не черта характера. Как выстраивать присутствие в медиа так, чтобы клиенты приходили сами.</p>
+          <ul class="dir-points">
+            <li>Социальный капитал = вы всегда выигрываете у того, у кого его нет</li>
+            <li>С именем проще открыть любой бизнес — и не с нуля</li>
+            <li>С именем можно нанимать людей дешевле — или сразу брать топовых</li>
+            <li>С именем вы работаете с более дорогими клиентами, и продавать им легче</li>
+            <li>Репутация тянется за вами и продаёт за вас ещё до первого разговора</li>
+            <li>Харизма и подача не растут сами — если вы зажаты, боитесь камеры и боитесь выглядеть глупо</li>
+            <li class="bold">Формула: внутренняя смелость + харизма = социальный капитал = кратно больший доход</li>
+            <li>Этот доход не разовый — он постоянный и растёт сам</li>
+            <li>«Нет времени» почти всегда означает «боюсь туда идти»</li>
+            <li>Два дня тренинга убирают именно страх — и дальше вы двигаетесь сильно легче</li>
+          </ul>
+          <div class="dir-starter">
+            <div class="dir-starter-label" style="color:#E0574B;">Продукт-стартер</div>
+            <div class="dir-starter-text"><strong>Мини-интенсив «Первый шаг к харизме»</strong> — короткий формат (1 день/несколько часов), 5 000–15 000 ₽. Снятие зажима перед камерой, первая проба голоса и подачи, живой групповой разбор.</div>
+          </div>
+          <div class="dir-leadmag">
+            <div class="dir-leadmag-label">Лид-магниты</div>
+            <ul>
+              <li>Видео-урок с одним упражнением на снятие зажима перед камерой</li>
+              <li>Чек-лист «3 скрытые причины, почему вы откладываете личный бренд» (не нехватка времени)</li>
+            </ul>
+          </div>
         </div></div>
       </div>
 
@@ -2529,7 +2565,25 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </button>
         </div>
         <div class="acc-body"><div class="acc-content">
-          <p class="acc-sub">Как говорить с командой так, чтобы вас слышали, а не боялись. Авторитет без давления. Как удерживать людей не деньгами, а смыслом и присутствием.</p>
+          <ul class="dir-points">
+            <li>Вы в любом случае всегда общаетесь с людьми — вопрос в том, каким вас видят</li>
+            <li>Можно быть тем, кого любят: грамотно ставит задачи, контролирует без давления, умеет сплотить</li>
+            <li>А можно быть давящим и контролирующим — и люди будут увольняться и работать хуже</li>
+            <li>Говорить понятным языком — отдельный навык: ставить цели ясно, не тараторить, не повторяться</li>
+            <li>Это не про мягкость вместо эффективности — задачи закрываются в любом случае</li>
+            <li>Разница в том, тянется к вам команда — или терпит вас</li>
+          </ul>
+          <div class="dir-starter">
+            <div class="dir-starter-label" style="color:#C8A86A;">Продукт-стартер</div>
+            <div class="dir-starter-text"><strong>Интенсив «Руководитель, которого любят»</strong> — 5 000–20 000 ₽. Работа с подачей задач, обратной связью, сплочением команды через голос и присутствие, а не через давление.</div>
+          </div>
+          <div class="dir-leadmag">
+            <div class="dir-leadmag-label">Лид-магниты</div>
+            <ul>
+              <li>Разбор «5 фраз руководителя, которые незаметно разваливают доверие команды»</li>
+              <li>Короткий видео-урок «Как поставить задачу так, чтобы её не пришлось повторять трижды»</li>
+            </ul>
+          </div>
         </div></div>
       </div>
 
@@ -2545,7 +2599,26 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </button>
         </div>
         <div class="acc-body"><div class="acc-content">
-          <p class="acc-sub">Как оставаться собой под давлением. Что делать, когда теряешься или злишься. Техники, которые работают в реальных ситуациях, а не только в теории.</p>
+          <ul class="dir-points">
+            <li class="bold">Партнёрство — отдельная, очень российская боль</li>
+            <li>Партнёры либо расходятся при первом конфликте, не построив бизнес, который могли бы построить вместе</li>
+            <li>Либо строят бизнес годами, а потом делят его — с разрушением отношений и дружбы на всю жизнь</li>
+            <li>Либо один партнёр из страха конфликта отдаёт слишком много и несёт убытки, которых можно было избежать</li>
+            <li>Вторая категория риска: ключевые сотрудники, топовые клиенты, подрядчики, суды, попытки увести команду</li>
+            <li>Нужно находить общий язык под давлением, не рубить сгоряча и не молчать до взрыва</li>
+            <li>И молчание до взрыва, и резкость сгоряча одинаково заканчиваются большими денежными потерями</li>
+          </ul>
+          <div class="dir-starter">
+            <div class="dir-starter-label" style="color:#7B9ED4;">Продукт-стартер</div>
+            <div class="dir-starter-text"><strong>Интенсив «Трудные переговоры и партнёрские конфликты»</strong> — 5 000–20 000 ₽. Разбор реальных кейсов участников: как вести разговор на высоких ставках и не терять ни деньги, ни отношения.</div>
+          </div>
+          <div class="dir-leadmag">
+            <div class="dir-leadmag-label">Лид-магниты</div>
+            <ul>
+              <li>Гайд «Как разговаривать с партнёром о деньгах, не разрушая бизнес и дружбу»</li>
+              <li>Разбор одного реального кейса: конфликт с ключевым клиентом или подрядчиком — что сработало</li>
+            </ul>
+          </div>
         </div></div>
       </div>
 
@@ -2561,7 +2634,25 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </button>
         </div>
         <div class="acc-body"><div class="acc-content">
-          <p class="acc-sub">Как быстро перестраиваться, когда меняются правила. Гибкость мышления как конкурентное преимущество. Почему жёсткие люди проигрывают гибким.</p>
+          <ul class="dir-points">
+            <li>Форс-мажор — и обычный человек теряется: нервничает, впадает в ступор, ищет виноватых</li>
+            <li>Адаптивный интеллект — это не следовать сценарию, а включаться в новый план на ходу</li>
+            <li>Не сработал план А — значит, план Б, без паники и без поиска виноватых</li>
+            <li>Это смена типа мышления: от паники из-за сбившегося плана — к игре с тем, что есть</li>
+            <li>В кризисе вы не замираете, а начинаете действовать и импровизировать</li>
+            <li>Новое условие — это просто новое условие, а не катастрофа</li>
+          </ul>
+          <div class="dir-starter">
+            <div class="dir-starter-label" style="color:#9B6DB5;">Продукт-стартер</div>
+            <div class="dir-starter-text"><strong>Интенсив «Адаптивный интеллект: мышление в кризис»</strong> — 5 000–20 000 ₽. Импровизационные практики на реакцию в моменте — без сценария, без права на паузу.</div>
+          </div>
+          <div class="dir-leadmag">
+            <div class="dir-leadmag-label">Лид-магниты</div>
+            <ul>
+              <li>Видео-урок с упражнением на импровизацию под стресс</li>
+              <li>Короткий разбор «Почему вы теряетесь в кризис — и как это меняется за один навык»</li>
+            </ul>
+          </div>
         </div></div>
       </div>
 
@@ -2577,7 +2668,25 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
           </button>
         </div>
         <div class="acc-body"><div class="acc-content">
-          <p class="acc-sub">Как перестать прятаться за ролью и начать проявляться по-настоящему. Страх оценки, синдром самозванца, ощущение «я не такой». Почему смелость — мышца, которую можно накачать.</p>
+          <ul class="dir-points">
+            <li>В незнакомой компании многие держат серьёзное лицо и молчат — хотя внутри хотели бы быть лёгкими</li>
+            <li>Хочется легко заводить разговор, шутить, танцевать, быть в центре внимания без неловкости</li>
+            <li>Хочется уметь заводить друзей и приглашать их на отдых, а не оставаться закрытым</li>
+            <li>Внутри закрытого человека часто живёт одиночество и нехватка классных людей рядом</li>
+            <li>Особенно это бьёт по мужчинам — собираются компанией и просто молча сидят</li>
+            <li>Это не про деньги напрямую — но именно эта открытость потом работает и в бизнесе, и в команде, и в переговорах</li>
+          </ul>
+          <div class="dir-starter">
+            <div class="dir-starter-label" style="color:#5BAB7A;">Продукт-стартер</div>
+            <div class="dir-starter-text"><strong>Интенсив «Эмоциональная смелость»</strong> — 5 000–20 000 ₽. Практики на открытость, лёгкость в компании незнакомых людей, живой контакт без масок.</div>
+          </div>
+          <div class="dir-leadmag">
+            <div class="dir-leadmag-label">Лид-магниты</div>
+            <ul>
+              <li>Видео-урок «Как завести разговор с незнакомцем без неловкости»</li>
+              <li>Короткий тест/разбор «Почему вам одиноко в компании людей» — отправная точка к теме</li>
+            </ul>
+          </div>
         </div></div>
       </div>
 

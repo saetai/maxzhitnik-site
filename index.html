@@ -2363,98 +2363,140 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   </div>
 </section>
 
-<!-- ═══ 5. ИЗМЕНЕНИЯ — 4 карточки + фон-фото ═══ -->
-<section id="outcomes">
-  <div class="section-bg-photo" style="background-image:url('assets/__244_2.jpg');"></div>
-  <div class="section-decor" aria-hidden="true">
-    <span class="sp" style="left:7%;top:18%;width:4px;height:4px;animation-delay:0.9s"></span>
-    <span class="sp" style="left:26%;top:82%;width:3px;height:3px;animation-delay:2.2s"></span>
-    <span class="sp" style="right:5%;top:32%;width:4px;height:4px;animation-delay:1.6s"></span>
-    <span class="sp" style="right:23%;top:14%;width:3px;height:3px;animation-delay:0.4s"></span>
-  </div>
+<!-- ═══ 5. 5 НАПРАВЛЕНИЙ ═══ -->
+<section id="directions" style="padding: 120px 0 80px;">
   <div class="wrap">
     <div class="section-head">
       <div class="badge">
-        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        После тренинга
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        5 направлений
       </div>
       <div class="heading h2">
-        <span class="h-onest">Какие <span class="h-it">изменения</span> будут</span>
-        <span class="h-cormorant">в&nbsp;жизни после тренинга</span>
+        <span class="h-onest">Социальный капитал:</span>
+        <span class="h-onest">харизма, голос и&nbsp;<span class="h-it">смелость</span></span>
+        <span class="h-onest">как&nbsp;актив</span>
       </div>
-      <p class="lead">Уверенность, которая останется с&nbsp;вами&nbsp;— не&nbsp;только на&nbsp;два дня, а&nbsp;как&nbsp;новый способ быть собой.</p>
+      <p class="lead">Внутренняя смелость и харизма конвертируются в социальный капитал, а социальный капитал — в деньги, стабильно и не разово.</p>
     </div>
-    <div class="outcomes-grid">
 
-      <div class="card">
-        <div class="icon" style="color:#E0574B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-        <div class="card-title">Больше смелости и&nbsp;решительности</div>
-        <p class="card-text">Сможете легко делать то, что&nbsp;раньше откладывали и&nbsp;стеснялись, принимать сложные решения.</p>
-        <div class="oc-inf"><svg viewBox="0 0 200 90" aria-hidden="true"><defs><filter id="oc-glow2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="oc-g1" gradientUnits="userSpaceOnUse" x1="30" y1="0" x2="170" y2="90">
-              <stop offset="0%" stop-color="#E0574B"><animate attributeName="stop-color" values="#E0574B;#F6B4A4;#F0A050;#E0574B" dur="6s" repeatCount="indefinite"/></stop>
-              <stop offset="100%" stop-color="#F0A050"><animate attributeName="stop-color" values="#F0A050;#E0574B;#F6B4A4;#F0A050" dur="6s" repeatCount="indefinite"/></stop>
-            </linearGradient></defs>
-            <ellipse cx="100" cy="84" rx="38" ry="4" fill="url(#oc-g1)" opacity=".25"/>
-            <g class="oc-flame" filter="url(#oc-glow2)">
-              <path d="M100 10 C112 30 128 40 124 60 C121 76 110 84 100 84 C90 84 79 76 76 60 C73 44 88 38 92 26 C96 34 98 38 100 40 C102 30 102 20 100 10 Z" fill="url(#oc-g1)" opacity=".9"/>
-              <path d="M100 46 C106 54 112 60 110 70 C108 78 104 82 100 82 C96 82 92 78 90 70 C89 62 95 58 100 46 Z" fill="#FFE8E0" opacity=".55"/>
-            </g></svg></div>
+    <!-- Воронка -->
+    <div style="display:flex; align-items:stretch; gap:0; margin: 0 auto 56px; max-width:800px; overflow-x:auto;">
+      <div style="flex:1; min-width:120px; background:var(--surface); border:1px solid var(--border); border-radius:12px 0 0 12px; padding:16px 18px;">
+        <div style="font-size:13px; font-weight:600; color:var(--text); margin-bottom:4px;">Лид-магнит</div>
+        <div style="font-size:12px; color:var(--text-muted);">бесплатно</div>
+      </div>
+      <div style="display:flex; align-items:center; padding:0 8px; color:var(--text-muted); font-size:14px; flex-shrink:0;">→</div>
+      <div style="flex:1; min-width:140px; background:var(--surface); border:1px solid var(--border); border-left:none; padding:16px 18px;">
+        <div style="font-size:13px; font-weight:600; color:var(--text); margin-bottom:4px;">Продукт-стартер</div>
+        <div style="font-size:12px; color:var(--text-muted);">5 000–20 000 ₽</div>
+      </div>
+      <div style="display:flex; align-items:center; padding:0 8px; color:var(--text-muted); font-size:14px; flex-shrink:0;">→</div>
+      <div style="flex:1; min-width:140px; background:var(--surface-2); border:1px solid rgba(224,87,75,.35); border-left:none; padding:16px 18px;">
+        <div style="font-size:13px; font-weight:600; color:var(--accent); margin-bottom:4px;">Флагман «Вызов»</div>
+        <div style="font-size:12px; color:var(--text-muted);">20 000 ₽, 2 дня</div>
+      </div>
+      <div style="display:flex; align-items:center; padding:0 8px; color:var(--text-muted); font-size:14px; flex-shrink:0;">→</div>
+      <div style="flex:1; min-width:140px; background:var(--surface); border:1px solid var(--border); border-left:none; border-radius:0 12px 12px 0; padding:16px 18px;">
+        <div style="font-size:13px; font-weight:600; color:var(--text); margin-bottom:4px;">Сопровождение</div>
+        <div style="font-size:12px; color:var(--text-muted);">группа/личное, от $3 000</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+
+      <div class="acc-item is-open">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="acc-day" style="color:#E0574B;">01</span>
+          <div class="acc-title-group">
+            <span class="acc-title">Личный бренд и социальный капитал</span>
+            <span class="acc-header-sub">Про деньги напрямую</span>
+          </div>
+          <button class="acc-toggle" aria-label="Развернуть">
+            <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <p class="acc-sub">Как имя и репутация становятся активом, который работает без вашего участия. Почему харизма — это навык, а не черта характера. Как выстраивать присутствие в медиа так, чтобы клиенты приходили сами.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
-        <div class="icon" style="color:#5B8FD4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
-        <div class="card-title">Свобода проявляться</div>
-        <p class="card-text">Снимать видео, органично общаться, выступать, проводить планёрки&nbsp;— всё будет естественно и&nbsp;уверенно.</p>
-        <div class="oc-inf"><svg viewBox="0 0 200 90" aria-hidden="true"><defs><linearGradient id="oc-g2" gradientUnits="userSpaceOnUse" x1="30" y1="0" x2="170" y2="90">
-              <stop offset="0%" stop-color="#5B8FD4"><animate attributeName="stop-color" values="#5B8FD4;#9BC4F5;#C88FE0;#5B8FD4" dur="6s" repeatCount="indefinite"/></stop>
-              <stop offset="100%" stop-color="#C88FE0"><animate attributeName="stop-color" values="#C88FE0;#5B8FD4;#9BC4F5;#C88FE0" dur="6s" repeatCount="indefinite"/></stop>
-            </linearGradient></defs>
-            <rect x="72" y="6" width="56" height="80" rx="10" fill="none" stroke="url(#oc-g2)" stroke-width="2"/>
-            <circle cx="100" cy="38" r="9" fill="none" stroke="url(#oc-g2)" stroke-width="2"/>
-            <path d="M84 66 C86 54 114 54 116 66" fill="none" stroke="url(#oc-g2)" stroke-width="2" stroke-linecap="round"/>
-            <circle class="oc-rec" cx="116" cy="16" r="3.5" fill="#E0574B"/>
-            <g stroke="url(#oc-g2)" stroke-width="2.5" stroke-linecap="round">
-              <line class="oc-bar" x1="40" y1="46" x2="40" y2="34"/><line class="oc-bar b2" x1="50" y1="52" x2="50" y2="28"/><line class="oc-bar b3" x1="60" y1="48" x2="60" y2="32"/>
-              <line class="oc-bar b3" x1="140" y1="48" x2="140" y2="32"/><line class="oc-bar b2" x1="150" y1="52" x2="150" y2="28"/><line class="oc-bar" x1="160" y1="46" x2="160" y2="34"/>
-            </g></svg></div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="acc-day" style="color:#C8A86A;">02</span>
+          <div class="acc-title-group">
+            <span class="acc-title">Руководитель, которого любит команда</span>
+            <span class="acc-header-sub">Про деньги напрямую</span>
+          </div>
+          <button class="acc-toggle" aria-label="Развернуть">
+            <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <p class="acc-sub">Как говорить с командой так, чтобы вас слышали, а не боялись. Авторитет без давления. Как удерживать людей не деньгами, а смыслом и присутствием.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
-        <div class="icon" style="color:#5BB878"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="card-title">Уверенность в&nbsp;переговорах</div>
-        <p class="card-text">Чувствуете себя увереннее в&nbsp;переговорах и&nbsp;не&nbsp;даёте «продавливать» себя на&nbsp;невыгодные условия.</p>
-        <div class="oc-inf"><svg viewBox="0 0 200 90" aria-hidden="true"><defs><linearGradient id="oc-g3" gradientUnits="userSpaceOnUse" x1="30" y1="0" x2="170" y2="90">
-              <stop offset="0%" stop-color="#5BB878"><animate attributeName="stop-color" values="#5BB878;#A8E6C0;#5B8FD4;#5BB878" dur="6s" repeatCount="indefinite"/></stop>
-              <stop offset="100%" stop-color="#5B8FD4"><animate attributeName="stop-color" values="#5B8FD4;#5BB878;#A8E6C0;#5B8FD4" dur="6s" repeatCount="indefinite"/></stop>
-            </linearGradient></defs>
-            <g fill="none" stroke="url(#oc-g3)" stroke-width="2" stroke-linecap="round">
-              <circle cx="46" cy="48" r="9"/><path d="M30 84 C32 66 60 66 62 84"/>
-              <circle cx="154" cy="48" r="9"/><path d="M138 84 C140 66 168 66 170 84"/>
-            </g>
-            <g class="oc-say a"><rect x="62" y="8" width="44" height="22" rx="8" fill="url(#oc-g3)" opacity=".85"/><path d="M70 30 L66 38 L78 30 Z" fill="url(#oc-g3)" opacity=".85"/></g>
-            <g class="oc-say b"><rect x="96" y="20" width="44" height="22" rx="8" fill="none" stroke="url(#oc-g3)" stroke-width="2"/><path d="M130 42 L136 50 L124 42" fill="none" stroke="url(#oc-g3)" stroke-width="2"/></g>
-            </svg></div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="acc-day" style="color:#7B9ED4;">03</span>
+          <div class="acc-title-group">
+            <span class="acc-title">Трудные переговоры и конфликтные ситуации</span>
+            <span class="acc-header-sub">Про деньги напрямую</span>
+          </div>
+          <button class="acc-toggle" aria-label="Развернуть">
+            <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <p class="acc-sub">Как оставаться собой под давлением. Что делать, когда теряешься или злишься. Техники, которые работают в реальных ситуациях, а не только в теории.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
-        <div class="icon" style="color:#C88FE0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <div class="card-title">Команда без&nbsp;конфликтов</div>
-        <p class="card-text">Выстроите эффективную коммуникацию в&nbsp;команде без&nbsp;конфликтов, даже с&nbsp;разными поколениями.</p>
-        <div class="oc-inf"><svg viewBox="0 0 200 90" aria-hidden="true"><defs><linearGradient id="oc-g4" gradientUnits="userSpaceOnUse" x1="30" y1="0" x2="170" y2="90">
-              <stop offset="0%" stop-color="#C88FE0"><animate attributeName="stop-color" values="#C88FE0;#F6B4A4;#8FB8F0;#C88FE0" dur="6s" repeatCount="indefinite"/></stop>
-              <stop offset="100%" stop-color="#8FB8F0"><animate attributeName="stop-color" values="#8FB8F0;#C88FE0;#F6B4A4;#8FB8F0" dur="6s" repeatCount="indefinite"/></stop>
-            </linearGradient></defs>
-            <g fill="none" stroke="url(#oc-g4)" stroke-width="1.6" stroke-linecap="round" class="oc-links">
-              <path d="M100 18 L56 70"/><path d="M100 18 L144 70"/><path d="M56 70 L144 70"/>
-            </g>
-            <g fill="url(#oc-g4)">
-              <circle class="oc-node" cx="100" cy="18" r="9"/><circle class="oc-node n2" cx="56" cy="70" r="9"/><circle class="oc-node n3" cx="144" cy="70" r="9"/>
-            </g>
-            <circle cx="100" cy="52" r="5" fill="none" stroke="url(#oc-g4)" stroke-width="1.6" opacity=".7"/>
-            </svg></div>
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="acc-day" style="color:#9B6DB5;">04</span>
+          <div class="acc-title-group">
+            <span class="acc-title">Адаптивный интеллект</span>
+            <span class="acc-header-sub">Про деньги напрямую</span>
+          </div>
+          <button class="acc-toggle" aria-label="Развернуть">
+            <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <p class="acc-sub">Как быстро перестраиваться, когда меняются правила. Гибкость мышления как конкурентное преимущество. Почему жёсткие люди проигрывают гибким.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="acc-day" style="color:#5BAB7A;">05</span>
+          <div class="acc-title-group">
+            <span class="acc-title">Эмоциональная смелость</span>
+            <span class="acc-header-sub">Про жизнь, не только про деньги</span>
+          </div>
+          <button class="acc-toggle" aria-label="Развернуть">
+            <span class="acc-toggle-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <p class="acc-sub">Как перестать прятаться за ролью и начать проявляться по-настоящему. Страх оценки, синдром самозванца, ощущение «я не такой». Почему смелость — мышца, которую можно накачать.</p>
+          </div>
+        </div>
       </div>
 
     </div>
+
+    <p style="text-align:center; font-size:14px; color:var(--text-muted); margin-top:40px; line-height:1.7; border-top:1px solid var(--border); padding-top:32px;">Все 5 направлений ведут через продукт-стартер к флагманскому тренингу «Вызов»,<br>а оттуда — в групповое или личное сопровождение с высоким чеком.</p>
   </div>
 </section>
 
@@ -2568,7 +2610,7 @@ footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
   </div>
 </section>
 
-<!-- ═══ 8. ОТЗЫВЫ ═══ -->
+<!-- ═══ 9. ОТЗЫВЫ ═══ -->
 <section id="reviews" class="section-grid">
   <div class="section-bg-photo" style="background-image:url('assets/gal-IKZ09979.jpg')"></div>
   <div class="section-decor" aria-hidden="true">
